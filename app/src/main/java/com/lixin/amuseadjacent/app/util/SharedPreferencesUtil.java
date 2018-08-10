@@ -4,6 +4,8 @@ package com.lixin.amuseadjacent.app.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * 类说明 SharedPreferences封装类
  * 1、用户id 字段 uId String类型
@@ -30,8 +32,8 @@ public class SharedPreferencesUtil {
 	 */
 
 	// 取出whichSp中field字段对应的string类型的值
-	public static String getSharePreStr(Context mContext,
-                                        String field) {
+	public static String getSharePreStr(Context mContext, 
+			String field) {
 		SharedPreferences sp =  mContext
 				.getSharedPreferences(NAME, 0);
 		String s = sp.getString(field, "");// 如果该字段没对应值，则取出字符串“”
@@ -39,7 +41,7 @@ public class SharedPreferencesUtil {
 	}
 
 	// 取出whichSp中field字段对应的int类型的值
-	public static int getSharePreInt(Context mContext,
+	public static int getSharePreInt(Context mContext, 
 			String field) {
 		SharedPreferences sp =  mContext
 				.getSharedPreferences(NAME, 0);
@@ -57,16 +59,16 @@ public class SharedPreferencesUtil {
 	}
 
 	// 保存string类型的value到whichSp中的field字段
-	public static void putSharePre(Context mContext,
-                                   String field, String value) {
+	public static void putSharePre(Context mContext, 
+			String field, String value) {
 		SharedPreferences sp =  mContext
 				.getSharedPreferences(NAME, 0);
 		sp.edit().putString(field, value).commit();
 	}
 
 	// 保存int类型的value到whichSp中的field字段
-	public static void putSharePre(Context mContext,
-                                   String field, int value) {
+	public static void putSharePre(Context mContext, 
+			String field, int value) {
 		SharedPreferences sp =  mContext
 				.getSharedPreferences(NAME, 0);
 		sp.edit().putInt(field, value).commit();
@@ -74,7 +76,7 @@ public class SharedPreferencesUtil {
 
 	// 保存booble类型的value到whichSp中的field字段
 	public static void putSharePre(Context mContext,
-                                   String field, Boolean value) {
+			String field, Boolean value) {
 		SharedPreferences sp =  mContext
 				.getSharedPreferences(NAME, 0);
 		sp.edit().putBoolean(field, value).commit();

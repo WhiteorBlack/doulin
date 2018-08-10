@@ -28,6 +28,11 @@ android {
     buildToolsVersion '27.0.3'
     productFlavors {
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
@@ -75,7 +80,9 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.60'
     kapt 'com.android.databinding:compiler:3.1.4'
     //解决databinding 和kotlin的冲突 支持
-    implementation project(':okhttputils')
     implementation project(':xrecyclerview')
     implementation project(':loopview')
+    implementation files('libs/universal-image-loader-1.9.3.jar')
+    implementation project(':okhttputils')
+    implementation files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
 }

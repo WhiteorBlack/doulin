@@ -1,4 +1,4 @@
-package com.lixin.amuseadjacent.app.util
+package com.lxkj.linxintechnologylibrary.app.util
 
 import android.support.design.widget.Snackbar
 import android.view.View
@@ -17,7 +17,7 @@ object ToastUtil {
 
     fun showToast(text: String) {
         if (mToast == null) {
-            mToast = Toast.makeText(MyApplication.instance, text, Toast.LENGTH_SHORT)
+            mToast = Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_SHORT)
         }
         mToast!!.setText(text)
         mToast!!.show()
@@ -26,7 +26,7 @@ object ToastUtil {
 
     fun showLongToast(text: String) {
         if (mToast == null) {
-            mToast = Toast.makeText(MyApplication.instance, text, Toast.LENGTH_LONG)
+            mToast = Toast.makeText(MyApplication.getInstance(), text, Toast.LENGTH_LONG)
         }
         mToast!!.setText(text)
         mToast!!.show()

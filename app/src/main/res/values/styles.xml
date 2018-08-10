@@ -1,11 +1,106 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorTheme</item>//沉浸式状态栏颜色
+        <item name="colorPrimaryDark">@color/colorTheme</item>
+        <item name="colorAccent">@color/colorTheme</item>//控件选中后颜色，progress、EditText输入线等
     </style>
+
+
+    <style name="Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <!--<item name="android:backgroundDimEnabled">false</item> 背景不变暗-->
+    </style>
+
+    <!--tabLayout字体-->
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!--底部导航RadioGroup-->
+    <style name="main_bottom_tab_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textColor">@color/text_bg</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="PopupAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="dialogAnim">
+        <item name="android:windowEnterAnimation">@anim/fade_in2</item>
+        <item name="android:windowExitAnimation">@anim/fade_out2</item>
+    </style>
+
+
+    <!-- &lt;!&ndash;PictureSelector 图片选择；默认样式 注意* 样式只可修改，不能删除任何一项 否则报错&ndash;&gt;
+     <style name="picture.default.style" parent="Theme.AppCompat.Light.DarkActionBar">
+         &lt;!&ndash; Customize your theme here. &ndash;&gt;
+         &lt;!&ndash;标题栏背景色&ndash;&gt;
+         <item name="colorPrimary">@color/bar_grey</item>
+         &lt;!&ndash;状态栏背景色&ndash;&gt;
+         <item name="colorPrimaryDark">@color/bar_grey</item>
+         &lt;!&ndash;是否改变图片列表界面状态栏字体颜色为黑色&ndash;&gt;
+         <item name="picture.statusFontColor">false</item>
+         &lt;!&ndash;返回键图标&ndash;&gt;
+         <item name="picture.leftBack.icon">@drawable/ic_back</item>
+         &lt;!&ndash;标题下拉箭头&ndash;&gt;
+         <item name="picture.arrow_down.icon">@drawable/arrow_down</item>
+         &lt;!&ndash;标题上拉箭头&ndash;&gt;
+         <item name="picture.arrow_up.icon">@drawable/arrow_up</item>
+         &lt;!&ndash;标题文字颜色&ndash;&gt;
+         <item name="picture.title.textColor">@color/white</item>
+         &lt;!&ndash;标题栏右边文字&ndash;&gt;
+         <item name="picture.right.textColor">@color/white</item>
+         &lt;!&ndash;图片列表勾选样式&ndash;&gt;
+         <item name="picture.checked.style">@drawable/picture_checkbox_selector</item>
+         &lt;!&ndash;开启图片列表勾选数字模式&ndash;&gt;
+         <item name="picture.style.checkNumMode">false</item>
+         &lt;!&ndash;选择图片样式0/9&ndash;&gt;
+         <item name="picture.style.numComplete">false</item>
+         &lt;!&ndash;图片列表底部背景色&ndash;&gt;
+         <item name="picture.bottom.bg">@color/color_fa</item>
+         &lt;!&ndash;图片列表预览文字颜色&ndash;&gt;
+         <item name="picture.preview.textColor">@color/colorTheme</item>
+         &lt;!&ndash;图片列表已完成文字颜色&ndash;&gt;
+         <item name="picture.complete.textColor">@color/colorTheme</item>
+         &lt;!&ndash;图片已选数量圆点背景色&ndash;&gt;
+         <item name="picture.num.style">@drawable/num_oval</item>
+         &lt;!&ndash;预览界面标题文字颜色&ndash;&gt;
+         <item name="picture.ac_preview.title.textColor">@color/white</item>
+         &lt;!&ndash;预览界面已完成文字颜色&ndash;&gt;
+         <item name="picture.ac_preview.complete.textColor">@color/colorTheme</item>
+         &lt;!&ndash;预览界面标题栏背景色&ndash;&gt;
+         <item name="picture.ac_preview.title.bg">@color/bar_grey</item>
+         &lt;!&ndash;预览界面底部背景色&ndash;&gt;
+         <item name="picture.ac_preview.bottom.bg">@color/bar_grey_90</item>
+         &lt;!&ndash;预览界面返回箭头&ndash;&gt;
+         <item name="picture.preview.leftBack.icon">@drawable/ic_back</item>
+         &lt;!&ndash;是否改变预览界面状态栏字体颜色为黑色&ndash;&gt;
+         <item name="picture.preview.statusFontColor">false</item>
+         &lt;!&ndash;裁剪页面标题背景色&ndash;&gt;
+         <item name="picture.crop.toolbar.bg">@color/bar_grey</item>
+         &lt;!&ndash;裁剪页面状态栏颜色&ndash;&gt;
+         <item name="picture.crop.status.color">@color/bar_grey</item>
+         &lt;!&ndash;裁剪页面标题文字颜色&ndash;&gt;
+         <item name="picture.crop.title.color">@color/white</item>
+         &lt;!&ndash;相册文件夹列表选中图标&ndash;&gt;
+         <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
+     </style>-->
+
 
 </resources>
