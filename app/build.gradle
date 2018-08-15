@@ -85,4 +85,5 @@ dependencies {
     implementation files('libs/universal-image-loader-1.9.3.jar')
     implementation project(':okhttputils')
     implementation files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
+    implementation project(':bgABadgeView')
 }

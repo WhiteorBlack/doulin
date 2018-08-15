@@ -82,6 +82,7 @@ public class StatusBarBlackWordUtil {
         return result;
     }
 
+
     /**
      * 已知系统类型时，设置状态栏黑色文字、图标。
      * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
@@ -98,6 +99,10 @@ public class StatusBarBlackWordUtil {
         }
 
     }
+
+
+
+
 
     /**
      * 状态栏暗色模式，清除MIUI、flyme或6.0以上版本状态栏黑色文字、图标
@@ -120,7 +125,6 @@ public class StatusBarBlackWordUtil {
      * @param window 需要设置的窗口
      * @param dark 是否把状态栏文字及图标颜色设置为深色
      * @return  boolean 成功执行返回true
-     *
      */
     public static boolean FlymeSetStatusBarLightMode(Window window, boolean dark) {
         boolean result = false;

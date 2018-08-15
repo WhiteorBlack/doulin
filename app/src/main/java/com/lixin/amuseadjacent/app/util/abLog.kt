@@ -1,7 +1,7 @@
 package com.lixin.amuseadjacent.app.util
 
 import android.util.Log
-import com.lixin.amuseadjacent.app.ui.MyApplication
+import com.lixin.amuseadjacent.app.MyApplication
 
 /**
  * Created by Slingge on 2018/1/3 0003.

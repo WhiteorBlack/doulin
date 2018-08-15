@@ -3,19 +3,60 @@
     package="com.lixin.amuseadjacent">
 
     <application
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".app.ui.MyApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".app.ui.MainActivity">
+        <activity
+            android:name=".app.ui.entrance.SginInActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".app.ui.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <!--登录2-->
+        <activity
+            android:name=".app.ui.entrance.SginInActivity2"
+            android:screenOrientation="portrait" />
+        <!--验证、密码登录-->
+        <activity
+            android:name=".app.ui.entrance.VerificationPasswordActivity"
+            android:screenOrientation="portrait" />
+        <!--忘记密码-->
+        <activity
+            android:name=".app.ui.entrance.ForgetPassActivity"
+            android:screenOrientation="portrait" />
+        <!--注册-->
+        <activity
+            android:name=".app.ui.entrance.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <!--个人形象-->
+        <activity
+            android:name=".app.ui.entrance.PersonalImageActivity"
+            android:screenOrientation="portrait" />
+
+        <!--完善个人形象-->
+        <activity
+            android:name=".app.ui.entrance.PerfectImageActivity"
+            android:screenOrientation="portrait" />
+
+        <!--、、、、、、、、、、、、、、、、、、、、、、消息、、、、、、、、、、、、、、、、、、、、-->
+        <!--通讯录-->
+        <activity
+            android:name=".app.ui.message.activity.MailActivity"
+            android:screenOrientation="portrait" />
+
+
     </application>
 
 </manifest>

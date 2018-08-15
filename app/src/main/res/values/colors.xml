@@ -16,13 +16,13 @@
     <!--首页分割线-->
     <color name="colorHomeLine">#D4D4D4</color>
 
-    <color name="colorLineDeep">#BBBBBB</color>
+    <color name="colorLineDeep">#E6E6E6</color>
 
     <!--item的分割线-->
     <color name="colorLineItem">#FFDDDDDD</color>
 
     <!--tab标签栏文字的颜色-->
-    <color name="colorTabText">#585858</color>
+    <color name="colorTabText">#333333</color>
     <!--正文文字颜色-->
     <color name="colorContent">#ff333333</color>
     <!--水波纹或5.0以下选择器颜色-->
@@ -37,6 +37,8 @@
     <color name="colorTransparent">#00000000</color>
     <!--半透明-->
     <color name="colorBanTransparent">#11000000</color>
+    <!--半透明-->
+    <color name="colorWTransparent">#70ffffff</color>
     <!--首页item文字颜色-->
     <color name="colorSubtitle">#999</color>
 
@@ -68,6 +70,8 @@
     <color name="result_point_color">#C0FFFF00</color>
     <color name="laser_color">#0F0</color>
     <color name="corner_color">#00FF00</color>
+
+    <color name="red">#F23030</color>
 
     <color name="gray2">#efefef</color>
 </resources>

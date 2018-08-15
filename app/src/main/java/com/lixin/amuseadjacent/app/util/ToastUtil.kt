@@ -3,8 +3,7 @@ package com.lxkj.linxintechnologylibrary.app.util
 import android.support.design.widget.Snackbar
 import android.view.View
 import android.widget.Toast
-import com.lixin.amuseadjacent.app.ui.MyApplication
-
+import com.lixin.amuseadjacent.app.MyApplication
 
 
 /**

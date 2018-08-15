@@ -11,4 +11,8 @@
     <dimen name="main_fant">15sp</dimen>
     <dimen name="sub_fant">13sp</dimen>
 
+    <!--tablayout下划线高度-->
+    <dimen name="tabIndicatorHeight">1.5dp</dimen>
+
+
 </resources>

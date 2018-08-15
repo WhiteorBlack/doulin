@@ -522,7 +522,7 @@ public class StatusBarUtil {
      * 使状态栏透明
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public  static void transparentStatusBar(Activity activity) {
+    public static void transparentStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -532,7 +532,6 @@ public class StatusBarUtil {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
-
 
 
     /**
@@ -553,6 +552,7 @@ public class StatusBarUtil {
 
     /**
      * 获取状态栏高度
+     *
      * @param context context
      * @return 状态栏高度
      */
@@ -602,8 +602,6 @@ public class StatusBarUtil {
     /*/////////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 
-
-
     /**
      * Android4.4以上的沉浸式全屏模式
      * 注:
@@ -628,10 +626,10 @@ public class StatusBarUtil {
      * @param activity Activity对象
      */
     private static float DEFAULT_ALPHA = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 0.2f : 0.3f;
+
     public static void immersiveStatusBar(Activity activity) {
         immersiveStatusBar(activity, DEFAULT_ALPHA);
     }
-
 
 
     /**
@@ -677,7 +675,9 @@ public class StatusBarUtil {
     }
 
 
-    /** 创建假的透明栏 */
+    /**
+     * 创建假的透明栏
+     */
     private static void setTranslucentView(ViewGroup container,
                                            @FloatRange(from = 0.0, to = 1.0) float alpha) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -694,6 +694,19 @@ public class StatusBarUtil {
         }
     }
 
+
+    /**
+     * 增加View的高度以及paddingTop,增加的值为状态栏高度.一般是在沉浸式全屏给ToolBar用的
+     */
+    public static void setHeightAndPadding(Context context, View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            ViewGroup.LayoutParams lp = view.getLayoutParams();
+            lp.height += getStatusBarHeight(context);//增高
+            view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + getStatusBarHeight(context),
+                    view.getPaddingRight(), view.getPaddingBottom());
+        }
+    }
+
     /**
      * 设置假状态栏
      * */
@@ -703,15 +716,32 @@ public class StatusBarUtil {
     }
 
 
-    /** 增加View的高度以及paddingTop,增加的值为状态栏高度.一般是在沉浸式全屏给ToolBar用的 */
-    public static void setHeightAndPadding(Context context, View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            ViewGroup.LayoutParams lp = view.getLayoutParams();
-            lp.height += getStatusBarHeight(context);//增高
-            view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + getStatusBarHeight(context),
-                    view.getPaddingRight(), view.getPaddingBottom());
+
+    /*
+    * 白底黑字状态栏
+    **/
+    /**
+     * 修改状态栏颜色，支持4.4以上版本
+     * @param activity
+     * @param colorId
+     */
+    public static void setStatusBarColor(Activity activity,int colorId) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+//      window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(activity.getResources().getColor(colorId));
         }
+//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            //使用SystemBarTint库使4.4版本状态栏变色，需要先将状态栏设置为透明
+//            transparencyBar(activity);
+//            SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+//            tintManager.setStatusBarTintEnabled(true);
+//            tintManager.setStatusBarTintResource(colorId);
+//        }
     }
+
+
 
 
 }
