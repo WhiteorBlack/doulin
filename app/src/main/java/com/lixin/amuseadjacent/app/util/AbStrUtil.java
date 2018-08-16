@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2012 www.amsoft.cn
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,8 @@
  */
 package com.lixin.amuseadjacent.app.util;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -515,6 +517,13 @@ public class AbStrUtil {
             return str.substring(1, str.length());
         }
         return str;
+    }
+
+
+    public static void setDrawableLeft(Context context, int id, TextView tv) {
+        Drawable nav_up = context.getResources().getDrawable(id);
+        nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+        tv.setCompoundDrawables(nav_up, null, null, null);
     }
 
 }

@@ -49,7 +49,7 @@
             android:textSize="17sp" />
 
         <ImageView
-            android:id="@+id/iv_back"
+            android:id="@+id/iv_add"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/tv_title"
