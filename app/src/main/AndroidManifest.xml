@@ -99,7 +99,7 @@
 
         <!--个人主页-->
         <activity
-            android:name=".app.ui.message.activity.PersonalHomePageActivity"
+            android:name=".app.ui.mine.activity.PersonalHomePageActivity"
             android:screenOrientation="portrait" />
 
 

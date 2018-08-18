@@ -24,6 +24,8 @@ class MailActivity : BaseActivity() {
 
 
     private fun init() {
+        StatusBarWhiteColor()
+
         val tabList = ArrayList<String>()
         tabList.add("好友")
         tabList.add("关注")

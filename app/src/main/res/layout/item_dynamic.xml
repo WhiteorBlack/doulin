@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <!--个人主页动态-->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/touch_bg"
+        android:clickable="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="12dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21"
+            android:textColor="@color/black"
+            android:textSize="19sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8月"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_fant"
+            app:layout_constraintEnd_toEndOf="@+id/tv_day"
+            app:layout_constraintStart_toStartOf="@+id/tv_day"
+            app:layout_constraintTop_toBottomOf="@+id/tv_day" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_sgin"
+            app:layout_constraintStart_toEndOf="@+id/tv_day"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一"
+            android:textColor="@color/colorTabText"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintBottom_toTopOf="@+id/tv_zan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintTop_toTopOf="@+id/image" />
+
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:drawableLeft="@drawable/ic_comment2"
+            android:drawablePadding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="3dp"
+            android:text="23"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_zan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:drawableLeft="@drawable/ic_zan"
+            android:drawablePadding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="3dp"
+            android:text="23"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_comment"
+            app:layout_constraintEnd_toStartOf="@+id/tv_comment" />
+
+        <ImageView
+            android:id="@+id/spot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_dynamic_spot"
+            app:layout_constraintEnd_toEndOf="@+id/tv_day"
+            app:layout_constraintStart_toStartOf="@+id/tv_day"
+            app:layout_constraintTop_toBottomOf="@+id/tv_month" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="0.5dp"
+            android:layout_height="0dp"
+            android:background="@color/colorLine"
+            android:layout_marginBottom="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/line1"
+            app:layout_constraintEnd_toEndOf="@+id/tv_day"
+            app:layout_constraintStart_toStartOf="@+id/tv_day"
+            app:layout_constraintTop_toBottomOf="@+id/spot" />
+
+        <include
+            android:id="@+id/line1"
+            layout="@layout/include_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/image"
+            app:layout_constraintTop_toBottomOf="@+id/image" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>

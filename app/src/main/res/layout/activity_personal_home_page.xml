@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_main"
@@ -10,10 +10,12 @@
 
     <!--户外活动-->
 
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/cl_3"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
@@ -27,10 +29,11 @@
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -42,7 +45,9 @@
 
                     <include
                         android:id="@+id/include"
-                        layout="@layout/include_basetop" />
+                        layout="@layout/include_basetop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_album"
@@ -160,6 +165,12 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_address"
                         app:layout_constraintTop_toTopOf="@+id/tv_address" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorLine"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_header" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -176,11 +187,10 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:tabIndicatorColor="@color/colorTheme"
                 app:tabIndicatorHeight="@dimen/tabIndicatorHeight"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorTheme"
                 app:tabTextAppearance="@style/TabLayoutTextStyle"
                 app:tabTextColor="@color/colorBlack" />
-
 
         </android.support.design.widget.AppBarLayout>
 
@@ -189,8 +199,79 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
+            android:layout_above="@+id/tv_dialogue"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toTopOf="@+id/tv_dialogue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.design.widget.CoordinatorLayout>
-</LinearLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:id="@+id/dialogue"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:background="@drawable/touch_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_dialogue"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:drawableLeft="@drawable/ic_dialogue"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="对话"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_fant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            android:id="@+id/line"
+            layout="@layout/include_line"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_dialogue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_dialogue" />
+
+
+        <View
+            android:id="@+id/follow"
+            android:layout_width="0dp"
+            android:layout_height="49dp"
+            android:background="@drawable/touch_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/line" />
+
+        <TextView
+            android:id="@+id/tv_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:drawableLeft="@drawable/ic_follow"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="关注"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_fant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/line"
+            app:layout_constraintTop_toTopOf="@+id/tv_dialogue" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

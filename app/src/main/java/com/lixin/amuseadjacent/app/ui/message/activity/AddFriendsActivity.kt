@@ -13,6 +13,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.PermissionsDialog
 import com.lixin.amuseadjacent.app.ui.dialog.ScreenFriendsPop
 import com.lixin.amuseadjacent.app.ui.message.adapter.AddFeriendAdapter
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.PermissionUtil
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.zxing.activity.CaptureActivity
@@ -44,9 +45,9 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
         StatusBarWhiteColor()
 
         tv_screen.setOnClickListener(this)
-        iv_setting.visibility = View.VISIBLE
-        iv_setting.setImageResource(R.drawable.ic_scan)
-        iv_setting.setOnClickListener(this)
+        iv_right.visibility = View.VISIBLE
+        iv_right.setImageResource(R.drawable.ic_scan)
+        iv_right.setOnClickListener(this)
 
         val gridlineam = GridLayoutManager(this, 3)
         rv_user.layoutManager = gridlineam
@@ -82,7 +83,7 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
                     }
                 })
             }
-            R.id.iv_setting -> {
+            R.id.iv_right -> {
                 if (PermissionUtil.ApplyPermissionAlbum(this, 0)) {//请求权限
                     val intent = Intent(this, CaptureActivity::class.java)
                     startActivityForResult(intent, REQUEST_CODE)
