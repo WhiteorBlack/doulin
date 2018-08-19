@@ -11,6 +11,7 @@ import cn.bingoogolapple.badgeview.BGABadgeTextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.message.model.MyMsgListModel
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 
 /**
  * Created by Slingge on 2018/8/15
@@ -29,6 +30,12 @@ class MyMsgAdapter(val context: Context, val list: ArrayList<MyMsgListModel.data
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         MyApplication.setRedNum(holder.tv_msgNum, 10)
+
+
+
+        holder.tv_del.setOnClickListener { v ->
+            ToastUtil.showToast("删除")
+        }
     }
 
 
@@ -38,6 +45,8 @@ class MyMsgAdapter(val context: Context, val list: ArrayList<MyMsgListModel.data
         val tv_info = view.findViewById<TextView>(R.id.tv_info)
         val tv_time = view.findViewById<TextView>(R.id.tv_time)
         val tv_msgNum = view.findViewById<BGABadgeTextView>(R.id.tv_msgNum)
+
+        val tv_del = view.findViewById<TextView>(R.id.tv_del)
     }
 
 }

@@ -10,6 +10,7 @@ import android.widget.TextView
 import cn.bingoogolapple.badgeview.BGABadgeTextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 
 /**
  * Created by Slingge on 2018/8/16
@@ -30,6 +31,11 @@ class OrderNewsAdapter(val context: Context) : RecyclerView.Adapter<OrderNewsAda
 
         MyApplication.setRedNum(holder.tv_msgNum, 100)
 
+
+        holder.tv_del.setOnClickListener { v ->
+            ToastUtil.showToast("删除")
+        }
+
     }
 
 
@@ -37,6 +43,8 @@ class OrderNewsAdapter(val context: Context) : RecyclerView.Adapter<OrderNewsAda
         val tv_msgNum = view.findViewById<BGABadgeTextView>(R.id.tv_msgNum)
         val tv_see = view.findViewById<TextView>(R.id.tv_see)
         val tv_time = view.findViewById<TextView>(R.id.tv_time)
+
+        val tv_del = view.findViewById<TextView>(R.id.tv_del)
     }
 
 

@@ -88,4 +88,7 @@ dependencies {
     implementation project(':bgABadgeView')
 
     implementation 'com.google.zxing:core:3.3.0'
+
+    implementation project(':swipeLayoutlibrary')
+    //滑动删除
 }

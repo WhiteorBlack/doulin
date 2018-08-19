@@ -8,89 +8,113 @@
 
     <!--评论消息-->
 
-    <android.support.constraint.ConstraintLayout
+
+    <com.daimajia.swipe.SwipeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingLeft="10dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="40dp"
-            android:layout_height="43dp"
-            android:layout_marginTop="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_order"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <cn.bingoogolapple.badgeview.BGABadgeTextView
-            android:id="@+id/tv_msgNum"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:gravity="right"
-            android:minWidth="40dp"
-            android:text=""
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@color/colorTheme">
 
-        <TextView
-            android:id="@+id/tv_orderNum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="订单号454959596"
-            android:textColor="@color/black"
-            android:textSize="@dimen/main_fant"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toTopOf="@+id/image" />
+            <TextView
+                android:id="@+id/tv_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/tex2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="您的订单已成功提交，"
-            android:textColor="@color/colorTabText"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
-            app:layout_constraintStart_toEndOf="@+id/image" />
-
-        <TextView
-            android:id="@+id/tv_see"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="请及时查收"
-            android:textColor="@color/colorTheme"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
-            app:layout_constraintStart_toEndOf="@+id/tex2" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="2018.02.03"
-            android:textColor="@color/colorTabText"
-            android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="@+id/text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text" />
+        </FrameLayout>
 
 
-        <include
-            android:id="@+id/line"
-            layout="@layout/include_line"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image" />
-    </android.support.constraint.ConstraintLayout>
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingLeft="10dp">
 
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="40dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_order"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <cn.bingoogolapple.badgeview.BGABadgeTextView
+                android:id="@+id/tv_msgNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:minWidth="40dp"
+                android:text=""
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_orderNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="订单号454959596"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@+id/image" />
+
+            <TextView
+                android:id="@+id/tex2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="您的订单已成功提交，"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/image"
+                app:layout_constraintStart_toEndOf="@+id/image" />
+
+            <TextView
+                android:id="@+id/tv_see"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请及时查收"
+                android:textColor="@color/colorTheme"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/image"
+                app:layout_constraintStart_toEndOf="@+id/tex2" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="2018.02.03"
+                android:textColor="@color/colorTabText"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@+id/text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text" />
+
+
+            <include
+                android:id="@+id/line"
+                layout="@layout/include_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image" />
+        </android.support.constraint.ConstraintLayout>
+    </com.daimajia.swipe.SwipeLayout>
 </FrameLayout>

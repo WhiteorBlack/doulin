@@ -16,9 +16,6 @@ class CommentNewsActivity:BaseActivity(){
 
     private var commAdapter: CommentNewsAdapter?=null
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.xrecyclerview)
