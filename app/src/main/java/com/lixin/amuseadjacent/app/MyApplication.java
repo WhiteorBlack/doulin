@@ -9,7 +9,9 @@ import android.os.Environment;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.lixin.amuseadjacent.R;
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil;

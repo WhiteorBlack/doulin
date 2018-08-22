@@ -24,7 +24,7 @@
         app:is_auto_play="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <View
@@ -54,11 +54,11 @@
 
 
     <ImageView
-        android:id="@+id/iv_designer"
+        android:id="@+id/iv_talent"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
-        android:src="@drawable/ic_designer"
+        android:src="@drawable/ic_talent"
         app:layout_constraintEnd_toStartOf="@+id/view2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/banner" />
@@ -97,16 +97,16 @@
 
 
     <TextView
-        android:id="@+id/tv_designer"
+        android:id="@+id/tv_talent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="达人"
         android:textColor="@color/colorTabText"
         android:textSize="@dimen/sub_fant"
-        app:layout_constraintEnd_toEndOf="@+id/iv_designer"
-        app:layout_constraintStart_toStartOf="@+id/iv_designer"
-        app:layout_constraintTop_toBottomOf="@+id/iv_designer" />
+        app:layout_constraintEnd_toEndOf="@+id/iv_talent"
+        app:layout_constraintStart_toStartOf="@+id/iv_talent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_talent" />
 
     <TextView
         android:id="@+id/tv_dynamic"
@@ -118,7 +118,7 @@
         android:textSize="@dimen/sub_fant"
         app:layout_constraintEnd_toEndOf="@+id/iv_dynamic"
         app:layout_constraintStart_toStartOf="@+id/iv_dynamic"
-        app:layout_constraintTop_toBottomOf="@+id/iv_designer" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_talent" />
 
     <TextView
         android:id="@+id/tv_activity"
@@ -130,7 +130,7 @@
         android:textSize="@dimen/sub_fant"
         app:layout_constraintEnd_toEndOf="@+id/iv_activity"
         app:layout_constraintStart_toStartOf="@+id/iv_activity"
-        app:layout_constraintTop_toBottomOf="@+id/iv_designer" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_talent" />
 
     <TextView
         android:id="@+id/tv_help"
@@ -142,7 +142,7 @@
         android:textSize="@dimen/sub_fant"
         app:layout_constraintEnd_toEndOf="@+id/iv_help"
         app:layout_constraintStart_toStartOf="@+id/iv_help"
-        app:layout_constraintTop_toBottomOf="@+id/iv_designer" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_talent" />
 
     <View
         android:id="@+id/line1"
@@ -197,25 +197,23 @@
         android:id="@+id/header3"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:scaleType="centerCrop"
         android:layout_marginRight="44dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_header"
         app:layout_constraintBottom_toBottomOf="@+id/iv_right"
         app:layout_constraintEnd_toStartOf="@+id/iv_right"
-        app:layout_constraintTop_toTopOf="@+id/iv_right"
-        />
+        app:layout_constraintTop_toTopOf="@+id/iv_right" />
 
     <com.lixin.amuseadjacent.app.ui.view.CircleImageView
         android:id="@+id/header2"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:scaleType="centerCrop"
         android:layout_marginRight="22dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_header"
         app:layout_constraintBottom_toBottomOf="@+id/iv_right"
         app:layout_constraintEnd_toStartOf="@+id/iv_right"
-        app:layout_constraintTop_toTopOf="@+id/iv_right"
-  />
+        app:layout_constraintTop_toTopOf="@+id/iv_right" />
 
     <com.lixin.amuseadjacent.app.ui.view.CircleImageView
         android:id="@+id/header1"
@@ -232,8 +230,8 @@
         android:id="@+id/jingxuna"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="- 逗邻精选 -"
         android:paddingTop="12dp"
+        android:text="- 逗邻精选 -"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/main_fant"
         app:layout_constraintEnd_toEndOf="parent"
@@ -241,17 +239,16 @@
         app:layout_constraintTop_toBottomOf="@+id/line2" />
 
     <TextView
+        android:id="@+id/tv_participate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_participate"
         android:padding="12dp"
-        android:textSize="@dimen/main_fant"
-        android:textColor="@color/colorTheme"
         android:text="#有奖竞猜，世界杯预测～  点击参加"
+        android:textColor="@color/colorTheme"
+        android:textSize="@dimen/main_fant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jingxuna"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/jingxuna" />
 
 
 </android.support.constraint.ConstraintLayout>

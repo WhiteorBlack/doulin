@@ -53,6 +53,7 @@
         android:padding="10dp"
         android:text="编辑"
         android:textSize="@dimen/main_fant"
+        android:textColor="@color/colorTabText"
         android:visibility="gone" />
 
     <ImageView

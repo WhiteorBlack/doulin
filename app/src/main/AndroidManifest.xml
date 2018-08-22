@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+
     <uses-feature android:name="android.hardware.camera.flash" />
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动权限 -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -96,6 +97,32 @@
         <activity
             android:name=".app.ui.message.activity.OrderNewsActivity"
             android:screenOrientation="portrait" />
+
+
+        <!--//////////////////////////发现\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+
+        <!--达人-->
+        <activity
+            android:name=".app.ui.find.activity.TalentActivity"
+            android:screenOrientation="portrait" />
+        <!--达人认证-->
+        <activity
+            android:name=".app.ui.find.activity.TalentAuthenticationActivity"
+            android:screenOrientation="portrait" />
+        <!--达人经历添加-->
+        <activity
+            android:name=".app.ui.find.activity.TalentAuthenticationAddActivity"
+            android:screenOrientation="portrait" />
+        <!--达人类型选择-->
+        <activity
+            android:name=".app.ui.find.activity.TalentTypeActivity"
+            android:screenOrientation="portrait" />
+
+        <!--动态-->
+        <activity
+            android:name=".app.ui.find.activity.DynamicActivity"
+            android:screenOrientation="portrait" />
+
 
         <!--个人主页-->
         <activity

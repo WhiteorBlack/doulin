@@ -27,7 +27,7 @@ object SelectPictureUtil {
                 .theme(R.style.picture_default_style)//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
                 .maxSelectNum(maxNum)// 最大图片选择数量 int
                 .minSelectNum(1)// 最小选择数量 int
-                .imageSpanCount(4)// 每行显示个数 int
+                .imageSpanCount(3)// 每行显示个数 int
                 .selectionMode(isSingle)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
                 .previewImage(true)// 是否可预览图片 true or false
                 .previewVideo(false)// 是否可预览视频 true or false
