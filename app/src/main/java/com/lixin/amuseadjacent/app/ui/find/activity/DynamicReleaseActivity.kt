@@ -6,21 +6,22 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.PermissionsDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.AlbumAdapter
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
-import kotlinx.android.synthetic.main.activity_talent_authentication_add.*
+import kotlinx.android.synthetic.main.activity_dynamic_release.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import java.util.ArrayList
 
 /**
- * 达人经历添加
+ * 动态发布
  * Created by Slingge on 2018/8/22
  */
-class TalentAuthenticationAddActivity : BaseActivity(),View.OnClickListener, AlbumAdapter.ImageRemoveCallback{
+class DynamicReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback {
 
     private var albumAdapter: AlbumAdapter? = null
     private val imageList = ArrayList<LocalMedia>()
@@ -28,38 +29,36 @@ class TalentAuthenticationAddActivity : BaseActivity(),View.OnClickListener, Alb
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_talent_authentication_add)
+        setContentView(R.layout.activity_dynamic_release)
         init()
     }
 
 
     private fun init() {
         StatusBarWhiteColor()
-        inittitle("添加经历")
+        view_staus.visibility = View.GONE
+        inittitle("动态发布")
 
         tv_right.visibility = View.VISIBLE
-        tv_right.text = "添加"
-        tv_right.setOnClickListener (this)
+        tv_right.text = "完成"
+        tv_right.setOnClickListener { v ->
+            MyApplication.openActivity(this, TalentAuthenticationActivity::class.java)
+        }
+        tv_address.setOnClickListener { v ->
+//            MyApplication.openActivity(this, TalentAuthenticationActivity::class.java)
+        }
+
 
         val linearLayoutManager = GridLayoutManager(this,3)
 
-        rv_image.layoutManager = linearLayoutManager
+        rv_album.layoutManager = linearLayoutManager
 
         imageList.add(LocalMedia())
 
         albumAdapter = AlbumAdapter(this,imageList,maxNum,this)
-        rv_image.adapter = albumAdapter
-
+        rv_album.adapter = albumAdapter
     }
 
-
-    override fun onClick(p0: View?) {
-        when(p0!!.id){
-            R.id.tv_right->{
-
-            }
-        }
-    }
 
     /**
      * 申请权限结果回调
@@ -92,8 +91,5 @@ class TalentAuthenticationAddActivity : BaseActivity(),View.OnClickListener, Alb
         imageList.removeAt(i)
         albumAdapter!!.notifyDataSetChanged()
     }
-
-
-
 
 }

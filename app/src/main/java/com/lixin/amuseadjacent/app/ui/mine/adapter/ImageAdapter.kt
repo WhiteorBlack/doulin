@@ -21,7 +21,7 @@ class ImageAdapter(val context: Context) : RecyclerView.Adapter<ImageAdapter.Vie
     }
 
     override fun getItemCount(): Int {
-        return 1
+        return 3
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

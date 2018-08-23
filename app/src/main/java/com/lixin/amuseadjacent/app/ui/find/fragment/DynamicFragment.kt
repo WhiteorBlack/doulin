@@ -2,17 +2,13 @@ package com.lixin.amuseadjacent.app.ui.find.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
-import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
-import com.lixin.amuseadjacent.app.ui.find.adapter.TalentAdapter
-import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
-import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
+import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicAdapter
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.xrecyclerview.*
 
@@ -26,7 +22,7 @@ class DynamicFragment : BaseFragment() {
 
     private var linearLayoutManager: LinearLayoutManager? = null
 
-    private var talentAdapter: TalentAdapter? = null
+    private var dynamicAdapter: DynamicAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.xrecyclerview, container, false)
@@ -40,12 +36,12 @@ class DynamicFragment : BaseFragment() {
 
         xrecyclerview.layoutManager = linearLayoutManager
 
-        talentAdapter = TalentAdapter(activity!!)
-        xrecyclerview.adapter = talentAdapter
+        dynamicAdapter = DynamicAdapter(activity!!,flag)
+        xrecyclerview.adapter = dynamicAdapter
 
         val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
         xrecyclerview.layoutAnimation = controller
-        talentAdapter!!.notifyDataSetChanged()
+        dynamicAdapter!!.notifyDataSetChanged()
         xrecyclerview.scheduleLayoutAnimation()
 
     }

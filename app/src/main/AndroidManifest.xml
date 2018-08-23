@@ -122,6 +122,10 @@
         <activity
             android:name=".app.ui.find.activity.DynamicActivity"
             android:screenOrientation="portrait" />
+        <!--动态发布-->
+        <activity
+            android:name=".app.ui.find.activity.DynamicReleaseActivity"
+            android:screenOrientation="portrait" />
 
 
         <!--个人主页-->
