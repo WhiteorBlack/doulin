@@ -36,7 +36,6 @@ class DynamicReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback 
 
     private fun init() {
         StatusBarWhiteColor()
-        view_staus.visibility = View.GONE
         inittitle("动态发布")
 
         tv_right.visibility = View.VISIBLE
@@ -45,7 +44,7 @@ class DynamicReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback 
             MyApplication.openActivity(this, TalentAuthenticationActivity::class.java)
         }
         tv_address.setOnClickListener { v ->
-//            MyApplication.openActivity(this, TalentAuthenticationActivity::class.java)
+            MyApplication.openActivity(this, SelectionAddressActivity::class.java)
         }
 
 

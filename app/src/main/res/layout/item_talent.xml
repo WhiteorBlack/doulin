@@ -15,7 +15,7 @@
         android:paddingLeft="12dp"
         android:paddingRight="12dp">
 
-        <com.lixin.amuseadjacent.app.ui.view.CircleImageView
+        <com.lixin.amuseadjacent.app.view.CircleImageView
             android:id="@+id/iv_header"
             android:layout_width="45dp"
             android:layout_height="45dp"

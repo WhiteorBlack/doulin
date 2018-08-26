@@ -193,7 +193,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/rank" />
 
-    <com.lixin.amuseadjacent.app.ui.view.CircleImageView
+    <com.lixin.amuseadjacent.app.view.CircleImageView
         android:id="@+id/header3"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -204,7 +204,7 @@
         app:layout_constraintEnd_toStartOf="@+id/iv_right"
         app:layout_constraintTop_toTopOf="@+id/iv_right" />
 
-    <com.lixin.amuseadjacent.app.ui.view.CircleImageView
+    <com.lixin.amuseadjacent.app.view.CircleImageView
         android:id="@+id/header2"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -215,7 +215,7 @@
         app:layout_constraintEnd_toStartOf="@+id/iv_right"
         app:layout_constraintTop_toTopOf="@+id/iv_right" />
 
-    <com.lixin.amuseadjacent.app.ui.view.CircleImageView
+    <com.lixin.amuseadjacent.app.view.CircleImageView
         android:id="@+id/header1"
         android:layout_width="30dp"
         android:layout_height="30dp"

@@ -41,6 +41,8 @@
     <color name="colorBanTransparent">#11000000</color>
     <!--半透明-->
     <color name="colorWTransparent">#70ffffff</color>
+    <!--半透明-->
+    <color name="colorWTranssparent">#c0000000</color>
     <!--首页item文字颜色-->
     <color name="colorSubtitle">#999</color>
 
@@ -65,6 +67,8 @@
     <color name="colorBtDialog">#38659C</color>
 
     <color name="bule">#0188FE</color>
+
+    <color name="bules">#9ACCED</color>
 
     <color name="boy">#AEC7F2</color>
     <color name="girl">#FEB3C5</color>

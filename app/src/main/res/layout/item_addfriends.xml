@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -14,9 +13,10 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
 
-        <com.lixin.amuseadjacent.app.ui.view.CircleImageView
+        <com.lixin.amuseadjacent.app.view.CircleImageView
             android:id="@+id/iv_header"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -42,8 +42,8 @@
             android:id="@+id/tv_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_boy8"
             android:drawableLeft="@drawable/ic_boy"
             android:drawablePadding="3dp"
@@ -62,8 +62,8 @@
             android:id="@+id/tv_constellation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_them8"
             android:paddingBottom="1dp"
             android:paddingLeft="5dp"

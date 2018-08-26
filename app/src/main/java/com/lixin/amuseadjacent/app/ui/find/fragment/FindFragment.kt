@@ -12,6 +12,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.EventActivity
 import com.lixin.amuseadjacent.app.ui.find.activity.TalentActivity
 import com.lixin.amuseadjacent.app.ui.find.adapter.FindAdapter
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
@@ -19,7 +20,6 @@ import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
-import kotlinx.android.synthetic.main.header_find.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import java.util.*
@@ -54,11 +54,13 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             StatusBarBlackWordUtil.StatusBarLightMode(activity)
         }
 
-        tv_title.text="发现"
+        tv_title.text = "发现"
         iv_back.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
         xrecyclerview.setPullRefreshEnabled(false)
+
+        xrecyclerview.isFocusable = false
 
         xrecyclerview.addHeaderView(headerView)
 
@@ -95,6 +97,9 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         headerView!!.findViewById<ImageView>(R.id.iv_dynamic).setOnClickListener(this)
         headerView!!.findViewById<TextView>(R.id.tv_dynamic).setOnClickListener(this)
+
+        headerView!!.findViewById<ImageView>(R.id.iv_activity).setOnClickListener(this)
+        headerView!!.findViewById<TextView>(R.id.tv_activity).setOnClickListener(this)
     }
 
     override fun loadData() {
@@ -109,6 +114,9 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.iv_dynamic, R.id.tv_dynamic -> {//动态
                 MyApplication.openActivity(activity, DynamicActivity::class.java)
+            }
+            R.id.iv_activity, R.id.tv_activity -> {//活动
+                MyApplication.openActivity(activity, EventActivity::class.java)
             }
         }
 

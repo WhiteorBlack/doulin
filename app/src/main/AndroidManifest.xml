@@ -126,6 +126,43 @@
         <activity
             android:name=".app.ui.find.activity.DynamicReleaseActivity"
             android:screenOrientation="portrait" />
+        <!--动态详情-->
+        <activity
+            android:name=".app.ui.find.activity.DynamicDetailsActivity"
+            android:screenOrientation="portrait" />
+        <!--选择地址-->
+        <activity
+            android:name=".app.ui.find.activity.SelectionAddressActivity"
+            android:screenOrientation="portrait" />
+
+        <!--动态详情回复-->
+        <activity
+            android:name=".app.ui.find.activity.DynamicDetailsReplyActivity"
+            android:screenOrientation="portrait" />
+
+        <!--活动-->
+        <activity
+            android:name=".app.ui.find.activity.EventActivity"
+            android:screenOrientation="portrait" />
+
+        <!--活动发布-->
+        <activity
+            android:name=".app.ui.find.activity.EventReleaseActivity"
+            android:screenOrientation="portrait" />
+        <!--活动详情-->
+        <activity
+            android:name=".app.ui.find.activity.EventDetailsActivity"
+            android:screenOrientation="portrait" />
+        <!--报名列表-->
+        <activity
+            android:name=".app.ui.find.activity.EventEnteredActivity"
+            android:screenOrientation="portrait" />
+
+        <!--报名-->
+        <activity
+            android:name=".app.ui.find.activity.EventSginUpActivity"
+            android:screenOrientation="portrait" />
+
 
 
         <!--个人主页-->

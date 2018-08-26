@@ -26,6 +26,8 @@ class MailActivity : BaseActivity() {
     private fun init() {
         StatusBarWhiteColor()
 
+        tv_back.setOnClickListener { v -> finish() }
+
         val tabList = ArrayList<String>()
         tabList.add("好友")
         tabList.add("关注")
@@ -54,11 +56,11 @@ class MailActivity : BaseActivity() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if(tab!!.position==0){
+                if (tab!!.position == 0) {
                     tv_back.text = "好友（）"
-                }else if(tab.position==1){
+                } else if (tab.position == 1) {
                     tv_back.text = "关注（）"
-                }else if(tab.position==2){
+                } else if (tab.position == 2) {
                     tv_back.text = "粉丝（）"
                 }
             }

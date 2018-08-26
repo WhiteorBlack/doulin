@@ -57,7 +57,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <com.lixin.amuseadjacent.app.ui.view.CircleImageView
+    <com.lixin.amuseadjacent.app.view.CircleImageView
         android:id="@+id/iv_header"
         android:layout_width="75dp"
         android:layout_height="75dp"

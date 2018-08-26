@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 
 /**
@@ -15,7 +17,7 @@ import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
  * flag 0全部，1关注
  * Created by Slingge on 2018/8/22
  */
-class DynamicAdapter(val context: Context,val flag:Int) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
+class DynamicAdapter(val context: Context, val flag: Int) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,6 +47,11 @@ class DynamicAdapter(val context: Context,val flag:Int) : RecyclerView.Adapter<D
             holder.ll_image.visibility = View.GONE
             holder.rv_image.visibility = View.GONE
             holder.video.visibility = View.VISIBLE
+        }
+
+
+        holder.itemView.setOnClickListener { v ->
+            MyApplication.openActivity(context, DynamicDetailsActivity::class.java)
         }
 
     }

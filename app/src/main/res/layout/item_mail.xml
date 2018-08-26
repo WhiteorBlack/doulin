@@ -15,7 +15,7 @@
         android:paddingRight="10dp"
         android:paddingTop="10dp">
 
-        <com.lixin.amuseadjacent.app.ui.view.CircleImageView
+        <com.lixin.amuseadjacent.app.view.CircleImageView
             android:id="@+id/tv_header"
             android:layout_width="40dp"
             android:layout_height="40dp"
