@@ -35,6 +35,8 @@
             </intent-filter>
         </activity>
 
+        <!--///////////////////////////////查看图片\\\\\\\\\\\\\\\\\\\\\\\\\-->
+        <activity android:name=".photoView.imagepage.ImagePagerActivity" />
 
         <activity
             android:name=".app.ui.MainActivity"
@@ -162,6 +164,33 @@
         <activity
             android:name=".app.ui.find.activity.EventSginUpActivity"
             android:screenOrientation="portrait" />
+
+
+        <!--红人榜-->
+        <activity
+            android:name=".app.ui.find.activity.RedManListActivity"
+            android:screenOrientation="portrait" />
+        <!--帮帮-->
+        <activity
+            android:name=".app.ui.find.activity.BangBangActivity"
+            android:screenOrientation="portrait" />
+        <!--帮帮详情-->
+        <activity
+            android:name=".app.ui.find.activity.BangDetailsActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--//////////////////////////////////////服务\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+        <!--店铺-->
+        <activity
+            android:name=".app.ui.service.activity.ShopActivity"
+            android:screenOrientation="portrait" />
+
+        <!--专区-->
+        <activity
+            android:name=".app.ui.service.activity.SpecialAreaActivity"
+            android:screenOrientation="portrait" />
+
 
 
 

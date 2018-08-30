@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--红人榜-->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintBottom_toBottomOf="@+id/ic_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ic_header" />
+
+        <com.lixin.amuseadjacent.app.view.CircleImageView
+            android:id="@+id/ic_header"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_header"
+            app:layout_constraintStart_toEndOf="@+id/tv_num"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="洛克贝尔"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintStart_toEndOf="@+id/ic_header"
+            app:layout_constraintTop_toTopOf="@+id/ic_header" />
+
+        <TextView
+            android:id="@+id/tv_effect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_red_line4"
+            android:paddingBottom="1dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginBottom="2dp"
+            android:paddingTop="1dp"
+            android:text="影响力"
+            android:textColor="@color/colorRateRed"
+            android:textSize="9sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ic_header"
+            app:layout_constraintStart_toEndOf="@+id/ic_header" />
+
+        <TextView
+            android:id="@+id/tv_follow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_them30"
+            android:paddingBottom="2dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:text="+ 关注"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintBottom_toBottomOf="@+id/ic_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ic_header" />
+
+        <include
+            android:id="@+id/line"
+            layout="@layout/include_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/ic_header"
+  />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+
+</FrameLayout>

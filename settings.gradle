@@ -1,1 +1,1 @@
-include ':app' ,  ':xrecyclerview', ':okhttputils', ':loopview' , ':bgABadgeView', ':swipeLayoutlibrary'
+include ':app' ,  ':xrecyclerview', ':okhttputils', ':loopview' , ':bgABadgeView', ':swipeLayoutlibrary', ':nicevideoplayer'

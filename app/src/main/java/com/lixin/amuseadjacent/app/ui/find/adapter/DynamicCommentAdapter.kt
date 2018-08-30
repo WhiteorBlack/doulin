@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsReplyActivity
-import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 
 /**
  * 评论

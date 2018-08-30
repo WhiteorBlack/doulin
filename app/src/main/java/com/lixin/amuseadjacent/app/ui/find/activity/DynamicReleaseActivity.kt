@@ -25,7 +25,9 @@ class DynamicReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback 
 
     private var albumAdapter: AlbumAdapter? = null
     private val imageList = ArrayList<LocalMedia>()
-    private val maxNum =3
+    private val maxNum = 3
+
+    private var flag = "0"//0动态发布，1帮帮发布
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,7 @@ class DynamicReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback 
 
     private fun init() {
         StatusBarWhiteColor()
-        inittitle("动态发布")
+        inittitle("发布动态")
 
         tv_right.visibility = View.VISIBLE
         tv_right.text = "完成"
@@ -47,14 +49,21 @@ class DynamicReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback 
             MyApplication.openActivity(this, SelectionAddressActivity::class.java)
         }
 
+        if(flag=="0"){
+            tv_address.visibility=View.GONE
 
-        val linearLayoutManager = GridLayoutManager(this,3)
+            inittitle("发布帮帮")
+            et_info.hint="提出你的问题，邻里都来帮忙！！"
+        }
+
+
+        val linearLayoutManager = GridLayoutManager(this, 3)
 
         rv_album.layoutManager = linearLayoutManager
 
         imageList.add(LocalMedia())
 
-        albumAdapter = AlbumAdapter(this,imageList,maxNum,this)
+        albumAdapter = AlbumAdapter(this, imageList, maxNum, this)
         rv_album.adapter = albumAdapter
     }
 

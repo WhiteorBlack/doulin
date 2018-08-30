@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--达人认证-->
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/include_basetop" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="达人信息"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="姓名："
+                android:textColor="@color/colorTabText"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_name" />
+
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="手机号："
+                android:textColor="@color/colorTabText"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_phone" />
+
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="达人类型："
+                android:textColor="@color/colorTabText"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_type" />
+
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="达人简介："
+                android:textColor="@color/colorTabText"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/et_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/et_info" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/bg_white8"
+                android:maxLength="4"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_info" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_white8"
+                android:inputType="number"
+                android:maxLength="11"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_info"
+                app:layout_constraintTop_toBottomOf="@+id/et_name" />
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_white8"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:text="达人类型"
+                android:textColor="@color/bule"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_info"
+                app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+
+
+            <EditText
+                android:id="@+id/et_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_white8"
+                android:hint="请输入您的简介"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_type" />
+
+
+            <TextView
+                android:id="@+id/experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:layout_marginTop="12dp"
+                android:text="达人经历"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_info" />
+
+
+            <TextView
+                android:id="@+id/tv_addExperience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="添加"
+                android:textColor="@color/colorTheme"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/experience"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/experience" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_experience"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/experience"
+                />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

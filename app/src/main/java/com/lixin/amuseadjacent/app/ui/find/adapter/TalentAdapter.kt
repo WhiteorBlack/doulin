@@ -1,11 +1,10 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -19,7 +18,6 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
  * Created by Slingge on 2018/8/22
  */
 class TalentAdapter(val context: Context) : RecyclerView.Adapter<TalentAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_talent, parent, false)
@@ -41,9 +39,11 @@ class TalentAdapter(val context: Context) : RecyclerView.Adapter<TalentAdapter.V
     }
 
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tv_dialogue = view.findViewById<TextView>(R.id.tv_dialogue)
     }
+
+
 
 
 }

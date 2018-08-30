@@ -6,20 +6,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
-import com.lixin.amuseadjacent.app.ui.find.activity.DynamicActivity
-import com.lixin.amuseadjacent.app.ui.find.activity.EventActivity
-import com.lixin.amuseadjacent.app.ui.find.activity.TalentActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.*
 import com.lixin.amuseadjacent.app.ui.find.adapter.FindAdapter
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
+import kotlinx.android.synthetic.main.header_find.view.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import java.util.*
@@ -66,6 +66,13 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         xrecyclerview.adapter = findadapter
 
+        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
+        xrecyclerview.layoutAnimation = controller
+        findadapter!!.notifyDataSetChanged()
+        xrecyclerview.scheduleLayoutAnimation()
+
+
+
         banner = headerView!!.findViewById(R.id.banner)
 
         banner!!.setImages(imageList)
@@ -100,6 +107,11 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         headerView!!.findViewById<ImageView>(R.id.iv_activity).setOnClickListener(this)
         headerView!!.findViewById<TextView>(R.id.tv_activity).setOnClickListener(this)
+
+        headerView!!.findViewById<TextView>(R.id.tv_help).setOnClickListener(this)
+        headerView!!.findViewById<ImageView>(R.id.iv_help).setOnClickListener(this)
+
+        headerView!!.redman.setOnClickListener(this)
     }
 
     override fun loadData() {
@@ -117,6 +129,12 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.iv_activity, R.id.tv_activity -> {//活动
                 MyApplication.openActivity(activity, EventActivity::class.java)
+            }
+            R.id.tv_help, R.id.iv_help -> {//帮帮
+                MyApplication.openActivity(activity, BangBangActivity::class.java)
+            }
+            R.id.redman -> {//红人榜
+                MyApplication.openActivity(activity, RedManListActivity::class.java)
             }
         }
 

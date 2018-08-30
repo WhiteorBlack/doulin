@@ -1,49 +1,49 @@
 -- Merging decision tree log ---
 manifest
-ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
 	package
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:2:5-40
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:2:5-40
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:1-10:12
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:1:11-69
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:1:11-69
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:4:5-79
+ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:4:5-79
 	android:name
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:4:22-76
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:4:22-76
 application
-ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:5:5-8:19
+ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:5:5-8:19
 	android:supportsRtl
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:6:9-35
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:6:9-35
 	android:label
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:5:45-77
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:5:45-77
 	android:allowBackup
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml:5:18-44
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml:5:18-44
 uses-sdk
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-		ADDED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
-		INJECTED from F:\ASWorkSpase\DouLin-YH-android\xrecyclerview\src\main\AndroidManifest.xml
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+		ADDED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml
+		INJECTED from E:\WorkSpace\AmuseAdjacentUser\xrecyclerview\src\main\AndroidManifest.xml

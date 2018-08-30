@@ -6,5 +6,6 @@
     <string name="code_text">请输入生成二维码的文本信息</string>
     <string name="qrcodetext">这里显示扫描结果</string>
 
+    <string name="viewpager_indicator">%1$d/%2$d</string>
 
 </resources>

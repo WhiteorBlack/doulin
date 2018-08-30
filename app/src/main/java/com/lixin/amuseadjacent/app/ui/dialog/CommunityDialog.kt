@@ -19,9 +19,8 @@ object CommunityDialog {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_community, null)
         if (builder == null) {
             builder = AlertDialog.Builder(context, R.style.Dialog).create() // 先得到构造器
-        } else {
-            builder!!.show()
         }
+        builder!!.show()
         builder!!.window.setContentView(view)
 
         val dialogWindow = builder!!.window
