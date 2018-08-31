@@ -97,33 +97,41 @@
         </android.support.design.widget.AppBarLayout>
 
 
-        <android.support.v4.widget.NestedScrollView
+        <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!---->
+        <!--&gt;-->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_search"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_left"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:nestedScrollingEnabled="false" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_left"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25" />
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_right"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.75"
-                    android:nestedScrollingEnabled="false" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
 
-        </android.support.v4.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <!--</android.support.v4.widget.NestedScrollView>-->
 
 
     </android.support.design.widget.CoordinatorLayout>
@@ -137,6 +145,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="match_parent">
 
             <ImageView
@@ -182,9 +191,18 @@
                 android:text="去结算"
                 android:textColor="@color/white" />
 
-
         </RelativeLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_close"
+            android:textSize="@dimen/main_fant"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="店铺已打烊，稍后再来吧"
+            android:background="#CCCCCC"
+            />
 
     </FrameLayout>
 

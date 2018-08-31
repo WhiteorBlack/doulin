@@ -15,15 +15,12 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.CouponDialog
-import com.lixin.amuseadjacent.app.ui.find.activity.*
-import com.lixin.amuseadjacent.app.ui.service.activity.ShopActivity
-import com.lixin.amuseadjacent.app.ui.service.activity.SpecialAreaActivity
+import com.lixin.amuseadjacent.app.ui.service.activity.*
 import com.lixin.amuseadjacent.app.ui.service.adapter.ServiceAdapter
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -133,19 +130,19 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.iv_talent, R.id.tv_talent -> {//新鲜果蔬
-                MyApplication.openActivity(activity, ShopActivity::class.java)
+                MyApplication.openActivity(activity, OfficialShopActivity::class.java)
             }
             R.id.iv_dynamic, R.id.tv_dynamic -> {//洗衣洗鞋
-                MyApplication.openActivity(activity, DynamicActivity::class.java)
+                MyApplication.openActivity(activity, LaundryActivity::class.java)
             }
             R.id.iv_activity, R.id.tv_activity -> {//超市便利
-                MyApplication.openActivity(activity, EventActivity::class.java)
+                MyApplication.openActivity(activity, LaundryActivity::class.java)
             }
             R.id.tv_help, R.id.iv_help -> {//小区店铺
-                MyApplication.openActivity(activity, BangBangActivity::class.java)
+                MyApplication.openActivity(activity, PopularShopActivity::class.java)
             }
             R.id.iv_back->{//购物车
-
+                MyApplication.openActivity(activity, ShopCarActivity::class.java)
             }
         }
     }

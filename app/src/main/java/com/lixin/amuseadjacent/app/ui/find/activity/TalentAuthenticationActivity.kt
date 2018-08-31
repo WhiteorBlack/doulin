@@ -12,7 +12,6 @@ import com.lixin.amuseadjacent.app.ui.find.adapter.TalentExperienceAdapter
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_talent_authentication.*
 import kotlinx.android.synthetic.main.include_basetop.*
-import kotlinx.android.synthetic.main.xrecyclerview.*
 
 /**
  * 达人认证

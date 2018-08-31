@@ -2,17 +2,13 @@ package com.lixin.amuseadjacent.app.ui.find.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
-import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.find.adapter.TalentAdapter
-import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
-import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.xrecyclerview.*
 

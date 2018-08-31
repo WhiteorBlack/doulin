@@ -6,25 +6,19 @@
     android:background="@color/white">
     <!--发现首页 头布局-->
 
-    <!--
-       app:indicator_drawable_selected="@drawable/ic_indicator_hl"
-        app:indicator_drawable_unselected="@drawable/ic_indicator_nor"
-    -->
 
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+
+    <include
+        android:id="@+id/include_banner"
+        layout="@layout/include_banner"
         android:layout_width="match_parent"
         android:layout_height="155dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        app:image_scale_type="center_crop"
-        app:indicator_height="7dp"
-        app:indicator_margin="3dp"
-        app:indicator_width="7dp"
-        app:is_auto_play="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <View
@@ -33,7 +27,7 @@
         android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner" />
+        app:layout_constraintTop_toBottomOf="@+id/include_banner" />
 
     <View
         android:id="@+id/view2"
@@ -41,7 +35,7 @@
         android:layout_height="60dp"
         app:layout_constraintEnd_toStartOf="@+id/view1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner" />
+        app:layout_constraintTop_toBottomOf="@+id/include_banner" />
 
 
     <View
@@ -50,7 +44,7 @@
         android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view1"
-        app:layout_constraintTop_toBottomOf="@+id/banner" />
+        app:layout_constraintTop_toBottomOf="@+id/include_banner" />
 
 
     <ImageView
@@ -61,7 +55,7 @@
         android:src="@drawable/ic_service1"
         app:layout_constraintEnd_toStartOf="@+id/view2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/banner" />
+        app:layout_constraintTop_toBottomOf="@+id/include_banner" />
 
 
     <ImageView
@@ -72,7 +66,7 @@
         android:src="@drawable/ic_service2"
         app:layout_constraintEnd_toStartOf="@+id/view1"
         app:layout_constraintStart_toEndOf="@+id/view2"
-        app:layout_constraintTop_toBottomOf="@+id/banner" />
+        app:layout_constraintTop_toBottomOf="@+id/include_banner" />
 
     <ImageView
         android:id="@+id/iv_activity"
@@ -82,7 +76,7 @@
         android:src="@drawable/ic_service3"
         app:layout_constraintEnd_toStartOf="@+id/view3"
         app:layout_constraintStart_toEndOf="@+id/view1"
-        app:layout_constraintTop_toBottomOf="@+id/banner" />
+        app:layout_constraintTop_toBottomOf="@+id/include_banner" />
 
 
     <ImageView
@@ -93,7 +87,7 @@
         android:src="@drawable/ic_service4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view3"
-        app:layout_constraintTop_toBottomOf="@+id/banner" />
+        app:layout_constraintTop_toBottomOf="@+id/include_banner" />
 
 
     <TextView

@@ -6,9 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
-import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
-import com.lixin.amuseadjacent.app.ui.find.activity.DynamicReleaseActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopLeftAdapter
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopRightAdapter
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
@@ -20,7 +18,7 @@ import kotlinx.android.synthetic.main.include_basetop.*
  * 店铺
  * Created by Slingge on 2018/8/30
  */
-class ShopActivity : BaseActivity() {
+class OfficialShopActivity : BaseActivity() {
 
     private var shopLeftAdapter: ShopLeftAdapter? = null
 

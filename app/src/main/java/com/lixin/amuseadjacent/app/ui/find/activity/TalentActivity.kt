@@ -9,9 +9,9 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.TalentFragment
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_talent.*
+import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import java.util.ArrayList
 

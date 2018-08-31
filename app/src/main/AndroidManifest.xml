@@ -183,16 +183,35 @@
         <!--//////////////////////////////////////服务\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
         <!--店铺-->
         <activity
-            android:name=".app.ui.service.activity.ShopActivity"
+            android:name=".app.ui.service.activity.OfficialShopActivity"
             android:screenOrientation="portrait" />
 
         <!--专区-->
         <activity
             android:name=".app.ui.service.activity.SpecialAreaActivity"
             android:screenOrientation="portrait" />
+        <!--洗衣洗鞋-->
+        <activity
+            android:name=".app.ui.service.activity.LaundryActivity"
+            android:screenOrientation="portrait" />
+        <!--洗衣洗鞋详情-->
+        <activity
+            android:name=".app.ui.service.activity.OfficialShopDetailsActivity"
+            android:screenOrientation="portrait" />
 
+        <!--小区店铺-->
+        <activity
+            android:name=".app.ui.service.activity.PopularShopActivity"
+            android:screenOrientation="portrait" />
+        <!--小区店铺详情-->
+        <activity
+            android:name=".app.ui.service.activity.PopularShopDetailsActivity"
+            android:screenOrientation="portrait" />
 
-
+        <!--购物车-->
+        <activity
+            android:name=".app.ui.service.activity.ShopCarActivity"
+            android:screenOrientation="portrait" />
 
         <!--个人主页-->
         <activity

@@ -104,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_white8"
                 android:inputType="number"
                 android:maxLength="11"
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_white8"
                 android:padding="8dp"
                 android:singleLine="true"
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="24dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_white8"
                 android:hint="请输入您的简介"
                 android:padding="10dp"
@@ -177,14 +177,12 @@
 
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/rv_experience"
                 android:nestedScrollingEnabled="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/experience" />
+                app:layout_constraintTop_toBottomOf="@+id/experience"
+                />
 
 
         </android.support.constraint.ConstraintLayout>

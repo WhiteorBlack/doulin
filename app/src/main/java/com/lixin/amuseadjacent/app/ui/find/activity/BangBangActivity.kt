@@ -11,6 +11,7 @@ import com.lixin.amuseadjacent.app.ui.find.adapter.BangAdapter
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_event.*
+import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import java.util.ArrayList
 

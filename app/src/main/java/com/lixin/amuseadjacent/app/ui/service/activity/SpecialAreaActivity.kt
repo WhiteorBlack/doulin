@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.SpecialAdapter
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
@@ -15,6 +16,7 @@ import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_event.*
+import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import java.util.ArrayList
 
@@ -39,7 +41,9 @@ class SpecialAreaActivity : BaseActivity() {
 
         iv_right.visibility = View.VISIBLE
         iv_right.setImageResource(R.drawable.ic_car)
-        iv_right.setOnClickListener{v->}
+        iv_right.setOnClickListener{v->
+            MyApplication.openActivity(this, ShopCarActivity::class.java)
+        }
 
         val linearLayoutManager = GridLayoutManager(this, 3)
         rv_event.layoutManager = linearLayoutManager

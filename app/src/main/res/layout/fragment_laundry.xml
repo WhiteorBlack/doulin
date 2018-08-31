@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_clothes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+          />
+
+
+        <com.lixin.amuseadjacent.app.view.FrameTextView
+            android:id="@+id/ftv"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_clothes" />
+
+        <TextView
+            android:id="@+id/tv_info1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="羽绒服、棉服等厚重衣物预计3-5天送回"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintEnd_toEndOf="@+id/ftv"
+            app:layout_constraintStart_toStartOf="@+id/ftv"
+            app:layout_constraintTop_toTopOf="@+id/ftv" />
+
+        <TextView
+            android:id="@+id/tv_info2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="皮衣、裘衣7-9天送回"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintEnd_toEndOf="@+id/ftv"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="@+id/ftv"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info1" />
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="点击查看"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintStart_toStartOf="@+id/tv_info2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_info2" />
+
+        <TextView
+            android:id="@+id/tv_agreement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="《逗邻清洗说明及不能提供清洗服务衣物列表》"
+            android:textColor="@color/colorTheme"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintEnd_toEndOf="@+id/tv_info2"
+            app:layout_constraintStart_toEndOf="@+id/tv"
+            app:layout_constraintTop_toTopOf="@+id/tv" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.v4.widget.NestedScrollView>
