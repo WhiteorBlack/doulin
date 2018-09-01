@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopLeftAdapter
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopRightAdapter
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.include_basetop.*
  * 店铺
  * Created by Slingge on 2018/8/30
  */
-class OfficialShopActivity : BaseActivity() {
+class OfficialShopActivity : BaseActivity(),View.OnClickListener {
+
 
     private var shopLeftAdapter: ShopLeftAdapter? = null
 
@@ -38,9 +40,9 @@ class OfficialShopActivity : BaseActivity() {
 
         tv_right.visibility = View.VISIBLE
         tv_right.text = "详情"
-        tv_right.setOnClickListener { v ->
-//            MyApplication.openActivity(this, DynamicReleaseActivity::class.java)
-        }
+        tv_right.setOnClickListener (this)
+
+        tv_settlement.setOnClickListener (this)
 
         var linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -77,6 +79,19 @@ class OfficialShopActivity : BaseActivity() {
         rightAdapter!!.notifyDataSetChanged()
         rv_right.scheduleLayoutAnimation()
     }
+
+
+    override fun onClick(p0: View?) {
+        when(p0!!.id){
+            R.id.tv_right->{
+                MyApplication.openActivity(this, OfficialShopDetailsActivity::class.java)
+            }
+            R.id.tv_settlement->{
+                MyApplication.openActivity(this, SubmissionOrderActivity::class.java)
+            }
+        }
+    }
+
 
 
 }

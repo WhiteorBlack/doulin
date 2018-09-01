@@ -145,7 +145,6 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="match_parent">
 
             <ImageView
@@ -200,6 +199,7 @@
             android:textSize="@dimen/main_fant"
             android:textColor="@color/white"
             android:gravity="center"
+            android:visibility="gone"
             android:text="店铺已打烊，稍后再来吧"
             android:background="#CCCCCC"
             />

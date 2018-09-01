@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--兴趣爱好-->
+
+    <include layout="@layout/include_basetop" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/tv_interest1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:src="@drawable/ic_interest1"
+                app:layout_constraintBottom_toBottomOf="@+id/sport"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/sport" />
+
+            <TextView
+                android:id="@+id/sport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:padding="12dp"
+                android:text="运动"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toEndOf="@+id/tv_interest1" />
+
+            <TextView
+                android:id="@+id/edit_sport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="编辑"
+                android:padding="12dp"
+                android:textColor="@color/boy"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/sport"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/sport" />
+
+            <com.lixin.amuseadjacent.app.view.FlowLayout
+                android:id="@+id/fl_sport"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/edit_sport"
+                app:layout_constraintStart_toStartOf="@+id/sport"
+                app:layout_constraintTop_toBottomOf="@+id/sport" />
+
+
+            <ImageView
+                android:id="@+id/tv_interest2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:src="@drawable/ic_interest2"
+                app:layout_constraintBottom_toBottomOf="@+id/music"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/music" />
+
+            <TextView
+                android:id="@+id/music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:padding="12dp"
+                android:text="音乐"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toEndOf="@+id/tv_interest1"
+                app:layout_constraintTop_toBottomOf="@+id/fl_sport" />
+
+            <TextView
+                android:id="@+id/edit_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="编辑"
+                android:padding="12dp"
+                android:textColor="@color/boy"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/music"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/music" />
+
+            <com.lixin.amuseadjacent.app.view.FlowLayout
+                android:id="@+id/fl_music"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/edit_music"
+                app:layout_constraintStart_toStartOf="@+id/music"
+                app:layout_constraintTop_toBottomOf="@+id/music" />
+
+
+            <ImageView
+                android:id="@+id/tv_interest3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:src="@drawable/ic_interest3"
+                app:layout_constraintBottom_toBottomOf="@+id/food"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/food" />
+
+            <TextView
+                android:id="@+id/food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:padding="12dp"
+                android:text="美食"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toEndOf="@+id/tv_interest3"
+                app:layout_constraintTop_toBottomOf="@+id/fl_music" />
+
+            <TextView
+                android:id="@+id/edit_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="编辑"
+                android:padding="12dp"
+                android:textColor="@color/boy"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/food"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/food" />
+
+            <com.lixin.amuseadjacent.app.view.FlowLayout
+                android:id="@+id/fl_food"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/edit_food"
+                app:layout_constraintStart_toStartOf="@+id/food"
+                app:layout_constraintTop_toBottomOf="@+id/food" />
+
+
+            <ImageView
+                android:id="@+id/tv_interest4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:src="@drawable/ic_interest4"
+                app:layout_constraintBottom_toBottomOf="@+id/film"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/film" />
+
+            <TextView
+                android:id="@+id/film"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:padding="12dp"
+                android:text="电影"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toEndOf="@+id/tv_interest3"
+                app:layout_constraintTop_toBottomOf="@+id/fl_food" />
+
+            <TextView
+                android:id="@+id/edit_film"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="编辑"
+                android:padding="12dp"
+                android:textColor="@color/boy"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/film"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/film" />
+
+            <com.lixin.amuseadjacent.app.view.FlowLayout
+                android:id="@+id/fl_film"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/edit_film"
+                app:layout_constraintStart_toStartOf="@+id/film"
+                app:layout_constraintTop_toBottomOf="@+id/film" />
+
+
+            <ImageView
+                android:id="@+id/tv_interest5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:src="@drawable/ic_interest5"
+                app:layout_constraintBottom_toBottomOf="@+id/book"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/book" />
+
+            <TextView
+                android:id="@+id/book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:padding="12dp"
+                android:text="书籍"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toEndOf="@+id/tv_interest3"
+                app:layout_constraintTop_toBottomOf="@+id/fl_film" />
+
+            <TextView
+                android:id="@+id/edit_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="编辑"
+                android:padding="12dp"
+                android:textColor="@color/boy"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/book"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/book" />
+
+            <com.lixin.amuseadjacent.app.view.FlowLayout
+                android:id="@+id/fl_book"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/edit_book"
+                app:layout_constraintStart_toStartOf="@+id/book"
+                app:layout_constraintTop_toBottomOf="@+id/book" />
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

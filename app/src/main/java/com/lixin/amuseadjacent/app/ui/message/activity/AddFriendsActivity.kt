@@ -67,7 +67,9 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
                 if (position < 0) {
                     return
                 }
-                MyApplication.openActivity(this@AddFriendsActivity, PersonalHomePageActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt("flag", 1)
+                MyApplication.openActivity(this@AddFriendsActivity, PersonalHomePageActivity::class.java, bundle)
             }
 
         })

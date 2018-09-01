@@ -213,9 +213,49 @@
             android:name=".app.ui.service.activity.ShopCarActivity"
             android:screenOrientation="portrait" />
 
+        <!--提交订单-->
+        <activity
+            android:name=".app.ui.service.activity.SubmissionOrderActivity"
+            android:screenOrientation="portrait" />
+
+        <!--支付-->
+        <activity
+            android:name=".app.ui.service.activity.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <!--支付成功-->
+        <activity
+            android:name=".app.ui.service.activity.PaymentSuccessActivity"
+            android:screenOrientation="portrait" />
+
+
+
+
+        <!--//////////////////////////////////我的\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
         <!--个人主页-->
         <activity
             android:name=".app.ui.mine.activity.PersonalHomePageActivity"
+            android:screenOrientation="portrait" />
+        <!--个人资料-->
+        <activity
+            android:name=".app.ui.mine.activity.PersonalDataActivity"
+            android:screenOrientation="portrait" />
+        <!--我的相册-->
+        <activity
+            android:name=".app.ui.mine.activity.MyAlbumActivity"
+            android:screenOrientation="portrait" />
+        <!--个人信息-->
+        <activity
+            android:name=".app.ui.mine.activity.PersonalInfoActivity"
+            android:screenOrientation="portrait" />
+        <!--兴趣爱好-->
+        <activity
+            android:name=".app.ui.mine.activity.HobbyActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--我的二维码-->
+        <activity
+            android:name=".app.ui.mine.activity.MyQRActivity"
             android:screenOrientation="portrait" />
 
 

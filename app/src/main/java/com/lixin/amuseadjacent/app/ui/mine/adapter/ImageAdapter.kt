@@ -14,6 +14,7 @@ import com.lxkj.runproject.app.view.SquareImage
  */
 class ImageAdapter(val context: Context) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
+    private var flag=-1//0，后面带加号
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_image, parent, false)
@@ -25,6 +26,11 @@ class ImageAdapter(val context: Context) : RecyclerView.Adapter<ImageAdapter.Vie
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        if(flag==0){
+
+        }
+
     }
 
 

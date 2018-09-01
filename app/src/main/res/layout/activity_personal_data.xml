@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <!--个人资料-->
+
+    <include layout="@layout/include_basetop" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_album"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp" />
+
+            <com.lixin.amuseadjacent.app.view.CircleImageView
+                android:id="@+id/iv_header"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_album" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:text="逗邻"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toEndOf="@+id/iv_header"
+                app:layout_constraintTop_toTopOf="@+id/iv_header" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="10dp"
+                android:text="地址"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_header"
+                app:layout_constraintStart_toEndOf="@+id/iv_header" />
+
+            <TextView
+                android:id="@+id/tv_effect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/bg_red_line30"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:text="影响力"
+                android:textColor="@color/colorRateRed"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+                app:layout_constraintStart_toEndOf="@+id/tv_name"
+                app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/bg_boy8"
+                android:drawableLeft="@drawable/ic_boy"
+                android:drawablePadding="3dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:text="22"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+                app:layout_constraintStart_toEndOf="@+id/tv_effect"
+                app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+            <TextView
+                android:id="@+id/tv_constellation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/bg_them8"
+                android:drawablePadding="3dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:text="天蝎"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+                app:layout_constraintStart_toEndOf="@+id/tv_sex"
+                app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+            <ImageView
+                android:id="@+id/iv_edite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:src="@drawable/ic_right"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_header" />
+
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray2"
+                app:layout_constraintTop_toBottomOf="@+id/iv_header" />
+
+            <TextView
+                android:id="@+id/data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="个人信息"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line" />
+
+            <TextView
+                android:id="@+id/autograph"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="个人签名"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/data" />
+
+
+            <EditText
+                android:id="@+id/tv_autograph"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:background="@null"
+                android:gravity="right"
+                android:hint="个人签名"
+                android:paddingRight="12dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/autograph"
+                app:layout_constraintTop_toBottomOf="@+id/data" />
+
+            <include
+                android:id="@+id/line2"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/autograph"
+                app:layout_constraintTop_toBottomOf="@+id/autograph" />
+
+            <TextView
+                android:id="@+id/occupation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="职业"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+
+            <EditText
+                android:id="@+id/et_occupation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:gravity="right"
+                android:hint="请输入职业信息"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/occupation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/occupation"
+                app:layout_constraintTop_toTopOf="@+id/occupation" />
+
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/occupation" />
+
+            <TextView
+                android:id="@+id/hobby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:paddingLeft="12dp"
+                android:text="性趣爱好"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line3" />
+
+            <TextView
+                android:id="@+id/sport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="运动"
+                android:padding="12dp"
+                android:background="@drawable/touch_bg"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hobby" />
+
+            <TextView
+                android:id="@+id/tv_sport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_right"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/sport"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/sport" />
+
+            <include
+                android:id="@+id/line4"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/autograph"
+                app:layout_constraintTop_toBottomOf="@+id/sport" />
+
+            <TextView
+                android:id="@+id/music"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="音乐"
+                android:background="@drawable/touch_bg"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line4" />
+
+            <TextView
+                android:id="@+id/tv_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_right"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/music"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/music" />
+
+            <include
+                android:id="@+id/line5"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/autograph"
+                app:layout_constraintTop_toBottomOf="@+id/music" />
+
+
+            <TextView
+                android:id="@+id/food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:background="@drawable/touch_bg"
+                android:text="美食"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line5" />
+
+            <TextView
+                android:id="@+id/tv_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_right"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/food"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/food" />
+
+            <include
+                android:id="@+id/line6"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/autograph"
+                app:layout_constraintTop_toBottomOf="@+id/food" />
+
+
+            <TextView
+                android:id="@+id/film"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="电影"
+                android:background="@drawable/touch_bg"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line6" />
+
+            <TextView
+                android:id="@+id/tv_film"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_right"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/film"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/film" />
+
+            <include
+                android:id="@+id/line7"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/autograph"
+                app:layout_constraintTop_toBottomOf="@+id/film" />
+
+
+            <TextView
+                android:id="@+id/book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="图书"
+                android:background="@drawable/touch_bg"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line7" />
+
+            <TextView
+                android:id="@+id/tv_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_right"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/book"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/book" />
+
+            <View
+                android:id="@+id/line8"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/gray2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/book" />
+
+
+            <TextView
+                android:id="@+id/other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:paddingTop="12dp"
+                android:text="其他资料"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line8" />
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="个人标签"
+                android:background="@drawable/touch_bg"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/other" />
+
+            <TextView
+                android:id="@+id/tv_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_right"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/label" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

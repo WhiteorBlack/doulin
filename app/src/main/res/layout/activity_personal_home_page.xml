@@ -9,7 +9,6 @@
 
     <!--户外活动-->
 
-
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
@@ -149,7 +148,6 @@
                         app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
 
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="6dp"
@@ -202,8 +200,7 @@
         <include
             layout="@layout/include_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            />
+            android:layout_height="1dp" />
 
         <View
             android:id="@+id/dialogue"
@@ -221,6 +218,8 @@
             android:drawableLeft="@drawable/ic_dialogue"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
             android:text="对话"
             android:textColor="@color/black"
             android:textSize="@dimen/main_fant"
@@ -254,6 +253,8 @@
             android:drawableLeft="@drawable/ic_follow"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
+            android:paddingLeft="35dp"
+            android:paddingRight="35dp"
             android:text="关注"
             android:textColor="@color/black"
             android:textSize="@dimen/main_fant"
