@@ -49,11 +49,11 @@ object ScreenFriendsPop {
 
             tv_boy.setTextColor(context.resources.getColor(R.color.black))
             tv_boy.setBackgroundResource(R.drawable.bg_white8)
-            AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy_b, tv_boy)
+            AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy_b, tv_boy,0)
 
             tv_girle.setTextColor(context.resources.getColor(R.color.black))
             tv_girle.setBackgroundResource(R.drawable.bg_white8)
-            AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl_b, tv_girle)
+            AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl_b, tv_girle,0)
         }
 
         tv_boy.setOnClickListener { v ->
@@ -64,11 +64,11 @@ object ScreenFriendsPop {
 
             tv_boy.setTextColor(context.resources.getColor(R.color.white))
             tv_boy.setBackgroundResource(R.drawable.bg_boy8)
-            AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy, tv_boy)
+            AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy, tv_boy,0)
 
             tv_girle.setTextColor(context.resources.getColor(R.color.black))
             tv_girle.setBackgroundResource(R.drawable.bg_white8)
-            AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl_b, tv_girle)
+            AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl_b, tv_girle,0)
         }
 
         tv_girle.setOnClickListener { v ->
@@ -79,11 +79,11 @@ object ScreenFriendsPop {
 
             tv_boy.setTextColor(context.resources.getColor(R.color.black))
             tv_boy.setBackgroundResource(R.drawable.bg_white8)
-            AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy_b, tv_boy)
+            AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy_b, tv_boy,0)
 
             tv_girle.setTextColor(context.resources.getColor(R.color.white))
             tv_girle.setBackgroundResource(R.drawable.bg_girl8)
-            AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl, tv_girle)
+            AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl, tv_girle,0)
         }
 
         tv_cancel.setOnClickListener { v ->

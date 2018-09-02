@@ -49,7 +49,7 @@ class DynamicReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback 
             MyApplication.openActivity(this, SelectionAddressActivity::class.java)
         }
 
-        if(flag=="0"){
+        if(flag=="1"){
             tv_address.visibility=View.GONE
 
             inittitle("发布帮帮")

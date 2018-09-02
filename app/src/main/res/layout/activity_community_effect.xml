@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!--社区影响力-->
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/include_basetop" />
+
+    <View
+        android:id="@+id/progressBar2"
+        android:layout_width="230dp"
+        android:layout_height="165dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ring_them"
+        android:rotation="-90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <TextView
+        android:id="@+id/tv_eeffect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:minWidth="110dp"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+        app:layout_constraintStart_toStartOf="@+id/progressBar2"
+        app:layout_constraintTop_toTopOf="@+id/progressBar2" />
+
+    <TextView
+        android:id="@+id/tv_already"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="今日已获得0点影响力"
+        android:textColor="@color/colorTabText"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_eeffect"
+        app:layout_constraintStart_toStartOf="@+id/tv_eeffect"
+        app:layout_constraintTop_toBottomOf="@+id/tv_eeffect" />
+
+    <TextView
+        android:id="@+id/tv_accumulative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/ic_wenhao"
+        android:gravity="center"
+        android:text="每邀请1名新用户，可累计100影响力"
+        android:textColor="@color/colorTabText"
+        android:textSize="@dimen/sub_fant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+
+    <ImageView
+        android:id="@+id/tv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_qm_left2"
+        app:layout_constraintEnd_toStartOf="@+id/tv_accumulative"
+        app:layout_constraintTop_toTopOf="@+id/tv_accumulative" />
+
+    <ImageView
+        android:id="@+id/tv_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/ic_qm_right2"
+        app:layout_constraintStart_toEndOf="@+id/tv_accumulative"
+        app:layout_constraintTop_toTopOf="@+id/tv_accumulative" />
+
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="12dp"
+        android:background="@color/gray2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_accumulative" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_effect"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+</android.support.constraint.ConstraintLayout>

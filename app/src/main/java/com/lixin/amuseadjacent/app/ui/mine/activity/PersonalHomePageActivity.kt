@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.include_basetop.*
 import java.util.ArrayList
 
 /**
+ * 个人主页
  * Created by Slingge on 2018/8/16
  */
 class PersonalHomePageActivity : BaseActivity() {
@@ -75,6 +76,11 @@ class PersonalHomePageActivity : BaseActivity() {
         rv_album.layoutManager = gridLayoutManager
         imgaeAdapter = ImageAdapter(this)
         rv_album.adapter = imgaeAdapter
+
+
+        if (intent != null && intent.getIntExtra("flag", -1) == 1) {
+            viewPager.currentItem = intent.getIntExtra("flag", 0)
+        }
     }
 
 }

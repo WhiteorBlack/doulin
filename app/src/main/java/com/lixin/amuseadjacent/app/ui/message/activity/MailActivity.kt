@@ -65,6 +65,10 @@ class MailActivity : BaseActivity() {
                 }
             }
         })
-    }
 
+        if (intent != null) {
+            viewPager.currentItem = intent.getIntExtra("flag", 0)
+
+        }
+    }
 }

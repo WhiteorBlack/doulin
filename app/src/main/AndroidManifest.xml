@@ -228,8 +228,6 @@
             android:screenOrientation="portrait" />
 
 
-
-
         <!--//////////////////////////////////我的\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
         <!--个人主页-->
         <activity
@@ -251,11 +249,42 @@
         <activity
             android:name=".app.ui.mine.activity.HobbyActivity"
             android:screenOrientation="portrait" />
+        <!--添加标签-->
+        <activity
+            android:name=".app.ui.mine.activity.AddLabelActivity"
+            android:screenOrientation="portrait" />
 
+        <!--签到-->
+        <activity
+            android:name=".app.ui.mine.activity.QianDaoActivity"
+            android:screenOrientation="portrait" />
+
+        <!--社区影响力-->
+        <activity
+            android:name=".app.ui.mine.activity.EffectCommunityActivity"
+            android:screenOrientation="portrait" />
+        <!--影响力-->
+        <activity
+            android:name=".app.ui.mine.activity.EffectDetailsActivity"
+            android:screenOrientation="portrait" />
 
         <!--我的二维码-->
         <activity
             android:name=".app.ui.mine.activity.MyQRActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--钱包-->
+        <activity
+            android:name=".app.ui.mine.activity.WalletActivity"
+            android:screenOrientation="portrait" />
+        <!--交易明细-->
+        <activity
+            android:name=".app.ui.mine.activity.TransactionDetailsActivity"
+            android:screenOrientation="portrait" />
+        <!--提现-->
+        <activity
+            android:name=".app.ui.mine.activity.WithdrawActivity"
             android:screenOrientation="portrait" />
 
 

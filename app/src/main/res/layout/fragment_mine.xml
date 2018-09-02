@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -101,6 +102,7 @@
 
 
             <TextView
+                android:id="@+id/tv_qiandao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -120,12 +122,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/touch_bg"
-                android:padding="12dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:paddingTop="12dp"
                 android:text="关注"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_dynamic"
-                app:layout_constraintEnd_toStartOf="@+id/tv_dynamic"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
@@ -133,11 +138,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/touch_bg"
-                android:padding="12dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:paddingTop="12dp"
                 android:text="动态"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_follow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_effect" />
 
@@ -145,14 +153,19 @@
                 android:id="@+id/tv_fans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:background="@drawable/touch_bg"
-                android:padding="12dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:paddingTop="12dp"
                 android:text="粉丝"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_dynamic"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_dynamic" />
+                app:layout_constraintStart_toEndOf="@+id/tv_follow" />
 
             <View
                 android:id="@+id/line"

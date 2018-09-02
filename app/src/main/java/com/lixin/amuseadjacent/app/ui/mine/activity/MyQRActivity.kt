@@ -22,11 +22,8 @@ class MyQRActivity : BaseActivity() {
 
     private fun init() {
         if (Build.VERSION.SDK_INT > 19) {
-            StatusBarUtil.setColor(this,Color.parseColor("#1A1A1A"))
+            StatusBarUtil.setColorNoTranslucent(this,Color.parseColor("#1A1A1A"))
         }
-
-
-
     }
 
 }

@@ -37,7 +37,9 @@ class DynamicActivity:BaseActivity(){
         tv_right.visibility = View.VISIBLE
         tv_right.text = "发布"
         tv_right.setOnClickListener { v ->
-            MyApplication.openActivity(this, DynamicReleaseActivity::class.java)
+           val  bundle=Bundle()
+            bundle.putInt("flag",0)
+            MyApplication.openActivity(this, DynamicReleaseActivity::class.java,bundle)
         }
 
         val tabList = ArrayList<String>()

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
 
 /**
+ * 个人主页 达人经历
  * Created by Slingge on 2018/8/18
  */
 class ExperienceAdapter(val context: Context) : RecyclerView.Adapter<ExperienceAdapter.ViewHolder>() {

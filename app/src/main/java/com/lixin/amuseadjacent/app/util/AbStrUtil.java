@@ -520,9 +520,10 @@ public class AbStrUtil {
     }
 
 
-    public static void setDrawableLeft(Context context, int id, TextView tv) {
+    public static void setDrawableLeft(Context context, int id, TextView tv,int DrawablePaddin) {
         Drawable nav_up = context.getResources().getDrawable(id);
         nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+        tv.setCompoundDrawablePadding(DrawablePaddin);
         tv.setCompoundDrawables(nav_up, null, null, null);
     }
 
