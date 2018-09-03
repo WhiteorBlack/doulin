@@ -26,6 +26,7 @@ class PaymentActivity : BaseActivity() {
         include.setBackgroundColor(resources.getColor(R.color.colorTheme))
         tv_title.setTextColor(resources.getColor(R.color.white))
         iv_back.setImageResource(R.drawable.ic_back_w)
+        iv_back.setBackgroundColor(resources.getColor(R.color.colorTheme))
         line.visibility = View.GONE
 
 

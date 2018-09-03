@@ -11,11 +11,9 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.message.activity.MailActivity
-import com.lixin.amuseadjacent.app.ui.mine.activity.MyQRActivity
-import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
-import com.lixin.amuseadjacent.app.ui.mine.activity.QianDaoActivity
-import com.lixin.amuseadjacent.app.ui.mine.activity.WalletActivity
+import com.lixin.amuseadjacent.app.ui.mine.activity.*
 import com.lixin.amuseadjacent.app.ui.mine.adapter.MineAdapter
+import com.lixin.amuseadjacent.app.ui.service.activity.ShopCarActivity
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
@@ -54,7 +52,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
         mineAdapter = MineAdapter(activity!!, 0)
         rv_used.adapter = mineAdapter
-        mineAdapter = MineAdapter(activity!!, 0)
+        mineAdapter = MineAdapter(activity!!, 1)
         rv_more.adapter = mineAdapter
 
         rv_used.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_used) {
@@ -68,19 +66,19 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         MyApplication.openActivity(activity, WalletActivity::class.java)
                     }
                     1 -> {//优惠券
-                        MyApplication.openActivity(activity, WalletActivity::class.java)
+                        MyApplication.openActivity(activity, CouponMyActivity::class.java)
                     }
                     2 -> {//购物车
-                        MyApplication.openActivity(activity, WalletActivity::class.java)
+                        MyApplication.openActivity(activity, ShopCarActivity::class.java)
                     }
-                    3-> {//订单
-                        MyApplication.openActivity(activity, WalletActivity::class.java)
+                    3 -> {//订单
+                        MyApplication.openActivity(activity, OrderActivity::class.java)
                     }
-                    4-> {//收藏
-                        MyApplication.openActivity(activity, WalletActivity::class.java)
+                    4 -> {//收藏
+                        MyApplication.openActivity(activity, CollectionActivity::class.java)
                     }
                     5 -> {//实名认证
-                        MyApplication.openActivity(activity, WalletActivity::class.java)
+                        MyApplication.openActivity(activity, RealNameAuthenticationActivity::class.java)
                     }
 
                 }
@@ -95,8 +93,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     return
                 }
                 when (i) {
-                    0 -> {//钱包
-//                        MyApplication.openActivity(activity, WalletActivity::class.java)
+                    0 -> {//帮助
+                        MyApplication.openActivity(activity, HelpActivity::class.java)
                     }
                 }
             }

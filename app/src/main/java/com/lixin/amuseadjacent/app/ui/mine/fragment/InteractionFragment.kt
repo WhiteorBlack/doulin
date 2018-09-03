@@ -12,6 +12,7 @@ import com.lixin.amuseadjacent.app.ui.mine.adapter.InteractionAdapter
 import kotlinx.android.synthetic.main.xrecyclerview.*
 
 /**
+ * 个人主页 互动
  * Created by Slingge on 2018/8/18
  */
 class InteractionFragment : BaseFragment() {

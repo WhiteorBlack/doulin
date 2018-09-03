@@ -42,6 +42,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
 
         tv_recharge.setOnClickListener(this)
         tv_forward.setOnClickListener(this)
+        tv_bankcard.setOnClickListener(this)
     }
 
 
@@ -55,6 +56,9 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_forward->{//提现
                 MyApplication.openActivity(this,WithdrawActivity::class.java)
+            }
+            R.id.tv_bankcard->{//银行卡
+                MyApplication.openActivity(this,BankCardActivity::class.java)
             }
         }
     }

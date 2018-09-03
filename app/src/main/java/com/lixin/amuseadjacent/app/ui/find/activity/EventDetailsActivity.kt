@@ -49,7 +49,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_info.setTextColor(resources.getColor(R.color.colorTabText))
         tv_info.setTextSize(15)
         tv_info.setTextMaxLine(2)
-        tv_info.setText("科技本身蕴含着一种碾压一切的力量，而这种力量会导致我们加速奔向某种设定好的结局。+这篇文章尝试预测未来最可能的5种结局：黄金时代，虚拟世界，冷平衡，生化人，大寂灭。")
+        tv_info.setText("科技本身虚拟世界，冷平衡，生化人，大寂灭。")
 
         if (tv_info.line() >= 2) {
             iv_open.setOnClickListener(this)

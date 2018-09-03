@@ -1,154 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <!--提现-->
 
-    <include layout="@layout/include_basetop" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/include_basetop" />
 
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/include">
 
-        <android.support.constraint.ConstraintLayout
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="￥"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="@+id/et_money"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="50dp"
+            android:background="@null"
+            android:hint="请输入充值金额"
+            android:inputType="number|numberDecimal"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_fant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/money"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/line2"
+            layout="@layout/include_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/et_money"
+            app:layout_constraintStart_toEndOf="@+id/money" />
+
+        <TextView
+            android:id="@+id/tv_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可提现金额"
+            android:textColor="@color/colorTabText"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_all"
+            app:layout_constraintStart_toEndOf="@+id/money"
+            app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+
+        <TextView
+            android:id="@+id/tv_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/touch_bg"
+            android:padding="12dp"
+            android:text="全部提现"
+            android:textColor="@color/colorTheme"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+
+        <View
+            android:id="@+id/line3"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="5dp"
+            android:background="@color/gray2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_all" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cl1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white">
+        <TextView
+            android:id="@+id/tv_bank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/touch_bg"
+            android:drawableRight="@drawable/ic_right"
+            android:padding="12dp"
+            android:text="银行"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintTop_toBottomOf="@+id/line3" />
 
-                <TextView
-                    android:id="@+id/money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:text="￥"
-                    android:textColor="@color/black"
-                    android:textSize="32sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/et_money"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <EditText
-                    android:id="@+id/et_money"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="50dp"
-                    android:background="@null"
-                    android:hint="请输入充值金额"
-                    android:inputType="number|numberDecimal"
-                    android:padding="12dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/main_fant"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/money"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <include
-                    android:id="@+id/line2"
-                    layout="@layout/include_line"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/et_money"
-                    app:layout_constraintStart_toEndOf="@+id/money" />
-
-                <TextView
-                    android:id="@+id/tv_balance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="可提现金额"
-                    android:textColor="@color/colorTabText"
-                    android:textSize="@dimen/sub_fant"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_all"
-                    app:layout_constraintStart_toEndOf="@+id/money"
-                    app:layout_constraintTop_toBottomOf="@+id/line2" />
+    </android.support.constraint.ConstraintLayout>
 
 
-                <TextView
-                    android:id="@+id/tv_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="全部提现"
-                    android:background="@drawable/touch_bg"
-                    android:textColor="@color/colorTheme"
-                    android:textSize="@dimen/sub_fant"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/line2" />
+    <TextView
+        android:id="@+id/tv_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/bg_them8"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="立即提现"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl1" />
+
+    <TextView
+        android:id="@+id/tv_rule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:padding="12dp"
+        android:text="提现规则"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sub_fant"
+        app:layout_constraintTop_toBottomOf="@+id/tv_recharge" />
 
 
-                <View
-                    android:id="@+id/line3"
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@color/gray2"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_all" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_rule"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rule" />
 
-                <TextView
-                    android:id="@+id/tv_bank"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_right"
-                    android:padding="12dp"
-                    android:background="@drawable/touch_bg"
-                        android:text="银行"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sub_fant"
-                    app:layout_constraintTop_toBottomOf="@+id/line3" />
-
-            </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
 
 
-            <TextView
-                android:id="@+id/tv_recharge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="48dp"
-                android:background="@drawable/bg_them8"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="立即提现"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.266"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl1" />
-
-            <TextView
-                android:id="@+id/tv_rule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:padding="12dp"
-                android:text="提现规则"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sub_fant"
-                app:layout_constraintTop_toBottomOf="@+id/tv_recharge" />
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_rule"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_rule" />
-
-        </android.support.constraint.ConstraintLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
-</LinearLayout>

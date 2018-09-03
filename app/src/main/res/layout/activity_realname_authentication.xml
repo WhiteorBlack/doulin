@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--实名认证-->
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/include_basetop" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="223dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/bg_white5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="基本资料"
+                android:textColor="@color/bules"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="@+id/view1"
+                app:layout_constraintTop_toTopOf="@+id/view1" />
+
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="真实姓名"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="@+id/view1"
+                app:layout_constraintTop_toBottomOf="@+id/data" />
+
+
+            <include
+                android:id="@+id/line1"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="@+id/view1"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+
+            <TextView
+                android:id="@+id/num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="身份证号码"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="@+id/view1"
+                app:layout_constraintTop_toBottomOf="@+id/line1" />
+
+            <include
+                android:id="@+id/line2"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="@+id/view1"
+                app:layout_constraintStart_toStartOf="@+id/num"
+                app:layout_constraintTop_toBottomOf="@+id/num" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="手机号码"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="@+id/view1"
+                app:layout_constraintTop_toBottomOf="@+id/line2" />
+
+            <include
+                android:id="@+id/line3"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="@+id/view1"
+                app:layout_constraintStart_toStartOf="@+id/phone"
+                app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+            <TextView
+                android:id="@+id/verification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="验证码"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="@+id/view1"
+                app:layout_constraintTop_toBottomOf="@+id/line3" />
+
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:hint="请输入您身份证上的姓名"
+                android:maxLength="4"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/name"
+                app:layout_constraintEnd_toEndOf="@+id/view1"
+                app:layout_constraintStart_toEndOf="@+id/num"
+                app:layout_constraintTop_toTopOf="@+id/name" />
+
+            <EditText
+                android:id="@+id/et_num"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:hint="请输入您身份证上的号码"
+                android:maxLength="18"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/num"
+                app:layout_constraintEnd_toEndOf="@+id/view1"
+                app:layout_constraintStart_toEndOf="@+id/num"
+                app:layout_constraintTop_toTopOf="@+id/num" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@null"
+                android:hint="请输入您的手机号码"
+                android:maxLength="18"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/phone"
+                app:layout_constraintEnd_toEndOf="@+id/view1"
+                app:layout_constraintStart_toEndOf="@+id/num"
+                app:layout_constraintTop_toTopOf="@+id/phone" />
+
+
+            <TextView
+                android:id="@+id/get_verification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="获取验证码"
+                android:textColor="@color/colorTheme"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="@+id/line2"
+                app:layout_constraintTop_toBottomOf="@+id/line3" />
+
+            <EditText
+                android:id="@+id/et_verification"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@null"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/verification"
+                app:layout_constraintEnd_toStartOf="@+id/get_verification"
+                app:layout_constraintStart_toEndOf="@+id/num"
+                app:layout_constraintTop_toTopOf="@+id/verification" />
+
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="235dp"
+                android:layout_margin="12dp"
+                android:background="@drawable/bg_white5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+            <TextView
+                android:id="@+id/updata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="身份证上传"
+                android:textColor="@color/bules"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="@+id/view2"
+                app:layout_constraintTop_toTopOf="@+id/view2" />
+
+            <ImageView
+                android:id="@+id/iv_just"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dotted_gray_line"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_id_just"
+                app:layout_constraintEnd_toStartOf="@+id/lin3"
+                app:layout_constraintStart_toStartOf="@+id/view2"
+                app:layout_constraintTop_toBottomOf="@+id/updata" />
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dotted_gray_line"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_id_back"
+                app:layout_constraintEnd_toEndOf="@+id/view2"
+                app:layout_constraintStart_toEndOf="@+id/lin3"
+                app:layout_constraintTop_toBottomOf="@+id/updata" />
+
+            <view
+                android:id="@+id/lin3"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view2" />
+
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传身份证正面照"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintEnd_toEndOf="@+id/iv_just"
+                app:layout_constraintStart_toStartOf="@+id/iv_just"
+                app:layout_constraintTop_toBottomOf="@+id/iv_just" />
+
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上传身份证反面照"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintEnd_toEndOf="@+id/iv_back"
+                app:layout_constraintStart_toStartOf="@+id/iv_back"
+                app:layout_constraintTop_toBottomOf="@+id/iv_just" />
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="1、需本人上身免冠照"
+                android:textColor="@color/colorTabText"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="@+id/iv_just"
+                app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="32dp"
+                android:text="2、照片五官清晰可见"
+                android:textColor="@color/colorTabText"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_1"
+                app:layout_constraintStart_toEndOf="@+id/tv_1"
+                app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="3、照片身份证号码可见"
+                android:textColor="@color/colorTabText"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="@+id/iv_just"
+                app:layout_constraintTop_toBottomOf="@+id/tv_1" />
+
+
+            <TextView
+                android:id="@+id/tv_enter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/bg_them8"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

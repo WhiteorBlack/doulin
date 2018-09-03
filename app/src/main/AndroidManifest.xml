@@ -286,7 +286,47 @@
         <activity
             android:name=".app.ui.mine.activity.WithdrawActivity"
             android:screenOrientation="portrait" />
+        <!--银行卡-->
+        <activity
+            android:name=".app.ui.mine.activity.BankCardActivity"
+            android:screenOrientation="portrait" />
+        <!--添加银行卡-->
+        <activity
+            android:name=".app.ui.mine.activity.BankCardAddActivity"
+            android:screenOrientation="portrait" />
 
+        <!--我的优惠券-->
+        <activity
+            android:name=".app.ui.mine.activity.CouponMyActivity"
+            android:screenOrientation="portrait" />
+
+        <!--收藏-->
+        <activity
+            android:name=".app.ui.mine.activity.CollectionActivity"
+            android:screenOrientation="portrait" />
+
+        <!--订单-->
+        <activity
+            android:name=".app.ui.mine.activity.OrderActivity"
+            android:screenOrientation="portrait" />
+        <!--订单详情-->
+        <activity
+            android:name=".app.ui.mine.activity.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <!--实名认证-->
+        <activity
+            android:name=".app.ui.mine.activity.RealNameAuthenticationActivity"
+            android:screenOrientation="portrait" />
+        <!--帮助-->
+        <activity
+            android:name=".app.ui.mine.activity.HelpActivity"
+            android:screenOrientation="portrait" />
+
+        <!--webview-->
+        <activity
+            android:name=".app.ui.mine.activity.WebViewActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

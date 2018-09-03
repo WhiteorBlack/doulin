@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.TransactionAdapter
@@ -33,6 +34,10 @@ class TransactionDetailsActivity : BaseActivity() {
         transactionAdapter=TransactionAdapter(this)
         xrecyclerview.adapter=transactionAdapter
 
+        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
+        xrecyclerview.layoutAnimation = controller
+        transactionAdapter!!.notifyDataSetChanged()
+        xrecyclerview.scheduleLayoutAnimation()
     }
 
 
