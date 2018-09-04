@@ -48,6 +48,7 @@
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <include
+                        android:id="@+id/include_banner"
                         layout="@layout/include_banner"
                         android:layout_width="match_parent"
                         android:layout_height="155dp"

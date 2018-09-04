@@ -5,12 +5,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.lixin.amuseadjacent.R
 
 /**
+ * flag 0好友，1关注，2粉丝
  * Created by Slingge on 2018/8/16
  */
-class MailAdapter(val context: Context) : RecyclerView.Adapter<MailAdapter.ViewHolder>() {
+class MailAdapter(val context: Context,val flag:Int) : RecyclerView.Adapter<MailAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,10 +25,17 @@ class MailAdapter(val context: Context) : RecyclerView.Adapter<MailAdapter.ViewH
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        if(flag==2){
+            holder.tv_follow.visibility=View.VISIBLE
+        }
     }
 
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tv_follow=view.findViewById<TextView>(R.id.tv_follow)
+
+    }
 
 
 }

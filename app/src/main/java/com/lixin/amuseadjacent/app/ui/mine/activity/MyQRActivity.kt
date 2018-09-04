@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import kotlinx.android.synthetic.main.activity_code_my.*
 
 /**
  * 我的二维码
@@ -22,7 +23,11 @@ class MyQRActivity : BaseActivity() {
 
     private fun init() {
         if (Build.VERSION.SDK_INT > 19) {
-            StatusBarUtil.setColorNoTranslucent(this,Color.parseColor("#1A1A1A"))
+            StatusBarUtil.setColorNoTranslucent(this, Color.parseColor("#1A1A1A"))
+        }
+
+        iv_back.setOnClickListener { v ->
+            finish()
         }
     }
 

@@ -58,7 +58,6 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                 if (i < 0) {
                     return
                 }
-                abLog.e("actiivty", i.toString())
                 calendarAdapter!!.setFlag(i)
                 QianDaoDialog.communityDialog(this@QianDaoActivity)
             }

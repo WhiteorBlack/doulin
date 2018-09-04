@@ -1,4 +1,4 @@
-package com.lixin.amuseadjacent.app.ui.mine.activity
+package com.lixin.amuseadjacent.app.ui.mine.activity.order
 
 import android.os.Bundle
 import com.lixin.amuseadjacent.R

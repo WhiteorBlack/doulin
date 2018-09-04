@@ -75,21 +75,21 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_info" />
 
         <TextView
-        android:id="@+id/tv_pay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:background="@drawable/bg_them3"
-        android:paddingBottom="5dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:paddingTop="5dp"
-        android:text="立即付款"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sub_fant"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line3" />
+            android:id="@+id/tv_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="@drawable/bg_them3"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="5dp"
+            android:text="立即付款"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line3" />
 
         <TextView
             android:id="@+id/tv_again"

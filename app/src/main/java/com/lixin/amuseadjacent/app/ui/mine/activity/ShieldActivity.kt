@@ -5,18 +5,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
-import com.lixin.amuseadjacent.app.ui.mine.adapter.CollectionAdapter
-import com.lixin.amuseadjacent.app.ui.mine.adapter.OrderAdapter
+import com.lixin.amuseadjacent.app.ui.mine.adapter.ShieldAdapter
 import kotlinx.android.synthetic.main.xrecyclerview.*
 
 /**
- * 收藏
- * Created by Slingge on 2018/9/3
+ * 我的屏蔽
+ * Created by Slingge on 2018/9/4
  */
-class OrderActivity : BaseActivity() {
+class ShieldActivity : BaseActivity() {
 
-    private var orderAdapter: OrderAdapter? = null
-
+    private var shieldAdapter: ShieldAdapter?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,20 +22,21 @@ class OrderActivity : BaseActivity() {
         init()
     }
 
+
     private fun init() {
-        inittitle("订单")
+        inittitle("我的屏蔽")
         StatusBarWhiteColor()
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         xrecyclerview.layoutManager = linearLayoutManager
 
-        orderAdapter = OrderAdapter(this)
-        xrecyclerview.adapter = orderAdapter
+        shieldAdapter = ShieldAdapter(this)
+        xrecyclerview.adapter = shieldAdapter
 
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
         xrecyclerview.layoutAnimation = controller
-        orderAdapter!!.notifyDataSetChanged()
+        shieldAdapter!!.notifyDataSetChanged()
         xrecyclerview.scheduleLayoutAnimation()
     }
 

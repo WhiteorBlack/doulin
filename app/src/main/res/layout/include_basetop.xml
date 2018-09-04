@@ -10,6 +10,7 @@
         android:id="@+id/view_staus"
         android:layout_width="match_parent"
         android:layout_height="20dp"
+        android:background="@color/white"
         android:visibility="gone" />
 
     <ImageView

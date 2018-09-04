@@ -12,12 +12,12 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.message.activity.MailActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.*
+import com.lixin.amuseadjacent.app.ui.mine.activity.order.OrderActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.MineAdapter
 import com.lixin.amuseadjacent.app.ui.service.activity.ShopCarActivity
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
@@ -88,13 +88,26 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         rv_more.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_more) {
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {
                 val i = vh!!.adapterPosition
-                ToastUtil.showToast(i.toString())
                 if (i < 0) {
                     return
                 }
                 when (i) {
                     0 -> {//帮助
                         MyApplication.openActivity(activity, HelpActivity::class.java)
+                    }
+                    1 -> {//邀请好友
+                        MyApplication.openActivity(activity, InvitingFriendsAcivity::class.java)
+                    }
+                    2 -> {//更换社区
+                        MyApplication.openActivity(activity, ReplaceCommunityActivity::class.java)
+                    }
+                    3 -> {//意见反馈
+                        MyApplication.openActivity(activity, FeedbackActivity::class.java)
+                    }
+                    4 -> {//关于逗邻
+                        val bundle=Bundle()
+                        bundle.putInt("flag",2)
+                        MyApplication.openActivity(activity, WebViewActivity::class.java,bundle)
                     }
                 }
             }
@@ -128,7 +141,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                 MyApplication.openActivity(activity, MyQRActivity::class.java)
             }
             R.id.iv_setting -> {//设置
-
+                MyApplication.openActivity(activity, SetUpActivity::class.java)
             }
             R.id.tv_qiandao -> {//签到
                 MyApplication.openActivity(activity, QianDaoActivity::class.java)

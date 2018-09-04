@@ -46,7 +46,7 @@ class BankCardAddActivity : BaseActivity() {
 
             }
         }
-    };
+    }
 
 
 }

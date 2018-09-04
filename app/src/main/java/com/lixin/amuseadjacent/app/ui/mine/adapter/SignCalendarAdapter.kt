@@ -50,9 +50,6 @@ class SignCalendarAdapter(val context: Context, val list: ArrayList<Int>, val we
                   }
               }*/
 
-            ToastUtil.showToast(flag.toString() + "," + (list[position] - week + 1).toString())
-
-            abLog.e("适配器",flag.toString() + "," + (day).toString())
 
             if (flag-week+2 == day.toInt()) {
                 holder.tv_day.setTextColor(context.resources.getColor(R.color.white))

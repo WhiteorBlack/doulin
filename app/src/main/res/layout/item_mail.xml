@@ -69,6 +69,24 @@
             app:layout_constraintStart_toEndOf="@+id/tv_name"
             app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
+        <TextView
+            android:id="@+id/tv_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_them30"
+            android:drawableLeft="@drawable/ic_add"
+            android:drawablePadding="5dp"
+            android:visibility="gone"
+            android:paddingBottom="3dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="3dp"
+            android:text="关注"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
         <include
             android:id="@+id/line"

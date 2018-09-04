@@ -307,11 +307,19 @@
 
         <!--订单-->
         <activity
-            android:name=".app.ui.mine.activity.OrderActivity"
+            android:name=".app.ui.mine.activity.order.OrderActivity"
             android:screenOrientation="portrait" />
         <!--订单详情-->
         <activity
-            android:name=".app.ui.mine.activity.OrderDetailsActivity"
+            android:name=".app.ui.mine.activity.order.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
+        <!--退款-->
+        <activity
+            android:name=".app.ui.mine.activity.order.RefundActivity"
+            android:screenOrientation="portrait" />
+        <!--评价-->
+        <activity
+            android:name=".app.ui.mine.activity.order.EvaluateActivity"
             android:screenOrientation="portrait" />
 
         <!--实名认证-->
@@ -322,10 +330,48 @@
         <activity
             android:name=".app.ui.mine.activity.HelpActivity"
             android:screenOrientation="portrait" />
+        <!--违规举报-->
+        <activity
+            android:name=".app.ui.mine.activity.ViolationReportActivity"
+            android:screenOrientation="portrait" />
 
         <!--webview-->
         <activity
             android:name=".app.ui.mine.activity.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <!--邀请好友-->
+        <activity
+            android:name=".app.ui.mine.activity.InvitingFriendsAcivity"
+            android:screenOrientation="portrait" />
+        <!--更换社区-->
+        <activity
+            android:name=".app.ui.mine.activity.ReplaceCommunityActivity"
+            android:screenOrientation="portrait" />
+        <!--意见反馈-->
+        <activity
+            android:name=".app.ui.mine.activity.FeedbackActivity"
+            android:screenOrientation="portrait" />
+        <!--设置-->
+        <activity
+            android:name=".app.ui.mine.activity.SetUpActivity"
+            android:screenOrientation="portrait" />
+        <!--更改密码-->
+        <activity
+            android:name=".app.ui.mine.activity.ChangePassActivity"
+            android:screenOrientation="portrait" />
+
+        <!--我的收货地址-->
+        <activity
+            android:name=".app.ui.mine.activity.AddressActivity"
+            android:screenOrientation="portrait" />
+        <!--新增、修改收货地址-->
+        <activity
+            android:name=".app.ui.mine.activity.EditAddressActivity"
+            android:screenOrientation="portrait" />
+
+        <!--我的屏蔽-->
+        <activity
+            android:name=".app.ui.mine.activity.ShieldActivity"
             android:screenOrientation="portrait" />
 
     </application>

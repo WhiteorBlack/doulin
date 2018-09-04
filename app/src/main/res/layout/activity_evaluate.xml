@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!--评价-->
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/include_basetop" />
+
+
+    <EditText
+        android:id="@+id/et_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:gravity="left|top"
+        android:hint="商品或服务满足你的期待吗？"
+        android:minLines="8"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_fant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray2"
+        android:padding="12dp"
+        android:text="评分"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/main_fant"
+        app:layout_constraintTop_toBottomOf="@+id/et_reason" />
+
+    <TextView
+        android:id="@+id/evaluate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="服务评价"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sub_fant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:isIndicator="false"
+        android:rating="5"
+        app:layout_constraintBottom_toBottomOf="@+id/evaluate"
+        app:layout_constraintStart_toEndOf="@+id/evaluate"
+        app:layout_constraintTop_toTopOf="@+id/evaluate" />
+
+
+</android.support.constraint.ConstraintLayout>

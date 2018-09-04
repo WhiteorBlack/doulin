@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.mine.activity.order.OrderDetailsActivity
 
 /**
  * 订单商品
@@ -28,12 +30,14 @@ class OrderCommodityAdapter(val context: Context) : RecyclerView.Adapter<OrderCo
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
+        holder.itemView.setOnClickListener { v ->
+            MyApplication.openActivity(context, OrderDetailsActivity::class.java)
+        }
 
     }
 
 
-  inner  class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 
         /*val line1 = view.findViewById<View>(R.id.line1)

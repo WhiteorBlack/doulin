@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--更换社区-->
+
+    <include
+        android:id="@+id/include7"
+        layout="@layout/include_basetop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/community"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:padding="12dp"
+        android:text="选择要更换的小区："
+        android:textColor="@color/colorTabText"
+        android:textSize="@dimen/main_fant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include7" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_white_line3"
+        app:layout_constraintBottom_toBottomOf="@+id/community"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/community"
+        app:layout_constraintTop_toTopOf="@+id/community" />
+
+    <Spinner
+        android:id="@+id/sp_bank"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="5dp"
+        android:dropDownSelector="@drawable/touch_bg"
+        android:overlapAnchor="false"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/community"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/community"
+        app:layout_constraintTop_toTopOf="@+id/community" />
+
+    <TextView
+        android:id="@+id/tv_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="原因说明："
+        android:textColor="@color/colorTabText"
+        android:textSize="@dimen/main_fant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/community" />
+
+
+    <EditText
+        android:id="@+id/et_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/bg_white_line3"
+        android:gravity="top|left"
+        android:hint="请输入您要更换的原因"
+        android:minLines="6"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sub_fant"
+        app:layout_constraintTop_toBottomOf="@+id/tv_reason" />
+
+    <TextView
+        android:id="@+id/tv_submission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/bg_them8"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="提交申请"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/et_reason" />
+
+    <TextView
+        android:id="@+id/tv_rule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:text="邀请规则"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_fant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_submission" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_rule"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rule" />
+
+</android.support.constraint.ConstraintLayout>

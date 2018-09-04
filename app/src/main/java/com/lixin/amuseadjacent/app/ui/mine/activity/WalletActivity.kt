@@ -1,11 +1,14 @@
 package com.lixin.amuseadjacent.app.ui.mine.activity
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.RechargeDialog
+import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_wallet.*
 import kotlinx.android.synthetic.main.include_basetop.*
 
@@ -24,7 +27,9 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
 
     private fun init() {
         inittitle("逗邻钱包")
-        StatusBarWhiteColor()
+        if (Build.VERSION.SDK_INT > 19) {
+            StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.colorTheme))
+        }
 
         tv_right.visibility = View.VISIBLE
         tv_right.text = "交易明细"
@@ -48,24 +53,24 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.tv_right->{//明细
-                MyApplication.openActivity(this,TransactionDetailsActivity::class.java)
+            R.id.tv_right -> {//明细
+                MyApplication.openActivity(this, TransactionDetailsActivity::class.java)
             }
-            R.id.tv_recharge->{//充值
+            R.id.tv_recharge -> {//充值
                 RechargeDialog.communityDialog(this)
             }
-            R.id.tv_forward->{//提现
-                MyApplication.openActivity(this,WithdrawActivity::class.java)
+            R.id.tv_forward -> {//提现
+                MyApplication.openActivity(this, WithdrawActivity::class.java)
             }
-            R.id.tv_bankcard->{//银行卡
-                MyApplication.openActivity(this,BankCardActivity::class.java)
+            R.id.tv_bankcard -> {//银行卡
+                MyApplication.openActivity(this, BankCardActivity::class.java)
             }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        RechargeDialog.builder=null
+        RechargeDialog.builder = null
     }
 
 

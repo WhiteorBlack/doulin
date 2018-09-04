@@ -4,6 +4,8 @@ import android.os.Bundle
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lxkj.linxintechnologylibrary.app.util.ProgressDialogUtil
 import kotlinx.android.synthetic.main.activity_sginin.*
 
 /**
@@ -23,6 +25,7 @@ class SginInActivity : BaseActivity() {
         et_phone.setOnClickListener { v ->
             MyApplication.openActivity(this, SginInActivity2::class.java)
         }
+        ProgressDialog.showDialog(this)
     }
 
 

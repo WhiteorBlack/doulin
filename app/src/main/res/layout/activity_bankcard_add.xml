@@ -110,12 +110,12 @@
         android:id="@+id/sp_bank"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:overlapAnchor="false"
         android:dropDownSelector="@drawable/touch_bg"
+        android:overlapAnchor="false"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="@+id/tv_bank"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_bank"
+        app:layout_constraintStart_toStartOf="@+id/et_name"
         app:layout_constraintTop_toTopOf="@+id/tv_bank" />
 
     <com.lixin.amuseadjacent.app.view.BankCardNumEditText
@@ -131,7 +131,7 @@
         android:textSize="@dimen/main_fant"
         app:layout_constraintBottom_toBottomOf="@+id/tv_num"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_num"
+        app:layout_constraintStart_toStartOf="@+id/et_name"
         app:layout_constraintTop_toTopOf="@+id/tv_num" />
 
 

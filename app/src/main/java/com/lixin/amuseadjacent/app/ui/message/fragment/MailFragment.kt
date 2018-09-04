@@ -35,13 +35,6 @@ class MailFragment : BaseFragment() {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_mail.layoutManager = linearLayoutManager
 
-        mailAdapter = MailAdapter(activity!!)
-        rv_mail.adapter = mailAdapter
-
-        val controller = AnimationUtils.loadLayoutAnimation(activity, R.anim.layout_animation_from_bottom)
-        rv_mail.layoutAnimation = controller
-        mailAdapter!!.notifyDataSetChanged()
-        rv_mail.scheduleLayoutAnimation()
     }
 
     private fun init() {
@@ -52,6 +45,14 @@ class MailFragment : BaseFragment() {
 
     override fun loadData() {
         ToastUtil.showToast(flag.toString())
+
+        mailAdapter = MailAdapter(activity!!,flag)
+        rv_mail.adapter = mailAdapter
+
+        val controller = AnimationUtils.loadLayoutAnimation(activity, R.anim.layout_animation_from_bottom)
+        rv_mail.layoutAnimation = controller
+        mailAdapter!!.notifyDataSetChanged()
+        rv_mail.scheduleLayoutAnimation()
     }
 
 

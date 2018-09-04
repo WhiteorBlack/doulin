@@ -44,8 +44,6 @@ class WithdrawActivity : BaseActivity(),View.OnClickListener {
         rv_rule.scheduleLayoutAnimation()
 
         tv_recharge.setOnClickListener(this)
-
-
     }
 
 
