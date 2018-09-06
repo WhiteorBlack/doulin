@@ -121,6 +121,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_white8"
         android:hint="设置密码（6-20位）"
+        android:inputType="textPassword"
         android:maxLength="20"
         android:padding="10dp"
         android:singleLine="true"

@@ -24,6 +24,8 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginTop="12dp"
+            android:maxHeight="75dp"
+            android:maxWidth="75dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintStart_toEndOf="@+id/ic_chack"

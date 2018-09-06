@@ -1,12 +1,16 @@
 package com.lixin.amuseadjacent.app.ui.entrance
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
-import com.lixin.amuseadjacent.app.ui.MainActivity
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
-import com.lixin.amuseadjacent.app.util.AppManager
+import com.lixin.amuseadjacent.app.ui.entrance.request.SginIn_1213
+import com.lixin.amuseadjacent.app.util.AbStrUtil
+import com.lixin.amuseadjacent.app.util.SMSVerificationCode
+import com.lixin.amuseadjacent.app.util.TimerUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_passverification_sgin.*
 
 /**
@@ -17,6 +21,12 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
 
     private var flag = 0//默认0验证码登录
 
+    private var VCode: String? = null
+    private var timerUtil: TimerUtil? = null
+
+    private var phone = ""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_passverification_sgin)
@@ -25,12 +35,19 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
 
 
     private fun init() {
+        if (intent != null) {
+            phone = intent.getStringExtra("phone")
+            tv_phone.setText(phone)
+        }
+
         tv_verification.setOnClickListener(this)
         tv_pass.setOnClickListener(this)
         tv_forgetpass.setOnClickListener(this)
-        tv_register.setOnClickListener(this)
         iv_back.setOnClickListener(this)
         iv_sgin.setOnClickListener(this)
+
+        tv_code.setOnClickListener(this)
+        timerUtil = TimerUtil(tv_code)
     }
 
 
@@ -53,15 +70,39 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_forgetpass -> {//忘记密码
                 MyApplication.openActivity(this, ForgetPassActivity::class.java)
             }
-            R.id.tv_register -> {//注册
-                MyApplication.openActivity(this, RegisterActivity::class.java)
+            R.id.tv_code -> {//获取验证码
+                if (TextUtils.isEmpty(phone)) {
+                    ToastUtil.showToast("请输入手机号")
+                    return
+                }
+
+                VCode = timerUtil!!.num
+                SMSVerificationCode.sendSMS(this,phone, VCode!!)
+                timerUtil!!.timersStart()
             }
             R.id.iv_back -> {
                 finish()
             }
             R.id.iv_sgin -> {
-                MyApplication.openActivity(this, MainActivity::class.java)
-                AppManager.finishAllActivity()
+                if (flag == 0) {
+                    val code = AbStrUtil.etTostr(et_verifi)
+                    if (TextUtils.isEmpty(code)) {
+                        ToastUtil.showToast("请输入验证码")
+                        return
+                    }
+                    if (code != VCode) {
+                        ToastUtil.showToast("验证码错误")
+                        return
+                    }
+                    SginIn_1213.smsSgin(this, phone)
+                } else {//密码登录
+                    val pass = AbStrUtil.etTostr(et_pass)
+                    if (TextUtils.isEmpty(pass)) {
+                        ToastUtil.showToast("请输入密码")
+                        return
+                    }
+                    SginIn_1213.passSgin(this, phone, pass)
+                }
             }
         }
     }
@@ -93,6 +134,10 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
         view_right.setBackgroundColor(resources.getColor(R.color.white))
         et_pass.visibility = View.VISIBLE
         tv_forgetpass.visibility = View.VISIBLE
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
 

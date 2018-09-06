@@ -93,8 +93,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_pass" />
 
 
-    <EditText
-        android:id="@+id/et_phone"
+    <TextView
+        android:id="@+id/tv_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -118,12 +118,13 @@
         android:hint="输入密码"
         android:maxLength="20"
         android:padding="10dp"
+        android:inputType="textPassword"
         android:singleLine="true"
         android:text=""
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
     <EditText
         android:id="@+id/et_verifi"
@@ -141,7 +142,7 @@
         android:text=""
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
-        app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
     <TextView
         android:id="@+id/tv_code"
@@ -181,17 +182,6 @@
         app:layout_constraintTop_toBottomOf="@+id/et_pass" />
 
 
-    <TextView
-        android:id="@+id/tv_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="注册（临时添加）"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/iv_sgin"

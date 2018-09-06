@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.util.AppManager
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
@@ -22,7 +24,7 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppManager.addActivity(this)
+        AppManager.getAppManager().addActivity(this)
     }
 
 
@@ -40,10 +42,15 @@ open class BaseActivity : AppCompatActivity() {
             val view_staus = findViewById<View>(R.id.view_staus)
             view_staus.visibility = View.VISIBLE
             StatusBarUtil.setStutaViewHeight(this, view_staus)
-            StatusBarUtil.transparentStatusBar(this)
+            StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.white))
             StatusBarBlackWordUtil.StatusBarLightMode(this)
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        AppManager.getAppManager().finishActivity(this)
+        ProgressDialog.dissDialog()
+    }
 
 }

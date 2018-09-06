@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -45,7 +46,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_temp"
                 app:layout_constraintStart_toStartOf="@+id/tv_temp"
-                app:layout_constraintTop_toTopOf="@+id/tv_temp" />
+                app:layout_constraintTop_toTopOf="@+id/tv_temp"
+                app:layout_constraintVertical_bias="0.585" />
 
             <TextView
                 android:id="@+id/money"
@@ -55,7 +57,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="32dp"
                 android:text="-   需支付   -"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/sub_fant"
@@ -101,51 +103,79 @@
                 app:layout_constraintStart_toStartOf="@+id/temp"
                 app:layout_constraintTop_toTopOf="@+id/temp" />
 
+            <ImageView
+                android:id="@+id/iv_alipay"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_alipay"
+                app:layout_constraintStart_toStartOf="@+id/temp"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <ImageView
+                android:id="@+id/iv_weixin"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_weixin"
+                app:layout_constraintStart_toStartOf="@+id/temp"
+                app:layout_constraintTop_toBottomOf="@+id/iv_alipay" />
+
+
+            <ImageView
+                android:id="@+id/iv_doulin"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="24dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintStart_toStartOf="@+id/temp"
+                app:layout_constraintTop_toBottomOf="@+id/iv_weixin" />
+
 
             <TextView
                 android:id="@+id/tv_alipay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="35dp"
-                android:drawableLeft="@drawable/ic_alipay"
-                android:drawablePadding="10dp"
+                android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:text="支付宝支付"
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant"
-                app:layout_constraintStart_toStartOf="@+id/temp"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintBottom_toBottomOf="@+id/iv_alipay"
+                app:layout_constraintStart_toEndOf="@+id/iv_alipay"
+                app:layout_constraintTop_toTopOf="@+id/iv_alipay" />
 
             <TextView
                 android:id="@+id/tv_weixin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="15dp"
-                android:drawableLeft="@drawable/ic_weixin"
-                android:drawablePadding="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="微信支付"
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant"
-                app:layout_constraintStart_toStartOf="@+id/temp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_alipay" />
+                app:layout_constraintBottom_toBottomOf="@+id/iv_weixin"
+                app:layout_constraintStart_toEndOf="@+id/iv_weixin"
+                app:layout_constraintTop_toTopOf="@+id/iv_weixin" />
 
             <TextView
                 android:id="@+id/balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="15dp"
-                android:drawableLeft="@mipmap/ic_launcher"
-                android:drawablePadding="10dp"
+                android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:text="逗邻支付"
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant"
-                app:layout_constraintStart_toStartOf="@+id/temp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_weixin" />
+                app:layout_constraintBottom_toBottomOf="@+id/iv_doulin"
+                app:layout_constraintStart_toEndOf="@+id/iv_doulin"
+                app:layout_constraintTop_toTopOf="@+id/iv_doulin" />
 
             <TextView
                 android:id="@+id/tv_balance"

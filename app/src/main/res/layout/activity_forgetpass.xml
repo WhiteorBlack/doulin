@@ -123,6 +123,7 @@
         android:hint="设置新的密码（6-20位）"
         android:maxLength="20"
         android:padding="10dp"
+        android:inputType="textPassword"
         android:singleLine="true"
         android:text=""
         android:textColor="@color/black"

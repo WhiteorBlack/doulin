@@ -161,7 +161,7 @@
 
 
             <EditText
-                android:id="@+id/tv_autograph"
+                android:id="@+id/et_autograph"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"

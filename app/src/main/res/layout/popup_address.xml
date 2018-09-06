@@ -6,8 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_enter"
@@ -32,21 +32,53 @@
                 android:layout_weight="1"
                 app:awv_textsize="14" />
 
+            <TextView
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="12dp"
+                android:visibility="gone"
+                android:text="年"
+                android:textColor="@color/colorTabText"
+                android:textSize="15sp" />
+
             <com.weigan.loopview.LoopView
                 android:id="@+id/loopView2"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:visibility="gone"
                 app:awv_textsize="14" />
+
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="月"
+                android:visibility="gone"
+                android:paddingRight="12dp"
+                android:textColor="@color/colorTabText"
+                android:textSize="15sp" />
 
             <com.weigan.loopview.LoopView
                 android:id="@+id/loopView3"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:visibility="gone"
                 app:awv_textsize="14" />
+
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="日"
+                android:visibility="gone"
+                android:paddingRight="12dp"
+                android:textColor="@color/colorTabText"
+                android:textSize="15sp" />
+
 
         </LinearLayout>
 

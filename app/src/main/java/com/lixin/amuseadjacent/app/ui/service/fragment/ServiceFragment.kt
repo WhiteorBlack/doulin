@@ -49,13 +49,12 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
         return view
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (Build.VERSION.SDK_INT > 19) {
             view_staus.visibility = View.VISIBLE
             StatusBarUtil.setStutaViewHeight(activity, view_staus)
-            StatusBarUtil.transparentStatusBar(activity)
+            StatusBarUtil.setColorNoTranslucent(activity,resources.getColor(R.color.white))
             StatusBarBlackWordUtil.StatusBarLightMode(activity)
         }
 

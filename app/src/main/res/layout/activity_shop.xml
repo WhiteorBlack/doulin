@@ -193,16 +193,15 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_close"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/tv_close"
-            android:textSize="@dimen/main_fant"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:visibility="gone"
-            android:text="店铺已打烊，稍后再来吧"
             android:background="#CCCCCC"
-            />
+            android:gravity="center"
+            android:text="店铺已打烊，稍后再来吧"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_fant"
+            android:visibility="gone" />
 
     </FrameLayout>
 

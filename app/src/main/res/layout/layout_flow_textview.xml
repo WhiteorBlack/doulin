@@ -7,11 +7,11 @@
     android:layout_marginRight="5dp"
     android:layout_marginTop="10dp"
     android:background="@drawable/bg_gray30"
-    android:paddingBottom="8dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="8dp"
+    android:paddingBottom="3dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="3dp"
     android:text="面约"
-    android:textColor="#606060"
-    android:textSize="15sp" />
+    android:textColor="@color/colorTabText"
+    android:textSize="@dimen/sub_fant" />
 

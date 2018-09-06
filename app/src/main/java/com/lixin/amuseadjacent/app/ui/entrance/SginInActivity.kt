@@ -25,7 +25,6 @@ class SginInActivity : BaseActivity() {
         et_phone.setOnClickListener { v ->
             MyApplication.openActivity(this, SginInActivity2::class.java)
         }
-        ProgressDialog.showDialog(this)
     }
 
 

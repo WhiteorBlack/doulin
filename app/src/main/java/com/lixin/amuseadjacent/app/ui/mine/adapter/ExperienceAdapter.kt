@@ -27,8 +27,8 @@ class ExperienceAdapter(val context: Context) : RecyclerView.Adapter<ExperienceA
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
-        val imageAdapter = ImageAdapter(context)
+        val list = ArrayList<String>()
+        val imageAdapter = ImageAdapter(context, list)
         holder.rv_image.adapter = imageAdapter
     }
 
@@ -37,7 +37,7 @@ class ExperienceAdapter(val context: Context) : RecyclerView.Adapter<ExperienceA
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
 
         init {
-            val linearLayoutManager = GridLayoutManager(context,3)
+            val linearLayoutManager = GridLayoutManager(context, 3)
             rv_image.layoutManager = linearLayoutManager
         }
 

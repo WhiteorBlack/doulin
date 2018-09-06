@@ -63,12 +63,12 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
         rv_user.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_user) {
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {
                 val position = vh!!.adapterPosition
-                ToastUtil.showToast(position.toString())
                 if (position < 0) {
                     return
                 }
                 val bundle = Bundle()
                 bundle.putInt("flag", 1)
+                bundle.putString("auid", "")
                 MyApplication.openActivity(this@AddFriendsActivity, PersonalHomePageActivity::class.java, bundle)
             }
 

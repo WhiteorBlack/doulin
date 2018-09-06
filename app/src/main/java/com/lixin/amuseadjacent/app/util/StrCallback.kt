@@ -1,6 +1,7 @@
 package com.lxkj.huaihuatransit.app.util
 
 
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.callback.StringCallback
@@ -18,6 +19,7 @@ abstract class StrCallback : StringCallback() {
     }
 
     override fun onResponse(response: String, id: Int) {
+        ProgressDialog.dissDialog()
         abLog.e2(response)
     }
 

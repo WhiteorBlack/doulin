@@ -14,11 +14,17 @@ import com.lixin.amuseadjacent.app.ui.message.activity.MailActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.*
 import com.lixin.amuseadjacent.app.ui.mine.activity.order.OrderActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.MineAdapter
+import com.lixin.amuseadjacent.app.ui.mine.model.UserInfoModel
+import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.ui.service.activity.ShopCarActivity
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.fragment_mine.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * Created by Slingge on 2018/8/15
@@ -28,9 +34,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private var mineAdapter: MineAdapter? = null
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_mine, container, false)
+        EventBus.getDefault().register(this)
         init()
         return view
     }
@@ -39,16 +45,17 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (Build.VERSION.SDK_INT > 19) {
-            view_staus.visibility = View.VISIBLE
+            StatusBarUtil.setStutaViewHeight(activity, view_staus2)
             StatusBarUtil.setStutaViewHeight(activity, view_staus)
-            StatusBarUtil.transparentStatusBar(activity)
-            StatusBarBlackWordUtil.StatusBarLightMode(activity)
+            StatusBarUtil.setColorNoTranslucent(activity, resources.getColor(R.color.colorTheme))
         }
 
+        UserInfo_19.userInfo()
+
         val gridLayoutManager = GridLayoutManager(activity, 4)
-        val gridLayoutManage2r = GridLayoutManager(activity, 4)
+        val gridLayoutManager2 = GridLayoutManager(activity, 4)
         rv_used.layoutManager = gridLayoutManager
-        rv_more.layoutManager = gridLayoutManage2r
+        rv_more.layoutManager = gridLayoutManager2
 
         mineAdapter = MineAdapter(activity!!, 0)
         rv_used.adapter = mineAdapter
@@ -80,7 +87,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     5 -> {//实名认证
                         MyApplication.openActivity(activity, RealNameAuthenticationActivity::class.java)
                     }
-
                 }
             }
         })
@@ -105,9 +111,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         MyApplication.openActivity(activity, FeedbackActivity::class.java)
                     }
                     4 -> {//关于逗邻
-                        val bundle=Bundle()
-                        bundle.putInt("flag",2)
-                        MyApplication.openActivity(activity, WebViewActivity::class.java,bundle)
+                        val bundle = Bundle()
+                        bundle.putInt("flag", 2)
+                        MyApplication.openActivity(activity, WebViewActivity::class.java, bundle)
                     }
                 }
             }
@@ -135,6 +141,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             R.id.iv_heaser -> {//个人中心
                 val bundle = Bundle()
                 bundle.putInt("flag", 0)
+                bundle.putString("auid", StaticUtil.uid)
+                bundle.putSerializable("model", userModel)
                 MyApplication.openActivity(activity, PersonalHomePageActivity::class.java, bundle)
             }
             R.id.iv_code -> {//我的二维码
@@ -148,8 +156,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.tv_dynamic -> {//动态
                 val bundle = Bundle()
-                bundle.putInt("flag", 1)
-                MyApplication.openActivity(activity, PersonalHomePageActivity::class.java, bundle)
+                bundle.putInt("flag", 0)
+                MyApplication.openActivity(activity, MailActivity::class.java, bundle)
             }
             R.id.tv_follow -> {//关注
                 val bundle = Bundle()
@@ -169,5 +177,24 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     }
 
+
+    private var userModel: UserInfoModel? = null
+    @Subscribe
+    fun onEvent(model: UserInfoModel) {
+        userModel = model
+        ImageLoader.getInstance().displayImage(model.icon, iv_heaser)
+        tv_id.text = model.nickname
+        tv_effect.text = "影响力" + model.effectNum
+
+        tv_follow.text = "关注" + model.attenNum
+        tv_dynamic.text = "动态" + model.dynamicNum
+        tv_fans.text = "粉丝" + model.fansNum
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(activity)
+    }
 
 }

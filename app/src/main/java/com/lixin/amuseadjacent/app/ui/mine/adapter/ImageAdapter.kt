@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
 import com.lxkj.runproject.app.view.SquareImage
+import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
  * 方形图片
  * Created by Slingge on 2018/8/18
  */
-class ImageAdapter(val context: Context) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(val context: Context, val list: ArrayList<String>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
-    private var flag=-1//0，后面带加号
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_image, parent, false)
@@ -22,14 +22,12 @@ class ImageAdapter(val context: Context) : RecyclerView.Adapter<ImageAdapter.Vie
     }
 
     override fun getItemCount(): Int {
-        return 3
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        if(flag==0){
-
-        }
+        ImageLoader.getInstance().displayImage(list[position], holder.image)
 
     }
 

@@ -17,6 +17,14 @@
         <!--<item name="android:backgroundDimEnabled">false</item> 背景不变暗-->
     </style>
 
+    <style name="ProgressDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item> 背景不变暗
+    </style>
+
     <!--tabLayout字体-->
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">15sp</item>

@@ -19,6 +19,8 @@
             android:id="@+id/iv_header"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:maxHeight="45dp"
+            android:maxWidth="45dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_header"
             app:layout_constraintStart_toStartOf="parent"

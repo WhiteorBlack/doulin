@@ -51,7 +51,8 @@ class BangAdapter(val context: Context) : RecyclerView.Adapter<BangAdapter.ViewH
             holder.image2.visibility = View.GONE
             holder.rv_image.visibility = View.VISIBLE
 
-            val imageAdapter = ImageAdapter(context)
+            val list=ArrayList<String>()
+            val imageAdapter = ImageAdapter(context, list)
             holder.rv_image.adapter = imageAdapter
         }
 

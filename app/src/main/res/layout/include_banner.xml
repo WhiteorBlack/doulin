@@ -13,8 +13,6 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="155dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         app:image_scale_type="center_crop"
         app:indicator_height="7dp"
         app:indicator_margin="3dp"

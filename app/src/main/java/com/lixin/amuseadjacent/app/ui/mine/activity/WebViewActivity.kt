@@ -26,6 +26,10 @@ class WebViewActivity : BaseActivity() {
             inittitle("常见问题")
         } else if (flag == 2) {//关于逗邻
             inittitle("关于逗邻")
+        } else if (flag == 3) {//关于逗邻
+            inittitle("用户协议")
+        } else if (flag == 4) {//关于逗邻
+            inittitle("隐私协议")
         }
     }
 

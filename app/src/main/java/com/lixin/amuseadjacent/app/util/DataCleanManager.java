@@ -56,7 +56,7 @@ public class DataCleanManager {
         if(dir == null){
             return false;
         }
-        if (dir != null && dir.isDirectory()) {
+        if (dir.isDirectory()) {
             String[] children = dir.list();
             for (int i = 0; i < children.length; i++) {
                 boolean success = deleteDir(new File(dir, children[i]));

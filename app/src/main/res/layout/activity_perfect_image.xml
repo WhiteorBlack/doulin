@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/cl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -123,7 +123,6 @@
             android:layout_alignParentRight="true"
             android:drawablePadding="8dp"
             android:drawableRight="@drawable/ic_right"
-            android:text="必填"
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/main_fant" />
 
@@ -150,6 +149,19 @@
             android:textColor="@color/black"
             android:textSize="@dimen/main_fant" />
 
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/age"
+            android:drawableRight="@drawable/ic_right"
+            android:drawablePadding="8dp"
+            android:background="@color/white"
+            android:gravity="right"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_fant" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -170,6 +182,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的社区"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_fant" />
+
+        <TextView
+            android:id="@+id/tv_community"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/community"
+            android:gravity="right"
             android:textColor="@color/black"
             android:textSize="@dimen/main_fant" />
 

@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_gray_line8"
-            android:padding="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/community">
 
@@ -36,8 +35,13 @@
                 android:id="@+id/sp_community"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                />
+                android:dropDownSelector="@drawable/touch_bg"
+                android:overlapAnchor="false"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="1dp"
+                android:spinnerMode="dropdown" />
         </FrameLayout>
 
 
@@ -57,14 +61,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_gray_line8"
-            android:padding="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/unit">
 
             <Spinner
                 android:id="@+id/sp_unit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="1dp"
+                android:dropDownSelector="@drawable/touch_bg"
+                android:overlapAnchor="false"
+                android:spinnerMode="dropdown" />
         </FrameLayout>
 
 
@@ -79,21 +89,19 @@
             app:layout_constraintTop_toBottomOf="@+id/fl_unit" />
 
 
-        <FrameLayout
-            android:id="@+id/fl_door"
+        <EditText
+            android:id="@+id/et_num"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_gray_line8"
-            android:padding="8dp"
+            android:hint="门牌号"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorTabText"
+            android:textSize="@dimen/sub_fant"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/door">
-
-            <Spinner
-                android:id="@+id/sp_door"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
+            app:layout_constraintTop_toBottomOf="@+id/door" />
 
         <TextView
             android:id="@+id/tc_next"
@@ -107,7 +115,7 @@
             android:textSize="@dimen/main_fant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fl_door" />
+            app:layout_constraintTop_toBottomOf="@+id/et_num" />
 
     </android.support.constraint.ConstraintLayout>
 

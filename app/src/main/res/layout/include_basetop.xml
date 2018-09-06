@@ -95,6 +95,7 @@
     <include
         android:id="@+id/line"
         layout="@layout/include_line"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_below="@+id/tv_title" />

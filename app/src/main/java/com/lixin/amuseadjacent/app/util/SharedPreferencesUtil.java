@@ -19,7 +19,12 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class SharedPreferencesUtil {
 
-	public static String NAME="LoanThrough";
+	public static String NAME="DouLin";
+
+	public static String Phone="phone";
+	public static String Pass="pass";
+	public static String uid="uid";
+
 
 	/**
 	 * @param mContext

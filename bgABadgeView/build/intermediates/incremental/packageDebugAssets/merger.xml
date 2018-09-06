@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\WorkSpace\AmuseAdjacentUser\bgABadgeView\src\main\assets"/><source path="E:\WorkSpace\AmuseAdjacentUser\bgABadgeView\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\WorkSpace\AmuseAdjacentUser\bgABadgeView\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="E:\WorkSpace\DouLin-YH-android\bgABadgeView\src\main\assets"/><source path="E:\WorkSpace\DouLin-YH-android\bgABadgeView\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\WorkSpace\DouLin-YH-android\bgABadgeView\src\debug\assets"/></dataSet></merger>

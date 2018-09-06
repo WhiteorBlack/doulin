@@ -40,9 +40,9 @@ object abLog {
                 while (i < text.length) {
                     count++
                     if (i + 4000 < text.length) {
-                        Log.e(MyApplication.CONTEXT.javaClass.simpleName + count, text.substring(i, i + 4000))
+                        Log.e(MyApplication.CONTEXT.javaClass.simpleName +"TAG"+ count, text.substring(i, i + 4000))
                     } else {
-                        Log.e(MyApplication.CONTEXT.javaClass.simpleName + count, text.substring(i, text.length))
+                        Log.e(MyApplication.CONTEXT.javaClass.simpleName +"TAG"+ count, text.substring(i, text.length))
                     }
                     i += 4000
                 }

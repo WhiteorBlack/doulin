@@ -28,12 +28,8 @@ public class MyApplication extends MultiDexApplication {
 
     private static MyApplication myApplication;
 
-    public static String uid;//
-
-
-//String json = "{\"cmd\":\"getMsg\"" + "}";
-// String json = "{\"cmd\":\"upPrize\",\"prizeId\":\"" + prizeId  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}";
-
+//val json = "{\"cmd\":\"getMsg\"" + "}";
+// val json = "{\"cmd\":\"upPrize\",\"prizeId\":\"" + prizeId  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}";
 
     public static String CameraPath = Environment.getExternalStorageDirectory().getPath() + "/带路圈/";
 
@@ -56,6 +52,8 @@ public class MyApplication extends MultiDexApplication {
         myApplication = this;
 
         abLog.INSTANCE.setE(true);
+//        JPushInterface.init(this);
+//        JPushInterface.setDebugMode(false);// 设置开启日志,发布时请关闭日志
 
         ImageLoaderUtil.configImageLoader(CONTEXT);
         com.nostra13.universalimageloader.utils.L.disableLogging();
