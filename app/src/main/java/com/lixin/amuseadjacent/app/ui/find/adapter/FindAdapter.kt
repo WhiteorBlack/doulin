@@ -4,8 +4,10 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.lixin.amuseadjacent.R
 
 /**
@@ -27,6 +29,7 @@ class FindAdapter(val context: Context) : RecyclerView.Adapter<FindAdapter.ViewH
         if(position%2==0){
             holder.cl_1.visibility=View.GONE
             holder.cl_2.visibility=View.VISIBLE
+            holder.tv_info.visibility=View.GONE
         }else{
             holder.cl_1.visibility=View.VISIBLE
             holder.cl_2.visibility=View.GONE
@@ -37,6 +40,8 @@ class FindAdapter(val context: Context) : RecyclerView.Adapter<FindAdapter.ViewH
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cl_1 = view.findViewById<ConstraintLayout>(R.id.cl_1)
         val cl_2 = view.findViewById<ConstraintLayout>(R.id.cl_2)
+
+        val tv_info=view.findViewById<TextView>(R.id.tv_info)
     }
 
 }
