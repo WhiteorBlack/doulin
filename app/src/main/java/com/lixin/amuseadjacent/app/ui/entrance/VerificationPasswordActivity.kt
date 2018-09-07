@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.entrance
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -77,7 +78,7 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 VCode = timerUtil!!.num
-                SMSVerificationCode.sendSMS(this,phone, VCode!!)
+                SMSVerificationCode.sendSMS(this, phone, VCode!!)
                 timerUtil!!.timersStart()
             }
             R.id.iv_back -> {
@@ -114,10 +115,10 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
         view_verifi.visibility = View.VISIBLE
         et_verifi.visibility = View.VISIBLE
         tv_verification.setTextColor(resources.getColor(R.color.white))
-        view_left.setBackgroundColor(resources.getColor(R.color.white))
+        view_left.visibility = View.VISIBLE
 
-        tv_pass.setTextColor(resources.getColor(R.color.colorItemBackground))
-        view_right.setBackgroundColor(resources.getColor(R.color.colorItemBackground))
+        tv_pass.setTextColor(Color.parseColor("#a0ffffff"))
+        view_right.visibility = View.INVISIBLE
         et_pass.visibility = View.GONE
         tv_forgetpass.visibility = View.GONE
     }
@@ -127,17 +128,13 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
         tv_code.visibility = View.GONE
         view_verifi.visibility = View.GONE
         et_verifi.visibility = View.GONE
-        tv_verification.setTextColor(resources.getColor(R.color.colorItemBackground))
-        view_left.setBackgroundColor(resources.getColor(R.color.colorItemBackground))
+        tv_verification.setTextColor(Color.parseColor("#a0ffffff"))
+        view_left.visibility = View.INVISIBLE
 
         tv_pass.setTextColor(resources.getColor(R.color.white))
-        view_right.setBackgroundColor(resources.getColor(R.color.white))
+        view_right.visibility = View.VISIBLE
         et_pass.visibility = View.VISIBLE
         tv_forgetpass.visibility = View.VISIBLE
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 

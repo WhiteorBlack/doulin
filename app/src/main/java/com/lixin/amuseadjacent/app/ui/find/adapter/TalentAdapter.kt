@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.support.v7.widget.RecyclerView
@@ -34,7 +35,10 @@ class TalentAdapter(val context: Context) : RecyclerView.Adapter<TalentAdapter.V
             ToastUtil.showToast("对话")
         }
         holder.itemView.setOnClickListener { v ->
-            MyApplication.openActivity(context, PersonalHomePageActivity::class.java)
+            val bundle=Bundle()
+            bundle.putInt("flag",1)
+            bundle.putString("auid","")
+            MyApplication.openActivity(context, PersonalHomePageActivity::class.java,bundle)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.service.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,7 @@ class LaundryMenuAdapter(val context: Context) : RecyclerView.Adapter<LaundryMen
                 holder.text.setTextColor(context.resources.getColor(R.color.white))
                 holder.text.setBackgroundResource(R.drawable.bg_them30)
             } else {
-                holder.text.setTextColor(context.resources.getColor(R.color.black))
+                holder.text.setTextColor(Color.parseColor("#333333"))
                 holder.text.setBackgroundResource(R.drawable.bg_white30)
             }
         }

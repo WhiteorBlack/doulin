@@ -1,8 +1,9 @@
-package com.lixin.amuseadjacent.app.ui.view;
+package com.lixin.amuseadjacent.app.view;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -43,6 +44,23 @@ public class CustomViewPager extends ViewPager {
         //    return true;
         //}
         return super.canScroll(v, checkV, dx, x, y);
+    }
+
+    private boolean result = false;
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent arg0) {
+        if (result)
+            return super.onInterceptTouchEvent(arg0);
+        else
+            return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent arg0) {
+        if (result)
+            return super.onTouchEvent(arg0);
+        else
+            return false;
     }
 
 }

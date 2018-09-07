@@ -90,7 +90,6 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
         banner = headerView!!.findViewById(R.id.banner)
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
-                .setBannerStyle(BannerConfig.NOT_INDICATOR)
                 .start()
     }
 

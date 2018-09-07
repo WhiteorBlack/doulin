@@ -20,16 +20,11 @@ public class PostFormBuilder extends OkHttpRequestBuilder<PostFormBuilder> imple
         return new PostFormRequest(url, tag, params, headers, files, id).build();
     }
 
-    public PostFormBuilder files(String key, Map<String, File> files) {
-        for (String filename : files.keySet()) {
-            this.files.add(new FileInput(key, filename, files.get(filename)));
-        }
-        return this;
-    }
 
-    public PostFormBuilder files(String key, File[] files) {
-        for (int i = 0; i < files.length; i++) {
-            this.files.add(new FileInput(key, files[i].getName(), files[i]));
+
+    public PostFormBuilder files(String key, ArrayList<File> files) {
+        for (File filename : files) {
+            this.files.add(new FileInput(key, filename.getName(), filename));
         }
         return this;
     }

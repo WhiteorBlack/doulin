@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     app:cardCornerRadius="4dp"
-    app:cardElevation="2dp">
+    app:cardElevation="0.75dp">
 
     <!--添加好友-->
 
@@ -79,7 +79,7 @@
             android:id="@+id/tv_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_them8"
+            android:background="@drawable/bg_them30"
             android:drawableLeft="@drawable/ic_add"
             android:drawablePadding="5dp"
             android:layout_marginTop="5dp"

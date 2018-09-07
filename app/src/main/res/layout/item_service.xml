@@ -36,9 +36,9 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="8dp"
-            android:text="苹果10元、个"
+            android:text="国产香蕉8.66元/6根"
             android:textColor="@color/colorTabText"
-            android:textSize="@dimen/sub_fant"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />

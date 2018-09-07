@@ -25,6 +25,8 @@ class MyAlbumActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback {
     private var imageList = ArrayList<LocalMedia>()
     private var albumAdapter: AlbumAdapter? = null
 
+    private var ishowDel =false// 不显示删除， 显示删除
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.xrecyclerview)
@@ -36,16 +38,25 @@ class MyAlbumActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback {
         inittitle("我的相册")
         StatusBarWhiteColor()
 
-        tv_right.visibility= View.VISIBLE
+        tv_right.visibility = View.VISIBLE
         tv_right.text = "编辑"
-        tv_right.setOnClickListener { v-> }
+        tv_right.setOnClickListener { v ->
+            ishowDel = !ishowDel
+            albumAdapter!!.setDelShow(ishowDel)
+            if(ishowDel){
+                tv_right.text="完成"
+            }else{
+                tv_right.text="编辑"
+            }
+        }
 
         val gridLayoutManager = GridLayoutManager(this, 4)
         xrecyclerview.layoutManager = gridLayoutManager
 
         imageList.add(LocalMedia())
-        albumAdapter = AlbumAdapter(this, imageList, maxNum, null)
+        albumAdapter = AlbumAdapter(this, imageList, maxNum, this)
         xrecyclerview.adapter = albumAdapter
+        albumAdapter!!.setDelShow(ishowDel)
     }
 
     /**

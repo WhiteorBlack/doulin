@@ -533,4 +533,17 @@ public class AbStrUtil {
 
     }
 
+    public static void setDrawableRight(Context context, int id, TextView tv, int DrawablePaddin) {
+        if (id != -1) {
+            Drawable nav_up = context.getResources().getDrawable(id);
+            nav_up.setBounds(0, 0, nav_up.getMinimumWidth(), nav_up.getMinimumHeight());
+            tv.setCompoundDrawablePadding(DrawablePaddin);
+
+            tv.setCompoundDrawables(null, null, nav_up, null);
+        } else {
+            tv.setCompoundDrawables(null, null, null, null);
+        }
+
+    }
+
 }

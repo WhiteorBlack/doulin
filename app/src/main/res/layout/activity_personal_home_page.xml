@@ -152,7 +152,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="6dp"
                         android:layout_marginTop="10dp"
-                        android:background="@color/colorLine"
+                        android:background="@color/gray2"
                         app:layout_constraintTop_toBottomOf="@+id/iv_header" />
 
                 </android.support.constraint.ConstraintLayout>
@@ -173,7 +173,7 @@
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorTheme"
                 app:tabTextAppearance="@style/TabLayoutTextStyle"
-                app:tabTextColor="@color/colorBlack" />
+                app:tabTextColor="#999999" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -194,7 +194,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true">
 
         <include

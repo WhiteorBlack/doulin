@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.message.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -32,13 +33,15 @@ class SearchActivity : BaseActivity() {
             val tv = LayoutInflater.from(this).inflate(
                     R.layout.layout_flow_textview, flowLayout, false) as TextView
             tv.text = "洛克贝尔" + i.toString()
-            tv.setTextColor(resources.getColor(R.color.colorBlack))
+            tv.setTextColor(Color.parseColor("#666666"))
             tv.setOnClickListener {
 
             }
             flowLayout.addView(tv)
         }
-
+        tv_cancel.setOnClickListener { v->
+            finish()
+        }
 
 
         et_search.setOnEditorActionListener(TextView.OnEditorActionListener { p0, p1, p2 ->

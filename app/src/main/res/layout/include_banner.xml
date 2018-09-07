@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="wrap_content">
 
     <!--
@@ -14,11 +15,20 @@
         android:layout_width="match_parent"
         android:layout_height="155dp"
         app:image_scale_type="center_crop"
-        app:indicator_height="7dp"
-        app:indicator_margin="3dp"
-        app:indicator_width="7dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         app:is_auto_play="true"
+
+        app:indicator_drawable_selected="@drawable/ic_indicator_hl"
+        app:indicator_drawable_unselected="@drawable/ic_indicator_nor"
+        app:indicator_height="3dp"
+        app:indicator_margin="4dp"
+        app:indicator_width="14dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+
 </FrameLayout>

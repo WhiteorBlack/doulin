@@ -32,6 +32,8 @@ class BankCardActivity : BaseActivity() {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         xrecyclerview.layoutManager = linearLayoutManager
 
+
+
         bankAdapter = BankCardAdapter(this)
         xrecyclerview.adapter = bankAdapter
 
@@ -40,10 +42,6 @@ class BankCardActivity : BaseActivity() {
         bankAdapter!!.notifyDataSetChanged()
         xrecyclerview.scheduleLayoutAnimation()
 
-        tv_bottom.visibility = View.VISIBLE
-        tv_bottom.setOnClickListener { v ->
-            MyApplication.openActivity(this,BankCardAddActivity::class.java)
-        }
     }
 
 

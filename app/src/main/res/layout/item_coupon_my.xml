@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="18dp"
             android:text="￥"
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/sub_fant"
@@ -50,7 +50,7 @@
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="12dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="无现金门槛"
@@ -77,6 +77,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_money"
             app:layout_constraintStart_toEndOf="@+id/tv_money"
             app:layout_constraintTop_toTopOf="@+id/tv_money" />
+
+
 
         <TextView
             android:id="@+id/tv_tongyong"
@@ -173,6 +175,21 @@
             android:src="@drawable/half_circular_with"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text" />
+
+
+        <View
+            android:id="@+id/line_dotted"
+            android:layout_width="100dp"
+            android:layout_height="5dp"
+            android:background="@drawable/dotted_line"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="5dp"
+            android:rotation="90"
+            app:layout_constraintBottom_toTopOf="@+id/tv_info"
+            app:layout_constraintEnd_toStartOf="@+id/tv_time"
+            app:layout_constraintStart_toEndOf="@+id/text"
+            app:layout_constraintTop_toTopOf="parent"
+        />
 
 
     </android.support.constraint.ConstraintLayout>

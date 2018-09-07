@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:layout_margin="6dp"
     app:cardCornerRadius="4dp"
-    app:cardElevation="5dp">
+    app:cardElevation="0.75dp">
 
     <!--专区-->
 

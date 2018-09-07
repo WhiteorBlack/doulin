@@ -31,6 +31,8 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
     private var flag = -1//0只展示图片显示不删除，“加号”不选择图片，只跳转
     private var imageList: ArrayList<HomePageModel.albumModel>? = null
 
+    private var isShowDel = true
+
     interface ImageRemoveCallback {
         fun imageRemove(i: Int)
     }
@@ -45,7 +47,7 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
 
         if (position == list.size - 1) {
             holder.image.setImageResource(R.drawable.ic_add2)
-            holder.image.scaleType = ImageView.ScaleType.CENTER_INSIDE
+            holder.image.scaleType = ImageView.ScaleType.CENTER
             holder.iv_del.visibility = View.GONE
             holder.image.setOnClickListener { v ->
                 if (flag == 0) {
@@ -61,7 +63,11 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
                 val bitmap = ImageFileUtil.getBitmapFromPath(list[position].compressPath)//压缩的路径
                 holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
                 if (flag == -1) {
-                    holder.iv_del.visibility = View.VISIBLE
+                    if (isShowDel) {
+                        holder.iv_del.visibility = View.VISIBLE
+                    } else {
+                        holder.iv_del.visibility = View.GONE
+                    }
                 }
                 holder.image.setImageBitmap(bitmap)
             } else {
@@ -100,6 +106,11 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
     fun setFlag(flag: Int, imageList: ArrayList<HomePageModel.albumModel>) {
         this.flag = flag
         this.imageList!!.addAll(imageList)
+        notifyDataSetChanged()
+    }
+
+    fun setDelShow(isShow:Boolean) {
+        isShowDel=isShow
         notifyDataSetChanged()
     }
 

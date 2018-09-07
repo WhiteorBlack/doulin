@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -30,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:text="百果园"
             android:textColor="@color/black"
             android:textSize="@dimen/main_fant"
@@ -56,10 +57,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
             android:text="人均"
             android:textColor="@color/colorTabText"
-            android:textSize="11sp"
+            android:textSize="9sp"
             app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintStart_toEndOf="@+id/image" />
 
@@ -67,11 +67,11 @@
             android:id="@+id/tv_meony"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="8dp"
             android:text="￥50"
             android:textColor="@color/red"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintBottom_toBottomOf="@+id/money"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintStart_toEndOf="@+id/money" />
 
     </android.support.constraint.ConstraintLayout>

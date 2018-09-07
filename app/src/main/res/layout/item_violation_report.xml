@@ -35,7 +35,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="举报内容"
-            android:textColor="@color/black"
+            android:textColor="#ff000000"
             android:textSize="@dimen/main_fant"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="@+id/image" />
@@ -48,7 +48,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:text="举报详情"
-            android:textColor="@color/colorTabText"
+            android:textColor="#ff666666"
             android:textSize="11sp"
             app:layout_constraintEnd_toStartOf="@+id/tv_time"
             app:layout_constraintStart_toEndOf="@+id/image"
@@ -61,7 +61,7 @@
             android:layout_marginBottom="8dp"
             android:text="已举报"
             android:textColor="@color/colorTheme"
-            android:textSize="@dimen/main_fant"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_name"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -71,8 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="2018.08.23"
-            android:textColor="@color/colorTabText"
-            android:textSize="@dimen/sub_fant"
+            android:textColor="#ff666666"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_result" />
 

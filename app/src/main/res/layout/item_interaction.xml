@@ -28,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="圆即是一"
-                android:textColor="@color/colorTabText"
+                android:textColor="#ff000000"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:text="xxx游"
-                android:textColor="@color/black"
+                android:textColor="#ff000000"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintStart_toEndOf="@+id/image2"
                 app:layout_constraintTop_toTopOf="@+id/image2" />

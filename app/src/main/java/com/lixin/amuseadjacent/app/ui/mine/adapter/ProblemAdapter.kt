@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
+import com.lixin.amuseadjacent.app.util.AbStrUtil
 
 /**
  * 常见问题
@@ -34,13 +35,17 @@ class ProblemAdapter(val context: Context) : RecyclerView.Adapter<ProblemAdapter
         holder.text.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putInt("flag", 1)
-            MyApplication.openActivity(context, WebViewActivity::class.java,bundle)
+            MyApplication.openActivity(context, WebViewActivity::class.java, bundle)
         }
     }
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val text = view.findViewById<TextView>(R.id.text)
+
+        init {
+            AbStrUtil.setDrawableRight(context, R.drawable.ic_right, text, 0)
+        }
 
     }
 

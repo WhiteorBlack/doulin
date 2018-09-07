@@ -68,7 +68,7 @@
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@color/colorLine"
+                android:background="@color/gray2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_type" />
 
             <TextView
@@ -254,7 +254,7 @@
                 android:id="@+id/line2"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@color/colorLine"
+                android:background="@color/gray2"
                 app:layout_constraintTop_toBottomOf="@+id/cost" />
 
             <TextView
@@ -344,7 +344,7 @@
                 android:id="@+id/line3"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@color/colorLine"
+                android:background="@color/gray2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_zan" />
 
 

@@ -18,6 +18,9 @@ import kotlinx.android.synthetic.main.fragment_mail.*
  * Created by Slingge on 2018/8/16
  */
 class MailFragment : BaseFragment() {
+    override fun loadData() {
+
+    }
 
     private var flag = -1
 
@@ -25,7 +28,7 @@ class MailFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_mail, container, false)
-        init()
+
         return view
     }
 
@@ -34,16 +37,12 @@ class MailFragment : BaseFragment() {
         val linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_mail.layoutManager = linearLayoutManager
-
+        init()
     }
 
     private fun init() {
         flag = arguments!!.getInt("flag")
 
-    }
-
-
-    override fun loadData() {
         ToastUtil.showToast(flag.toString())
 
         mailAdapter = MailAdapter(activity!!,flag)
@@ -54,6 +53,7 @@ class MailFragment : BaseFragment() {
         mailAdapter!!.notifyDataSetChanged()
         rv_mail.scheduleLayoutAnimation()
     }
+
 
 
 }

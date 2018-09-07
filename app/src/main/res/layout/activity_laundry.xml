@@ -52,8 +52,6 @@
                         layout="@layout/include_banner"
                         android:layout_width="match_parent"
                         android:layout_height="155dp"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/include" />
@@ -77,15 +75,16 @@
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorTheme"
                 app:tabTextAppearance="@style/TabLayoutTextStyle"
-                app:tabTextColor="@color/colorBlack" />
+                app:tabTextColor="#999999" />
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_menu"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:paddingLeft="12dp"
+            android:background="@color/gray2"
             android:paddingRight="12dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +96,7 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -111,6 +110,8 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white">
+
+        <include layout="@layout/include_line"/>
 
         <ImageView
             android:id="@+id/iv_car"
@@ -146,7 +147,7 @@
         <TextView
             android:id="@+id/tv_settlement"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="49dp"
             android:layout_alignParentRight="true"
             android:background="@color/colorTheme"
             android:gravity="center"

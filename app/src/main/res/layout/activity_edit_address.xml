@@ -129,6 +129,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line5" />
 
+    <View
+        android:id="@+id/line5_5"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address" />
+
+
     <TextView
         android:id="@+id/tv_default"
         android:layout_width="match_parent"
@@ -141,7 +151,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address" />
+        app:layout_constraintTop_toBottomOf="@+id/line5_5" />
 
 
     <com.lixin.amuseadjacent.app.view.SwitchView

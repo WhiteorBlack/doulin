@@ -76,7 +76,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
-                .setBannerStyle(BannerConfig.NOT_INDICATOR)
+
                 .start()
 
     }

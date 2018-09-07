@@ -12,6 +12,6 @@
     android:paddingRight="10dp"
     android:paddingTop="3dp"
     android:text="面约"
-    android:textColor="@color/colorTabText"
+    android:textColor="#666666"
     android:textSize="@dimen/sub_fant" />
 

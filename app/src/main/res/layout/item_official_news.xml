@@ -24,7 +24,7 @@
             android:layout_height="175dp"
             android:maxHeight="175dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_dyna" />
 
         <TextView
             android:id="@+id/tv_info"

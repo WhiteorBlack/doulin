@@ -44,35 +44,106 @@
         android:id="@+id/fal_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fl_back"
-        android:background="@color/white">
+        app:layout_constraintTop_toBottomOf="@+id/fl_back">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab"
             android:layout_width="wrap_content"
+            android:visibility="invisible"
             android:layout_height="45dp"
-            android:background="@color/colorWhite"
             android:layout_gravity="center_horizontal"
+            android:background="@color/colorWhite"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:tabIndicatorColor="@color/colorTheme"
             app:tabIndicatorHeight="@dimen/tabIndicatorHeight"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/colorTheme"
             app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabTextColor="@color/colorBlack" />
+            app:tabTextColor="#999999" />
     </FrameLayout>
 
 
-    <android.support.v4.view.ViewPager
+    <TextView
+        android:id="@+id/tv_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="关注"
+        android:textColor="#999999"
+        android:textSize="@dimen/main_fant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fl_back" />
+
+    <TextView
+        android:id="@+id/tv_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="好友"
+        android:textColor="@color/colorTheme"
+        android:textSize="@dimen/main_fant"
+        app:layout_constraintEnd_toStartOf="@+id/tv_follow"
+        app:layout_constraintTop_toBottomOf="@+id/fl_back" />
+
+    <TextView
+        android:id="@+id/tv_fans"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="粉丝"
+        android:textColor="#999999"
+        android:textSize="@dimen/main_fant"
+        app:layout_constraintStart_toEndOf="@+id/tv_follow"
+        app:layout_constraintTop_toBottomOf="@+id/fl_back" />
+
+    <View
+        android:id="@+id/line_follow"
+        android:layout_width="30dp"
+        android:layout_height="2dp"
+        android:visibility="invisible"
+        android:background="@color/colorTheme"
+        app:layout_constraintEnd_toStartOf="@+id/tv_follow"
+        app:layout_constraintStart_toEndOf="@+id/tv_follow"
+        app:layout_constraintTop_toBottomOf="@+id/tv_friend" />
+
+    <View
+        android:id="@+id/line_friend"
+        android:layout_width="30dp"
+        android:layout_height="2dp"
+        android:background="@color/colorTheme"
+        app:layout_constraintEnd_toStartOf="@+id/tv_friend"
+        app:layout_constraintStart_toEndOf="@+id/tv_friend"
+        app:layout_constraintTop_toBottomOf="@+id/tv_friend" />
+
+    <View
+        android:id="@+id/line_fans"
+        android:layout_width="30dp"
+        android:layout_height="2dp"
+        android:visibility="invisible"
+        android:background="@color/colorTheme"
+        app:layout_constraintEnd_toStartOf="@+id/tv_fans"
+        app:layout_constraintStart_toEndOf="@+id/tv_fans"
+        app:layout_constraintTop_toBottomOf="@+id/tv_friend" />
+
+
+    <com.lixin.amuseadjacent.app.view.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fal_tab" />
+        app:layout_constraintTop_toBottomOf="@+id/line_follow" />
 
 
 </android.support.constraint.ConstraintLayout>

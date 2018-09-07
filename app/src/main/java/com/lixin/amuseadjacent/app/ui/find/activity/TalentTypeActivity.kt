@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -90,21 +91,21 @@ class TalentTypeActivity : BaseActivity() {
 
     private fun cleanTextColor1() {
         for (i in skillTvList.indices) {
-            skillTvList[i].setTextColor(resources.getColor(R.color.colorBlack))
+            skillTvList[i].setTextColor(Color.parseColor("#ff333333"))
             skillTvList[i].setBackgroundResource(R.drawable.bg_gray3)
         }
     }
 
     private fun cleanTextColor2() {
         for (i in skillTvList.indices) {
-            occupationTvList[i].setTextColor(resources.getColor(R.color.colorBlack))
+            occupationTvList[i].setTextColor(Color.parseColor("#ff333333"))
             occupationTvList[i].setBackgroundResource(R.drawable.bg_gray3)
         }
     }
 
     private fun cleanTextColor3() {
         for (i in skillTvList.indices) {
-            businessTvList[i].setTextColor(resources.getColor(R.color.colorBlack))
+            businessTvList[i].setTextColor(Color.parseColor("#ff333333"))
             businessTvList[i].setBackgroundResource(R.drawable.bg_gray3)
         }
     }

@@ -276,7 +276,7 @@
                 android:layout_marginTop="10dp"
                 android:text="上传身份证正面照"
                 android:textColor="@color/black"
-                android:textSize="@dimen/main_fant"
+                android:textSize="@dimen/sub_fant"
                 app:layout_constraintEnd_toEndOf="@+id/iv_just"
                 app:layout_constraintStart_toStartOf="@+id/iv_just"
                 app:layout_constraintTop_toBottomOf="@+id/iv_just" />
@@ -289,7 +289,7 @@
                 android:layout_marginTop="10dp"
                 android:text="上传身份证反面照"
                 android:textColor="@color/black"
-                android:textSize="@dimen/main_fant"
+                android:textSize="@dimen/sub_fant"
                 app:layout_constraintEnd_toEndOf="@+id/iv_back"
                 app:layout_constraintStart_toStartOf="@+id/iv_back"
                 app:layout_constraintTop_toBottomOf="@+id/iv_just" />
