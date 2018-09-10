@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.util.ToPreviewPhoto
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.lxkj.runproject.app.view.SquareImage
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -29,6 +30,10 @@ class ImageAdapter(val context: Context, val list: ArrayList<String>) : Recycler
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         ImageLoader.getInstance().displayImage(list[position], holder.image)
+
+        holder.image.setOnClickListener { v ->
+            ToPreviewPhoto.toPhoto(context, list, position)
+        }
 
     }
 
