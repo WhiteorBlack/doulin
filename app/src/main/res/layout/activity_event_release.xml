@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/gray2"
     android:layout_height="match_parent"
+    android:background="@color/gray2"
     android:orientation="vertical">
 
     <!--活动发布-->
@@ -19,6 +19,14 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/gray2"
+                android:id="@+id/view_bg"
+                />
+
 
             <TextView
                 android:id="@+id/title"

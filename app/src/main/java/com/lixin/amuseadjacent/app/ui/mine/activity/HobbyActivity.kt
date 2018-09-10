@@ -7,14 +7,14 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.mine.model.HomePageModel
 import kotlinx.android.synthetic.main.activity_hobby.*
 
 /**
  * 兴趣爱好
  * Created by Slingge on 2018/9/1
  */
-class HobbyActivity : BaseActivity() ,View.OnClickListener{
-
+class HobbyActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,82 +34,118 @@ class HobbyActivity : BaseActivity() ,View.OnClickListener{
         edit_film.setOnClickListener(this)
         edit_book.setOnClickListener(this)
 
-        for (i in 0 until 1) {
+        val pageModel = intent.getSerializableExtra("model") as HomePageModel
+
+        if (pageModel.sportList.isEmpty()) {
             val tv = LayoutInflater.from(this).inflate(
                     R.layout.layout_flow_talent_type, ll_main, false) as TextView
-            tv.text = "运动" + i.toString()
-            tv.setTextColor(resources.getColor(R.color.white))
-            tv.setBackgroundResource(R.drawable.bg_hobby_sport)
-//            tv.visibility= View.INVISIBLE
+            tv.visibility = View.INVISIBLE
             fl_sport.addView(tv)
+        } else {
+            for (i in 0 until pageModel.sportList.size) {
+                val tv = LayoutInflater.from(this).inflate(
+                        R.layout.layout_flow_talent_type, ll_main, false) as TextView
+                tv.text = pageModel.sportList[i]
+                tv.setTextColor(resources.getColor(R.color.white))
+                tv.setBackgroundResource(R.drawable.bg_hobby_sport)
+                fl_sport.addView(tv)
+            }
         }
 
-        for (i in 0 until 1) {
+
+        if (pageModel.musicList.isEmpty()) {
             val tv = LayoutInflater.from(this).inflate(
                     R.layout.layout_flow_talent_type, ll_main, false) as TextView
-            tv.text = "音乐" + i.toString()
-            tv.setTextColor(resources.getColor(R.color.white))
-            tv.setBackgroundResource(R.drawable.bg_hobby_music)
-//            tv.visibility= View.INVISIBLE
+            tv.visibility = View.INVISIBLE
             fl_music.addView(tv)
-        }
-        for (i in 0 until 1) {
-            val tv = LayoutInflater.from(this).inflate(
-                    R.layout.layout_flow_talent_type, ll_main, false) as TextView
-            tv.text = "美食" + i.toString()
-            tv.setTextColor(resources.getColor(R.color.white))
-            tv.setBackgroundResource(R.drawable.bg_hobby_food)
-//            tv.visibility= View.INVISIBLE
-            fl_food.addView(tv)
-        }
-        for (i in 0 until 10) {
-            val tv = LayoutInflater.from(this).inflate(
-                    R.layout.layout_flow_talent_type, ll_main, false) as TextView
-            tv.text = "电影" + i.toString()
-            tv.setTextColor(resources.getColor(R.color.white))
-            tv.setBackgroundResource(R.drawable.bg_hobby_film)
-//            tv.visibility= View.INVISIBLE
-            fl_film.addView(tv)
+        } else {
+            for (i in 0 until pageModel.musicList.size) {
+                val tv = LayoutInflater.from(this).inflate(
+                        R.layout.layout_flow_talent_type, ll_main, false) as TextView
+                tv.text = pageModel.musicList[i]
+                tv.setTextColor(resources.getColor(R.color.white))
+                tv.setBackgroundResource(R.drawable.bg_hobby_music)
+                fl_music.addView(tv)
+            }
         }
 
-        for (i in 0 until 10) {
+
+        if (pageModel.foodsList.isEmpty()) {
             val tv = LayoutInflater.from(this).inflate(
                     R.layout.layout_flow_talent_type, ll_main, false) as TextView
-            tv.text = "书籍" + i.toString()
-            tv.setTextColor(resources.getColor(R.color.white))
-            tv.setBackgroundResource(R.drawable.bg_hobby_book)
-//            tv.visibility= View.INVISIBLE
+            tv.visibility = View.INVISIBLE
+            fl_food.addView(tv)
+        } else {
+            for (i in 0 until pageModel.foodsList.size) {
+                val tv = LayoutInflater.from(this).inflate(
+                        R.layout.layout_flow_talent_type, ll_main, false) as TextView
+                tv.text = pageModel.foodsList[i]
+                tv.setTextColor(resources.getColor(R.color.white))
+                tv.setBackgroundResource(R.drawable.bg_hobby_food)
+                fl_food.addView(tv)
+            }
+        }
+
+        if (pageModel.movieList.isEmpty()) {
+            val tv = LayoutInflater.from(this).inflate(
+                    R.layout.layout_flow_talent_type, ll_main, false) as TextView
+            tv.visibility = View.INVISIBLE
+            fl_film.addView(tv)
+        } else {
+            for (i in 0 until pageModel.movieList.size) {
+                val tv = LayoutInflater.from(this).inflate(
+                        R.layout.layout_flow_talent_type, ll_main, false) as TextView
+                tv.text = pageModel.movieList[i]
+                tv.setTextColor(resources.getColor(R.color.white))
+                tv.setBackgroundResource(R.drawable.bg_hobby_film)
+                fl_film.addView(tv)
+            }
+        }
+
+        if (pageModel.booksList.isEmpty()) {
+            val tv = LayoutInflater.from(this).inflate(
+                    R.layout.layout_flow_talent_type, ll_main, false) as TextView
+            tv.visibility = View.INVISIBLE
             fl_book.addView(tv)
+        } else {
+            for (i in 0 until pageModel.booksList.size) {
+                val tv = LayoutInflater.from(this).inflate(
+                        R.layout.layout_flow_talent_type, ll_main, false) as TextView
+                tv.text = pageModel.booksList[i]
+                tv.setTextColor(resources.getColor(R.color.white))
+                tv.setBackgroundResource(R.drawable.bg_hobby_book)
+                fl_book.addView(tv)
+            }
         }
 
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
-            R.id.edit_sport->{
-                val bundle=Bundle()
-                bundle.putInt("flag",0)
-                MyApplication.openActivity(this,AddLabelActivity::class.java)
+        when (v!!.id) {
+            R.id.edit_sport -> {
+                val bundle = Bundle()
+                bundle.putInt("flag", 1)
+                MyApplication.openActivity(this, AddLabelActivity::class.java, bundle)
             }
-            R.id.edit_music->{
-                val bundle=Bundle()
-                bundle.putInt("flag",1)
-                MyApplication.openActivity(this,AddLabelActivity::class.java)
+            R.id.edit_music -> {
+                val bundle = Bundle()
+                bundle.putInt("flag", 2)
+                MyApplication.openActivity(this, AddLabelActivity::class.java, bundle)
             }
-            R.id.edit_food->{
-                val bundle=Bundle()
-                bundle.putInt("flag",2)
-                MyApplication.openActivity(this,AddLabelActivity::class.java)
+            R.id.edit_food -> {
+                val bundle = Bundle()
+                bundle.putInt("flag", 3)
+                MyApplication.openActivity(this, AddLabelActivity::class.java, bundle)
             }
-            R.id.edit_film->{
-                val bundle=Bundle()
-                bundle.putInt("flag",3)
-                MyApplication.openActivity(this,AddLabelActivity::class.java)
+            R.id.edit_film -> {
+                val bundle = Bundle()
+                bundle.putInt("flag", 4)
+                MyApplication.openActivity(this, AddLabelActivity::class.java, bundle)
             }
-            R.id.edit_book->{
-                val bundle=Bundle()
-                bundle.putInt("flag",4)
-                MyApplication.openActivity(this,AddLabelActivity::class.java)
+            R.id.edit_book -> {
+                val bundle = Bundle()
+                bundle.putInt("flag", 5)
+                MyApplication.openActivity(this, AddLabelActivity::class.java, bundle)
             }
         }
     }

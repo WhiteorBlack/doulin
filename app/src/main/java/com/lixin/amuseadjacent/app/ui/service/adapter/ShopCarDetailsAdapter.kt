@@ -60,6 +60,11 @@ class ShopCarDetailsAdapter(val context: Context) : RecyclerView.Adapter<ShopCar
             holder.num.text = NUM.toString()
         }
 
+
+        if(position==3){
+            holder.line2.visibility=View.INVISIBLE
+        }
+
     }
 
     fun setEdite(isEdit: Boolean) {
@@ -75,6 +80,9 @@ class ShopCarDetailsAdapter(val context: Context) : RecyclerView.Adapter<ShopCar
         val tv_plus = view.findViewById<TextView>(R.id.tv_plus)
         val num = view.findViewById<TextView>(R.id.num)
         val tv_reduce = view.findViewById<TextView>(R.id.tv_reduce)
+
+
+        val line2=view.findViewById<View>(R.id.line2)
     }
 
 

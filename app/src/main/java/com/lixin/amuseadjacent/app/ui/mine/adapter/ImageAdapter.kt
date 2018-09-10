@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.lxkj.runproject.app.view.SquareImage
 import com.nostra13.universalimageloader.core.ImageLoader
 

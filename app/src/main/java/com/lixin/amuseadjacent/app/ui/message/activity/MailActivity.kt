@@ -75,7 +75,6 @@ class MailActivity : BaseActivity(), View.OnClickListener {
 
         if (intent != null) {
             viewPager.currentItem = intent.getIntExtra("flag", 0)
-
         }
     }
 

@@ -25,7 +25,7 @@ class ProblemAdapter(val context: Context) : RecyclerView.Adapter<ProblemAdapter
     }
 
     override fun getItemCount(): Int {
-        return 13
+        return 5
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

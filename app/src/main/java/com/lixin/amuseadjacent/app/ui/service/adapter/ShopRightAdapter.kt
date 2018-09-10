@@ -32,6 +32,7 @@ class ShopRightAdapter(val context: Context) : RecyclerView.Adapter<ShopRightAda
         val rightAdapter2=ShopRightAdapter2(context)
         holder.rv_right.adapter=rightAdapter2
 
+        holder.tv_name.text=position.toString()
     }
 
 

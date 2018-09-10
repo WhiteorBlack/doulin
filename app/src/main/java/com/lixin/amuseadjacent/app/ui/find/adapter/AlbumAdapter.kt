@@ -6,15 +6,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.mine.activity.MyAlbumActivity
-import com.lixin.amuseadjacent.app.ui.mine.model.HomePageModel
 import com.lixin.amuseadjacent.app.util.ImageFileUtil
-import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
-
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
 import com.lxkj.runproject.app.view.SquareImage
@@ -29,7 +25,6 @@ import com.nostra13.universalimageloader.core.ImageLoader
 class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val maxNum: Int, val imageRemoveCallback: ImageRemoveCallback?) : RecyclerView.Adapter<AlbumAdapter.MyViewHolder>() {
 
     private var flag = -1//0只展示图片显示不删除，“加号”不选择图片，只跳转
-    private var imageList: ArrayList<HomePageModel.albumModel>? = null
 
     private var isShowDel = true
 
@@ -44,37 +39,35 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-
         if (position == list.size - 1) {
             holder.image.setImageResource(R.drawable.ic_add2)
-            holder.image.scaleType = ImageView.ScaleType.CENTER
+            holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
             holder.iv_del.visibility = View.GONE
             holder.image.setOnClickListener { v ->
                 if (flag == 0) {
                     val bundle = Bundle()
                     bundle.putSerializable("list", list)
-                    MyApplication.openActivity(context, MyAlbumActivity::class.java, bundle)
+                    MyApplication.openActivityForResult(context, MyAlbumActivity::class.java, bundle, 0)
                 } else {
                     SelectPictureUtil.selectPicture(context, maxNum - list.size + 1, 0, false)
                 }
             }
         } else {
-            if (imageList == null) {
-                val bitmap = ImageFileUtil.getBitmapFromPath(list[position].compressPath)//压缩的路径
-                holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
-                if (flag == -1) {
-                    if (isShowDel) {
-                        holder.iv_del.visibility = View.VISIBLE
-                    } else {
-                        holder.iv_del.visibility = View.GONE
-                    }
-                }
-                holder.image.setImageBitmap(bitmap)
+            if (isShowDel) {
+                holder.iv_del.visibility = View.VISIBLE
             } else {
                 holder.iv_del.visibility = View.GONE
-                ImageLoader.getInstance().displayImage(imageList!![position].imgUrl, holder.image)
             }
 
+            if (!list[position].path.contains("http://")) {  //本地图片
+                val bitmap = ImageFileUtil.getBitmapFromPath(list[position].path)//压缩的路径
+                holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
+
+                holder.image.setImageBitmap(bitmap)
+            } else {//网络图片
+//                holder.iv_del.visibility = View.GONE
+                ImageLoader.getInstance().displayImage(list[position].path, holder.image)
+            }
         }
 
 
@@ -86,16 +79,11 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
 
 
     override fun getItemCount(): Int {
-        if (imageList == null) {
-            if (list.size - 1 == maxNum) {
-                return list.size - 1
-            } else {
-                return list.size
-            }
+        if (list.size - 1 == maxNum) {
+            return list.size - 1
         } else {
-            return imageList!!.size + 1
+            return list.size
         }
-
     }
 
     fun setFlag(flag: Int) {
@@ -103,14 +91,9 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
         notifyDataSetChanged()
     }
 
-    fun setFlag(flag: Int, imageList: ArrayList<HomePageModel.albumModel>) {
-        this.flag = flag
-        this.imageList!!.addAll(imageList)
-        notifyDataSetChanged()
-    }
 
-    fun setDelShow(isShow:Boolean) {
-        isShowDel=isShow
+    fun setDelShow(isShow: Boolean) {
+        isShowDel = isShow
         notifyDataSetChanged()
     }
 

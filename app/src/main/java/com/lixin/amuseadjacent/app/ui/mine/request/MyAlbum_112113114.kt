@@ -1,9 +1,13 @@
 package com.lixin.amuseadjacent.app.ui.mine.request
 
 import android.app.Activity
-import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import com.google.gson.Gson
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.util.ImageFileUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.abLog
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -15,7 +19,7 @@ import java.io.File
  * 上传我的相册，删除
  * Created by Slingge on 2018/9/6
  */
-object MyAlbum_112113 {
+object MyAlbum_112113114 {
 
     interface DelAlbumCallBacl {
         fun delAlbum(i: Int)
@@ -38,11 +42,17 @@ object MyAlbum_112113 {
     }
 
 
-    fun AddAlbum(context: Activity, imageList: List<LocalMedia>) {
+    fun AddAlbum(context: Activity, imageList: ArrayList<LocalMedia>) {
+        ProgressDialog.showDialog(context)
         val listfile = arrayListOf<File>() //map是无序集合尽量用list
+
+        abLog.e("上传相册", Gson().toJson(imageList))
+
         for (i in 0 until imageList.size - 1) {//图片路径集合
-            val file = ImageFileUtil.saveFilePath(imageList[i].path)//保存压缩
-            listfile.add(file)
+            if (!imageList[i].path.contains("http://")) {
+                val file = ImageFileUtil.saveFilePath(imageList[i].path)//保存压缩
+                listfile.add(file)
+            }
         }
 
         OkHttpUtils.post().url("http://39.107.106.122/wisdom/api/addAlbums").addParams("uid", StaticUtil.uid)
@@ -52,14 +62,37 @@ object MyAlbum_112113 {
                         val obj = JSONObject(response)
                         if (obj.getString("result") == "0") {
                             ToastUtil.showToast("上传成功")
-                            context.finish()
+                            setHeaderImage(imageList[0].pictureType, context, imageList)//设置第一张为头像
                         } else {
                             ToastUtil.showToast(obj.getString("resultNote"))
                         }
                     }
                 })
+    }
 
 
+    fun setHeaderImage(imgId: String, context: Activity, imageList: ArrayList<LocalMedia>) {
+        val json = "{\"cmd\":\"addImageIcon\",\"uid\":\"" + StaticUtil.uid + "\",\"imgId\":\"" + imgId + "\"}"
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val obj = JSONObject(response)
+                if (obj.getString("result") == "0") {
+
+                    StaticUtil.headerUrl=obj.getString("object")
+
+                    val bundle = Bundle()
+                    bundle.putParcelableArrayList("LocalMedia", imageList)
+                    val intent = Intent()
+                    intent.putExtras(bundle)
+                    context.setResult(0, intent)
+                    context.finish()
+                    abLog.e("设置为头像", response)
+                } else {
+                    ToastUtil.showToast(obj.getString("resultNote"))
+                }
+            }
+        })
     }
 
 

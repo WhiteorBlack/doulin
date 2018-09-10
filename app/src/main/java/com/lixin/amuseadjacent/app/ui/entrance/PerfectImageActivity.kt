@@ -1,6 +1,5 @@
 package com.lixin.amuseadjacent.app.ui.entrance
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -22,7 +21,6 @@ import com.luck.picture.lib.PictureSelector
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_perfect_image.*
-import kotlinx.android.synthetic.main.item_rule.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 

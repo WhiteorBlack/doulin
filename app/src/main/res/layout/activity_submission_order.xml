@@ -210,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:background="@drawable/bg_white8"
+                android:background="@drawable/bg_white_line3"
                 android:gravity="top|left"
                 android:hint="备注说明..."
                 android:minLines="5"

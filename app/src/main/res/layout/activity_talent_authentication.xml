@@ -129,7 +129,7 @@
                 android:singleLine="true"
                 android:text="达人类型"
                 android:textColor="@color/bule"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_info"
                 app:layout_constraintTop_toBottomOf="@+id/et_phone" />

@@ -2,16 +2,16 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/nsv"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <!--个人主页 资料-->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
 
         <TextView
@@ -21,7 +21,7 @@
             android:padding="12dp"
             android:text="签名"
             android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textSize="@dimen/main_fant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
             android:padding="12dp"
             android:text="信息"
             android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textSize="@dimen/main_fant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_autograph" />
 
@@ -100,22 +100,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:paddingTop="12dp"
             android:paddingLeft="12dp"
+            android:paddingTop="12dp"
             android:text="标签"
             android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textSize="@dimen/main_fant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_industry" />
 
-        <android.support.v7.widget.RecyclerView
+        <com.lixin.amuseadjacent.app.view.FlowLayout
             android:id="@+id/rv_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="36dp"
-            android:minHeight="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="24dp"
+            android:layout_marginTop="6dp"
+            android:minHeight="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivv_label"
             app:layout_constraintTop_toBottomOf="@+id/label" />
@@ -123,13 +123,13 @@
 
         <ImageView
             android:id="@+id/ivv_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginLeft="24dp"
+            android:layout_marginTop="12dp"
             android:src="@drawable/ic_label"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_label"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rv_label" />
+            app:layout_constraintTop_toBottomOf="@+id/label" />
 
 
         <TextView
@@ -137,58 +137,63 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:padding="12dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="12dp"
             android:text="兴趣"
             android:textColor="@color/black"
-            android:textSize="17sp"
+            android:textSize="@dimen/main_fant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rv_label" />
 
 
         <ImageView
             android:id="@+id/tv_interest1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/ic_interest1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Interest" />
 
+
         <com.lixin.amuseadjacent.app.view.FlowLayout
             android:id="@+id/fl_sport"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="24dp"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_interest1"
             app:layout_constraintTop_toBottomOf="@+id/Interest" />
 
+
         <ImageView
             android:id="@+id/tv_interest2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginLeft="24dp"
+            android:layout_marginTop="12dp"
             android:src="@drawable/ic_interest2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fl_sport" />
 
-        <com.lixin.amuseadjacent.app.view.FlowLayout
+            <com.lixin.amuseadjacent.app.view.FlowLayout
             android:id="@+id/fl_music"
             android:layout_width="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="30dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/fl_sport"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_interest2" />
+            app:layout_constraintStart_toEndOf="@+id/tv_interest2"
+            app:layout_constraintTop_toBottomOf="@+id/fl_sport" />
 
         <ImageView
             android:id="@+id/tv_interest3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/ic_interest3"
@@ -198,18 +203,19 @@
         <com.lixin.amuseadjacent.app.view.FlowLayout
             android:id="@+id/fl_food"
             android:layout_width="0dp"
-            android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/fl_music"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_interest3" />
+            app:layout_constraintStart_toEndOf="@+id/tv_interest3"
+            app:layout_constraintTop_toBottomOf="@+id/fl_music" />
 
 
         <ImageView
             android:id="@+id/tv_interest4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/ic_interest4"
@@ -218,19 +224,20 @@
 
         <com.lixin.amuseadjacent.app.view.FlowLayout
             android:id="@+id/fl_video"
+            android:layout_marginLeft="30dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="24dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/fl_food"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_interest4" />
+            app:layout_constraintStart_toEndOf="@+id/tv_interest4"
+            app:layout_constraintTop_toBottomOf="@+id/fl_food" />
 
 
         <ImageView
             android:id="@+id/tv_interest5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/ic_interest5"
@@ -241,12 +248,12 @@
             android:id="@+id/fl_book"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginRight="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/fl_video"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_interest5" />
-
+            app:layout_constraintStart_toEndOf="@+id/tv_interest5"
+            app:layout_constraintTop_toBottomOf="@+id/fl_video" />
 
         <View
             android:layout_width="match_parent"
@@ -254,6 +261,7 @@
             android:layout_marginTop="12dp"
             android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/fl_book" />
+
 
     </android.support.constraint.ConstraintLayout>
 

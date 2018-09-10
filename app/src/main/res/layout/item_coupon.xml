@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_white1"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_white1"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
 
@@ -17,9 +18,9 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:maxHeight="55dp"
             android:maxWidth="55dp"
-            android:layout_marginTop="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_xiyi"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,16 +51,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintStart_toEndOf="@+id/image" />
 
-        <View
+        <ImageView
             android:id="@+id/line"
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:background="@color/colorLine"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
+            android:layout_width="190dp"
+            android:layout_height="2dp"
+            android:background="@drawable/dotted_line"
+            android:rotation="90"
+            android:layout_marginRight="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_info"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.658"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/image" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_money"
@@ -77,9 +78,9 @@
             android:id="@+id/money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:layout_marginRight="5dp"
             android:text="￥"
-            android:layout_marginBottom="4dp"
             android:textColor="#F1403C"
             android:textSize="@dimen/main_fant"
             app:layout_constraintBottom_toBottomOf="@+id/tv_money"

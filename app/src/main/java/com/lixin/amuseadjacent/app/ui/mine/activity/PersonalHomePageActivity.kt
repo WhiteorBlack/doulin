@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
+import android.view.ActionMode
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -60,7 +61,7 @@ class PersonalHomePageActivity : BaseActivity() {
         flag = intent.getIntExtra("flag", 0)
         auid = intent.getStringExtra("auid")
 
-        if (TextUtils.isEmpty(auid)) {
+        if (StaticUtil.uid!=auid) {
             auid = StaticUtil.uid
         }
 
@@ -119,9 +120,12 @@ class PersonalHomePageActivity : BaseActivity() {
         super.onStart()
         if (intent.getSerializableExtra("model") != null) {
             userModel = intent.getSerializableExtra("model") as UserInfoModel
-            ImageLoader.getInstance().displayImage(userModel!!.icon, iv_header)
             tv_name.text = userModel!!.nickname
             tv_effect.text = "影响力" + userModel!!.effectNum
+        }
+
+        if (StaticUtil.uid==auid) {
+            ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
         }
     }
 

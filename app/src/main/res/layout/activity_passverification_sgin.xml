@@ -159,12 +159,12 @@
 
     <View
         android:id="@+id/view_verifi"
-        android:layout_width="0.7dp"
-        android:layout_height="0dp"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorTheme"
+        android:background="#E6E6E6"
         app:layout_constraintBottom_toBottomOf="@+id/et_verifi"
         app:layout_constraintEnd_toStartOf="@+id/tv_code"
         app:layout_constraintTop_toTopOf="@+id/et_verifi" />

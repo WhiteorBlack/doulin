@@ -1,7 +1,9 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.RedManFragment
@@ -39,6 +41,26 @@ class RedManListActivity : BaseActivity() {
             bundle.putInt("flag", i)
             fragment.arguments = bundle
             list.add(fragment)
+        }
+
+        tv_day.setOnClickListener { v ->
+            tv_day.setTextColor(resources.getColor(R.color.colorTheme))
+            line_day.visibility = View.VISIBLE
+
+            tv_month.setTextColor(Color.parseColor("#999999"))
+            line_month.visibility = View.INVISIBLE
+
+            viewPager.currentItem = 0
+        }
+
+        tv_month.setOnClickListener { v ->
+            tv_month.setTextColor(resources.getColor(R.color.colorTheme))
+            line_month.visibility = View.VISIBLE
+
+            tv_day.setTextColor(Color.parseColor("#999999"))
+            line_day.visibility = View.INVISIBLE
+
+            viewPager.currentItem = 1
         }
 
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)

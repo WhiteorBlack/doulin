@@ -13,6 +13,9 @@ object StaticUtil {
     var uid=""// Id
     var phone=""//
     var CcommunityId=""//社区Id
+    var nickName=""//
+    var age=""//
+    var headerUrl=""//头像
 
     fun getJpushToken(context: Context): String {
         return JPushInterface.getRegistrationID(context)

@@ -50,8 +50,6 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             StatusBarUtil.setColorNoTranslucent(activity, resources.getColor(R.color.colorTheme))
         }
 
-        UserInfo_19.userInfo()
-
         val gridLayoutManager = GridLayoutManager(activity, 4)
         val gridLayoutManager2 = GridLayoutManager(activity, 4)
         rv_used.layoutManager = gridLayoutManager
@@ -131,6 +129,11 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         tv_fans.setOnClickListener(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+        UserInfo_19.userInfo()
+    }
+
     private fun init() {
 
     }
@@ -182,6 +185,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     @Subscribe
     fun onEvent(model: UserInfoModel) {
         userModel = model
+        StaticUtil.headerUrl=model.icon
+        StaticUtil.nickName=model.nickname
+
         ImageLoader.getInstance().displayImage(model.icon, iv_heaser)
         tv_id.text = model.nickname
         tv_effect.text = "影响力" + model.effectNum

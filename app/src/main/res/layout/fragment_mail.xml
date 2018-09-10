@@ -31,6 +31,7 @@
     <com.example.xrecyclerview.XRecyclerView
         android:id="@+id/rv_mail"
         android:layout_width="0dp"
+        android:background="@color/white"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
