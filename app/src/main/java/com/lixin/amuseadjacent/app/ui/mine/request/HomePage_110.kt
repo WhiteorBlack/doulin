@@ -11,11 +11,11 @@ import org.greenrobot.eventbus.EventBus
 /**
  * Created by Slingge on 2018/9/6
  */
-object HomePage_110{
+object HomePage_110 {
 
 
-//auid 要查看的id
-    fun userInfo(auid:String) {
+    //auid 要查看的id
+    fun userInfo(auid: String) {
 
         val json = "{\"cmd\":\"homepage\",\"uid\":\"" + StaticUtil.uid + "\",\"auid\":\"" + auid + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
@@ -23,6 +23,13 @@ object HomePage_110{
                 super.onResponse(response, id)
                 val model = Gson().fromJson(response, HomePageModel::class.java)
                 if (model.result == "0") {
+                    StaticUtil.constellation = model.constellation
+                    StaticUtil.age = model.age
+                    StaticUtil.constellation
+                    StaticUtil.communityName = model.communityName
+                    StaticUtil.unitName=model.unitName
+                    StaticUtil.doorNumber=model.doorNumber
+
                     EventBus.getDefault().post(model)
                 } else {
                     ToastUtil.showToast(model.resultNote)

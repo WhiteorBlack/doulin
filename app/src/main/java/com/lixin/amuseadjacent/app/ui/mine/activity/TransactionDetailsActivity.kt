@@ -3,10 +3,16 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.animation.AnimationUtils
+import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.TransactionAdapter
+import com.lixin.amuseadjacent.app.ui.mine.model.BalanceDetailsModel
+import com.lixin.amuseadjacent.app.ui.mine.request.Wallet_119
 import kotlinx.android.synthetic.main.xrecyclerview.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * 交易明细
@@ -14,11 +20,17 @@ import kotlinx.android.synthetic.main.xrecyclerview.*
  */
 class TransactionDetailsActivity : BaseActivity() {
 
+    private var detailsList = ArrayList<BalanceDetailsModel.detailsModel>()
     private var transactionAdapter: TransactionAdapter? = null
+
+    private var nowPage = 1
+    private var totalPage = 1
+    private var onRefresh = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.xrecyclerview)
+        EventBus.getDefault().register(this)
         init()
     }
 
@@ -31,14 +43,68 @@ class TransactionDetailsActivity : BaseActivity() {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         xrecyclerview.layoutManager = linearLayoutManager
 
-        transactionAdapter=TransactionAdapter(this)
-        xrecyclerview.adapter=transactionAdapter
+        transactionAdapter = TransactionAdapter(this, detailsList)
+        xrecyclerview.adapter = transactionAdapter
 
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
         xrecyclerview.layoutAnimation = controller
         transactionAdapter!!.notifyDataSetChanged()
         xrecyclerview.scheduleLayoutAnimation()
+
+        xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onRefresh() {
+                nowPage = 1
+                onRefresh = 1
+                if (!detailsList.isEmpty()) {
+                    detailsList.clear()
+                    transactionAdapter!!.notifyDataSetChanged()
+                }
+                Wallet_119.BalanceDetails(nowPage)
+            }
+
+            override fun onLoadMore() {
+                nowPage++
+                if (nowPage > totalPage) {
+                    xrecyclerview.noMoreLoading()
+                    return
+                }
+                onRefresh = 2
+                Wallet_119.BalanceDetails(nowPage)
+            }
+        })
+
+        ProgressDialog.showDialog(this)
+        Wallet_119.BalanceDetails(nowPage)
     }
 
+
+    @Subscribe
+    fun onEvent(model: BalanceDetailsModel) {
+        totalPage = model.totalPage
+
+        detailsList.addAll(model.dataList)
+
+        if (totalPage <= 1) {
+            if(detailsList.isEmpty()){
+                xrecyclerview.setNullData(this)
+            }else{
+                xrecyclerview.noMoreLoading()
+            }
+        }
+
+        if (onRefresh == 1) {
+            xrecyclerview.refreshComplete()
+        } else if (onRefresh == 2) {
+            xrecyclerview.loadMoreComplete()
+        }
+
+        transactionAdapter!!.notifyDataSetChanged()
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

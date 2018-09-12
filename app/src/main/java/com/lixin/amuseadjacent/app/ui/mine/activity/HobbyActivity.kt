@@ -7,8 +7,13 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.model.HomePageModel
+import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import kotlinx.android.synthetic.main.activity_hobby.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * 兴趣爱好
@@ -20,9 +25,15 @@ class HobbyActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hobby)
+        EventBus.getDefault().register(this)
         init()
     }
 
+    override fun onStart() {
+        super.onStart()
+        ProgressDialog.showDialog(this)
+        HomePage_110.userInfo(StaticUtil.uid)
+    }
 
     private fun init() {
         inittitle("兴趣爱好")
@@ -34,7 +45,17 @@ class HobbyActivity : BaseActivity(), View.OnClickListener {
         edit_film.setOnClickListener(this)
         edit_book.setOnClickListener(this)
 
-        val pageModel = intent.getSerializableExtra("model") as HomePageModel
+    }
+
+    @Subscribe
+    fun onEvent(pageModel: HomePageModel) {
+
+        fl_sport.removeAllViews()
+        fl_music.removeAllViews()
+        fl_food.removeAllViews()
+        fl_film.removeAllViews()
+        fl_book.removeAllViews()
+        fl_music.removeAllViews()
 
         if (pageModel.sportList.isEmpty()) {
             val tv = LayoutInflater.from(this).inflate(
@@ -150,5 +171,9 @@ class HobbyActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.WithdrawDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.RuleAdapter
@@ -44,6 +45,7 @@ class WithdrawActivity : BaseActivity(),View.OnClickListener {
         rv_rule.scheduleLayoutAnimation()
 
         tv_recharge.setOnClickListener(this)
+        tv_bank.setOnClickListener(this)
     }
 
 
@@ -51,6 +53,9 @@ class WithdrawActivity : BaseActivity(),View.OnClickListener {
         when(p0!!.id){
             R.id.tv_recharge->{
                 WithdrawDialog.communityDialog(this)
+            }
+            R.id.tv_bank->{
+              MyApplication.openActivity(this,BankCardActivity::class.java)
             }
         }
     }

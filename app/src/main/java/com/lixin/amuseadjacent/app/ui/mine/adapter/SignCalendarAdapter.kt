@@ -16,7 +16,7 @@ import kotlin.math.log
  * 签到日历
  * Created by Slingge on 2018/4/10 0010.
  */
-class SignCalendarAdapter(val context: Context, val list: ArrayList<Int>, val week: Int) : RecyclerView.Adapter<SignCalendarAdapter.ViewHolder>() {
+class SignCalendarAdapter(val context: Context, val list: ArrayList<Int>, val week: Int, val dateList: ArrayList<String>) : RecyclerView.Adapter<SignCalendarAdapter.ViewHolder>() {
 
     private var flag = -1
 
@@ -38,25 +38,23 @@ class SignCalendarAdapter(val context: Context, val list: ArrayList<Int>, val we
             holder.tv_day.text = day
 
 
-            /*  for (i in 0 until signList.size) {
-                  if (day == signList[i].day) {
-                      holder!!.iv_day.visibility = View.VISIBLE
-                      holder!!.tv_day.visibility = View.VISIBLE
-                      holder!!.tv_day.setTextColor(context.resources.getColor(R.color.theme))
-                  } else {
-                      holder!!.iv_day.visibility = View.INVISIBLE
-                      holder!!.tv_day.visibility = View.VISIBLE
-                      holder!!.tv_day.setTextColor(context.resources.getColor(R.color.black))
-                  }
-              }*/
+
+            for (i in 0 until dateList.size) {
+                val date = dateList[i]
+                abLog.e("日期222222222222222222222222222222", day + "......" + date.substring(date.length - 2, date.length))
+                if (day == date.substring(date.length - 2, date.length)) {
+                    holder.tv_day.setTextColor(context.resources.getColor(R.color.white))
+                    holder.tv_day.setBackgroundResource(R.drawable.circular_them)
+                } else {
+                    holder.tv_day.setTextColor(context.resources.getColor(R.color.black))
+                    holder.tv_day.setBackgroundColor(context.resources.getColor(R.color.white))
+                }
+            }
 
 
-            if (flag-week+2 == day.toInt()) {
+            if (flag - week + 2 == day.toInt()) {
                 holder.tv_day.setTextColor(context.resources.getColor(R.color.white))
                 holder.tv_day.setBackgroundResource(R.drawable.circular_them)
-            } else {
-                holder.tv_day.setTextColor(context.resources.getColor(R.color.black))
-                holder.tv_day.setBackgroundColor(context.resources.getColor(R.color.white))
             }
 
         }

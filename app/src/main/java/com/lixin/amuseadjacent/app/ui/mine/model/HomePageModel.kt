@@ -15,7 +15,7 @@ class HomePageModel : Serializable {
     var age = ""
     var constellation = ""//星座
     var communityId = ""//社区单元id
-    var communityName = ""//社区单元名称
+    var communityName = ""//社区名称
     var unitId = ""//社区单元id
     var unitName = ""//社区单元名称
     var doorNumber = ""//门牌号

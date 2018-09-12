@@ -38,10 +38,9 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener, DatePop.Wheel
 
     override fun onStart() {
         super.onStart()
-//        val pageModel=intent.getSerializableExtra("model") as HomePageModel
-//        et_nick.setText(StaticUtil.nickName)
-//
-//        if(pageModel.sex=="0") {//女
+        tv_name.text = StaticUtil.nickName
+        ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
+//        if(StaticUtil.sex=="0") {//女
 //            tv_srx.text="女"
 //        }else{
 //            tv_srx.text="男"

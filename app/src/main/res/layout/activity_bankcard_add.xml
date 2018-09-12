@@ -97,6 +97,7 @@
         app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
     <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
@@ -110,12 +111,14 @@
     <Spinner
         android:id="@+id/sp_bank"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:dropDownSelector="@drawable/touch_bg"
         android:overlapAnchor="false"
         android:spinnerMode="dropdown"
+        android:paddingRight="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_bank"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toTopOf="@+id/tv_bank" />
 
     <com.lixin.amuseadjacent.app.view.BankCardNumEditText
@@ -124,7 +127,6 @@
         android:layout_height="0dp"
         android:background="@color/white"
         android:hint="请输入开户银行卡号"
-        android:maxLength="19"
         android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"

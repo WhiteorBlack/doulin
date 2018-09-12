@@ -31,38 +31,25 @@
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/ll_bank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-         >
+            android:background="@drawable/touch_bg"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
-                android:paddingTop="18dp"
-                android:paddingBottom="18dp"
                 android:layout_marginRight="12dp"
+                android:drawableRight="@drawable/ic_right"
+                android:paddingBottom="18dp"
+                android:paddingTop="18dp"
                 android:text="工商银行（2265）"
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant" />
 
-
-            <TextView
-                android:id="@+id/tv_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/touch_bg"
-                android:drawableLeft="@drawable/ic_add5"
-                android:drawablePadding="10dp"
-                android:visibility="gone"
-                android:gravity="left"
-                android:padding="12dp"
-                android:text="添加银行卡"
-                android:textColor="@color/colorTheme"
-                android:textSize="17sp" />
 
 
             <View
@@ -76,7 +63,6 @@
         </LinearLayout>
 
     </com.daimajia.swipe.SwipeLayout>
-
 
 
 </FrameLayout>

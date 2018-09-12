@@ -44,13 +44,13 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
             holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
             holder.iv_del.visibility = View.GONE
             holder.image.setOnClickListener { v ->
-                if (flag == 0) {
-                    val bundle = Bundle()
-                    bundle.putSerializable("list", list)
-                    MyApplication.openActivityForResult(context, MyAlbumActivity::class.java, bundle, 0)
-                } else {
+//                if (flag == 0) {
+//                    val bundle = Bundle()
+//                    bundle.putSerializable("list", list)
+//                    MyApplication.openActivityForResult(context, MyAlbumActivity::class.java, bundle, 0)
+//                } else {
                     SelectPictureUtil.selectPicture(context, maxNum - list.size + 1, 0, false)
-                }
+//                }
             }
         } else {
             if (isShowDel) {

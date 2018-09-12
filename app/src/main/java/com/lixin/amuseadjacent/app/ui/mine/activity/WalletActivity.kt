@@ -8,6 +8,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.RechargeDialog
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_wallet.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -48,6 +49,11 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
         tv_recharge.setOnClickListener(this)
         tv_forward.setOnClickListener(this)
         tv_bankcard.setOnClickListener(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        tv_balance.text = StaticUtil.balance.toString()
     }
 
 

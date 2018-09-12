@@ -35,20 +35,27 @@ class DataFragment : BaseFragment() {
         tv_num.text = StaticUtil.uid
         tv_industry.text = model.occupation
 
+        fl_sport.removeAllViews()
+        fl_music.removeAllViews()
+        fl_food.removeAllViews()
+        fl_video.removeAllViews()
+        fl_book.removeAllViews()
+        rv_label.removeAllViews()
 
-        var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
-                nsv, false) as TextView
 
         if (model.sportList == null || model.sportList.isEmpty()) {
+            var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                    nsv, false) as TextView
             tv.text="运动"
             tv.setTextColor(resources.getColor(R.color.white))
             tv.setBackgroundResource(R.drawable.bg_hobby_sport)
             tv.visibility = View.INVISIBLE
             fl_sport.addView(tv)
         } else {
-            tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
-                    nsv, false) as TextView
+
             for (i in 0 until model.sportList.size) {
+                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                        nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_sport)
                 tv.text=model.sportList[i]
@@ -57,7 +64,7 @@ class DataFragment : BaseFragment() {
         }
 
         if (model.musicList == null || model.musicList.isEmpty()) {
-            tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
             tv.text="音乐"
             tv.setTextColor(resources.getColor(R.color.white))
@@ -66,7 +73,7 @@ class DataFragment : BaseFragment() {
             fl_music.addView(tv)
         } else {
             for (i in 0 until model.musicList.size) {
-                tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.text=model.musicList[i]
                 tv.setTextColor(resources.getColor(R.color.white))
@@ -76,16 +83,16 @@ class DataFragment : BaseFragment() {
         }
 
         if (model.foodsList == null || model.foodsList.isEmpty()) {
-            tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
-            tv.visibility = View.INVISIBLE
             tv.setTextColor(resources.getColor(R.color.white))
             tv.setBackgroundResource(R.drawable.bg_hobby_food)
             tv.text="食物"
+            tv.visibility = View.INVISIBLE
             fl_food.addView(tv)
         } else {
             for (i in 0 until model.foodsList.size) {
-                tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_food)
@@ -95,7 +102,7 @@ class DataFragment : BaseFragment() {
         }
 
         if (model.movieList == null || model.movieList.isEmpty()) {
-            tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
             tv.text="电影"
             tv.setTextColor(resources.getColor(R.color.white))
@@ -104,7 +111,7 @@ class DataFragment : BaseFragment() {
             fl_video.addView(tv)
         } else {
             for (i in 0 until model.movieList.size) {
-                tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_film)
@@ -114,7 +121,7 @@ class DataFragment : BaseFragment() {
         }
 
         if (model.booksList == null || model.booksList.isEmpty()) {
-            tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
             tv.text="书籍"
             tv.setTextColor(resources.getColor(R.color.white))
@@ -123,7 +130,7 @@ class DataFragment : BaseFragment() {
             fl_book.addView(tv)
         } else {
             for (i in 0 until model.booksList.size) {
-                tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_book)
@@ -133,7 +140,7 @@ class DataFragment : BaseFragment() {
         }
 
         if (model.otherList == null || model.otherList.isEmpty()) {
-            tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
             tv.visibility = View.INVISIBLE
             tv.text="其他"
@@ -142,7 +149,7 @@ class DataFragment : BaseFragment() {
             rv_label.addView(tv)
         } else {
             for (i in 0 until model.otherList.size) {
-                tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_other)

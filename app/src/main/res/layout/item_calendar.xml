@@ -15,8 +15,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="5"
-            android:background="@drawable/circular_them"
-            android:textColor="@color/white"
+            android:background="@color/white"
+            android:textColor="@color/black"
             android:textSize="@dimen/main_fant" />
 
 

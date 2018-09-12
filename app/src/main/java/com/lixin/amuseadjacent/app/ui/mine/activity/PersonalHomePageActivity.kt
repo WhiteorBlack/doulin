@@ -69,10 +69,7 @@ class PersonalHomePageActivity : BaseActivity() {
             iv_right.visibility = View.VISIBLE
             iv_right.setImageResource(R.drawable.ic_edit2)
             iv_right.setOnClickListener { v ->
-                val bundle=Bundle()
-                bundle.putSerializable("userModel",userModel)
-                bundle.putSerializable("pageModel",pageModel)
-                MyApplication.openActivity(this, PersonalDataActivity::class.java,bundle)
+                MyApplication.openActivity(this, PersonalDataActivity::class.java)
             }
             cl_3.visibility = View.GONE
         }

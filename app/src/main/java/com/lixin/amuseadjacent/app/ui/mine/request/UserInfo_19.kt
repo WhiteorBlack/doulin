@@ -22,6 +22,9 @@ object UserInfo_19 {
                 super.onResponse(response, id)
                 val model = Gson().fromJson(response, UserInfoModel::class.java)
                 if (model.result == "0") {
+                    StaticUtil.balance = model.balance.toDouble()
+                    StaticUtil.nickName = model.nickname
+                    StaticUtil.effectNum = model.effectNum
                     EventBus.getDefault().post(model)
                 } else {
                     ToastUtil.showToast(model.resultNote)

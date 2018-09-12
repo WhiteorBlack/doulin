@@ -6,13 +6,18 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.dialog.QianDaoDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.SignCalendarAdapter
+import com.lixin.amuseadjacent.app.ui.mine.model.SginInModel
+import com.lixin.amuseadjacent.app.ui.mine.request.SignIn_117118
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.abLog
 import com.lixin.amuseadjacent.app.util.getDateTime
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_qiaodao.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.text.DecimalFormat
 import java.util.ArrayList
 
@@ -30,10 +35,13 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
 
     private var decimalFormat: DecimalFormat? = null
 
+    private var todaySign = "-1"///0今天未签到，1今天已签到
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qiaodao)
+        EventBus.getDefault().register(this)
         init()
     }
 
@@ -58,12 +66,21 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                 if (i < 0) {
                     return
                 }
-                calendarAdapter!!.setFlag(i)
-                QianDaoDialog.communityDialog(this@QianDaoActivity)
+                if (todaySign == "0") {
+                    ToastUtil.showToast("今天已签到")
+                    return
+                }
+                ProgressDialog.showDialog(this@QianDaoActivity)
+                SignIn_117118.sgin(object : SignIn_117118.SginCallBack {
+                    override fun sginScore(score: String) {
+                        calendarAdapter!!.setFlag(i)
+                        QianDaoDialog.communityDialog(this@QianDaoActivity, score)
+                    }
+                })
             }
         })
 
-        Refresh()
+        getSgin(year.toString() + "-" + format(month))
     }
 
     override fun onClick(p0: View?) {
@@ -76,11 +93,9 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                     month--
                 }
                 tv_date.text = year.toString() + "-" + format(month)
-
-                Refresh()
+                getSgin(year.toString() + "-" + format(month))
             }
             R.id.iv_rightt -> {
-                ToastUtil.showToast("右")
                 if (year < getDateTime.getYear()) {
                     if (month == 12) {
                         month = 1
@@ -100,24 +115,25 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                         return
                     }
                 }
-
                 tv_date.text = year.toString() + "-" + format(month)
-                Refresh()
+                getSgin(year.toString() + "-" + format(month))
             }
         }
     }
 
+    @Subscribe
+    fun onEvent(model: SginInModel) {
 
-    private fun Refresh() {
+        tv_eeffect.text = "签到即可获得" + model.effectNum + "点影响力"
+        todaySign = model.todaySign
 
         week = getDateTime.getWeek(year, month)
         dayList = getDateTime.getMonthDay(year, month)
 
-        calendarAdapter = SignCalendarAdapter(this, dayList, week)
+        calendarAdapter = SignCalendarAdapter(this, dayList, week, model.dataList)
         recyclerView!!.adapter = calendarAdapter
-
-
     }
+
 
     private fun format(i: Int): String {
         if (decimalFormat == null) {
@@ -126,8 +142,14 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
         return decimalFormat!!.format(i)
     }
 
+    private fun getSgin(date: String) {
+        ProgressDialog.showDialog(this)
+        SignIn_117118.getSginList(date)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
         QianDaoDialog.builder = null
     }
 

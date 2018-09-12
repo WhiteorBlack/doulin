@@ -28,7 +28,7 @@ public class MyApplication extends MultiDexApplication {
 
     private static MyApplication myApplication;
 
-//val json = "{\"cmd\":\"getMsg\"" + "}";
+//val json = "{\"cmd\":\"getMsg\"" + "}"
 // val json = "{\"cmd\":\"upPrize\",\"prizeId\":\"" + prizeId  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}";
 
     public static String CameraPath = Environment.getExternalStorageDirectory().getPath() + "/带路圈/";

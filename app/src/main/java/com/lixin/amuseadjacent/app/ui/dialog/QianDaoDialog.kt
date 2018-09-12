@@ -18,13 +18,16 @@ object QianDaoDialog {
 
       var builder: AlertDialog? = null
 
-    fun communityDialog(context: Activity) {
+    fun communityDialog(context: Activity,score:String) {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_qiandao, null)
         if (builder == null) {
             builder = AlertDialog.Builder(context, R.style.Dialog).create() // 先得到构造器
         }
         builder!!.show()
         builder!!.window.setContentView(view)
+
+        val tv_effect=view.findViewById<TextView>(R.id.tv_effect)
+        tv_effect.text=score+"点"
 
         val tv_cancel=view.findViewById<TextView>(R.id.tv_cancel)
         tv_cancel.setOnClickListener { v->

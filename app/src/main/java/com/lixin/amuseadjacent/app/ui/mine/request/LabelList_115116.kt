@@ -6,6 +6,7 @@ import com.google.gson.JsonObject
 import com.lixin.amuseadjacent.app.ui.mine.model.AddLabelModel
 import com.lixin.amuseadjacent.app.ui.mine.model.LabelListModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
@@ -30,21 +31,22 @@ object LabelList_115116 {
         })
     }
 
-    fun addLabel(context:Activity,type: String, labelList: ArrayList<String>, otherLabelList: ArrayList<String>) {
+    fun addLabel(context: Activity, type: String, labelList: ArrayList<String>, otherLabelList: ArrayList<String>) {
 
         val model = AddLabelModel()
         model.type = type
         model.labelList = labelList
         model.otherList = otherLabelList
-
+        abLog.e("保存标签", Gson().toJson(model))
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", Gson().toJson(model)).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
-                val obj=JSONObject(response)
-                if(obj.getString("result")=="0"){
+                val obj = JSONObject(response)
+                if (obj.getString("result") == "0") {
                     ToastUtil.showToast("保存成功")
+                    abLog.e("保存标签", response)
                     context.finish()
-                }else{
+                } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }
             }

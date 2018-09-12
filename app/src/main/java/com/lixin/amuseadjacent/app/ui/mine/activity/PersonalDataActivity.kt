@@ -4,19 +4,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.AlbumAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.HomePageModel
-import com.lixin.amuseadjacent.app.ui.mine.model.UserInfoModel
+import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
+import com.lixin.amuseadjacent.app.ui.mine.request.UserMessage_111
+import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.abLog
 import com.luck.picture.lib.entity.LocalMedia
-import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_personal_data.*
+import kotlinx.android.synthetic.main.include_basetop.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 /**
@@ -25,26 +33,23 @@ import java.util.ArrayList
  */
 class PersonalDataActivity : BaseActivity(), View.OnClickListener {
 
+
     private var albumAdapter: AlbumAdapter? = null
 
     private val imageList = ArrayList<LocalMedia>()
 
-    private var userModel: UserInfoModel? = null
-    private var pageModel: HomePageModel? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personal_data)
+        EventBus.getDefault().register(this)
         init()
     }
 
 
     override fun onStart() {
         super.onStart()
-        ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
-        if (!TextUtils.isEmpty(StaticUtil.nickName)) {
-            tv_name.text = StaticUtil.nickName
-        }
+        ProgressDialog.showDialog(this)
+        HomePage_110.userInfo(StaticUtil.uid)
     }
 
     private fun init() {
@@ -54,12 +59,37 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         val gridLayoutManager = GridLayoutManager(this, 4)
         rv_album.layoutManager = gridLayoutManager
 
-        userModel = intent.getSerializableExtra("userModel") as UserInfoModel
-        tv_name.text = userModel!!.nickname
-        tv_effect.text = "影响力" + userModel!!.effectNum
+        tv_right.visibility=View.VISIBLE
+        tv_right.text="保存"
+        tv_right.setOnClickListener(this)
+
+        iv_edite.setOnClickListener(this)
+
+        sport.setOnClickListener(this)
+        music.setOnClickListener(this)
+        food.setOnClickListener(this)
+        film.setOnClickListener(this)
+        book.setOnClickListener(this)
+        label.setOnClickListener(this)
+    }
 
 
-        pageModel = intent.getSerializableExtra("pageModel") as HomePageModel
+
+    @Subscribe
+    fun onEvent(model: HomePageModel) {
+        val pageModel = model
+
+        if (model.sex == "0") {//女
+            tv_sex.setBackgroundResource(R.drawable.bg_girl8)
+            AbStrUtil.setDrawableLeft(this, R.drawable.ic_girl, tv_sex, 3)
+        } else {
+            tv_sex.setBackgroundResource(R.drawable.bg_boy8)
+            AbStrUtil.setDrawableLeft(this, R.drawable.ic_boy, tv_sex, 3)
+        }
+
+        tv_name.text = StaticUtil.nickName
+        tv_effect.text = "影响力" + StaticUtil.effectNum
+
         et_autograph.setText(pageModel!!.autograph)//签名
         et_occupation.setText(pageModel!!.occupation)//职业
 
@@ -67,6 +97,9 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         tv_constellation.text = pageModel!!.constellation
         tv_address.text = pageModel!!.communityName + pageModel!!.unitName + pageModel!!.doorNumber
 
+        if (!imageList.isEmpty()) {
+            imageList.clear()
+        }
         for (i in 0 until pageModel!!.albumList.size) {
             val localMedia = LocalMedia()
             localMedia.path = pageModel!!.albumList[i].imgUrl
@@ -103,16 +136,6 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         if (!pageModel!!.otherList.isEmpty()) {
             tv_label.text = pageModel!!.otherList[0]
         }
-
-
-        iv_edite.setOnClickListener(this)
-
-        sport.setOnClickListener(this)
-        music.setOnClickListener(this)
-        food.setOnClickListener(this)
-        film.setOnClickListener(this)
-        book.setOnClickListener(this)
-        label.setOnClickListener(this)
     }
 
 
@@ -122,14 +145,17 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
                 MyApplication.openActivity(this, PersonalInfoActivity::class.java)
             }
             R.id.sport, R.id.music, R.id.food, R.id.film, R.id.book -> {//爱好资料
-                val bundle = Bundle()
-                bundle.putSerializable("model",pageModel)
-                MyApplication.openActivity(this, HobbyActivity::class.java,bundle)
+                MyApplication.openActivity(this, HobbyActivity::class.java)
             }
             R.id.label -> {
                 val bundle = Bundle()
                 bundle.putInt("flag", 6)
                 MyApplication.openActivity(this, AddLabelActivity::class.java, bundle)
+            }
+            R.id.tv_right -> {//保存签名、职业
+                val autograph = AbStrUtil.etTostr(et_autograph)
+                val occupation = AbStrUtil.etTostr(et_occupation)
+                UserMessage_111.userInfo(this, "", "", "", autograph, occupation)
             }
         }
 
@@ -146,8 +172,12 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
             imageList.addAll(data.getParcelableArrayListExtra("LocalMedia"))
             albumAdapter!!.notifyDataSetChanged()
         }
-
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

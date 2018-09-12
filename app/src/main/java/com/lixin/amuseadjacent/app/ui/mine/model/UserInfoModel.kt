@@ -9,15 +9,15 @@ class UserInfoModel :Serializable {
 
     var result = ""
     var resultNote = ""
-    var communityId = ""
-    var icon = ""
-    var nickname = ""
-    var phone = ""
+    var communityId = ""//社区id
+    var icon = ""//头像
+    var nickname = ""//昵称
+    var phone = ""//手机号
     var effectNum = ""//影响力值
-    var dynamicNum = ""
+    var dynamicNum = ""//动态数量
     var attenNum = ""//关注数量
-    var fansNum = ""
-    var inviteCode = ""
+    var fansNum = ""//粉丝数
+    var inviteCode = ""//邀请码
     var authentication = ""
-
+    var balance = ""
 }

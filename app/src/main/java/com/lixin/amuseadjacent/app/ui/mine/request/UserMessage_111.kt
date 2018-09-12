@@ -19,11 +19,11 @@ object UserMessage_111 {
 
 
     /**
-     * 昵称
-     * 性别
-     * 生日(年月日)
-     * 个人签名
-     * 职业
+     * @param  nickname 昵称
+     * @param sex 性别
+     * @param birthday  生日  (年月日)
+     * @param  autograph 个人签名
+     * @param  occupation 职业
      * */
     fun userInfo(context: Activity, nickname: String, sex: String, birthday: String, autograph: String, occupation: String) {
         val json = "{\"cmd\":\"editUserMessage\",\"uid\":\"" + StaticUtil.uid + "\",\"nickname\":\"" + nickname +
@@ -34,7 +34,7 @@ object UserMessage_111 {
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
                     ToastUtil.showToast("修改成功")
-                    StaticUtil.nickName=nickname
+                    StaticUtil.nickName = nickname
                     context.finish()
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
