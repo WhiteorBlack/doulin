@@ -9,14 +9,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.mine.activity.CommonProblemActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
+import com.lixin.amuseadjacent.app.ui.mine.model.HelpModel
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 
 /**
  * 常见问题
  * Created by Slingge on 2018/9/3
  */
-class ProblemAdapter(val context: Context) : RecyclerView.Adapter<ProblemAdapter.ViewHolder>() {
+class ProblemAdapter(val context: Context, val list: ArrayList<HelpModel.problemModel>) : RecyclerView.Adapter<ProblemAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,17 +27,18 @@ class ProblemAdapter(val context: Context) : RecyclerView.Adapter<ProblemAdapter
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.text.text = "常见问题" + position.toString()
+        holder.text.text = list[position].title
 
         holder.text.setOnClickListener { v ->
             val bundle = Bundle()
-            bundle.putInt("flag", 1)
-            MyApplication.openActivity(context, WebViewActivity::class.java, bundle)
+            bundle.putString("title", list[position].title)
+            bundle.putString("content", list[position].content)
+            MyApplication.openActivity(context, CommonProblemActivity::class.java, bundle)
         }
     }
 

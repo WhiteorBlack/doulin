@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
+import com.lixin.amuseadjacent.app.ui.dialog.CommunityDialog
+import com.lixin.amuseadjacent.app.ui.entrance.model.CommunityModel
+import com.lixin.amuseadjacent.app.ui.entrance.model.UnityModel
+import com.lixin.amuseadjacent.app.ui.entrance.request.Community_17
 import com.lixin.amuseadjacent.app.ui.message.activity.MailActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.*
 import com.lixin.amuseadjacent.app.ui.mine.activity.order.OrderActivity
@@ -19,7 +23,6 @@ import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.ui.service.activity.ShopCarActivity
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StaticUtil
-import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.fragment_mine.*
@@ -133,6 +136,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         super.onStart()
         UserInfo_19.userInfo()
     }
+
 
     private fun init() {
 

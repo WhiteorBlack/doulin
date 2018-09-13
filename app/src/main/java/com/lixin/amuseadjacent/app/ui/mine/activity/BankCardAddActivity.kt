@@ -9,6 +9,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.model.BankModel
+import com.lixin.amuseadjacent.app.ui.mine.model.MyBankModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Bank_155156157158164
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -30,6 +31,7 @@ class BankCardAddActivity : BaseActivity() {
     private var bankName = ""
 
     private var flag = 0//0添加，1编辑
+    private var BankCardId = ""//要编辑的银行卡id
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +48,6 @@ class BankCardAddActivity : BaseActivity() {
         flag = intent.getIntExtra("flag", 0)
 
 
-
         spinnerAdapter = ArrayAdapter(this@BankCardAddActivity,
                 R.layout.item_spinner_text, spinnerItems)
         sp_bank.adapter = spinnerAdapter
@@ -56,8 +57,8 @@ class BankCardAddActivity : BaseActivity() {
             //position是值所在数组的位置
             //id是值所在行的位置，一般来说与positin一致
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                bankId=bankList[p2].bankId
-                bankName=bankList[p2].bankName
+                bankId = bankList[p2].bankId
+                bankName = bankList[p2].bankName
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -81,7 +82,7 @@ class BankCardAddActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
-            Bank_155156157158164.addBank(this, flag, bankName, num, name)
+            Bank_155156157158164.addBank(this, flag, bankName, num, name, BankCardId)
         }
 
         ProgressDialog.showDialog(this)
@@ -97,6 +98,22 @@ class BankCardAddActivity : BaseActivity() {
         bankId = bankList[0].bankId
         bankName = bankList[0].bankName
         spinnerAdapter!!.notifyDataSetChanged()
+
+        if (flag == 1) {
+            val model = intent.getSerializableExtra("model") as MyBankModel.detailsModel
+            et_name.setText(model.cardUsername)
+            et_num.setText(model.cardNum)
+            BankCardId = model.cardId
+
+           /* for (i in 0 until bankList.size) {
+                if (bankId==model.cardId) {
+                    sp_bank.setPromptId(i)
+                    break
+                }
+            }*/
+
+        }
+
     }
 
 

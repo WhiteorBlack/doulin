@@ -64,7 +64,6 @@ class MailActivity : BaseActivity(), View.OnClickListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab!!.position == 0) {
                     tv_back.text = "好友（）"
-
                 } else if (tab.position == 1) {
                     tv_back.text = "关注（）"
                 } else if (tab.position == 2) {
@@ -73,8 +72,9 @@ class MailActivity : BaseActivity(), View.OnClickListener {
             }
         })
 
+        //个人中心跳转
         if (intent != null) {
-            viewPager.currentItem = intent.getIntExtra("flag", 0)
+            select(intent.getIntExtra("flag", 0))
         }
     }
 
@@ -82,17 +82,22 @@ class MailActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.tv_follow -> {
-                tv_follow.setTextColor(resources.getColor(R.color.colorTheme))
-                tv_friend.setTextColor(Color.parseColor("#999999"))
-                tv_fans.setTextColor(Color.parseColor("#999999"))
-
-                line_follow.visibility = View.VISIBLE
-                line_friend.visibility = View.GONE
-                line_fans.visibility = View.GONE
-
-                viewPager.currentItem = 0
+                select(1)
             }
             R.id.tv_friend -> {
+                select(0)
+            }
+            R.id.tv_fans -> {
+                select(2)
+            }
+        }
+    }
+
+
+    private fun select(position: Int) {
+        viewPager.currentItem = position
+        when (position) {
+            0 -> {
                 tv_follow.setTextColor(Color.parseColor("#999999"))
                 tv_friend.setTextColor(resources.getColor(R.color.colorTheme))
                 tv_fans.setTextColor(Color.parseColor("#999999"))
@@ -100,10 +105,17 @@ class MailActivity : BaseActivity(), View.OnClickListener {
                 line_follow.visibility = View.GONE
                 line_friend.visibility = View.VISIBLE
                 line_fans.visibility = View.GONE
-
-                viewPager.currentItem = 1
             }
-            R.id.tv_fans -> {
+            1 -> {
+                tv_follow.setTextColor(resources.getColor(R.color.colorTheme))
+                tv_friend.setTextColor(Color.parseColor("#999999"))
+                tv_fans.setTextColor(Color.parseColor("#999999"))
+
+                line_follow.visibility = View.VISIBLE
+                line_friend.visibility = View.GONE
+                line_fans.visibility = View.GONE
+            }
+            2 -> {
                 tv_follow.setTextColor(Color.parseColor("#999999"))
                 tv_friend.setTextColor(Color.parseColor("#999999"))
                 tv_fans.setTextColor(resources.getColor(R.color.colorTheme))
@@ -111,11 +123,8 @@ class MailActivity : BaseActivity(), View.OnClickListener {
                 line_follow.visibility = View.GONE
                 line_friend.visibility = View.GONE
                 line_fans.visibility = View.VISIBLE
-
-                viewPager.currentItem = 2
             }
         }
     }
-
 
 }

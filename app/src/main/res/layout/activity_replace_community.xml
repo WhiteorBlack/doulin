@@ -36,14 +36,17 @@
         app:layout_constraintStart_toEndOf="@+id/community"
         app:layout_constraintTop_toTopOf="@+id/community" />
 
-    <Spinner
+    <TextView
         android:id="@+id/sp_bank"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
         android:layout_marginRight="13dp"
         android:layout_marginLeft="2dp"
+        android:paddingRight="8dp"
+        android:text="haijief"
         android:layout_marginTop="2dp"
+        android:gravity="right|center_vertical"
         android:dropDownSelector="@drawable/touch_bg"
         android:overlapAnchor="false"
         android:spinnerMode="dropdown"

@@ -476,6 +476,10 @@
         <activity
             android:name=".app.ui.mine.activity.HelpActivity"
             android:screenOrientation="portrait" />
+        <!--常见问题-->
+        <activity
+            android:name=".app.ui.mine.activity.CommonProblemActivity"
+            android:screenOrientation="portrait" />
         <!--违规举报-->
         <activity
             android:name=".app.ui.mine.activity.ViolationReportActivity"

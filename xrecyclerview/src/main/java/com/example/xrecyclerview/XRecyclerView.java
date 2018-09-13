@@ -410,14 +410,31 @@ public class XRecyclerView extends RecyclerView {
     public void setNullData(Context context) {
         clearHeader();
         View view = View.inflate(context, R.layout.header_null, null);
-        TextView tv = (TextView) view.findViewById(R.id.tv);
+        TextView tv = view.findViewById(R.id.tv);
         tv.setText("暂无数据");
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         ViewGroup.LayoutParams linearParams = this.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-        linearParams.height = LinearLayout.LayoutParams.MATCH_PARENT;//
+//        linearParams.height = LinearLayout.LayoutParams.MATCH_PARENT;//
+
         this.setLayoutParams(linearParams);
         addHeaderView(view);
         setPullRefreshEnabled(false);
         setLoadingMoreEnabled(false);
     }
+
+    public void setNullDataFragment(Context context) {
+        clearHeader();
+        View view = View.inflate(context, R.layout.header_null, null);
+        TextView tv = view.findViewById(R.id.tv);
+        tv.setText("暂无数据");
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        ViewGroup.LayoutParams linearParams = this.getLayoutParams(); //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+        linearParams.height = LinearLayout.LayoutParams.MATCH_PARENT;//
+        linearParams.width = LinearLayout.LayoutParams.MATCH_PARENT;//
+        this.setLayoutParams(linearParams);
+        addHeaderView(view);
+        setPullRefreshEnabled(false);
+        setLoadingMoreEnabled(false);
+    }
+
 }

@@ -110,14 +110,16 @@
 
             <TextView
                 android:id="@+id/tv_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:gravity="right|center_vertical"
                 android:layout_marginRight="12dp"
                 android:text="4578941321"
                 android:textColor="@color/colorTheme"
                 android:textSize="@dimen/sub_fant"
                 app:layout_constraintBottom_toBottomOf="@+id/phone"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/phone"
                 app:layout_constraintTop_toTopOf="@+id/phone" />
 
             <View
@@ -146,14 +148,17 @@
 
             <TextView
                 android:id="@+id/tv_service"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+
+                android:gravity="right|center_vertical"
                 android:layout_marginRight="12dp"
                 android:text="发起聊天"
                 android:textColor="@color/colorTheme"
                 android:textSize="@dimen/sub_fant"
                 app:layout_constraintBottom_toBottomOf="@+id/service"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/service"
                 app:layout_constraintTop_toTopOf="@+id/service" />
         </android.support.constraint.ConstraintLayout>
 

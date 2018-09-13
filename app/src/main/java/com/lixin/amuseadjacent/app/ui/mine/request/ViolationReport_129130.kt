@@ -1,31 +1,28 @@
 package com.lixin.amuseadjacent.app.ui.mine.request
 
-import android.app.Activity
 import com.google.gson.Gson
-import com.google.gson.JsonDeserializationContext
-import com.lixin.amuseadjacent.app.ui.mine.model.BalanceDetailsModel
+import com.lixin.amuseadjacent.app.ui.mine.model.IrregularitiesModel
+import com.lixin.amuseadjacent.app.ui.mine.model.ReportModel
 import com.lixin.amuseadjacent.app.ui.mine.model.SginInModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
 import org.greenrobot.eventbus.EventBus
-import org.json.JSONObject
 
-/**余额明细
- *
- * Created by Slingge on 2018/9/12
+/**
+ * 违规举报
+ * Created by Slingge on 2018/9/13
  */
-object Wallet_119 {
+object ViolationReport_129130 {
 
-    //零钱明细
-    fun BalanceDetails(nowPage: Int) {
-        val json = "{\"cmd\":\"getUserBalanceList\",\"uid\":\"" + StaticUtil.uid +
-                "\",\"nowPage\":\"" + nowPage + "\"}"
+    //违规
+    fun irregularities(nowPage: Int) {
+        val json = "{\"cmd\":\"myIrregularities\",\"uid\":\"" + StaticUtil.uid + "\",\"nowPage\":\"" + nowPage + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
-                val model = Gson().fromJson(response, BalanceDetailsModel::class.java)
+                val model = Gson().fromJson(response, IrregularitiesModel::class.java)
                 if (model.result == "0") {
                     EventBus.getDefault().post(model)
                 } else {
@@ -33,24 +30,24 @@ object Wallet_119 {
                 }
             }
         })
+
     }
 
-    //提现
-    fun withdraw(context: Activity, cardId: String, amount: String) {
-        val json = "{\"cmd\":\"withdrawCash\",\"uid\":\"" + StaticUtil.uid +
-                "\",\"amount\":\"" + amount + "\",\"cardId\":\"" + cardId + "\"}"
+    //举报
+    fun report(nowPage: Int) {
+        val json = "{\"cmd\":\"myIrregularities\",\"uid\":\"" + StaticUtil.uid + "\",\"nowPage\":\"" + nowPage + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
-                val obj = JSONObject(response)
-                if (obj.getString("result") == "0") {
-                    ToastUtil.showToast("提现申请成功")
-                    context.finish()
+                val model = Gson().fromJson(response, ReportModel::class.java)
+                if (model.result == "0") {
+                    EventBus.getDefault().post(model)
                 } else {
-                    ToastUtil.showToast(obj.getString("resultNote"))
+                    ToastUtil.showToast(model.resultNote)
                 }
             }
         })
+
     }
 
 

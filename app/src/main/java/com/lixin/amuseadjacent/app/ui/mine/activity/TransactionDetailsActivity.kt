@@ -9,7 +9,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.TransactionAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.BalanceDetailsModel
-import com.lixin.amuseadjacent.app.ui.mine.request.Wallet_119
+import com.lixin.amuseadjacent.app.ui.mine.request.Wallet_119121
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -59,7 +59,7 @@ class TransactionDetailsActivity : BaseActivity() {
                     detailsList.clear()
                     transactionAdapter!!.notifyDataSetChanged()
                 }
-                Wallet_119.BalanceDetails(nowPage)
+                Wallet_119121.BalanceDetails(nowPage)
             }
 
             override fun onLoadMore() {
@@ -69,12 +69,12 @@ class TransactionDetailsActivity : BaseActivity() {
                     return
                 }
                 onRefresh = 2
-                Wallet_119.BalanceDetails(nowPage)
+                Wallet_119121.BalanceDetails(nowPage)
             }
         })
 
         ProgressDialog.showDialog(this)
-        Wallet_119.BalanceDetails(nowPage)
+        Wallet_119121.BalanceDetails(nowPage)
     }
 
 

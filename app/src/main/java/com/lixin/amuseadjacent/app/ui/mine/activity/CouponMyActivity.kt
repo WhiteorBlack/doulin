@@ -53,6 +53,7 @@ class CouponMyActivity : BaseActivity() {
 
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 3
         tab.setupWithViewPager(viewPager)
 
     }

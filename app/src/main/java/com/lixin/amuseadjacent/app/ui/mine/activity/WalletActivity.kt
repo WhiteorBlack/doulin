@@ -1,6 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.mine.activity
 
-import android.graphics.Color
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -8,6 +8,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.RechargeDialog
+import com.lixin.amuseadjacent.app.ui.mine.model.MyBankModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_wallet.*
@@ -53,7 +54,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        tv_balance.text = StaticUtil.balance.toString()
+        tv_balance.text = StaticUtil.balance
     }
 
 
@@ -63,7 +64,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
                 MyApplication.openActivity(this, TransactionDetailsActivity::class.java)
             }
             R.id.tv_recharge -> {//充值
-                RechargeDialog.communityDialog(this)
+                RechargeDialog.communityDialog(this, null)
             }
             R.id.tv_forward -> {//提现
                 MyApplication.openActivity(this, WithdrawActivity::class.java)
@@ -74,9 +75,21 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) {
+            return
+        }
+        if (resultCode == 0) {
+            val model = data.getSerializableExtra("model") as MyBankModel.detailsModel
+            RechargeDialog.communityDialog(this, model)
+        }
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
-        RechargeDialog.builder = null
+        RechargeDialog.dismiss()
     }
 
 

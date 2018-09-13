@@ -1,6 +1,5 @@
 package com.lixin.amuseadjacent.app.ui.mine.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.animation.AnimationUtils
@@ -21,7 +20,9 @@ import org.greenrobot.eventbus.Subscribe
 class BankCardActivity : BaseActivity() {
 
     private var bankAdapter: BankCardAdapter? = null
-    private val bankList= ArrayList<MyBankModel.detailsModel>()
+    private val bankList = ArrayList<MyBankModel.detailsModel>()
+
+    private var flag=0//1选择银行卡
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,26 +31,30 @@ class BankCardActivity : BaseActivity() {
         init()
     }
 
+    override fun onStart() {
+        super.onStart()
+        ProgressDialog.showDialog(this)
+        Bank_155156157158164.myBankList()
+    }
 
     private fun init() {
         inittitle("银行卡")
         StatusBarWhiteColor()
 
+        flag=intent.getIntExtra("flag",0)
+
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_bank.layoutManager = linearLayoutManager
 
-        bankAdapter = BankCardAdapter(this,bankList)
+        bankAdapter = BankCardAdapter(this, bankList,flag)
         rv_bank.adapter = bankAdapter
-
-        ProgressDialog.showDialog(this)
-        Bank_155156157158164.myBankList()
 
         tv_bottom.setOnClickListener { v ->
             //添加
             val bundle = Bundle()
             bundle.putInt("flag", 0)
-            MyApplication.openActivityForResult(this, BankCardAddActivity::class.java, bundle, 0)
+            MyApplication.openActivity(this, BankCardAddActivity::class.java, bundle)
         }
     }
 
@@ -67,16 +72,7 @@ class BankCardActivity : BaseActivity() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data == null) {
-            return
-        }
 
-        val model = data.getSerializableExtra("model") as MyBankModel.detailsModel
-        bankList.add(0,model)
-        bankAdapter!!.notifyItemInserted(0)
-    }
 
 
     override fun onDestroy() {

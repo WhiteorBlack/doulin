@@ -17,6 +17,8 @@ import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.CouponDialog
 import com.lixin.amuseadjacent.app.ui.service.activity.*
 import com.lixin.amuseadjacent.app.ui.service.adapter.ServiceAdapter
+import com.lixin.amuseadjacent.app.ui.service.model.CouponModel
+import com.lixin.amuseadjacent.app.ui.service.request.Coupon_3132
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
@@ -25,13 +27,15 @@ import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 /**
  * 服务
  * Created by Slingge on 2018/8/15
  */
-class ServiceFragment : BaseFragment(),View.OnClickListener {
+class ServiceFragment : BaseFragment(), View.OnClickListener {
 
     private var banner: Banner? = null
 
@@ -45,6 +49,7 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.xrecyclerview, container, false)
+        EventBus.getDefault().register(this)
         init()
         return view
     }
@@ -54,7 +59,7 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
         if (Build.VERSION.SDK_INT > 19) {
             view_staus.visibility = View.VISIBLE
             StatusBarUtil.setStutaViewHeight(activity, view_staus)
-            StatusBarUtil.setColorNoTranslucent(activity,resources.getColor(R.color.white))
+            StatusBarUtil.setColorNoTranslucent(activity, resources.getColor(R.color.white))
             StatusBarBlackWordUtil.StatusBarLightMode(activity)
         }
 
@@ -79,7 +84,7 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
 
         xrecyclerview.addOnItemTouchListener(object : RecyclerItemTouchListener(xrecyclerview) {
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                val i = vh!!.adapterPosition-2
+                val i = vh!!.adapterPosition - 2
                 if (i < 0) {
                     return
                 }
@@ -96,7 +101,7 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
 
     private fun init() {
 
-        linearLayoutManager = GridLayoutManager(activity,3)
+        linearLayoutManager = GridLayoutManager(activity, 3)
 
         headerView = LayoutInflater.from(activity).inflate(R.layout.header_service, null, false)//头布局
         headerView!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -121,7 +126,8 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
         headerView!!.findViewById<TextView>(R.id.tv_help).setOnClickListener(this)
         headerView!!.findViewById<ImageView>(R.id.iv_help).setOnClickListener(this)
 
-        CouponDialog.communityDialog(activity!!)
+        //获取优惠券
+        Coupon_3132.getCoupon()
     }
 
 
@@ -139,15 +145,30 @@ class ServiceFragment : BaseFragment(),View.OnClickListener {
             R.id.tv_help, R.id.iv_help -> {//小区店铺
                 MyApplication.openActivity(activity, PopularShopActivity::class.java)
             }
-            R.id.iv_back->{//购物车
+            R.id.iv_back -> {//购物车
                 MyApplication.openActivity(activity, ShopCarActivity::class.java)
             }
         }
     }
 
 
+    //优惠券
+    @Subscribe
+    fun onEvent(model: CouponModel) {
+        if (model.dataList.isNotEmpty()) {
+            CouponDialog.communityDialog(activity!!, model.dataList)
+        }
+    }
+
+
+
     override fun loadData() {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 

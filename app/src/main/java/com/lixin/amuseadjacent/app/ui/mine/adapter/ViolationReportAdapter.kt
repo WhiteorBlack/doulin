@@ -8,13 +8,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.ui.mine.model.IrregularitiesModel
+import com.lixin.amuseadjacent.app.ui.mine.model.ReportModel
+import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
  * 违规举报
  * flag 0我的违规，1我的举报
  * Created by Slingge on 2018/8/18
  */
-class ViolationReportAdapter(val context: Context,val flag:Int) : RecyclerView.Adapter<ViolationReportAdapter.ViewHolder>() {
+class ViolationReportAdapter(val context: Context, val flag: Int,
+                             val violationList: ArrayList<IrregularitiesModel.irreguModel>, val reportList: ArrayList<ReportModel.irreguModel>)
+    : RecyclerView.Adapter<ViolationReportAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,27 +28,60 @@ class ViolationReportAdapter(val context: Context,val flag:Int) : RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        return 13
+        if (flag == 0) {
+            return violationList.size
+        } else {
+            return reportList.size
+        }
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        if(flag==0){
-            holder.image.visibility=View.GONE
+        if (flag == 0) {
+
+            val irreguModel = violationList[position]
+
+            holder.image.visibility = View.GONE
             holder.tv_result.setTextColor(context.resources.getColor(R.color.red))
-            holder.tv_result.text="未违规"
-        }else{
-            holder.image.visibility=View.VISIBLE
+            holder.tv_result.text = "已违规"
+
+            holder.tv_name.text = irreguModel.larTitle
+            holder.tv_info.text = irreguModel.larContent
+            holder.tv_time.text = irreguModel.time
+
+
+        } else {
+            val irreguModel = reportList[position]
+
+            holder.image.visibility = View.VISIBLE
             holder.tv_result.setTextColor(context.resources.getColor(R.color.colorTheme))
-            holder.tv_result.text="已举报"
+            if (irreguModel.state == "0") {
+                holder.tv_result.text = "待审核"
+            } else if (irreguModel.state == "1") {
+                holder.tv_result.text = "已举报"
+            } else {
+                holder.tv_result.text = "举报失败"
+            }
+
+            ImageLoader.getInstance().displayImage(irreguModel.userIcon, holder.image)
+
+            holder.tv_name.text = irreguModel.larTitle
+            holder.tv_info.text = irreguModel.larContent
+            holder.tv_time.text = irreguModel.time
+
         }
 
     }
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image=view.findViewById<ImageView>(R.id.image)
-        val tv_result=view.findViewById<TextView>(R.id.tv_result)
+        val image = view.findViewById<ImageView>(R.id.image)
+
+        val tv_name = view.findViewById<TextView>(R.id.tv_name)
+        val tv_info = view.findViewById<TextView>(R.id.tv_info)
+        val tv_result = view.findViewById<TextView>(R.id.tv_result)//是否违规状态
+        val tv_time = view.findViewById<TextView>(R.id.tv_time)
 
     }
 

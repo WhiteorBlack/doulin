@@ -8,12 +8,13 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import kotlinx.android.synthetic.main.activity_personal_home_page.*
 
 /**
  * 提现成功
  * Created by Slingge on 2018/9/3
  */
-object WithdrawDialog{
+object WithdrawDialog {
 
 
     private var builder: AlertDialog? = null
@@ -27,7 +28,10 @@ object WithdrawDialog{
         builder!!.window.setContentView(view)
 
         val tv_enter = view.findViewById<TextView>(R.id.tv_enter)
-        tv_enter.setOnClickListener { v -> builder!!.dismiss() }
+        tv_enter.setOnClickListener { v ->
+            context.finish()
+            builder!!.dismiss()
+        }
 
         val dialogWindow = builder!!.window
         dialogWindow.setGravity(Gravity.CENTER)//显示在底部
@@ -40,5 +44,11 @@ object WithdrawDialog{
 
     }
 
+    fun dismiss(){
+        if( builder!=null){
+            builder!!.dismiss()
+            builder=null
+        }
+    }
 
 }

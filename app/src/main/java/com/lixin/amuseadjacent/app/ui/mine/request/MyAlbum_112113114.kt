@@ -55,7 +55,7 @@ object MyAlbum_112113114 {
             }
         }
 
-        OkHttpUtils.post().url("http://39.107.106.122/wisdom/api/addAlbums").addParams("uid", StaticUtil.uid)
+        OkHttpUtils.post().url(StaticUtil.AlbumsUrl).addParams("uid", StaticUtil.uid)
                 .files("file", listfile).build().execute(object : StrCallback() {
                     override fun onResponse(response: String, id: Int) {
                         super.onResponse(response, id)
