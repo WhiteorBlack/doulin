@@ -5,14 +5,22 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
+import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
+import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.PermissionsDialog
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.dialog.ScreenFriendsPop
 import com.lixin.amuseadjacent.app.ui.message.adapter.AddFeriendAdapter
+import com.lixin.amuseadjacent.app.ui.message.model.CommunityUserModel
+import com.lixin.amuseadjacent.app.ui.message.request.CommunityUser_20
+import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.PermissionUtil
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
@@ -20,6 +28,12 @@ import com.lixin.amuseadjacent.zxing.activity.CaptureActivity
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_addfriends.*
 import kotlinx.android.synthetic.main.include_basetop.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import com.lixin.amuseadjacent.app.util.AbStrUtil
+
 
 /**
  * Created by Slingge on 2018/8/16
@@ -32,10 +46,21 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
     private val RESULT_OK = 0xA1
 
     private var addAdapter: AddFeriendAdapter? = null
+    private var userList = ArrayList<CommunityUserModel.userModel>()
+
+    private var nowPage = 1
+    private var totalPage = 1
+    private var onRefresh = 0
+
+    private var sex = ""//搜索性别
+    private var search = ""//搜索内容
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addfriends)
+        this.window.setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        EventBus.getDefault().register(this)
         init()
     }
 
@@ -52,27 +77,66 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
         val gridlineam = GridLayoutManager(this, 3)
         rv_user.layoutManager = gridlineam
 
-        addAdapter = AddFeriendAdapter(this)
+        addAdapter = AddFeriendAdapter(this, userList)
         rv_user.adapter = addAdapter
+
+        rv_user.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onRefresh() {
+                nowPage = 1
+                onRefresh = 1
+                if (userList.isNotEmpty()) {
+                    userList.clear()
+                    addAdapter!!.notifyDataSetChanged()
+                }
+                CommunityUser_20.user(sex, search, nowPage)
+            }
+
+            override fun onLoadMore() {
+                nowPage++
+                if (nowPage >= totalPage) {
+                    rv_user.noMoreLoading()
+                    return
+                }
+                onRefresh = 2
+                CommunityUser_20.user(sex, search, nowPage)
+            }
+        })
+
+        et_search.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                search = AbStrUtil.etTostr(et_search)
+                if (userList.isNotEmpty()) {
+                    userList.clear()
+                    addAdapter!!.notifyDataSetChanged()
+                }
+                CommunityUser_20.user(sex, search, nowPage)
+
+                // 搜索功能
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+        ProgressDialog.showDialog(this)
+        CommunityUser_20.user(sex, search, nowPage)
+    }
+
+
+    @Subscribe
+    fun onEvent(model: CommunityUserModel) {
+        totalPage = model.totalPage
+        userList.addAll(model.dataList)
+
+        if (onRefresh == 1) {
+            rv_user.refreshComplete()
+        } else if (onRefresh == 2) {
+            rv_user.loadMoreComplete()
+        }
 
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
         rv_user.layoutAnimation = controller
         addAdapter!!.notifyDataSetChanged()
         rv_user.scheduleLayoutAnimation()
-
-        rv_user.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_user) {
-            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                val position = vh!!.adapterPosition
-                if (position < 0) {
-                    return
-                }
-                val bundle = Bundle()
-                bundle.putInt("flag", 1)
-                bundle.putString("auid", "")
-                MyApplication.openActivity(this@AddFriendsActivity, PersonalHomePageActivity::class.java, bundle)
-            }
-
-        })
     }
 
 
@@ -80,8 +144,14 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
         when (p0!!.id) {
             R.id.tv_screen -> {
                 ScreenFriendsPop.screenDialog(this, tv_screen, object : ScreenFriendsPop.ScreenCallBack {
-                    override fun screen(flag: Int) {
-                        ToastUtil.showToast(flag.toString())
+                    override fun screen(flag: String) {
+                        sex = flag
+                        if (userList.isNotEmpty()) {
+                            userList.clear()
+                            addAdapter!!.notifyDataSetChanged()
+                        }
+                        nowPage = 1
+                        CommunityUser_20.user(sex, search, nowPage)
                     }
                 })
             }
@@ -124,6 +194,7 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }

@@ -86,7 +86,7 @@ class AddressPop(context: Context, private val cityList: List<CityModel>, var wh
             loopview3.setItems(list3)
             loopview3.setInitPosition(0)
 
-            wheelViewCallBack.position(position, 0, 0)
+            wheelViewCallBack.position(position, position2, 0)
         }
         loopview3.setListener { index ->
             position3 = index

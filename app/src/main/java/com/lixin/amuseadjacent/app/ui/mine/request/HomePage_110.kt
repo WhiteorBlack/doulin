@@ -23,13 +23,6 @@ object HomePage_110 {
                 super.onResponse(response, id)
                 val model = Gson().fromJson(response, HomePageModel::class.java)
                 if (model.result == "0") {
-                    StaticUtil.constellation = model.constellation
-                    StaticUtil.age = model.age
-                    StaticUtil.constellation
-                    StaticUtil.communityName = model.communityName
-                    StaticUtil.unitName=model.unitName
-                    StaticUtil.doorNumber=model.doorNumber
-
                     EventBus.getDefault().post(model)
                 } else {
                     ToastUtil.showToast(model.resultNote)

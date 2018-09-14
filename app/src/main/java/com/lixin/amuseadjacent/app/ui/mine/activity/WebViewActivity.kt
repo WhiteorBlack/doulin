@@ -1,8 +1,10 @@
 package com.lixin.amuseadjacent.app.ui.mine.activity
 
 import android.os.Bundle
+import android.webkit.WebView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.view.MyWebView
 
 /**
  * Created by Slingge on 2018/9/3
@@ -19,6 +21,8 @@ class WebViewActivity : BaseActivity() {
 
     private fun init() {
         StatusBarWhiteColor()
+        val myWebView = findViewById<MyWebView>(R.id.webview)
+        val webView = myWebView.webView
         val flag = intent.getIntExtra("flag", -1)
         if (flag == 0) {//优惠券说名
             inittitle("优惠券说明")
@@ -30,7 +34,12 @@ class WebViewActivity : BaseActivity() {
             inittitle("用户协议")
         } else if (flag == 4) {//关于逗邻
             inittitle("隐私协议")
+        } else {
+            inittitle(intent.getStringExtra("title"))
+            webView!!.loadUrl(intent.getStringExtra("url"))
         }
+
+
     }
 
 }

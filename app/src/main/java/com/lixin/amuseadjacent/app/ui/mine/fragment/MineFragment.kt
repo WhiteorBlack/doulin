@@ -147,9 +147,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         when (p0!!.id) {
             R.id.iv_heaser -> {//个人中心
                 val bundle = Bundle()
-                bundle.putInt("flag", 0)
                 bundle.putString("auid", StaticUtil.uid)
-                bundle.putSerializable("model", userModel)
                 MyApplication.openActivity(activity, PersonalHomePageActivity::class.java, bundle)
             }
             R.id.iv_code -> {//我的二维码
@@ -164,7 +162,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             R.id.tv_dynamic -> {//动态
                 val bundle = Bundle()
                 bundle.putInt("flag", 0)
-                MyApplication.openActivity(activity, MailActivity::class.java, bundle)
+                bundle.putString("auid", StaticUtil.uid)
+                bundle.putInt("position", 1)
+                MyApplication.openActivity(activity, PersonalHomePageActivity::class.java, bundle)
             }
             R.id.tv_follow -> {//关注
                 val bundle = Bundle()

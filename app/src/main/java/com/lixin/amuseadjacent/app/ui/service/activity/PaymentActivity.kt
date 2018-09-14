@@ -1,18 +1,22 @@
 package com.lixin.amuseadjacent.app.ui.service.activity
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.service.request.BalancePay_154
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_payment.*
 import kotlinx.android.synthetic.main.include_basetop.*
 
 /**
  * Created by Slingge on 2018/9/1
  */
-class PaymentActivity : BaseActivity() {
+class PaymentActivity : BaseActivity(), View.OnClickListener {
 
+    private var payType=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +35,41 @@ class PaymentActivity : BaseActivity() {
 
 
         tv_pay.setOnClickListener { v ->
-            MyApplication.openActivity(this, PaymentSuccessActivity::class.java)
+            if(TextUtils.isEmpty(payType)){
+                ToastUtil.showToast("请选择支付方式")
+                return@setOnClickListener
+            }
+
+            if(payType=="balance"){
+                BalancePay_154.pay("","",object :BalancePay_154.BalancePayCallBack{
+                    override fun pay() {
+                        MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java)
+                    }
+                })
+            }
+
+
         }
     }
 
+    override fun onClick(p0: View?) {
+        when (p0!!.id) {
+            R.id.cb_alipay->{
+                cb_weixin.isChecked=false
+                cb_balance.isChecked=false
 
+                payType="alipay"
+            }
+            R.id.cb_weixin->{
+                cb_alipay.isChecked=false
+                cb_balance.isChecked=false
+                payType="weixin"
+            }
+            R.id.cb_balance->{
+                cb_alipay.isChecked=false
+                cb_weixin.isChecked=false
+                payType="balance"
+            }
+        }
+    }
 }

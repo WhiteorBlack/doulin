@@ -10,12 +10,14 @@ import android.widget.TextView
 import cn.bingoogolapple.badgeview.BGABadgeTextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.message.model.CommentNewModel
+import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 
 /**
  * Created by Slingge on 2018/8/16
  */
-class CommentNewsAdapter(val context: Context) : RecyclerView.Adapter<CommentNewsAdapter.ViewHolder>() {
+class CommentNewsAdapter(val context: Context, val commentList: ArrayList<CommentNewModel.msgModel>) : RecyclerView.Adapter<CommentNewsAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,24 +26,33 @@ class CommentNewsAdapter(val context: Context) : RecyclerView.Adapter<CommentNew
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return commentList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        MyApplication.setRedNum(holder.tv_msgNum, 100)
+        val model = commentList[position]
 
+        holder.tex2.text = model.messageTitle
+        holder.tv_time.text = model.messageTime
 
         holder.tv_del.setOnClickListener { v ->
-            ToastUtil.showToast("删除")
+            MsgList_21.delMsg(model.messageId, "2", object : MsgList_21.DelMsgCallBack {
+                override fun delMsg() {
+                    commentList.removeAt(position)
+                    notifyDataSetChanged()
+                }
+            })
         }
     }
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tv_msgNum = view.findViewById<BGABadgeTextView>(R.id.tv_msgNum)
         val tv_see = view.findViewById<TextView>(R.id.tv_see)
         val tv_time = view.findViewById<TextView>(R.id.tv_time)
+        val text = view.findViewById<TextView>(R.id.text)
+        val tex2 = view.findViewById<TextView>(R.id.tex2)
+
 
         val tv_del = view.findViewById<TextView>(R.id.tv_del)
     }

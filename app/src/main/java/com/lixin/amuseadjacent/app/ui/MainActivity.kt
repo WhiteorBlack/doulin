@@ -46,9 +46,8 @@ class MainActivity : AppCompatActivity() {
                 if (Build.VERSION.SDK_INT > 19) {
                     StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.white))
                 }
-                if (bFragment1 == null) {
-                    bFragment1 = MessageFragment()
-                }
+
+                bFragment1 = MessageFragment()
                 switchFragment(bFragment1!!)
             }
             R.id.tab_2 -> {
@@ -99,9 +98,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    fun destroy() {
-        finish()
-    }
 
 }

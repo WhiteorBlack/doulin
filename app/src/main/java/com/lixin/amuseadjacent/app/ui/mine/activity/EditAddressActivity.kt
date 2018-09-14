@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import com.google.gson.Gson
@@ -10,7 +11,11 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.AddressPop
 import com.lixin.amuseadjacent.app.ui.dialog.CityModel
+import com.lixin.amuseadjacent.app.ui.mine.model.AddressModel
+import com.lixin.amuseadjacent.app.ui.mine.request.Address_140141142143
+import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.AppJsonFileReader
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_edit_address.*
 import java.util.ArrayList
 
@@ -25,12 +30,26 @@ class EditAddressActivity : BaseActivity(), View.OnClickListener, AddressPop.Whe
     private var addressPop: AddressPop? = null
     private var cityList: List<CityModel> = ArrayList()//全国城市
 
+    private var addId = ""//地址id
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_address)
         init()
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (flag == 1) {
+            val mode = intent.getSerializableExtra("model") as AddressModel.addModel
+            addId = mode.addressId
+            et_name.setText(mode.username)
+            et_phone.setText(mode.userPhone)
+            et_address.setText(mode.address)
+            sv_default.isOpened = mode.isdefault != "0"
+            tv_region.text=mode.city
+        }
+    }
 
     private fun init() {
         StatusBarWhiteColor()
@@ -40,9 +59,9 @@ class EditAddressActivity : BaseActivity(), View.OnClickListener, AddressPop.Whe
         } else {
             inittitle("修改收货地址")
         }
+
         tv_region.setOnClickListener(this)
-
-
+        tv_save.setOnClickListener(this)
     }
 
 
@@ -59,6 +78,38 @@ class EditAddressActivity : BaseActivity(), View.OnClickListener, AddressPop.Whe
                 if (!addressPop!!.isShowing) {
                     addressPop!!.showAtLocation(cl_main, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
                 }
+            }
+            R.id.tv_save -> {
+                val name = AbStrUtil.etTostr(et_name)
+                if (TextUtils.isEmpty(name)) {
+                    ToastUtil.showToast("请输入收货人姓名")
+                    return
+                }
+                val phone = AbStrUtil.etTostr(et_phone)
+                if (TextUtils.isEmpty(phone)) {
+                    ToastUtil.showToast("请输入收货人手机号码")
+                    return
+                }
+
+                val city = AbStrUtil.tvTostr(tv_region)
+                if (TextUtils.isEmpty(city)) {
+                    ToastUtil.showToast("请选择所在地区")
+                    return
+                }
+
+                val address = AbStrUtil.etTostr(et_address)
+                if (TextUtils.isEmpty(address)) {
+                    ToastUtil.showToast("请输入收货人详细地址")
+                    return
+                }
+
+                val isDefault: String
+                if (sv_default.isOpened) {// 0非默认，1默认
+                    isDefault = "1"
+                } else {
+                    isDefault = "0"
+                }
+                Address_140141142143.editAddress(this, flag, addId, name, phone, city, address, isDefault)
             }
         }
     }

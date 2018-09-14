@@ -25,6 +25,7 @@ object UserInfo_19 {
                     StaticUtil.balance = model.balance
                     StaticUtil.nickName = model.nickname
                     StaticUtil.effectNum = model.effectNum
+                    StaticUtil.CcommunityId=model.communityId
                     EventBus.getDefault().post(model)
                 } else {
                     ToastUtil.showToast(model.resultNote)

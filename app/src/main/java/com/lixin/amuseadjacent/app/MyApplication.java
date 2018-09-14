@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.lixin.amuseadjacent.R;
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil;
+import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil;
+import com.lixin.amuseadjacent.app.util.StaticUtil;
 import com.lixin.amuseadjacent.app.util.abLog;
 
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
@@ -50,6 +52,8 @@ public class MyApplication extends MultiDexApplication {
         super.onCreate();
         CONTEXT = getApplicationContext();
         myApplication = this;
+
+        StaticUtil.INSTANCE.setCommunityName(SharedPreferencesUtil.getSharePreStr(this, SharedPreferencesUtil.communityId));
 
         abLog.INSTANCE.setE(true);
 //        JPushInterface.init(this);

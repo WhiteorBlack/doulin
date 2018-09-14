@@ -52,10 +52,10 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tab"
             android:layout_width="wrap_content"
-            android:visibility="invisible"
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:background="@color/colorWhite"
+            android:visibility="invisible"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:tabIndicatorColor="@color/colorTheme"
             app:tabIndicatorHeight="@dimen/tabIndicatorHeight"
@@ -110,8 +110,8 @@
         android:id="@+id/line_follow"
         android:layout_width="30dp"
         android:layout_height="2dp"
-        android:visibility="invisible"
         android:background="@color/colorTheme"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/tv_follow"
         app:layout_constraintStart_toEndOf="@+id/tv_follow"
         app:layout_constraintTop_toBottomOf="@+id/tv_friend" />
@@ -129,15 +129,14 @@
         android:id="@+id/line_fans"
         android:layout_width="30dp"
         android:layout_height="2dp"
-        android:visibility="invisible"
         android:background="@color/colorTheme"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/tv_fans"
         app:layout_constraintStart_toEndOf="@+id/tv_fans"
         app:layout_constraintTop_toBottomOf="@+id/tv_friend" />
 
-
-    <com.lixin.amuseadjacent.app.view.CustomViewPager
-        android:id="@+id/viewPager"
+    <FrameLayout
+        android:id="@+id/fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

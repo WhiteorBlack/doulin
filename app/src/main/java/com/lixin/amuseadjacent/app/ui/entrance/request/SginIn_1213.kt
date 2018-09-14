@@ -32,14 +32,17 @@ object SginIn_1213 {
                 if (obj.getString("result") == "0") {
                     try {
                         StaticUtil.uid = obj.getString("uid")
+                        val sp = context.getSharedPreferences(SharedPreferencesUtil.NAME, 0)
+
                         if (obj.getString("iswanshan") == "0") {//0未完善社区信息 1已完善社区信息
                             MyApplication.openActivity(context, PersonalImageActivity::class.java)
                         } else {
                             StaticUtil.CcommunityId = obj.getString("communityId")
+                            sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.CcommunityId).commit()
                             MyApplication.openActivity(context, MainActivity::class.java)
                         }
-                        val sp = context.getSharedPreferences(SharedPreferencesUtil.NAME, 0)
-                        sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.uid, StaticUtil.uid).commit()
+                        sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.uid, StaticUtil.uid)
+                                .commit()
                         StaticUtil.phone = phone
                         AppManager.finishAllActivity()
                     } catch (e: JSONException) {
@@ -65,14 +68,15 @@ object SginIn_1213 {
                 if (obj.getString("result") == "0") {
                     try {
                         StaticUtil.uid = obj.getString("uid")
+                        val sp = context.getSharedPreferences(SharedPreferencesUtil.NAME, 0)
                         if (obj.getString("iswanshan") == "0") {//0未完善社区信息 1已完善社区信息
                             MyApplication.openActivity(context, PersonalImageActivity::class.java)
                         } else {
                             StaticUtil.CcommunityId = obj.getString("communityId")
+                            sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.CcommunityId).commit()
                             MyApplication.openActivity(context, MainActivity::class.java)
                         }
                         StaticUtil.phone = phone
-                        val sp = context.getSharedPreferences(SharedPreferencesUtil.NAME, 0)
                         sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.Pass, pass)
                                 .putString(SharedPreferencesUtil.uid, StaticUtil.uid).commit()
                         AppManager.finishAllActivity()

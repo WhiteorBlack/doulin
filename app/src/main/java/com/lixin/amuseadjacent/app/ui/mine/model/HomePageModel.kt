@@ -11,8 +11,10 @@ class HomePageModel : Serializable {
     var result = ""
     var resultNote = ""
     var icon = ""
+    var nickname = ""
     var sex = ""
     var age = ""
+    var effectNum = ""//影响力
     var constellation = ""//星座
     var communityId = ""//社区单元id
     var communityName = ""//社区名称
@@ -34,7 +36,7 @@ class HomePageModel : Serializable {
     var otherList = ArrayList<String>()
 
 
-    class albumModel :Serializable{
+    class albumModel : Serializable {
         var imgId = ""//
         var imgUrl = ""//
     }

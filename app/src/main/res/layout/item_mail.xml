@@ -41,6 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="12dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:text="圆即是一"

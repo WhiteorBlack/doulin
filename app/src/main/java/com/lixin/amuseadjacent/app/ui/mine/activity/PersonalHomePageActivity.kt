@@ -3,14 +3,13 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.text.TextUtils
-import android.view.ActionMode
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
+import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.ui.mine.fragment.DataFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.DesignerFragment
@@ -32,18 +31,18 @@ import java.util.ArrayList
  * 个人主页
  * Created by Slingge on 2018/8/16
  */
-class PersonalHomePageActivity : BaseActivity() {
+class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
-    private var flag = 0//0自己查看自己的，1查看别人的
-    private var auid = ""//要查看的人的uid，为空查看自己的，
+    private var auid = ""//与StaticUtil.uid相同查看自己的，不同别人的
 
     private var imgaeAdapter: ImageAdapter? = null
     private var imageList = ArrayList<String>()
 
     private var dataFragment: DataFragment? = null
 
-    private var userModel: UserInfoModel?=null
-    private var pageModel: HomePageModel?=null
+    private var pageModel: HomePageModel? = null
+
+    private var isAttention = ""// 0未关注 1已关注
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,20 +57,22 @@ class PersonalHomePageActivity : BaseActivity() {
         StatusBarWhiteColor()
         view_staus.visibility = View.GONE
 
-        flag = intent.getIntExtra("flag", 0)
         auid = intent.getStringExtra("auid")
 
-        if (StaticUtil.uid!=auid) {
-            auid = StaticUtil.uid
-        }
-
-        if (flag == 0) {
+        if (auid == StaticUtil.uid) {
             iv_right.visibility = View.VISIBLE
             iv_right.setImageResource(R.drawable.ic_edit2)
             iv_right.setOnClickListener { v ->
                 MyApplication.openActivity(this, PersonalDataActivity::class.java)
             }
             cl_3.visibility = View.GONE
+        } else {
+            isAttention = intent.getStringExtra("isAttention")
+            if (isAttention == "0") {//0未关注 1已关注
+                tv_follow.text = "未关注"
+            } else {
+                tv_follow.text = "已关注"
+            }
         }
 
         val tabList = ArrayList<String>()
@@ -105,38 +106,46 @@ class PersonalHomePageActivity : BaseActivity() {
         rv_album.adapter = imgaeAdapter
 
 
-        if (intent != null && intent.getIntExtra("flag", -1) == 1) {
-            viewPager.currentItem = intent.getIntExtra("flag", 0)
+        if (intent != null && intent.getIntExtra("position", -1) == 1) {
+            viewPager.currentItem = intent.getIntExtra("position", 0)
         }
 
+        tv_follow.setOnClickListener(this)
+        tv_dialogue.setOnClickListener(this)
     }
-
 
 
     override fun onStart() {
         super.onStart()
-        if (intent.getSerializableExtra("model") != null) {
-            userModel = intent.getSerializableExtra("model") as UserInfoModel
-            tv_name.text = userModel!!.nickname
-            tv_effect.text = "影响力" + userModel!!.effectNum
-        }
-
-        if (StaticUtil.uid==auid) {
-            ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
-        }
-    }
-
-
-    override fun onResume() {
-        super.onResume()
         ProgressDialog.showDialog(this)
         HomePage_110.userInfo(auid)
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0!!.id) {
+            R.id.tv_follow -> {
+                Mail_138139.follow(auid, object : Mail_138139.FollowCallBack {
+                    override fun follow() {
+                        if (isAttention == "0") {//0未关注 1已关注
+                            isAttention = "1"
+                            tv_follow.text = "已关注"
+                        } else {
+                            isAttention = "0"
+                            tv_follow.text = "未关注"
+                        }
+                    }
+                })
+            }
+            R.id.tv_dialogue -> {
+
+            }
+        }
     }
 
 
     @Subscribe
     fun onEvent(model: HomePageModel) {
-        pageModel=model
+        pageModel = model
         if (!imageList.isEmpty()) {
             imageList.clear()
         }
@@ -145,17 +154,24 @@ class PersonalHomePageActivity : BaseActivity() {
         }
         imgaeAdapter!!.notifyDataSetChanged()
 
-        if(model.sex=="0"){//女
+        if (model.sex == "0") {//女
             tv_sex.setBackgroundResource(R.drawable.bg_girl8)
-            AbStrUtil.setDrawableLeft(this,R.drawable.ic_girl,tv_sex,3)
-        }else{
+            AbStrUtil.setDrawableLeft(this, R.drawable.ic_girl, tv_sex, 3)
+        } else {
             tv_sex.setBackgroundResource(R.drawable.bg_boy8)
-            AbStrUtil.setDrawableLeft(this,R.drawable.ic_boy,tv_sex,3)
+            AbStrUtil.setDrawableLeft(this, R.drawable.ic_boy, tv_sex, 3)
         }
+
+        ImageLoader.getInstance().displayImage(model.icon, iv_header)
+
+        isAttention = model.icon
 
         tv_sex.text = model.age
         tv_constellation.text = model.constellation
         tv_address.text = model.communityName + model.unitName + model.doorNumber
+
+        tv_name.text = model.nickname
+        tv_effect.text = "影响力" + model.effectNum
 
         dataFragment!!.setDate(model)
     }

@@ -19,11 +19,11 @@ import java.util.*
  */
 object ScreenFriendsPop {
 
-    var flag = 0//0全部，1男，2女
+    var flag = ""// 全部""，男"1"，女"0"
     private var pop: PopupWindow? = null
 
     interface ScreenCallBack {
-        fun screen(flag: Int)
+        fun screen(flag: String)
     }
 
     fun screenDialog(context: Context, rlTopBar: View,screenCallBack: ScreenCallBack ) {
@@ -42,7 +42,7 @@ object ScreenFriendsPop {
         val tv_enter = view.findViewById<TextView>(R.id.tv_enter)
 
         tv_all.setOnClickListener { v ->
-            flag = 0
+            flag = ""
 
             tv_all.setTextColor(context.resources.getColor(R.color.white))
             tv_all.setBackgroundResource(R.drawable.bg_them8)
@@ -57,7 +57,7 @@ object ScreenFriendsPop {
         }
 
         tv_boy.setOnClickListener { v ->
-            flag = 1
+            flag = "1"
 
             tv_all.setTextColor(context.resources.getColor(R.color.black))
             tv_all.setBackgroundResource(R.drawable.bg_white8)
@@ -72,7 +72,7 @@ object ScreenFriendsPop {
         }
 
         tv_girle.setOnClickListener { v ->
-            flag = 2
+            flag = "0"
 
             tv_all.setTextColor(context.resources.getColor(R.color.black))
             tv_all.setBackgroundResource(R.drawable.bg_white8)

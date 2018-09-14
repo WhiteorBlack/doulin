@@ -3,11 +3,7 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.text.TextUtils
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -21,6 +17,7 @@ import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.abLog
 import com.luck.picture.lib.entity.LocalMedia
+import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_personal_data.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
@@ -59,8 +56,8 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         val gridLayoutManager = GridLayoutManager(this, 4)
         rv_album.layoutManager = gridLayoutManager
 
-        tv_right.visibility=View.VISIBLE
-        tv_right.text="保存"
+        tv_right.visibility = View.VISIBLE
+        tv_right.text = "保存"
         tv_right.setOnClickListener(this)
 
         iv_edite.setOnClickListener(this)
@@ -74,10 +71,11 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-
     @Subscribe
     fun onEvent(model: HomePageModel) {
         val pageModel = model
+
+        ImageLoader.getInstance().displayImage(model.icon, iv_header)
 
         if (model.sex == "0") {//女
             tv_sex.setBackgroundResource(R.drawable.bg_girl8)
@@ -90,20 +88,20 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         tv_name.text = StaticUtil.nickName
         tv_effect.text = "影响力" + StaticUtil.effectNum
 
-        et_autograph.setText(pageModel!!.autograph)//签名
-        et_occupation.setText(pageModel!!.occupation)//职业
+        et_autograph.setText(pageModel.autograph)//签名
+        et_occupation.setText(pageModel.occupation)//职业
 
-        tv_sex.text = pageModel!!.age
-        tv_constellation.text = pageModel!!.constellation
-        tv_address.text = pageModel!!.communityName + pageModel!!.unitName + pageModel!!.doorNumber
+        tv_sex.text = pageModel.age
+        tv_constellation.text = pageModel.constellation
+        tv_address.text = pageModel.communityName + pageModel.unitName + pageModel.doorNumber
 
         if (!imageList.isEmpty()) {
             imageList.clear()
         }
-        for (i in 0 until pageModel!!.albumList.size) {
+        for (i in 0 until pageModel.albumList.size) {
             val localMedia = LocalMedia()
-            localMedia.path = pageModel!!.albumList[i].imgUrl
-            localMedia.pictureType = pageModel!!.albumList[i].imgId
+            localMedia.path = pageModel.albumList[i].imgUrl
+            localMedia.pictureType = pageModel.albumList[i].imgId
             imageList.add(localMedia)
         }
         imageList.add(LocalMedia())
@@ -114,27 +112,27 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         albumAdapter!!.setFlag(0)
         albumAdapter!!.setDelShow(false)
 
-        if (!pageModel!!.sportList.isEmpty()) {
-            tv_sport.text = pageModel!!.sportList[0]
+        if (!pageModel.sportList.isEmpty()) {
+            tv_sport.text = pageModel.sportList[0]
         }
 
-        if (!pageModel!!.musicList.isEmpty()) {
-            tv_music.text = pageModel!!.musicList[0]
+        if (!pageModel.musicList.isEmpty()) {
+            tv_music.text = pageModel.musicList[0]
         }
 
-        if (!pageModel!!.foodsList.isEmpty()) {
-            tv_food.text = pageModel!!.foodsList[0]
+        if (!pageModel.foodsList.isEmpty()) {
+            tv_food.text = pageModel.foodsList[0]
         }
 
-        if (!pageModel!!.movieList.isEmpty()) {
-            tv_film.text = pageModel!!.movieList[0]
+        if (!pageModel.movieList.isEmpty()) {
+            tv_film.text = pageModel.movieList[0]
         }
 
-        if (!pageModel!!.booksList.isEmpty()) {
-            tv_book.text = pageModel!!.booksList[0]
+        if (!pageModel.booksList.isEmpty()) {
+            tv_book.text = pageModel.booksList[0]
         }
-        if (!pageModel!!.otherList.isEmpty()) {
-            tv_label.text = pageModel!!.otherList[0]
+        if (!pageModel.otherList.isEmpty()) {
+            tv_label.text = pageModel.otherList[0]
         }
     }
 

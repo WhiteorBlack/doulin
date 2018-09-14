@@ -50,11 +50,6 @@ class CouponMyFragment : BaseFragment() {
         couponAdapter = CouponMyAdapter(activity!!, couponList, flag)
         xrecyclerview.adapter = couponAdapter
 
-        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        xrecyclerview.layoutAnimation = controller
-        couponAdapter!!.notifyDataSetChanged()
-        xrecyclerview.scheduleLayoutAnimation()
-
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
                 if (couponList.isNotEmpty()) {
@@ -116,7 +111,10 @@ class CouponMyFragment : BaseFragment() {
             xrecyclerview.loadMoreComplete()
         }
 
+        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
+        xrecyclerview.layoutAnimation = controller
         couponAdapter!!.notifyDataSetChanged()
+        xrecyclerview.scheduleLayoutAnimation()
     }
 
 

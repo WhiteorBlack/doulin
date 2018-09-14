@@ -1,12 +1,16 @@
 package com.lixin.amuseadjacent.app.ui.mine.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.MainActivity
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.entrance.SginInActivity
+import com.lixin.amuseadjacent.app.ui.mine.request.VersionUpData_153
 import com.lixin.amuseadjacent.app.util.AppManager
 import com.lixin.amuseadjacent.app.util.DataCleanManager
 import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil
@@ -18,11 +22,24 @@ import kotlinx.android.synthetic.main.activity_setup.*
  */
 class SetUpActivity : BaseActivity(), View.OnClickListener {
 
+    private var updataUrl = ""
+    private var updataName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
         init()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        VersionUpData_153.updata(this, object : VersionUpData_153.UpdataCallBack {
+            override fun updata(updataUrl: String, versionName: String) {
+                view_updata.visibility = View.VISIBLE
+                this@SetUpActivity.updataUrl = updataUrl
+                updataName = versionName
+            }
+        })
     }
 
 
@@ -41,6 +58,8 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
         tv_address.setOnClickListener(this)
         tv_eliminate.setOnClickListener(this)
         tv_exitlogon.setOnClickListener(this)
+
+        tv_updata.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
@@ -67,6 +86,15 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
                 finish()
 //                MainActivity().destroy()
                 MyApplication.openActivity(this, SginInActivity::class.java)
+            }
+            R.id.tv_updata -> {
+                if (TextUtils.isEmpty(updataUrl)) {
+                    return
+                }
+                val uri = Uri.parse(updataUrl)
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = uri
+                startActivity(intent)
             }
         }
 

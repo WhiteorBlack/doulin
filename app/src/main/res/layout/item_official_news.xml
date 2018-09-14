@@ -9,33 +9,57 @@
 
     <!--官方消息-->
 
-    <android.support.constraint.ConstraintLayout
+    <com.daimajia.swipe.SwipeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_f03"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
-        <com.lixin.amuseadjacent.app.view.RoundImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="175dp"
-            android:maxHeight="175dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_dyna" />
-
-        <TextView
-            android:id="@+id/tv_info"
-            android:layout_width="0dp"
+        <FrameLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="安家费爱激发无赔款佛卡沃尔法克卡万科佛卡我"
-            android:textColor="@color/colorTabText"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image" />
+            android:background="@color/colorTheme">
 
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_del"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+        </FrameLayout>
 
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cl_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_f03"
+            android:padding="10dp">
+
+            <com.lixin.amuseadjacent.app.view.RoundImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:maxHeight="175dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_dyna" />
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="安家费爱激发无赔款佛卡沃尔法克卡万科佛卡我"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </com.daimajia.swipe.SwipeLayout>
 </FrameLayout>

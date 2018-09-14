@@ -10,14 +10,18 @@ import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.message.activity.*
 import com.lixin.amuseadjacent.app.ui.message.adapter.MyMsgAdapter
-import com.lixin.amuseadjacent.app.ui.message.model.MyMsgListModel
+import com.lixin.amuseadjacent.app.ui.message.model.MsgListModel
+import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_message.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * 消息首页
@@ -25,12 +29,12 @@ import kotlinx.android.synthetic.main.fragment_message.*
  */
 class MessageFragment : BaseFragment(), View.OnClickListener {
 
-
     private var msgAdaptation: MyMsgAdapter? = null
-    private var msgList = ArrayList<MyMsgListModel.dataModel>()
+    private var msgList = ArrayList<MsgListModel.msgModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_message, container, false)
+        EventBus.getDefault().register(this)
         return view
     }
 
@@ -44,7 +48,7 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
         if (Build.VERSION.SDK_INT > 19) {
             view_staus.visibility = View.VISIBLE
             StatusBarUtil.setStutaViewHeight(activity, view_staus)
-            StatusBarUtil.setColorNoTranslucent(activity,resources.getColor(R.color.white))
+            StatusBarUtil.setColorNoTranslucent(activity, resources.getColor(R.color.white))
             StatusBarBlackWordUtil.StatusBarLightMode(activity)
         }
 
@@ -56,22 +60,34 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
 
         rv_msg.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_msg) {
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                val position = vh!!.adapterPosition - 1
-                ToastUtil.showToast(position.toString())
-                if (position < 0) {
+                val position = vh!!.adapterPosition
+                if (position < 0 || position >= msgList.size) {
                     return
                 }
-                if (position % 2 == 0) {
+                if (msgList[position].type == "0") {//0系统消息 1订单信息 2评论信息
                     MyApplication.openActivity(activity, OfficialNewsActivity::class.java)
-                }else if(position % 3 == 0){
-                    MyApplication.openActivity(activity, CommentNewsActivity::class.java)
-                }else{
+                } else if (msgList[position].type == "1") {
                     MyApplication.openActivity(activity, OrderNewsActivity::class.java)
+                } else if (msgList[position].type == "2") {
+                    MyApplication.openActivity(activity, CommentNewsActivity::class.java)
                 }
             }
         })
+
+        if (msgList.isNotEmpty()) {
+            msgList.clear()
+            msgAdaptation!!.notifyDataSetChanged()
+        }
+        ProgressDialog.showDialog(activity!!)
+        MsgList_21.msgList()
     }
 
+
+    @Subscribe
+    fun onEvent(model: MsgListModel) {
+        msgList.addAll(model.dataList)
+        msgAdaptation!!.notifyDataSetChanged()
+    }
 
     override fun loadData() {
 
@@ -89,6 +105,12 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
                 MyApplication.openActivity(activity, SearchActivity::class.java)
             }
         }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }

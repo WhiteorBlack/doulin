@@ -14,6 +14,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.find.activity.*
 import com.lixin.amuseadjacent.app.ui.find.adapter.FindAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
@@ -22,6 +23,8 @@ import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.header_find.view.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
 /**
@@ -40,6 +43,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.xrecyclerview, container, false)
+        EventBus.getDefault().register(this)
         init()
         return view
     }
@@ -49,7 +53,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         if (Build.VERSION.SDK_INT > 19) {
             view_staus.visibility = View.VISIBLE
             StatusBarUtil.setStutaViewHeight(activity, view_staus)
-            StatusBarUtil.setColorNoTranslucent(activity,resources.getColor(R.color.white))
+            StatusBarUtil.setColorNoTranslucent(activity, resources.getColor(R.color.white))
             StatusBarBlackWordUtil.StatusBarLightMode(activity)
         }
 
@@ -76,7 +80,6 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
-
                 .start()
 
     }
@@ -118,6 +121,12 @@ class FindFragment : BaseFragment(), View.OnClickListener {
     }
 
 
+    @Subscribe
+    fun onEvent(model: FindModel) {
+
+    }
+
+
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.iv_talent, R.id.tv_talent -> {//达人
@@ -139,5 +148,8 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 }

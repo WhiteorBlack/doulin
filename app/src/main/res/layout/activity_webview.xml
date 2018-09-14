@@ -11,7 +11,7 @@
         layout="@layout/include_basetop" />
 
 
-    <com.lixin.amuseadjacent.app.ui.view.MyWebView
+    <com.lixin.amuseadjacent.app.view.MyWebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

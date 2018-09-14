@@ -24,6 +24,7 @@ public class SharedPreferencesUtil {
 	public static String Phone="phone";
 	public static String Pass="pass";
 	public static String uid="uid";
+	public static String communityId="communityId";
 
 
 	/**
