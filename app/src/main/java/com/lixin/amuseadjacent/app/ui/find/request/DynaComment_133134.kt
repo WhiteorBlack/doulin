@@ -2,7 +2,7 @@ package com.lixin.amuseadjacent.app.ui.find.request
 
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
-import com.lixin.amuseadjacent.app.ui.find.model.DynamiclModel
+import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.huaihuatransit.app.util.StrCallback
@@ -24,7 +24,7 @@ object DynaComment_133134 {
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
-                val model = Gson().fromJson(response, DynamiclModel::class.java)
+                val model = Gson().fromJson(response, DynamiclDetailsModel::class.java)
                 if (model.result == "0") {
                     EventBus.getDefault().post(model)
                 } else {

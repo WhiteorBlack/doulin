@@ -22,11 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoader
  * Created by Slingge on 2017/5/3 0003.
  */
 
-class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val maxNum: Int, val imageRemoveCallback: ImageRemoveCallback?) : RecyclerView.Adapter<AlbumAdapter.MyViewHolder>() {
-
-    private var flag = -1//0只展示图片显示不删除，“加号”不选择图片，只跳转
-
-    private var isShowDel = true
+class ReleaseAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val maxNum: Int, val imageRemoveCallback: ImageRemoveCallback?) : RecyclerView.Adapter<ReleaseAdapter.MyViewHolder>() {
 
     interface ImageRemoveCallback {
         fun imageRemove(i: Int)
@@ -44,17 +40,14 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
             holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
             holder.iv_del.visibility = View.GONE
             holder.image.setOnClickListener { v ->
-                SelectPictureUtil.selectPicture(context, maxNum - list.size + 1, 0, false)
+
+                SelectPictureUtil.selectVodeoPicture(context, maxNum - list.size + 1, 0)
             }
         } else {
-            if (isShowDel) {
-                holder.iv_del.visibility = View.VISIBLE
-            } else {
-                holder.iv_del.visibility = View.GONE
-            }
+            holder.iv_del.visibility = View.VISIBLE
 
-            if (!list[position].path.contains("http://")) {  //网络图片
-                val bitmap = ImageFileUtil.getBitmapFromPath(list[position].path)//压缩的路径
+            if (!list[position].path.contains("http://")) {  //本地图片
+                val bitmap = ImageFileUtil.getBitmapFromPath(list[position].compressPath)//压缩的路径
                 holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
 
                 holder.image.setImageBitmap(bitmap)
@@ -78,17 +71,6 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
         } else {
             return list.size
         }
-    }
-
-    fun setFlag(flag: Int) {
-        this.flag = flag
-        notifyDataSetChanged()
-    }
-
-
-    fun setDelShow(isShow: Boolean) {
-        isShowDel = isShow
-        notifyDataSetChanged()
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

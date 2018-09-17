@@ -16,6 +16,7 @@ abstract class StrCallback : StringCallback() {
     override fun onError(call: Call, e: Exception, id: Int) {
         abLog.e2(e.toString())
         ToastUtil.showToast("网络错误")
+        ProgressDialog.dissDialog()
     }
 
     override fun onResponse(response: String, id: Int) {

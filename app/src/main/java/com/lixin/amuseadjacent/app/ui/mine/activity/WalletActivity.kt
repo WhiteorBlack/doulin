@@ -81,7 +81,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
             return
         }
         if (resultCode == 0) {
-            val model = data.getSerializableExtra("DynamiclModel") as MyBankModel.detailsModel
+            val model = data.getSerializableExtra("DynamiclDetailsModel") as MyBankModel.detailsModel
             RechargeDialog.communityDialog(this, model)
         }
     }

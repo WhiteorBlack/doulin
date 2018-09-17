@@ -51,7 +51,7 @@ class AddressAdapter(val context: Activity, val addList: ArrayList<AddressModel.
         holder.tv_edit.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putInt("flag", 1)
-            bundle.putSerializable("DynamiclModel", model)
+            bundle.putSerializable("DynamiclDetailsModel", model)
             MyApplication.openActivity(context, EditAddressActivity::class.java, bundle)
         }
         holder.tv_del.setOnClickListener { v ->

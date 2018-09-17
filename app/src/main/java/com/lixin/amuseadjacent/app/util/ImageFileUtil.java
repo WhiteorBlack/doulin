@@ -34,6 +34,8 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil;
  */
 public class ImageFileUtil {
 
+
+
     /**
      * 将图片转成字符串
      *
@@ -222,6 +224,43 @@ public class ImageFileUtil {
             newbm.compress(Bitmap.CompressFormat.JPEG, tag, bos);
             try {
                 bitmap.recycle();
+                bos.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    /**
+     * 保存bitmap文件
+     */
+    public static File saveFileBitmap(Bitmap bitmap) {
+
+        if (bitmap == null) {
+            ToastUtil.INSTANCE.showToast("图片错误");
+            return null;
+        }
+
+        String filePath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/com.lixin.amuseadjacent/image";
+        File destDir = new File(filePath);
+        if (!destDir.exists()) {//如果不存在则创建
+            destDir.mkdirs();
+        }
+        String name = "/PreviewingVideo.jpg";
+        File file = new File(filePath, name);
+        BufferedOutputStream bos;
+        try {
+            bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            try {
                 bos.flush();
             } catch (IOException e) {
                 e.printStackTrace();

@@ -50,7 +50,7 @@ class BankCardAdapter(val context: Activity, val bankList: ArrayList<MyBankModel
             //编辑
             if (flag == 1) {
                 val bundle = Bundle()
-                bundle.putSerializable("DynamiclModel", bankList[position])
+                bundle.putSerializable("DynamiclDetailsModel", bankList[position])
                 val intent = Intent()
                 intent.putExtras(bundle)
                 context.setResult(0, intent)
@@ -58,7 +58,7 @@ class BankCardAdapter(val context: Activity, val bankList: ArrayList<MyBankModel
             } else {
                 val bundle = Bundle()
                 bundle.putInt("flag", 1)
-                bundle.putSerializable("DynamiclModel", bankList[position])
+                bundle.putSerializable("DynamiclDetailsModel", bankList[position])
                 MyApplication.openActivity(context, BankCardAddActivity::class.java, bundle)
             }
         }

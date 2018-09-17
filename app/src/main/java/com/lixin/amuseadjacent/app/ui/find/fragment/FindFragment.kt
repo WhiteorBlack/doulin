@@ -151,7 +151,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             } else if (model.redmanList.size == 3) {
                 ImageLoader.getInstance().displayImage(model.redmanList[0].userImg, header1, ImageLoaderUtil.HeaderDIO())
                 ImageLoader.getInstance().displayImage(model.redmanList[1].userImg, header2, ImageLoaderUtil.HeaderDIO())
-                ImageLoader.getInstance().displayImage(model.redmanList[1].userImg, header3, ImageLoaderUtil.HeaderDIO())
+                ImageLoader.getInstance().displayImage(model.redmanList[2].userImg, header3, ImageLoaderUtil.HeaderDIO())
             }
         }
         tv_participate.text = model.theme.themeTitle

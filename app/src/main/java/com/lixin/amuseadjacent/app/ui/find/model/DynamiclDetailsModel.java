@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Slingge on 2018/9/15
  */
-public class DynamiclModel {
+public class DynamiclDetailsModel {
 
 
     public String result = "";

@@ -19,7 +19,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity;
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog;
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter;
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1;
-import com.lixin.amuseadjacent.app.ui.find.model.DynamiclModel;
+import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel;
 import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134;
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139;
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter;
@@ -65,7 +65,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     private String isZan = "0";//0未赞过 1已赞过
     private int commNum = 0;
 
-    private DynamiclModel model;
+    private DynamiclDetailsModel model;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -160,7 +160,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
 
     @Subscribe
-    public void onEvent(DynamiclModel model) {
+    public void onEvent(DynamiclDetailsModel model) {
         this.model = model;
         ImageLoader.getInstance().displayImage(model.object.dynamicIcon, iv_header, ImageLoaderUtil.HeaderDIO());
         tv_name.setText(model.object.dynamicName);

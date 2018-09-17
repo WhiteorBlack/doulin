@@ -35,20 +35,41 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_album"
+
+            <FrameLayout
+                android:id="@+id/fl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_info" />
+                app:layout_constraintTop_toBottomOf="@+id/et_info">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_album"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" />
 
-                />
+
+                <ImageView
+                    android:id="@+id/iv_video"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="12dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/ic_add2" />
+
+                <ImageView
+                    android:id="@+id/iv_del"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="18dp"
+                    android:src="@drawable/ic_del" />
+
+            </FrameLayout>
 
 
             <TextView
@@ -63,7 +84,7 @@
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/sub_fant"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_album" />
+                app:layout_constraintTop_toBottomOf="@+id/fl" />
 
         </android.support.constraint.ConstraintLayout>
 

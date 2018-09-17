@@ -44,11 +44,6 @@ class CollectionActivity : BaseActivity() {
         collectionAdapter = CollectionAdapter(this, collectList)
         xrecyclerview.adapter = collectionAdapter
 
-        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
-        xrecyclerview.layoutAnimation = controller
-        collectionAdapter!!.notifyDataSetChanged()
-        xrecyclerview.scheduleLayoutAnimation()
-
         ProgressDialog.showDialog(this)
         CollectList_123.collect(nowPage)
     }
@@ -56,7 +51,6 @@ class CollectionActivity : BaseActivity() {
 
     @Subscribe
     fun onEvent(model: CollectModel) {
-
         totalPage = model.totalPage
 
         collectList.addAll(model.dataList)
@@ -74,7 +68,11 @@ class CollectionActivity : BaseActivity() {
         } else if (onRefresh == 2) {
             xrecyclerview.loadMoreComplete()
         }
+
+        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
+        xrecyclerview.layoutAnimation = controller
         collectionAdapter!!.notifyDataSetChanged()
+        xrecyclerview.scheduleLayoutAnimation()
     }
 
 
