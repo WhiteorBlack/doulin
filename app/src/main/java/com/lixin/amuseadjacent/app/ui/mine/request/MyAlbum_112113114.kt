@@ -78,7 +78,6 @@ object MyAlbum_112113114 {
                 super.onResponse(response, id)
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
-
                     StaticUtil.headerUrl=obj.getString("object")
 
                     val bundle = Bundle()

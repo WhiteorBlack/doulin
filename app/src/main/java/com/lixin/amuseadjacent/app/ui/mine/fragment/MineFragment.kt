@@ -134,7 +134,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        UserInfo_19.userInfo()
+        UserInfo_19.userInfo(activity!!)
     }
 
 

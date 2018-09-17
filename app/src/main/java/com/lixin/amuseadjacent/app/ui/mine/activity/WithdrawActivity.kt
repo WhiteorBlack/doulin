@@ -108,7 +108,7 @@ class WithdrawActivity : BaseActivity(), View.OnClickListener {
             return
         }
         if (resultCode == 0) {
-            val model = data.getSerializableExtra("model") as MyBankModel.detailsModel
+            val model = data.getSerializableExtra("DynamiclModel") as MyBankModel.detailsModel
             val num = model.cardNum
             tv_bank.text = model.cardName + "（" + num.substring(num.length - 4, num.length) + "）"
             cardId = model.cardId

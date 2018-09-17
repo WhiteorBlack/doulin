@@ -284,6 +284,10 @@
         <activity
             android:name=".app.ui.find.activity.DynamicDetailsReplyActivity"
             android:screenOrientation="portrait" />
+        <!--更多回复-->
+        <activity
+            android:name=".app.ui.find.activity.MoreCommentActivity"
+            android:screenOrientation="portrait" />
 
         <!--活动-->
         <activity

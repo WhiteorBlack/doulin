@@ -8,19 +8,22 @@ import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
 import org.greenrobot.eventbus.EventBus
-import org.json.JSONObject
 
 /**
- * 发现首页
- * Created by Slingge on 2018/9/14
+ * 动态帮帮列表
+ * Created by Slingge on 2018/9/15
  */
-object Find_26 {
+object DynamicList_219 {
 
+    /**
+     * @param state 0动态 1帮帮
+     * @param type 0全部 1关注
+     * */
+    fun dynamic(state: String, type: String, nowPage: Int) {
+        val json = "{\"cmd\":\"findDynamicList\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.communityId +
+                "\",\"state\":\"" + state + "\",\"type\":\"" + type + "\",\"nowPage\":\"" + nowPage + "\"}"
 
-    fun find() {
-        val json = "{\"cmd\":\"findList\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.communityId + "\"}"
-
-        abLog.e("首页.................", json)
+        abLog.e("动态、帮帮.................", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
@@ -33,16 +36,6 @@ object Find_26 {
             }
         })
     }
-
-
-
-    interface ZanCallback{
-        fun zan()
-    }
-
-
-
-
 
 
 }

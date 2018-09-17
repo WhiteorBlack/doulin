@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.EventBus
 
 
     fun user(sex:String,content: String,nowPage:Int){
-        val json = "{\"cmd\":\"getCommunityUser\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.CcommunityId +
+        val json = "{\"cmd\":\"getCommunityUser\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.communityId +
                 "\",\"sex\":\"" + sex + "\",\"content\":\"" + content + "\",\"pageCount\":\"" + "20" +"\",\"nowPage\":\"" + nowPage + "\"}"
 
         abLog.e("获取用户.................",json)

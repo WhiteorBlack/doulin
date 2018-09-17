@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import kotlinx.android.synthetic.main.activity_official_shop_details.*
 
 /**
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_official_shop_details.*
 class OfficialShopDetailsActivity : BaseActivity() {
 
     private var commentAdapter:DynamicCommentAdapter?=null
+    private var commentList = ArrayList<ActivityCommentModel1.commModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +36,7 @@ class OfficialShopDetailsActivity : BaseActivity() {
 
         rv_comment.isFocusable = false
 
-        commentAdapter= DynamicCommentAdapter(this)
+        commentAdapter= DynamicCommentAdapter(this,commentList)
         rv_comment.adapter=commentAdapter
 
     }

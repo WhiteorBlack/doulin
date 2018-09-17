@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
@@ -53,7 +54,10 @@ public class MyApplication extends MultiDexApplication {
         CONTEXT = getApplicationContext();
         myApplication = this;
 
-        StaticUtil.INSTANCE.setCommunityName(SharedPreferencesUtil.getSharePreStr(this, SharedPreferencesUtil.communityId));
+        SharedPreferences sp = getSharedPreferences(SharedPreferencesUtil.NAME, 0);
+        StaticUtil.INSTANCE.setCommunityId(sp.getString(SharedPreferencesUtil.communityId, ""));
+        StaticUtil.INSTANCE.setHeaderUrl(sp.getString(SharedPreferencesUtil.headerUrl, ""));
+        StaticUtil.INSTANCE.setNickName(sp.getString(SharedPreferencesUtil.nickName, ""));
 
         abLog.INSTANCE.setE(true);
 //        JPushInterface.init(this);

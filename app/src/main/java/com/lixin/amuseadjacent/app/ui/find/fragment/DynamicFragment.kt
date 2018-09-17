@@ -9,8 +9,11 @@ import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.xrecyclerview.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * 达人列表
@@ -23,9 +26,11 @@ class DynamicFragment : BaseFragment() {
     private var linearLayoutManager: LinearLayoutManager? = null
 
     private var dynamicAdapter: DynamicAdapter? = null
+    private var dynaList= ArrayList<FindModel.dynamicModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.xrecyclerview, container, false)
+        EventBus.getDefault().register(this)
         init()
         return view
     }
@@ -43,7 +48,6 @@ class DynamicFragment : BaseFragment() {
         xrecyclerview.layoutAnimation = controller
         dynamicAdapter!!.notifyDataSetChanged()
         xrecyclerview.scheduleLayoutAnimation()
-
     }
 
     private fun init() {
@@ -55,6 +59,25 @@ class DynamicFragment : BaseFragment() {
 
     override fun loadData() {
         ToastUtil.showToast(flag.toString())
+        if(dynaList.isNotEmpty()){
+            dynaList.clear()
+            dynamicAdapter!!.notifyDataSetChanged()
+        }
+    }
+
+    @Subscribe
+    fun onEvent(model: FindModel){
+
+
+
+    }
+
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 

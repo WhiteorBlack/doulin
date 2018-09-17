@@ -89,7 +89,8 @@ public class NiceVideoPlayer extends FrameLayout
 
     private int mPlayerType = TYPE_IJK;
     private int mCurrentState = STATE_IDLE;
-    public int mCurrentMode = MODE_NORMAL;
+    private int mCurrentMode = MODE_NORMAL;
+
     private Context mContext;
     private AudioManager mAudioManager;
     private IMediaPlayer mMediaPlayer;
@@ -101,7 +102,7 @@ public class NiceVideoPlayer extends FrameLayout
     private String mUrl;
     private Map<String, String> mHeaders;
     private int mBufferPercentage;
-    private boolean continueFromLastPosition = true;//从上次记录位置开始播放
+    private boolean continueFromLastPosition = true;
     private long skipToPosition;
 
     public NiceVideoPlayer(Context context) {
@@ -112,7 +113,6 @@ public class NiceVideoPlayer extends FrameLayout
         super(context, attrs);
         mContext = context;
         init();
-//        enterFullScreen();
     }
 
     private void init() {
@@ -202,7 +202,6 @@ public class NiceVideoPlayer extends FrameLayout
         } else if (mCurrentState == STATE_COMPLETED || mCurrentState == STATE_ERROR) {
             mMediaPlayer.reset();
             openMediaPlayer();
-
         } else {
             LogUtil.d("NiceVideoPlayer在mCurrentState == " + mCurrentState + "时不能调用restart()方法.");
         }
@@ -413,8 +412,10 @@ public class NiceVideoPlayer extends FrameLayout
             mMediaPlayer.prepareAsync();
             mCurrentState = STATE_PREPARING;
             mController.onPlayStateChanged(mCurrentState);
+            LogUtil.d("STATE_PREPARING");
         } catch (IOException e) {
             e.printStackTrace();
+            LogUtil.e("打开播放器发生错误", e);
         }
     }
 
@@ -437,6 +438,7 @@ public class NiceVideoPlayer extends FrameLayout
         public void onPrepared(IMediaPlayer mp) {
             mCurrentState = STATE_PREPARED;
             mController.onPlayStateChanged(mCurrentState);
+            LogUtil.d("onPrepared ——> STATE_PREPARED");
             mp.start();
             // 从上次的保存位置播放
             if (continueFromLastPosition) {
@@ -468,17 +470,8 @@ public class NiceVideoPlayer extends FrameLayout
             LogUtil.d("onCompletion ——> STATE_COMPLETED");
             // 清除屏幕常量
             mContainer.setKeepScreenOn(false);
-
         }
     };
-
-    public interface CallBack {
-        void stateType(int type);
-
-        void PlayStart();
-
-        void PlayEnd();
-    }
 
     private IMediaPlayer.OnErrorListener mOnErrorListener
             = new IMediaPlayer.OnErrorListener() {
@@ -699,5 +692,4 @@ public class NiceVideoPlayer extends FrameLayout
         }
         Runtime.getRuntime().gc();
     }
-
 }

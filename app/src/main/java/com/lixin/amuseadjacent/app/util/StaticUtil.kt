@@ -15,7 +15,7 @@ object StaticUtil {
 
     var uid = ""// Id
     var phone = ""//
-    var CcommunityId = ""//社区Id
+    var communityId = ""//社区Id
     var nickName = ""//昵称
     var age = ""//
     var sex = ""

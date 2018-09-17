@@ -37,7 +37,7 @@ object CommunityMsg_16 {
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
                     ToastUtil.showToast("社区信息完善成功")
-                    StaticUtil.CcommunityId=model.communityId
+                    StaticUtil.communityId=model.communityId
                     MyApplication.openActivity(context, MainActivity::class.java)
                     context.finish()
                     AppManager.finishAllActivity()

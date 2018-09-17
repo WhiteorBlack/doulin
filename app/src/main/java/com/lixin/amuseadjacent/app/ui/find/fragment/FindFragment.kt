@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.find.fragment
 
 import android.os.Build
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -12,20 +13,25 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.*
 import com.lixin.amuseadjacent.app.ui.find.adapter.FindAdapter
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
+import com.lixin.amuseadjacent.app.ui.find.request.Find_26
+import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
+import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.nostra13.universalimageloader.core.ImageLoader
 import com.youth.banner.Banner
-import com.youth.banner.BannerConfig
+import kotlinx.android.synthetic.main.fragment_find.*
+import kotlinx.android.synthetic.main.header_find.*
 import kotlinx.android.synthetic.main.header_find.view.*
 import kotlinx.android.synthetic.main.include_basetop.*
-import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Slingge on 2018/8/15
@@ -37,12 +43,16 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     private var findadapter: FindAdapter? = null
 
-    val imageList = ArrayList<String>()
+    private val imageList = ArrayList<String>()
+    private var findList = ArrayList<FindModel.dynamicModel>()
 
     private var banner: Banner? = null
+    private var bannerUrl = ""
+
+    private var isfirst=true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.xrecyclerview, container, false)
+        val view = inflater.inflate(R.layout.fragment_find, container, false)
         EventBus.getDefault().register(this)
         init()
         return view
@@ -60,46 +70,46 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         tv_title.text = "发现"
         iv_back.visibility = View.GONE
 
-        xrecyclerview.layoutManager = linearLayoutManager
-        xrecyclerview.setPullRefreshEnabled(false)
+        rv_dyna.layoutManager = linearLayoutManager
+        rv_dyna.setLoadingMoreEnabled(false)
 
-        xrecyclerview.isFocusable = false
+        rv_dyna.isFocusable = false
+        rv_activity.isFocusable = false
 
-        xrecyclerview.addHeaderView(headerView)
+        rv_dyna.addHeaderView(headerView)
 
-        xrecyclerview.adapter = findadapter
+        findadapter = FindAdapter(activity!!, findList, null)
+        rv_dyna.adapter = findadapter
 
-        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        xrecyclerview.layoutAnimation = controller
-        findadapter!!.notifyDataSetChanged()
-        xrecyclerview.scheduleLayoutAnimation()
-
+        val linearLayoutManager2 = LinearLayoutManager(activity)
+        linearLayoutManager2.orientation = LinearLayoutManager.VERTICAL
+        rv_activity.layoutManager = linearLayoutManager2
 
 
         banner = headerView!!.findViewById(R.id.banner)
+        banner!!.setOnBannerListener { i ->
+            val bundle = Bundle()
+            bundle.putString("title", "")
+            bundle.putString("url", bannerUrl)
+            MyApplication.openActivity(activity!!, WebViewActivity::class.java,bundle)
+        }
 
-        banner!!.setImages(imageList)
-                .setImageLoader(GlideImageLoader())
-                .start()
+    }
 
+    override fun onStart() {
+        super.onStart()
+        ProgressDialog.showDialog(activity!!)
+        Find_26.find()
     }
 
 
     private fun init() {
-
         linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager!!.orientation = LinearLayoutManager.VERTICAL
 
         headerView = LayoutInflater.from(activity).inflate(R.layout.header_find, null, false)//头布局
         headerView!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        findadapter = FindAdapter(activity!!)
-
-        imageList.add("http://img3.imgtn.bdimg.com/it/u=1938931313,3944636906&fm=26&gp=0.jpg")
-        imageList.add("http://img3.imgtn.bdimg.com/it/u=2705115696,2812871630&fm=214&gp=0.jpg")
-        imageList.add("http://i0.hdslb.com/bfs/archive/f82fd6472f0bb071deee6f3defd0dc665dab330d.jpg")
-        imageList.add("http://2e.zol-img.com.cn/product/122_800x600/688/ce0nEVHbsjooc.jpg")
-        imageList.add("http://img.newyx.net/photo/201604/08/44213c3996.jpg")
 
         headerView!!.findViewById<ImageView>(R.id.iv_talent).setOnClickListener(this)
         headerView!!.findViewById<TextView>(R.id.tv_talent).setOnClickListener(this)
@@ -123,7 +133,46 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     @Subscribe
     fun onEvent(model: FindModel) {
+        if (imageList.isNotEmpty()) {
+            imageList.clear()
+        }
+        bannerUrl = model.topImgDetailUrl
+        imageList.add(model.topImgUrl)
+        banner!!.setImages(imageList)
+                .setImageLoader(GlideImageLoader())
+                .start()
 
+        if (model.redmanList.isNotEmpty()) {
+            if (model.redmanList.size == 1) {
+                ImageLoader.getInstance().displayImage(model.redmanList[0].userImg, header1, ImageLoaderUtil.HeaderDIO())
+            } else if (model.redmanList.size == 2) {
+                ImageLoader.getInstance().displayImage(model.redmanList[0].userImg, header1, ImageLoaderUtil.HeaderDIO())
+                ImageLoader.getInstance().displayImage(model.redmanList[1].userImg, header2, ImageLoaderUtil.HeaderDIO())
+            } else if (model.redmanList.size == 3) {
+                ImageLoader.getInstance().displayImage(model.redmanList[0].userImg, header1, ImageLoaderUtil.HeaderDIO())
+                ImageLoader.getInstance().displayImage(model.redmanList[1].userImg, header2, ImageLoaderUtil.HeaderDIO())
+                ImageLoader.getInstance().displayImage(model.redmanList[1].userImg, header3, ImageLoaderUtil.HeaderDIO())
+            }
+        }
+        tv_participate.text = model.theme.themeTitle
+        tv_participate.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("url", model.theme.themeDetailUrl)
+            bundle.putString("title", model.theme.themeTitle)
+            MyApplication.openActivity(activity!!, WebViewActivity::class.java,bundle)
+        }
+
+        if (findList.isNotEmpty()) {
+            findList.clear()
+            findadapter!!.notifyDataSetChanged()
+        }
+        findList.addAll(model.danamicList)
+        findadapter!!.notifyDataSetChanged()
+
+        val actiivtyList = ArrayList<FindModel.activityModel>()
+        actiivtyList.add(model.activity)
+        findadapter = FindAdapter(activity!!, null, actiivtyList)
+        rv_activity.adapter = findadapter
     }
 
 
@@ -145,7 +194,11 @@ class FindFragment : BaseFragment(), View.OnClickListener {
                 MyApplication.openActivity(activity, RedManListActivity::class.java)
             }
         }
+    }
 
+    override fun onPause() {
+        super.onPause()
+        findadapter!!.stopPlay()
     }
 
     override fun onDestroy() {

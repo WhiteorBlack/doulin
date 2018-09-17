@@ -100,13 +100,13 @@ class BankCardAddActivity : BaseActivity() {
         spinnerAdapter!!.notifyDataSetChanged()
 
         if (flag == 1) {
-            val model = intent.getSerializableExtra("model") as MyBankModel.detailsModel
+            val model = intent.getSerializableExtra("DynamiclModel") as MyBankModel.detailsModel
             et_name.setText(model.cardUsername)
             et_num.setText(model.cardNum)
             BankCardId = model.cardId
 
            /* for (i in 0 until bankList.size) {
-                if (bankId==model.cardId) {
+                if (bankId==DynamiclModel.cardId) {
                     sp_bank.setPromptId(i)
                     break
                 }

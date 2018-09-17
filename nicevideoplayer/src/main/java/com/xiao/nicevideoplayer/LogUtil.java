@@ -10,24 +10,15 @@ public class LogUtil {
 
     private static final String TAG = "NiceVideoPlayer";
 
-    public static boolean E=false;
-
     public static void d(String message) {
-        if(E){
-            Log.e(TAG, message);
-        }
-
+        Log.d(TAG, message);
     }
 
     public static void i(String message) {
-        if(E){
-            Log.e(TAG, message);
-        }
+        Log.i(TAG, message);
     }
 
     public static void e(String message, Throwable throwable) {
-        if(E){
-            Log.e(TAG, message, throwable);
-        }
+        Log.e(TAG, message, throwable);
     }
 }
