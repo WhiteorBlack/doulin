@@ -92,7 +92,6 @@
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/fl_search" />
 
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,63 +99,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_msg">
 
-        <ImageView
-            android:id="@+id/ic_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_empty_msg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="暂无好友对话"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ic_empty" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_empty">
-
-            <TextView
-                android:id="@+id/tv_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:textSize="11sp"
-                android:layout_marginStart="8dp"
-                android:text="快去点击" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_add_friend2"
-                android:gravity="center"
-                android:textSize="11sp"
-                android:textColor="@color/colorTheme"
-                android:text="右上角" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:textSize="11sp"
-                android:layout_marginStart="8dp"
-                android:text="添加好友吧" />
-
-        </LinearLayout>
-
+        <fragment
+            android:id="@+id/recent_contacts_fragment"
+            android:name="com.netease.nim.uikit.business.recent.RecentContactsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </fragment>
 
     </android.support.constraint.ConstraintLayout>
 

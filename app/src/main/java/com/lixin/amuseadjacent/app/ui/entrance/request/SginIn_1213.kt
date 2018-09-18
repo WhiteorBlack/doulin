@@ -81,8 +81,6 @@ object SginIn_1213 {
                         } else {
                             StaticUtil.communityId = obj.getString("communityId")
                             sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.communityId).commit()
-                            StaticUtil.CcommunityId = obj.getString("communityId")
-                            sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.CcommunityId).commit()
 
                             NimUIKit.login(LoginInfo(obj.getString("uid"), obj.getString("rytoken")), object : RequestCallback<LoginInfo> {
                                 override fun onSuccess(param: LoginInfo) {

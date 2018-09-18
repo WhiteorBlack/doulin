@@ -69,7 +69,7 @@ public class RecentContactsFragment extends TFragment {
 
     private View emptyBg;
 
-    private TextView emptyHint;
+//    private TextView emptyHint;
 
     // data
     private List<RecentContact> items;
@@ -105,7 +105,7 @@ public class RecentContactsFragment extends TFragment {
         adapter.notifyDataSetChanged();
         boolean empty = items.isEmpty() && msgLoaded;
         emptyBg.setVisibility(empty ? View.VISIBLE : View.GONE);
-        emptyHint.setHint("还没有会话，在通讯录中找个人聊聊吧！");
+//        emptyHint.setHint("还没有会话，在通讯录中找个人聊聊吧！");
     }
 
     @Override
@@ -122,7 +122,7 @@ public class RecentContactsFragment extends TFragment {
     private void findViews() {
         recyclerView = findView(R.id.recycler_view);
         emptyBg = findView(R.id.emptyBg);
-        emptyHint = findView(R.id.message_list_empty_hint);
+//        emptyHint = findView(R.id.message_list_empty_hint);
     }
 
     /**
@@ -270,29 +270,29 @@ public class RecentContactsFragment extends TFragment {
             }
         });
 
-        alertDialog.addItem("删除该聊天（仅服务器）", new onSeparateItemClickListener() {
-            @Override
-            public void onClick() {
-                NIMClient.getService(MsgService.class)
-                        .deleteRoamingRecentContact(recent.getContactId(), recent.getSessionType())
-                        .setCallback(new RequestCallback<Void>() {
-                            @Override
-                            public void onSuccess(Void param) {
-                                Toast.makeText(getActivity(), "delete success", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onFailed(int code) {
-                                Toast.makeText(getActivity(), "delete failed, code:" + code, Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onException(Throwable exception) {
-
-                            }
-                        });
-            }
-        });
+//        alertDialog.addItem("删除该聊天（仅服务器）", new onSeparateItemClickListener() {
+//            @Override
+//            public void onClick() {
+//                NIMClient.getService(MsgService.class)
+//                        .deleteRoamingRecentContact(recent.getContactId(), recent.getSessionType())
+//                        .setCallback(new RequestCallback<Void>() {
+//                            @Override
+//                            public void onSuccess(Void param) {
+//                                Toast.makeText(getActivity(), "delete success", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            @Override
+//                            public void onFailed(int code) {
+//                                Toast.makeText(getActivity(), "delete failed, code:" + code, Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            @Override
+//                            public void onException(Throwable exception) {
+//
+//                            }
+//                        });
+//            }
+//        });
         alertDialog.show();
     }
 
