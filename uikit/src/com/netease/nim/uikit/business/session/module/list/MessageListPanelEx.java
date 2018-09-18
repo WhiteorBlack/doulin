@@ -832,7 +832,7 @@ public class MessageListPanelEx {
             alertDialog.setCancelable(true);
             alertDialog.setCanceledOnTouchOutside(true);
 
-            prepareDialogItems(item, alertDialog);
+//            prepareDialogItems(item, alertDialog);
             alertDialog.show();
         }
 

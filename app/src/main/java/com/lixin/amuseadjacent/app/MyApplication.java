@@ -9,15 +9,20 @@ import android.os.Environment;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
 import com.lixin.amuseadjacent.R;
+import com.lixin.amuseadjacent.app.ui.contacts.DemoCache;
+import com.lixin.amuseadjacent.app.ui.contacts.NimSDKOptionConfig;
+import com.lixin.amuseadjacent.app.ui.contacts.Preferences;
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil;
 import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil;
 import com.lixin.amuseadjacent.app.util.StaticUtil;
 import com.lixin.amuseadjacent.app.util.abLog;
+import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.util.NIMUtil;
 
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
 
@@ -61,6 +66,25 @@ public class MyApplication extends MultiDexApplication {
 
         ImageLoaderUtil.configImageLoader(CONTEXT);
         com.nostra13.universalimageloader.utils.L.disableLogging();
+
+        DemoCache.setContext(this);
+        NIMClient.init(this, getLoginInfo(), NimSDKOptionConfig.getSDKOptions(this));
+        //网易云信
+        if (NIMUtil.isMainProcess(this)) {
+            NimUIKit.init(this);
+        }
+    }
+
+    private LoginInfo getLoginInfo() {
+        String account = Preferences.getUserAccount();
+        String token = Preferences.getUserToken();
+
+        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
+            DemoCache.setAccount(account.toLowerCase());
+            return new LoginInfo(account, token);
+        } else {
+            return null;
+        }
     }
 
     /**

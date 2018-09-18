@@ -7,6 +7,7 @@ import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.contacts.Preferences
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
@@ -20,6 +21,7 @@ import com.lixin.amuseadjacent.app.ui.mine.model.UserInfoModel
 import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.netease.nim.uikit.api.NimUIKit
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_personal_home_page.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -137,7 +139,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
                 })
             }
             R.id.tv_dialogue -> {
-
+                NimUIKit.startP2PSession(this, Preferences.getUserAccount())
             }
         }
     }

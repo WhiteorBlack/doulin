@@ -1,9 +1,12 @@
 package com.lixin.amuseadjacent.app.ui.entrance.request
 
 import android.app.Activity
+import android.widget.Toast
 import cn.jpush.android.api.JPushInterface
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.MainActivity
+import com.lixin.amuseadjacent.app.ui.contacts.DemoCache
+import com.lixin.amuseadjacent.app.ui.contacts.Preferences
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.entrance.PersonalImageActivity
 import com.lixin.amuseadjacent.app.util.AppManager
@@ -12,6 +15,10 @@ import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import com.netease.nim.uikit.api.NimUIKit
+import com.netease.nim.uikit.common.util.log.LogUtil
+import com.netease.nimlib.sdk.RequestCallback
+import com.netease.nimlib.sdk.auth.LoginInfo
 import com.zhy.http.okhttp.OkHttpUtils
 import org.json.JSONException
 import org.json.JSONObject
@@ -74,6 +81,27 @@ object SginIn_1213 {
                         } else {
                             StaticUtil.CcommunityId = obj.getString("communityId")
                             sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.CcommunityId).commit()
+
+                            NimUIKit.login(LoginInfo(obj.getString("uid"), obj.getString("rytoken")), object : RequestCallback<LoginInfo> {
+                                override fun onSuccess(param: LoginInfo) {
+                                    LogUtil.i("NimUIKit", "login success")
+                                    DemoCache.setAccount(obj.getString("uid"))
+                                    Preferences.saveUserAccount(obj.getString("uid"))
+                                    Preferences.saveUserToken(obj.getString("rytoken"))
+                                }
+
+                                override fun onFailed(code: Int) {
+                                    if (code == 302 || code == 404) {
+                                        Toast.makeText(context, "帐号或密码错误", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, "登录失败: $code", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+
+                                override fun onException(exception: Throwable) {
+                                    Toast.makeText(context,"无效输入", Toast.LENGTH_LONG).show()
+                                }
+                            })
                             MyApplication.openActivity(context, MainActivity::class.java)
                         }
                         StaticUtil.phone = phone
