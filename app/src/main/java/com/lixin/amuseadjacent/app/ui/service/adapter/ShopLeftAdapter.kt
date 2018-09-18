@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsListModel
 
 /**
  * 店铺左菜单
  * Created by Slingge on 2018/8/30
  */
-class ShopLeftAdapter(val context: Context) : RecyclerView.Adapter<ShopLeftAdapter.ViewHolder>() {
+class ShopLeftAdapter(val context: Context, var leftList: ArrayList<ShopGoodsListModel.dataModel>) : RecyclerView.Adapter<ShopLeftAdapter.ViewHolder>() {
 
     private var flag = 0
 
@@ -22,7 +23,7 @@ class ShopLeftAdapter(val context: Context) : RecyclerView.Adapter<ShopLeftAdapt
     }
 
     override fun getItemCount(): Int {
-        return 22
+        return leftList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -35,6 +36,8 @@ class ShopLeftAdapter(val context: Context) : RecyclerView.Adapter<ShopLeftAdapt
             holder.tv_name.setBackgroundColor(context.resources.getColor(R.color.gray2))
             holder.tv_name.setTextColor(context.resources.getColor(R.color.black))
         }
+
+        holder.tv_name.text = leftList[position].firstCategoryName
 
     }
 

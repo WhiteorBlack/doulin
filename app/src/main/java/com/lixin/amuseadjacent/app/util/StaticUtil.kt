@@ -16,6 +16,7 @@ object StaticUtil {
     val ReleaseDynamicBang = "http://39.107.106.122/wisdom/api/addDynamic"//发布动态帮帮地址
     //val ReleaseDynamicBang="http://192.168.3.142:8080/wisdom/api/addDynamic"//发布动态帮帮地址
     val TalenExperienceImage = "http://39.107.106.122/wisdom/api/addimgs"//上传达人经历
+    val EventEstablish = "http://39.107.106.122/wisdom/api/AddActivity"//创建活动
 
     var uid = ""// Id
     var phone = ""//

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 动态/帮帮详情
  * Created by Slingge on 2018/9/15
  */
 public class DynamiclDetailsModel {

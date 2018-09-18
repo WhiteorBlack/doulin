@@ -6,8 +6,10 @@ import android.view.View
 import android.widget.LinearLayout
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
+import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134
 import kotlinx.android.synthetic.main.activity_bang_details.*
 import kotlinx.android.synthetic.main.include_basetop.*
 
@@ -46,6 +48,7 @@ class BangDetailsActivity : BaseActivity(), View.OnClickListener {
 
         commentAdapter = DynamicCommentAdapter(this,commentList)
         rv_comment.adapter = commentAdapter
+
     }
 
 

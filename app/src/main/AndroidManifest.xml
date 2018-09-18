@@ -317,6 +317,10 @@
         <activity
             android:name=".app.ui.find.activity.EventEnteredActivity"
             android:screenOrientation="portrait" />
+        <!--活动二级回复-->
+        <activity
+            android:name=".app.ui.find.activity.EventDetailsReplyActivity"
+            android:screenOrientation="portrait" />
 
         <!--报名-->
         <activity

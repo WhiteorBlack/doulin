@@ -11,6 +11,16 @@ import com.lixin.amuseadjacent.app.view.MyWebView
  */
 class WebViewActivity : BaseActivity() {
 
+    /**
+     * http://39.107.106.122/wisdom/api/about/displayContent?id=1
+     * 用户协议 1
+     * 隐私条款 2
+     * 提现规则 3
+     * 邀请规则 4
+     * 优惠券说明 5
+     * 影响力说明 6
+     * 关于逗邻 7
+     * */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,6 +6,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.photoView.imagepage.ImagePagerActivity
 
 /**
+ * 跳转图片预览
  * Created by Slingge on 2018/9/15
  */
 object PreviewPhoto {

@@ -58,7 +58,7 @@ class BangBangActivity : BaseActivity() {
         tv_right.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putString("flag", "1")
-            MyApplication.openActivityForResult(this, DynamicReleaseActivity::class.java, bundle,1)
+            MyApplication.openActivityForResult(this, DynamicReleaseActivity::class.java, bundle, 1)
         }
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -67,13 +67,8 @@ class BangBangActivity : BaseActivity() {
 
         rv_event.isFocusable = false
 
-        bangAdapter = DynamicAdapter(this, dynaList)
+        bangAdapter = DynamicAdapter(this,"1", dynaList)
         rv_event.adapter = bangAdapter
-
-        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
-        rv_event.layoutAnimation = controller
-        bangAdapter!!.notifyDataSetChanged()
-        rv_event.scheduleLayoutAnimation()
 
         rv_event.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
@@ -108,7 +103,7 @@ class BangBangActivity : BaseActivity() {
 
     @Subscribe
     fun onEvent(model: DynamiclModel) {
-        if(imageList.isEmpty()){
+        if (imageList.isEmpty()) {
             bannerUrl = model.topImgUrl
             imageList.add(bannerUrl)
             banner!!.setImages(imageList)
@@ -119,6 +114,12 @@ class BangBangActivity : BaseActivity() {
         dynaList.addAll(model.dataList)
 
         totalPage = model.totalPage
+
+        if (totalPage <= 1) {
+            if (dynaList.isNotEmpty()) {
+                rv_event.noMoreLoading()
+            }
+        }
 
         if (onRefresh == 1) {
             rv_event.refreshComplete()
@@ -139,7 +140,7 @@ class BangBangActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode==1){
+        if (resultCode == 1) {
             if (dynaList.isNotEmpty()) {
                 dynaList.clear()
                 bangAdapter!!.notifyDataSetChanged()

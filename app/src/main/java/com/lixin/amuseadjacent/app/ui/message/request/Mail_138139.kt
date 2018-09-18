@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.lixin.amuseadjacent.app.ui.message.model.MailModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
@@ -46,6 +47,7 @@ object Mail_138139 {
     //关注、取消关注好友
     fun follow(auid:String,followCallBack: FollowCallBack) {
         val json = "{\"cmd\":\"userAttention\",\"uid\":\"" + StaticUtil.uid + "\",\"auid\":\"" + auid + "\"}"
+        abLog.e("活动关注好友",json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)

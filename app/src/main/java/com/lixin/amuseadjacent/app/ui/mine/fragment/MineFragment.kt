@@ -10,10 +10,6 @@ import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
-import com.lixin.amuseadjacent.app.ui.dialog.CommunityDialog
-import com.lixin.amuseadjacent.app.ui.entrance.model.CommunityModel
-import com.lixin.amuseadjacent.app.ui.entrance.model.UnityModel
-import com.lixin.amuseadjacent.app.ui.entrance.request.Community_17
 import com.lixin.amuseadjacent.app.ui.message.activity.MailActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.*
 import com.lixin.amuseadjacent.app.ui.mine.activity.order.OrderActivity

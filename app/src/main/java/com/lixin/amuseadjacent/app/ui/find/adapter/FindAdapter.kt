@@ -14,8 +14,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
+import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
@@ -114,7 +116,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 ImageLoader.getInstance().displayImage(model.dynamicImg, controller.imageView())
                 holder.player.setController(controller)
             }
-            /* holder.tv_follow.setOnClickListener { v ->
+             holder.tv_follow.setOnClickListener { v ->
                  ProgressDialog.showDialog(context)
                  Mail_138139.follow(dynaList[position].dynamicUid, object : Mail_138139.FollowCallBack {
                      override fun follow() {
@@ -130,7 +132,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                          notifyDataSetChanged()
                      }
                  })
-             }*/
+             }
         } else {//活动
             holder.cl_1.visibility = View.GONE
             holder.cl_2.visibility = View.VISIBLE
@@ -175,6 +177,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
         holder.itemView.setOnClickListener { v ->
             if (dynaList != null) {
                 val bundle = Bundle()
+                bundle.putString("flag", "0")
                 bundle.putString("id", dynaList[position].dynamicId)
                 MyApplication.openActivity(context, DynamicDetailsActivity::class.java, bundle)
             }
@@ -184,7 +187,9 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
     }
 
     fun stopPlay() {
-        niceVideoPlayer!!.pause()
+        if(niceVideoPlayer!=null){
+            niceVideoPlayer!!.pause()
+        }
     }
 
     private var niceVideoPlayer: NiceVideoPlayer? = null

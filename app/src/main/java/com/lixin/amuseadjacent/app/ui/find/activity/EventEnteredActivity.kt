@@ -6,6 +6,7 @@ import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.adapter.EnteredAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
 import kotlinx.android.synthetic.main.xrecyclerview.*
 
 /**
@@ -28,20 +29,29 @@ class EventEnteredActivity : BaseActivity() {
         StatusBarWhiteColor()
         inittitle("报名列表")
 
-        enterAdapter = EnteredAdapter(this)
+        var list = java.util.ArrayList<EventDetailsModel.signModel>()
+        if (intent.getSerializableExtra("list") != null) {
+            list = intent.getSerializableExtra("list") as ArrayList<EventDetailsModel.signModel>
+        }
 
+        enterAdapter = EnteredAdapter(this, list)
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         xrecyclerview.layoutManager = linearLayoutManager
+        xrecyclerview.setPullRefreshEnabled(false)
+        xrecyclerview.setLoadingMoreEnabled(false)
 
-        enterAdapter = EnteredAdapter(this)
+        enterAdapter = EnteredAdapter(this, list)
         xrecyclerview.adapter = enterAdapter
+
+        if(list.isEmpty()){
+            xrecyclerview.setNullData(this)
+        }
 
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
         xrecyclerview.layoutAnimation = controller
         enterAdapter!!.notifyDataSetChanged()
         xrecyclerview.scheduleLayoutAnimation()
-
     }
 
 

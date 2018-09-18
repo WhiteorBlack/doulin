@@ -15,16 +15,20 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.CouponDialog
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.ui.service.activity.*
 import com.lixin.amuseadjacent.app.ui.service.adapter.ServiceAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.CouponModel
+import com.lixin.amuseadjacent.app.ui.service.model.ServiceModel
 import com.lixin.amuseadjacent.app.ui.service.request.Coupon_3132
+import com.lixin.amuseadjacent.app.ui.service.request.Service_33
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.youth.banner.Banner
-import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
@@ -43,8 +47,9 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
     private var headerView: View? = null
 
     private var serviceAdapter: ServiceAdapter? = null
+    private var serviceList = ArrayList<ServiceModel.dataModel>()
 
-    val imageList = ArrayList<String>()
+    private var bannerList = ArrayList<ServiceModel.bannerModel>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -75,12 +80,6 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
 
         xrecyclerview.addHeaderView(headerView)
 
-        xrecyclerview.adapter = serviceAdapter
-        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        xrecyclerview.layoutAnimation = controller
-        serviceAdapter!!.notifyDataSetChanged()
-        xrecyclerview.scheduleLayoutAnimation()
-
 
         xrecyclerview.addOnItemTouchListener(object : RecyclerItemTouchListener(xrecyclerview) {
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {
@@ -88,14 +87,25 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
                 if (i < 0) {
                     return
                 }
-                MyApplication.openActivity(activity, SpecialAreaActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable("model", serviceList[i])
+                MyApplication.openActivity(activity, SpecialAreaActivity::class.java, bundle)
             }
         })
 
         banner = headerView!!.findViewById(R.id.banner)
-        banner!!.setImages(imageList)
-                .setImageLoader(GlideImageLoader())
-                .start()
+        banner!!.setOnBannerListener { i ->
+            ToastUtil.showToast(i.toString())
+            val bundle = Bundle()
+            bundle.putString("title", "")
+            bundle.putString("url", bannerList[i].topImgDetailUrl)
+            MyApplication.openActivity(activity!!, WebViewActivity::class.java, bundle)
+        }
+
+        ProgressDialog.showDialog(activity!!)
+        Service_33.service()
+        //获取优惠券
+        Coupon_3132.getCoupon()
     }
 
 
@@ -106,13 +116,6 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
         headerView = LayoutInflater.from(activity).inflate(R.layout.header_service, null, false)//头布局
         headerView!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        serviceAdapter = ServiceAdapter(activity!!)
-
-        imageList.add("http://img3.imgtn.bdimg.com/it/u=1938931313,3944636906&fm=26&gp=0.jpg")
-        imageList.add("http://img3.imgtn.bdimg.com/it/u=2705115696,2812871630&fm=214&gp=0.jpg")
-        imageList.add("http://i0.hdslb.com/bfs/archive/f82fd6472f0bb071deee6f3defd0dc665dab330d.jpg")
-        imageList.add("http://2e.zol-img.com.cn/product/122_800x600/688/ce0nEVHbsjooc.jpg")
-        imageList.add("http://img.newyx.net/photo/201604/08/44213c3996.jpg")
 
         headerView!!.findViewById<ImageView>(R.id.iv_talent).setOnClickListener(this)
         headerView!!.findViewById<TextView>(R.id.tv_talent).setOnClickListener(this)
@@ -125,11 +128,37 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
 
         headerView!!.findViewById<TextView>(R.id.tv_help).setOnClickListener(this)
         headerView!!.findViewById<ImageView>(R.id.iv_help).setOnClickListener(this)
-
-        //获取优惠券
-        Coupon_3132.getCoupon()
     }
 
+
+    @Subscribe
+    fun onEvent(model: ServiceModel) {
+        val imageList = ArrayList<String>()
+        bannerList.clear()
+        for (i in 0 until model.bannerList.size) {
+            imageList.add(model.bannerList[i].topImgUrl)
+            bannerList.add(model.bannerList[i])
+        }
+        banner!!.setImages(imageList)
+                .setImageLoader(GlideImageLoader())
+                .start()
+
+        serviceList = model.dataList
+        serviceAdapter = ServiceAdapter(activity!!, serviceList)
+        xrecyclerview.adapter = serviceAdapter
+        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
+        xrecyclerview.layoutAnimation = controller
+        serviceAdapter!!.notifyDataSetChanged()
+        xrecyclerview.scheduleLayoutAnimation()
+    }
+
+    //优惠券
+    @Subscribe
+    fun onEvent(model: CouponModel) {
+        if (model.dataList.isNotEmpty()) {
+            CouponDialog.communityDialog(activity!!, model.dataList)
+        }
+    }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
@@ -150,16 +179,6 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
             }
         }
     }
-
-
-    //优惠券
-    @Subscribe
-    fun onEvent(model: CouponModel) {
-        if (model.dataList.isNotEmpty()) {
-            CouponDialog.communityDialog(activity!!, model.dataList)
-        }
-    }
-
 
 
     override fun loadData() {

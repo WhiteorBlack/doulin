@@ -36,9 +36,52 @@ object ActivityComment_272829210 {
         })
     }
 
+    //获取二级评论,type0活动 1话题
+    fun getComment1Second(type: String, activityId: String, commentId: String) {
+        val json = "{\"cmd\":\"activityDetailCommentSecond\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
+                "\",\"activityId\":\"" + activityId + "\",\"commentId\":\"" + commentId + "\"}"
+        abLog.e("获取评论", json)
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val model = Gson().fromJson(response, ActivityCommentModel1::class.java)
+                if (model.result == "0") {
+                    EventBus.getDefault().post(model)
+                } else {
+                    ToastUtil.showToast(model.resultNote)
+                }
+            }
+        })
+    }
+
+
     interface CommentCallBack {
         fun commemt()
     }
+
+
+    /**
+     * @param type 0活动 1话题
+     *  @param commentId 一级评论id(传空就是赞活动，不为空就是赞该一级评论)
+     * */
+    fun zan(type: String, activityId: String, commentId: String, zanCallback: Find_26.ZanCallback) {
+        val json = "{\"cmd\":\"activityZan\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
+                "\",\"activityId\":\"" + activityId + "\",\"commentId\":\"" + commentId + "\"}"
+
+        abLog.e("首页.................", json)
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val obj = JSONObject(response)
+                if (obj.getString("result") == "0") {
+                    zanCallback.zan()
+                } else {
+                    ToastUtil.showToast(obj.getString("resultNote"))
+                }
+            }
+        })
+    }
+
 
     /**
      * 回复
@@ -46,7 +89,7 @@ object ActivityComment_272829210 {
      *  @param commentId 一级评论id(传空就是赞活动，不为空就是赞该一级评论)
      *  @param content 评论
      * */
-    fun comment(type: String, activityId: String, commentId: String, content: String,commentCallBack: CommentCallBack) {
+    fun comment(type: String, activityId: String, commentId: String, content: String, commentCallBack: ActivityComment_272829210.CommentCallBack) {
         val json = "{\"cmd\":\"activityComment\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
                 "\",\"activityId\":\"" + activityId + "\",\"commentId\":\"" + commentId + "\",\"content\":\"" + content + "\"}"
 
@@ -65,26 +108,5 @@ object ActivityComment_272829210 {
         })
     }
 
-    /**
-     * @param type 0活动 1话题
-     *  @param commentId 一级评论id(传空就是赞活动，不为空就是赞该一级评论)
-     * */
-    fun zan(type: String, activityId: String, commentId: String,zanCallback: Find_26.ZanCallback) {
-        val json = "{\"cmd\":\"activityZan\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
-                "\",\"activityId\":\"" + activityId + "\",\"commentId\":\"" + commentId + "\"}"
-
-        abLog.e("首页.................", json)
-        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
-            override fun onResponse(response: String, id: Int) {
-                super.onResponse(response, id)
-                val obj=JSONObject(response)
-                if(obj.getString("result")=="0"){
-                    zanCallback.zan()
-                }else{
-                    ToastUtil.showToast(obj.getString("resultNote"))
-                }
-            }
-        })
-    }
 
 }

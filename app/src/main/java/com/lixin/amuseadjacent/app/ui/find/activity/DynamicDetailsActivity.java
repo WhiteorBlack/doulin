@@ -21,10 +21,12 @@ import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter;
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1;
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel;
 import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134;
+import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224;
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139;
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter;
 import com.lixin.amuseadjacent.app.util.*;
 import com.lixin.amuseadjacent.app.view.CircleImageView;
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -38,6 +40,7 @@ import java.util.ArrayList;
 
 /**
  * 使用的实体类中有 “object”kotlin关键字，所以只能用java类
+ * 动态、帮帮详情
  * Created by Slingge on 2018/9/15
  */
 public class DynamicDetailsActivity extends BaseActivity implements View.OnClickListener {
@@ -57,6 +60,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     private NiceVideoPlayer player;
 
     private TextView tv_time, tv_comment, tv_zan;
+    private TextView tv_right;
 
     private EditText et_comment;
 
@@ -64,6 +68,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     private int zanNUm = 0;
     private String isZan = "0";//0未赞过 1已赞过
     private int commNum = 0;
+
+    private String flag;// 0动态，1帮帮
 
     private DynamiclDetailsModel model;
 
@@ -78,7 +84,17 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
 
     private void init() {
-        inittitle("动态详情");
+        flag = getIntent().getStringExtra("flag");
+        if (flag.equals("0")) {
+            inittitle("动态详情");
+        } else {
+            inittitle("帮帮详情");
+            tv_right = findViewById(R.id.tv_right);
+            tv_right.setText("收藏");
+            tv_right.setVisibility(View.VISIBLE);
+            tv_right.setOnClickListener(this);
+        }
+
         StatusBarWhiteColor();
 
         rv_comment = findViewById(R.id.rv_comment);
@@ -154,6 +170,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         });
 
         dynaId = getIntent().getStringExtra("id");
+
         ProgressDialog.INSTANCE.showDialog(this);
         DynaComment_133134.INSTANCE.dynamicDetail(dynaId);
     }
@@ -177,6 +194,14 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             tv_follow.setText("关注");
         } else {
             tv_follow.setText("已关注");
+        }
+
+        if (model.object.iscang.equals("0")) {//没有收藏
+            tv_right.setText("已收藏");
+            model.object.iscang = "1";
+        } else {
+            tv_right.setText("收藏");
+            model.object.iscang = "0";
         }
 
         isZan = model.object.isZan;
@@ -246,6 +271,19 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                         tv_follow.setText("关注");
                     }
                 });
+                break;
+            case R.id.tv_right:
+                ProgressDialog.INSTANCE.showDialog(this);
+                Event_221222223224.INSTANCE.EventCollect("0", dynaId, () -> {
+                    if (model.object.iscang.equals("0")) {//没有收藏
+                        tv_right.setText("已收藏");
+                        model.object.iscang = "1";
+                    } else {
+                        tv_right.setText("收藏");
+                        model.object.iscang = "0";
+                    }
+                });
+
                 break;
             case R.id.image0:
                 PreviewPhoto.INSTANCE.preview(DynamicDetailsActivity.this, imageList, 0);

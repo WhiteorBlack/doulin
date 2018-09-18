@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
-import android.content.Context
+import android.app.Activity
+import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,8 +12,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.EventModel
+import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
+import com.lixin.amuseadjacent.app.ui.find.request.Find_26
+import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
@@ -23,7 +28,7 @@ import java.util.ArrayList
  * 活动
  * Created by Slingge on 2018/8/25.
  */
-class EventAdapter(val context: Context,val eventList : ArrayList<EventModel.dataModel>) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.dataModel>) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -74,14 +79,50 @@ class EventAdapter(val context: Context,val eventList : ArrayList<EventModel.dat
         holder.tv_comment.text = model.commentNum
         holder.tv_zan.text = model.zanNum
 
-        holder.itemView.setOnClickListener { v ->
-            MyApplication.openActivity(context, EventDetailsActivity::class.java)
+        holder.cl_item.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("id", model.activityId)
+            bundle.putString("name", model.activityName)
+            MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
+        }
+
+        holder.tv_zan.setOnClickListener { v ->
+            if (model.isZan == "1") {//0未赞过 1已赞过
+                return@setOnClickListener
+            }
+            ProgressDialog.showDialog(context)
+            ActivityComment_272829210.zan("0", model.activityId, "", object : Find_26.ZanCallback {
+                override fun zan() {
+                    eventList[position].isZan = "1"
+                    eventList[position].zanNum = ((eventList[position].zanNum).toInt() + 1).toString()
+                    notifyDataSetChanged()
+                }
+            })
+        }
+
+        holder.tv_follow.setOnClickListener { v ->
+            ProgressDialog.showDialog(context)
+            Mail_138139.follow(eventList[position].userid, object : Mail_138139.FollowCallBack {
+                override fun follow() {
+                    for (i in 0 until eventList.size) {
+                        if (eventList[position].userid == eventList[i].userid) {
+                            if (eventList[i].isAttention == "0") {// 0未关注 1已关注
+                                eventList[i].isAttention = "1"
+                            } else {
+                                eventList[i].isAttention = "0"
+                            }
+                        }
+                    }
+                    notifyDataSetChanged()
+                }
+            })
         }
 
     }
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val cl_item = view.findViewById<ConstraintLayout>(R.id.cl_item)
         val ll_image = view.findViewById<LinearLayout>(R.id.ll_image)
         val cl_2 = view.findViewById<ConstraintLayout>(R.id.cl_2)
         val tv_info = view.findViewById<TextView>(R.id.tv_info)

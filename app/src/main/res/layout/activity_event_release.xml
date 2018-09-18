@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray2"
+    android:id="@+id/ll_main"
     android:orientation="vertical">
 
     <!--活动发布-->
@@ -21,11 +22,10 @@
             android:layout_height="wrap_content">
 
             <View
+                android:id="@+id/view_bg"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
-                android:background="@color/gray2"
-                android:id="@+id/view_bg"
-                />
+                android:background="@color/gray2" />
 
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_marginRight="12dp"
                 android:background="@null"
                 android:gravity="right|center_vertical"
-                android:hint="请输入"
+                android:hint="请输入活动主题"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant"
@@ -202,7 +202,7 @@
                 android:layout_marginRight="12dp"
                 android:background="@null"
                 android:gravity="right|center_vertical"
-                android:hint="请输入"
+                android:hint="请输入活动地点"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant"
@@ -273,7 +273,7 @@
                 android:layout_marginRight="12dp"
                 android:background="@null"
                 android:gravity="right|center_vertical"
-                android:hint="请输入"
+                android:hint="请输入限制人数"
                 android:inputType="number"
                 android:singleLine="true"
                 android:textColor="@color/black"
@@ -315,7 +315,7 @@
                 android:layout_marginRight="12dp"
                 android:background="@null"
                 android:gravity="right|center_vertical"
-                android:hint="请输入"
+                android:hint="请输入费用"
                 android:inputType="number"
                 android:singleLine="true"
                 android:textColor="@color/black"

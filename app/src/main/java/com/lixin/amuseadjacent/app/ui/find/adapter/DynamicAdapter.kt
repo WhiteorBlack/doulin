@@ -27,10 +27,10 @@ import com.xiao.nicevideoplayer.TxVideoPlayerController
 
 /**
  * 达人
- * flag 0全部，1关注
+ * flag 0动态，1帮帮
  * Created by Slingge on 2018/8/22
  */
-class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dynamicModel>) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
+class DynamicAdapter(val context: Context, val flag: String, val dynaList: ArrayList<FindModel.dynamicModel>) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -131,6 +131,7 @@ class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dyn
 
         holder.itemView.setOnClickListener { v ->
             val bundle = Bundle()
+            bundle.putString("flag", flag)
             bundle.putString("id", dynaList[position].dynamicId)
             MyApplication.openActivity(context, DynamicDetailsActivity::class.java, bundle)
         }
@@ -141,6 +142,7 @@ class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dyn
     private var niceVideoPlayer: NiceVideoPlayer? = null
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val cl_item = view.findViewById<ConstraintLayout>(R.id.cl_item)
         val cl_1 = view.findViewById<ConstraintLayout>(R.id.cl_1)
         val cl_2 = view.findViewById<ConstraintLayout>(R.id.cl_2)
 

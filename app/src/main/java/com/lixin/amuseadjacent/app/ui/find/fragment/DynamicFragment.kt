@@ -1,6 +1,5 @@
 package com.lixin.amuseadjacent.app.ui.find.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -21,7 +20,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 /**
- * 达人列表
+ * 动态列表
  * Created by Slingge on 2018/8/21
  */
 class DynamicFragment : BaseFragment() {
@@ -52,7 +51,7 @@ class DynamicFragment : BaseFragment() {
         xrecyclerview.layoutManager = linearLayoutManager
         xrecyclerview.setPullRefreshEnabled(false)
 
-        dynamicAdapter = DynamicAdapter(activity!!, dynaList)
+        dynamicAdapter = DynamicAdapter(activity!!,"0", dynaList)
         xrecyclerview.adapter = dynamicAdapter
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {

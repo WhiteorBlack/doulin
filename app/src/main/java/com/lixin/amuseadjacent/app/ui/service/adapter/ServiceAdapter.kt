@@ -7,17 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import com.lixin.amuseadjacent.R
-import android.widget.RelativeLayout
-import com.lixin.amuseadjacent.app.MyApplication
-import com.lixin.amuseadjacent.app.ui.service.activity.SpecialAreaActivity
+import android.widget.TextView
+import com.lixin.amuseadjacent.app.ui.service.model.ServiceModel
+import com.nostra13.universalimageloader.core.ImageLoader
+import java.util.ArrayList
 
 
 /**
  * 服务
  * Created by Slingge on 2018/8/22
  */
-class ServiceAdapter(val context: Context) : RecyclerView.Adapter<ServiceAdapter.ViewHolder>() {
+class ServiceAdapter(val context: Context, val serviceList: ArrayList<ServiceModel.dataModel>) : RecyclerView.Adapter<ServiceAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_service, parent, false)
@@ -25,7 +27,7 @@ class ServiceAdapter(val context: Context) : RecyclerView.Adapter<ServiceAdapter
     }
 
     override fun getItemCount(): Int {
-        return 12
+        return serviceList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,11 +38,21 @@ class ServiceAdapter(val context: Context) : RecyclerView.Adapter<ServiceAdapter
             holder.cl_item.layoutParams = lp
         }
 
+        val model = serviceList[position]
+
+        ImageLoader.getInstance().displayImage(model.optimizationImg, holder.iv_image)
+        holder.tv_name.text = model.optimizationName
+        holder.tv_info.text = model.optimizationDesc
+
     }
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cl_item = view.findViewById<ConstraintLayout>(R.id.cl_item)
+
+        val tv_name = view.findViewById<TextView>(R.id.tv_name)
+        val tv_info = view.findViewById<TextView>(R.id.tv_info)
+        val iv_image = view.findViewById<ImageView>(R.id.iv_image)
     }
 
 

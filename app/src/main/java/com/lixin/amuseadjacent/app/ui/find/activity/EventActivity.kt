@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -17,7 +18,6 @@ import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
-import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
@@ -54,7 +54,7 @@ class EventActivity : BaseActivity() {
         tv_right.visibility = View.VISIBLE
         tv_right.text = "创建活动"
         tv_right.setOnClickListener { v ->
-            MyApplication.openActivity(this, EventReleaseActivity::class.java)
+            MyApplication.openActivityForResult(this, EventReleaseActivity::class.java, 0)
         }
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -79,7 +79,7 @@ class EventActivity : BaseActivity() {
             override fun onLoadMore() {
                 nowPage++
                 if (nowPage >= totalPage) {
-                    xrecyclerview.noMoreLoading()
+                    rv_event.noMoreLoading()
                     return
                 }
                 onRefresh = 2
@@ -112,6 +112,12 @@ class EventActivity : BaseActivity() {
 
         totalPage = model.totalPage
 
+        if (totalPage <= 1) {
+            if (eventList.isNotEmpty()) {
+                rv_event.noMoreLoading()
+            }
+        }
+
 
         if (onRefresh == 1) {
             rv_event.refreshComplete()
@@ -129,6 +135,21 @@ class EventActivity : BaseActivity() {
         }
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(data==null){
+            return
+        }
+        if(requestCode==0){
+            if (eventList.isNotEmpty()) {
+                eventList.clear()
+                eventAdapter!!.notifyDataSetChanged()
+            }
+            nowPage = 1
+            Event_221222223224.EventList(nowPage)
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -22,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
@@ -215,9 +216,9 @@
             android:id="@+id/tv_dialogue"
             android:layout_width="wrap_content"
             android:layout_height="49dp"
+            android:background="@drawable/touch_bg"
             android:drawableLeft="@drawable/ic_dialogue"
             android:drawablePadding="10dp"
-            android:background="@drawable/touch_bg"
             android:gravity="center_vertical"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
@@ -251,10 +252,10 @@
             android:id="@+id/tv_follow"
             android:layout_width="wrap_content"
             android:layout_height="49dp"
+            android:background="@drawable/touch_bg"
             android:drawableLeft="@drawable/ic_follow"
             android:drawablePadding="10dp"
             android:gravity="center_vertical"
-            android:background="@drawable/touch_bg"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:text="关注"

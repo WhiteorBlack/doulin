@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
@@ -83,8 +84,8 @@
             android:id="@+id/rv_menu"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:paddingLeft="12dp"
             android:background="@color/gray2"
+            android:paddingLeft="12dp"
             android:paddingRight="12dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +112,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white">
 
-        <include layout="@layout/include_line"/>
+        <include layout="@layout/include_line" />
 
         <ImageView
             android:id="@+id/iv_car"
