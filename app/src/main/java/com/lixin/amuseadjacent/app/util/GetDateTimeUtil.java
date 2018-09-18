@@ -68,10 +68,11 @@ public class GetDateTimeUtil {
     public static String getYMDHMS() {
         long l = System.currentTimeMillis();
         if (sdf == null) {
-            sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         }
         return sdf.format(l);
     }
+
 
 
     /**

@@ -8,6 +8,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_event_details.*
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.include_basetop.*
 class EventDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private var commentAdapter: DynamicCommentAdapter? = null
+    private var commentList = ArrayList<ActivityCommentModel1.commModel>()
 
     internal var urls = arrayOf("http://img2.imgtn.bdimg.com/it/u=1939271907,257307689&fm=21&gp=0.jpg",
             "http://img0.imgtn.bdimg.com/it/u=2263418180,3668836868&fm=206&gp=0.jpg",
@@ -62,7 +64,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_comment.layoutManager = linearLayoutManager
 
-        commentAdapter = DynamicCommentAdapter(this)
+        commentAdapter = DynamicCommentAdapter(this,commentList)
         rv_comment.adapter = commentAdapter
 
         val inflater = LayoutInflater.from(this)

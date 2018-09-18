@@ -90,7 +90,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="24dp"
                 android:background="@drawable/bg_white8"
-                android:maxLength="4"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textColor="@color/black"

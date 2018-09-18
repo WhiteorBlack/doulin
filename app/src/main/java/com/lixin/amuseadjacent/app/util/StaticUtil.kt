@@ -9,13 +9,17 @@ import cn.jpush.android.api.JPushInterface
 object StaticUtil {
 
     val Url = "http://39.107.106.122/wisdom/api/service?"//接口地址
+//    val Url = "http://192.168.3.142:8080/wisdom/api/service?"//本地地址
 
-    val AlbumsUrl="http://39.107.106.122/wisdom/api/addAlbums"//上传相册地址
-    val AuthenticationUrl="http://39.107.106.122/wisdom/api/userAuthentication"//实名认证地址
+    val AlbumsUrl = "http://39.107.106.122/wisdom/api/addAlbums"//上传相册地址
+    val AuthenticationUrl = "http://39.107.106.122/wisdom/api/userAuthentication"//实名认证地址
+    val ReleaseDynamicBang = "http://39.107.106.122/wisdom/api/addDynamic"//发布动态帮帮地址
+    //val ReleaseDynamicBang="http://192.168.3.142:8080/wisdom/api/addDynamic"//发布动态帮帮地址
+    val TalenExperienceImage = "http://39.107.106.122/wisdom/api/addimgs"//上传达人经历
 
     var uid = ""// Id
     var phone = ""//
-    var CcommunityId = ""//社区Id
+    var communityId = ""//社区Id
     var nickName = ""//昵称
     var age = ""//
     var sex = ""
@@ -29,7 +33,7 @@ object StaticUtil {
     var unitName = ""//社区单元名称
     var doorNumber = ""//门牌号
 
-    var balance =""//余额
+    var balance = ""//余额
 
     fun getJpushToken(context: Context): String {
         return JPushInterface.getRegistrationID(context)

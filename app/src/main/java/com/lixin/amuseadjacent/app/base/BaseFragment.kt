@@ -33,7 +33,7 @@ abstract class BaseFragment : Fragment() {
         if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
             loadData()
             isDataInitiated = true
-            refreshData = true//false,只加载一次，true每次进入页面都加载
+            refreshData = false//false,只加载一次，true每次进入页面都加载
             return true
         }
         return false

@@ -41,7 +41,7 @@ class EditAddressActivity : BaseActivity(), View.OnClickListener, AddressPop.Whe
     override fun onStart() {
         super.onStart()
         if (flag == 1) {
-            val mode = intent.getSerializableExtra("model") as AddressModel.addModel
+            val mode = intent.getSerializableExtra("DynamiclDetailsModel") as AddressModel.addModel
             addId = mode.addressId
             et_name.setText(mode.username)
             et_phone.setText(mode.userPhone)

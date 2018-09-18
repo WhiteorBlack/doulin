@@ -44,8 +44,8 @@ object SginIn_1213 {
                         if (obj.getString("iswanshan") == "0") {//0未完善社区信息 1已完善社区信息
                             MyApplication.openActivity(context, PersonalImageActivity::class.java)
                         } else {
-                            StaticUtil.CcommunityId = obj.getString("communityId")
-                            sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.CcommunityId).commit()
+                            StaticUtil.communityId = obj.getString("communityId")
+                            sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.communityId).commit()
                             MyApplication.openActivity(context, MainActivity::class.java)
                         }
                         sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.uid, StaticUtil.uid)
@@ -79,6 +79,8 @@ object SginIn_1213 {
                         if (obj.getString("iswanshan") == "0") {//0未完善社区信息 1已完善社区信息
                             MyApplication.openActivity(context, PersonalImageActivity::class.java)
                         } else {
+                            StaticUtil.communityId = obj.getString("communityId")
+                            sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.communityId).commit()
                             StaticUtil.CcommunityId = obj.getString("communityId")
                             sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.CcommunityId).commit()
 

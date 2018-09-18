@@ -146,8 +146,8 @@ class PerfectImageActivity : BaseActivity(), View.OnClickListener, DatePop.Wheel
 
     /**
      * 选中的社区、单元
-     *  model.unitName//社区id
-     * model.unitId//单元id
+     *  DynamiclDetailsModel.unitName//社区id
+     * DynamiclDetailsModel.unitId//单元id
      */
     @Subscribe
     fun onEvent(model: UnityModel.unitModel) {

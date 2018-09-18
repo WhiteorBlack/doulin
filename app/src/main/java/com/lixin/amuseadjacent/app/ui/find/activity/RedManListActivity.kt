@@ -4,12 +4,17 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
+import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.RedManFragment
 import com.lixin.amuseadjacent.app.ui.find.fragment.TalentFragment
+import com.lixin.amuseadjacent.app.ui.find.model.RedmanModel
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_redman_list.*
+import kotlinx.android.synthetic.main.fragment_redman_list.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 /**
@@ -66,8 +71,8 @@ class RedManListActivity : BaseActivity() {
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
         tab.setupWithViewPager(viewPager)
-
     }
+
 
 
 }

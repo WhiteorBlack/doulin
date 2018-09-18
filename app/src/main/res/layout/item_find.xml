@@ -18,8 +18,8 @@
             android:id="@+id/iv_header"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:maxWidth="40dp"
             android:maxHeight="40dp"
+            android:maxWidth="40dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_header"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="2dp"
-            android:text="洛克贝尔"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/main_fant"
             app:layout_constraintStart_toEndOf="@+id/iv_header"
@@ -78,7 +78,7 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="afealwkfok'apow "
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/main_fant"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,15 +106,15 @@
                     android:id="@+id/ll_image"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/image0"
                         android:layout_width="160dp"
                         android:layout_height="110dp"
-                        android:maxWidth="160dp"
                         android:maxHeight="110dp"
+                        android:maxWidth="160dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_dyna" />
 
@@ -123,10 +123,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="2.5dp"
-                        android:maxWidth="450dp"
-                        android:maxHeight="450dp"
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
+                        android:maxHeight="450dp"
+                        android:maxWidth="450dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_dyna" />
 
@@ -135,13 +135,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="2.5dp"
-                        android:maxWidth="450dp"
-                        android:maxHeight="450dp"
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
+                        android:maxHeight="450dp"
+                        android:maxWidth="450dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_dyna"
-                        />
+                        android:src="@drawable/ic_dyna" />
 
                 </LinearLayout>
 
@@ -154,6 +153,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <com.xiao.nicevideoplayer.NiceVideoPlayer
+                    android:id="@+id/player"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp" />
+
 
             </android.support.constraint.ConstraintLayout>
 
@@ -162,7 +167,6 @@
                 android:id="@+id/cl_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-             android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/tv_info">
 
                 <ImageView
@@ -197,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="xxx游"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/main_fant"
                     app:layout_constraintStart_toEndOf="@+id/image"
@@ -214,7 +218,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="1dp"
-                    android:text="xx/人"
+                    android:text="/人"
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     app:layout_constraintStart_toEndOf="@+id/image"
@@ -238,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="地点地点 点地点地 点地点地点"
+                    android:text="地点"
                     android:textColor="@color/colorTabText"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -269,7 +273,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="08.23"
+            android:text=""
             android:textColor="#999999"
             android:textSize="@dimen/sub_fant"
             app:layout_constraintStart_toStartOf="@+id/tv_name"
@@ -284,7 +288,7 @@
             android:drawablePadding="5dp"
             android:paddingLeft="10dp"
             android:paddingTop="3dp"
-            android:text="23"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_time"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -298,7 +302,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="3dp"
-            android:text="23"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="@+id/tv_comment"
             app:layout_constraintEnd_toStartOf="@+id/tv_comment" />
 

@@ -8,6 +8,7 @@ import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
 import org.greenrobot.eventbus.EventBus
+import org.json.JSONObject
 
 /**
  * 发现首页
@@ -16,8 +17,8 @@ import org.greenrobot.eventbus.EventBus
 object Find_26 {
 
 
-    fun find(sex: String, content: String, nowPage: Int) {
-        val json = "{\"cmd\":\"findList\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.CcommunityId + "\"}"
+    fun find() {
+        val json = "{\"cmd\":\"findList\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.communityId + "\"}"
 
         abLog.e("首页.................", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
@@ -32,5 +33,16 @@ object Find_26 {
             }
         })
     }
+
+
+
+    interface ZanCallback{
+        fun zan()
+    }
+
+
+
+
+
 
 }

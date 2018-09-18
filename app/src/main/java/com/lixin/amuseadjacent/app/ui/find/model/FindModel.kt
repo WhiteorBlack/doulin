@@ -1,9 +1,11 @@
 package com.lixin.amuseadjacent.app.ui.find.model
 
+import java.io.Serializable
+
 /**
  * Created by Slingge on 2018/9/14
  */
-class FindModel {
+class FindModel : Serializable {
 
 
     var result = ""
@@ -14,7 +16,6 @@ class FindModel {
     var theme = themeModel()
     var danamicList = ArrayList<dynamicModel>()
     var activity = activityModel()
-
     var redmanList = ArrayList<redmanModel>()
 
     class redmanModel {
@@ -33,12 +34,7 @@ class FindModel {
         var isZan = ""//是否已经赞过 0未赞过 1已赞过
     }
 
-    class find{
-        var dynaModel=dynamicModel()
-        var actiModel=activityModel()
-    }
-
-    class dynamicModel {
+    class dynamicModel : Serializable {
 
         var dynamicId = ""
         var dynamicUid = ""//发布动态人id
@@ -48,7 +44,7 @@ class FindModel {
         var dynamicImg = ""//动态封面图片
 
         var dynamicVideo = ""//动态视频连接
-        var dynamicImgList = ""//动态多图片数组
+        var dynamicImgList = ArrayList<String>()//动态多图片数组
         var dynamicAddress = ""//动态地址
         var userEffectNum = ""//发布人影响力值
 
@@ -72,6 +68,7 @@ class FindModel {
         var activityAllnum = ""//活动人数
 
         var activityNownum = ""//活动当前人数
+        var   activityMoney=""//人均费用
         var activityState = ""//状态 0报名中 1进行中 2已结束
         var userId = ""//发布人id
         var userName = ""//发布人昵称

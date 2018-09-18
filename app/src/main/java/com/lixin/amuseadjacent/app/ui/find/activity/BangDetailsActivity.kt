@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import kotlinx.android.synthetic.main.activity_bang_details.*
 import kotlinx.android.synthetic.main.include_basetop.*
 
@@ -16,8 +17,8 @@ import kotlinx.android.synthetic.main.include_basetop.*
  */
 class BangDetailsActivity : BaseActivity(), View.OnClickListener {
 
-
     private var commentAdapter: DynamicCommentAdapter? = null
+    private var commentList = ArrayList<ActivityCommentModel1.commModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,7 @@ class BangDetailsActivity : BaseActivity(), View.OnClickListener {
         rv_comment.isFocusable = false
         rv_comment.setPullRefreshEnabled(false)
 
-        commentAdapter = DynamicCommentAdapter(this)
+        commentAdapter = DynamicCommentAdapter(this,commentList)
         rv_comment.adapter = commentAdapter
     }
 

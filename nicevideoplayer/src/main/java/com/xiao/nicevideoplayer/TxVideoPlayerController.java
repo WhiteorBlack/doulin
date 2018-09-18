@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
 /**
  * Created by XiaoJianjun on 2017/6/21.
  * 仿腾讯视频热点列表页播放器控制器.
@@ -147,7 +146,6 @@ public class TxVideoPlayerController
     @Override
     public void setTitle(String title) {
         mTitle.setText(title);
-
     }
 
     @Override
@@ -215,7 +213,6 @@ public class TxVideoPlayerController
                 mBottom.setVisibility(View.GONE);
                 mCenterStart.setVisibility(View.GONE);
                 mLength.setVisibility(View.GONE);
-                finishActivityCallBack.statPlay();
                 break;
             case NiceVideoPlayer.STATE_PREPARED:
                 startUpdateProgressTimer();
@@ -242,29 +239,26 @@ public class TxVideoPlayerController
                 mLoadText.setText("正在缓冲...");
                 cancelDismissTopBottomTimer();
                 break;
-            case NiceVideoPlayer.STATE_ERROR://播放错误
+            case NiceVideoPlayer.STATE_ERROR:
                 cancelUpdateProgressTimer();
                 setTopBottomVisible(false);
                 mTop.setVisibility(View.VISIBLE);
                 mError.setVisibility(View.VISIBLE);
                 break;
-            case NiceVideoPlayer.STATE_COMPLETED://播放完成
+            case NiceVideoPlayer.STATE_COMPLETED:
                 cancelUpdateProgressTimer();
                 setTopBottomVisible(false);
                 mImage.setVisibility(View.VISIBLE);
                 mCompleted.setVisibility(View.VISIBLE);
-                mTop.setVisibility(View.VISIBLE);
-                finishActivityCallBack.playEnd();
                 break;
         }
     }
-
 
     @Override
     protected void onPlayModeChanged(int playMode) {
         switch (playMode) {
             case NiceVideoPlayer.MODE_NORMAL:
-//                mBack.setVisibility(View.GONE);
+                mBack.setVisibility(View.GONE);
                 mFullScreen.setImageResource(R.drawable.ic_player_enlarge);
                 mFullScreen.setVisibility(View.VISIBLE);
                 mClarity.setVisibility(View.GONE);
@@ -275,7 +269,7 @@ public class TxVideoPlayerController
                 }
                 break;
             case NiceVideoPlayer.MODE_FULL_SCREEN:
-                mBack.setVisibility(View.GONE);
+                mBack.setVisibility(View.VISIBLE);
                 mFullScreen.setVisibility(View.GONE);
                 mFullScreen.setImageResource(R.drawable.ic_player_shrink);
                 if (clarities != null && clarities.size() > 1) {
@@ -289,7 +283,7 @@ public class TxVideoPlayerController
                 }
                 break;
             case NiceVideoPlayer.MODE_TINY_WINDOW:
-                mBack.setVisibility(View.GONE);
+                mBack.setVisibility(View.VISIBLE);
                 mClarity.setVisibility(View.GONE);
                 break;
         }
@@ -342,10 +336,10 @@ public class TxVideoPlayerController
         mBottom.setVisibility(View.GONE);
         mFullScreen.setImageResource(R.drawable.ic_player_enlarge);
 
-//        mLength.setVisibility(View.VISIBLE);
+        mLength.setVisibility(View.VISIBLE);
 
         mTop.setVisibility(View.VISIBLE);
-//        mBack.setVisibility(View.GONE);
+        mBack.setVisibility(View.GONE);
 
         mLoading.setVisibility(View.GONE);
         mError.setVisibility(View.GONE);
@@ -363,7 +357,11 @@ public class TxVideoPlayerController
                 mNiceVideoPlayer.start();
             }
         } else if (v == mBack) {
-            finishActivityCallBack.finishActivity();
+            if (mNiceVideoPlayer.isFullScreen()) {
+                mNiceVideoPlayer.exitFullScreen();
+            } else if (mNiceVideoPlayer.isTinyWindow()) {
+                mNiceVideoPlayer.exitTinyWindow();
+            }
         } else if (v == mRestartPause) {
             if (mNiceVideoPlayer.isPlaying() || mNiceVideoPlayer.isBufferingPlaying()) {
                 mNiceVideoPlayer.pause();
@@ -436,7 +434,7 @@ public class TxVideoPlayerController
     private void startDismissTopBottomTimer() {
         cancelDismissTopBottomTimer();
         if (mDismissTopBottomCountDownTimer == null) {
-            mDismissTopBottomCountDownTimer = new CountDownTimer(5000, 5000) {
+            mDismissTopBottomCountDownTimer = new CountDownTimer(8000, 8000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
 
@@ -504,7 +502,6 @@ public class TxVideoPlayerController
         mPosition.setText(NiceUtil.formatTime(newPosition));
     }
 
-    //
     @Override
     protected void hideChangePosition() {
         mChangePositon.setVisibility(View.GONE);
@@ -530,27 +527,5 @@ public class TxVideoPlayerController
     @Override
     protected void hideChangeBrightness() {
         mChangeBrightness.setVisibility(View.GONE);
-    }
-
-
-    public void hideFull() {
-        mFullScreen.setVisibility(View.GONE);
-    }
-
-    public void startPlay() {
-        mNiceVideoPlayer.start();
-    }
-
-
-    public interface FinishActivityCallBack {
-        void finishActivity();
-        void playEnd();
-        void statPlay();
-    }
-
-    public FinishActivityCallBack finishActivityCallBack;
-
-    public void setFinishActivityCallBack(FinishActivityCallBack finishActivityCallBack) {
-        this.finishActivityCallBack = finishActivityCallBack;
     }
 }

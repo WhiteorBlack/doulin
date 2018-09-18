@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
         manifestPlaceholders = [
                 JPUSH_PKGNAME: "com.lixin.amuseadjacent",//包名
                 JPUSH_APPKEY : "7f7e24fee3d009e65ee9d215", //JPush上注册的包名对应的appkey.
@@ -121,4 +121,5 @@ dependencies {
 
     implementation project(path: ':uikit')
 //    implementation 'com.netease.nimlib:basesdk:5.6.1'
+    implementation project(':nicevideoplayer')
 }

@@ -50,7 +50,7 @@ object MyAlbum_112113114 {
 
         for (i in 0 until imageList.size - 1) {//图片路径集合
             if (!imageList[i].path.contains("http://")) {
-                val file = ImageFileUtil.saveFilePath(imageList[i].path)//保存压缩
+                val file = File(imageList[i].path)//保存压缩
                 listfile.add(file)
             }
         }
@@ -78,7 +78,6 @@ object MyAlbum_112113114 {
                 super.onResponse(response, id)
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
-
                     StaticUtil.headerUrl=obj.getString("object")
 
                     val bundle = Bundle()
