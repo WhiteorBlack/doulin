@@ -1,9 +1,10 @@
 package com.lixin.amuseadjacent.app.ui.service.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
+import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
@@ -12,24 +13,30 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.dialog.ShopCartDialog
+import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopLeftAdapter
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopRightAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsListModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
-import com.lixin.amuseadjacent.app.ui.service.request.ShopGoodsList_35
+import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
+import com.lixin.amuseadjacent.app.util.AbStrUtil
+import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_shop.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
 /**
- * 店铺
+ * 新鲜果蔬
  * Created by Slingge on 2018/8/30
  */
 class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdapter.AddShopCar
         , ShopCartDialog.PlusCallBack, ShopCartDialog.ReduceCallBack, ShopCartDialog.DelCallBack {
+
+    private var type = ""//0新校果蔬，1超市便利
 
     private var shopLeftAdapter: ShopLeftAdapter? = null
     private var leftList = ArrayList<ShopGoodsListModel.dataModel>()
@@ -37,12 +44,15 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     private var rightAdapter: ShopRightAdapter? = null
     private var rightList = ArrayList<ShopGoodsModel.dataModel>()
     private var carList = ArrayList<ShopGoodsModel.dataModel>()
-
     private var linearLayoutManager2: LinearLayoutManager? = null
+
+    private var bannerUrl = ""//顶部广告跳转
 
     private var search = ""//搜索内容
 
     private var shopCartDialog: ShopCartDialog? = null//小购物车
+    private var totalMoney = 0.0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +64,15 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun init() {
-        inittitle("店铺")
+        type = intent.getStringExtra("type")
+        if (type == "0") {
+            inittitle("新鲜果蔬")
+        } else {
+            inittitle("超市便利")
+        }
+
         StatusBarWhiteColor()
         view_staus.visibility = View.GONE
 
@@ -66,6 +83,8 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         tv_settlement.setOnClickListener(this)
         iv_car.setOnClickListener(this)
         tv_msgNum.setOnClickListener(this)
+        iv_bg.setOnClickListener(this)
+        tv_search.setOnClickListener(this)
 
         var linearLayoutManager1 = LinearLayoutManager(this)
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
@@ -80,7 +99,10 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
                 if (i < 0) {
                     return
                 }
+                search = ""
                 title = leftList[i].firstCategoryName
+                ProgressDialog.showDialog(this@OfficialShopActivity)
+                OfficialShopGoodsList_35.ShopGoods(type, leftList[i].firstCategoryId, search)
 //                smoothMoveToPosition(linearLayoutManager2!!, i)
                 shopLeftAdapter!!.setSelect(i)
             }
@@ -90,10 +112,12 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         linearLayoutManager2!!.orientation = LinearLayoutManager.VERTICAL
         rv_right.layoutManager = linearLayoutManager2
 
+        tv_money.text = "合计：￥ $totalMoney"
+
         shopCartDialog = ShopCartDialog(this, this, this)
 
         ProgressDialog.showDialog(this)
-        ShopGoodsList_35.shop("0")
+        OfficialShopGoodsList_35.shop(type)
     }
 
 
@@ -111,21 +135,26 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     }
 
     //从购物车中增加
-    override fun plus(position: Int) {
-        super.plus(position)
-        rightList[position].goodsNum++
+    override fun plus(position: Int, num: Int, money: Double) {
+        super.plus(position, num, money)
+        rightList[position].goodsNum = num
         rightAdapter!!.notifyItemChanged(position)
-        carList[position].goodsNum++
+
+        carList[position].goodsNum = num
+        carList[position].money = money
 
         carNum()
     }
 
     //从购物车中减少
-    override fun reduce(position: Int) {
-        super.reduce(position)
-        rightList[position].goodsNum--
+    override fun reduce(position: Int, num: Int, money: Double) {
+        super.reduce(position, num, money)
+        rightList[position].goodsNum = num
+        rightList[position].money = money
         rightAdapter!!.notifyItemChanged(position)
-        carList[position].goodsNum--
+
+        carList[position].goodsNum = num
+        carList[position].money = money
 
         carNum()
     }
@@ -134,25 +163,27 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     override fun del(position: Int) {
         super.del(position)
         rightList[position].isSelect = false
-        carList.removeAt(position)
+        rightList[position].goodsNum = 0
+        rightAdapter!!.notifyItemChanged(position)
 
-        if(carList.isEmpty()){
+        carList.removeAt(position)
+        if (carList.isEmpty()) {
             shopCartDialog!!.dismiss()
         }
-
         carNum()
     }
 
     //购物车数量
-    private fun carNum(){
+    private fun carNum() {
         var num = 0
+        totalMoney = 0.0
         for (i in 0 until carList.size) {
             num += carList[i].goodsNum
+            totalMoney = DoubleCalculationUtil.add(carList[i].money, totalMoney)
         }
+        tv_money.text = "合计：￥ $totalMoney"
         MyApplication.setRedNum(tv_msgNum, num)
     }
-
-
 
 
     private var title = ""
@@ -166,15 +197,18 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         if (leftList.isNotEmpty()) {
             title = leftList[0].firstCategoryName
             ProgressDialog.showDialog(this)
-            ShopGoodsList_35.ShopGoods("0", leftList[0].firstCategoryId, search)
+            OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search)
         }
 
+        bannerUrl = model.bannerList[0].topImgDetailUrl
+        ImageLoader.getInstance().displayImage(model.bannerList[0].topImgUrl, iv_bg)
     }
 
     @Subscribe
     fun onEvent(model: ShopGoodsModel) {
+        rightList.clear()
         rightList = model.dataList
-        rightAdapter = ShopRightAdapter(this, title, model.dataList, this)
+        rightAdapter = ShopRightAdapter(this, title, rightList, this)
         rv_right.adapter = rightAdapter
     }
 
@@ -188,8 +222,25 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
                 }
                 shopCartDialog!!.shopCar(this, carList)
             }
+            R.id.iv_bg -> {
+                val bundle = Bundle()
+                bundle.putString("title", "")
+                bundle.putString("url", bannerUrl)
+                MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
+            }
+            R.id.tv_search -> {
+                search = AbStrUtil.etTostr(et_search)
+                if (TextUtils.isEmpty(search)) {
+                    return
+                }
+                title = leftList[0].firstCategoryName
+                ProgressDialog.showDialog(this)
+                OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search)
+            }
             R.id.tv_right -> {
-                MyApplication.openActivity(this, OfficialShopDetailsActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt("flag",type.toInt())
+                MyApplication.openActivity(this, OfficialShopDetailsActivity::class.java, bundle)
             }
             R.id.tv_settlement -> {
                 MyApplication.openActivity(this, SubmissionOrderActivity::class.java)

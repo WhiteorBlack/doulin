@@ -163,13 +163,17 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.iv_talent, R.id.tv_talent -> {//新鲜果蔬
-                MyApplication.openActivity(activity, OfficialShopActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString("type", "0")
+                MyApplication.openActivity(activity, OfficialShopActivity::class.java, bundle)
             }
             R.id.iv_dynamic, R.id.tv_dynamic -> {//洗衣洗鞋
                 MyApplication.openActivity(activity, LaundryActivity::class.java)
             }
             R.id.iv_activity, R.id.tv_activity -> {//超市便利
-                MyApplication.openActivity(activity, LaundryActivity::class.java)
+                val bundle = Bundle()
+                bundle.putString("type", "2")
+                MyApplication.openActivity(activity, OfficialShopActivity::class.java, bundle)
             }
             R.id.tv_help, R.id.iv_help -> {//小区店铺
                 MyApplication.openActivity(activity, PopularShopActivity::class.java)

@@ -27,6 +27,8 @@ class ShopGoodsModel {
 
         var goodsNum=0//选中的数量
         var isSelect=false//是否添加到购物车
+        var money=0.0//本商品所有数量支付价格
+         var UnitPrice=0.0
 
     }
 

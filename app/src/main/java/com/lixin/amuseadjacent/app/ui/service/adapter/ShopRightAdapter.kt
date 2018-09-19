@@ -42,13 +42,23 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
             holder.tv_title.visibility = View.GONE
         }
         val model = rightList[position]
+
+        model.UnitPrice = if (TextUtils.isEmpty(model.goodsCuprice)) {
+            model.goodsPrice.toDouble()
+        } else {
+            model.goodsCuprice.toDouble()
+        }
+
+        if (model.money == 0.0) {
+            model.money = model.UnitPrice
+        }
+
+        var money = model.money
+        holder.tv_money.text = " ￥：$money"
+
+
         holder.tv_name.text = model.goodsName
         ImageLoader.getInstance().displayImage(model.goodsImg, holder.image)
-        if (TextUtils.isEmpty(model.goodsCuprice)) {
-            holder.tv_money.text = " ￥：" + model.goodsPrice
-        } else {
-            holder.tv_money.text = " ￥：" + model.goodsCuprice
-        }
 
         holder.tv_volume.text = "销量：" + model.goodsSallnum
 

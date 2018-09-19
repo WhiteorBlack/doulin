@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsListModel
+import java.util.ArrayList
 
 /**
  * Created by Slingge on 2018/8/31
  */
-class LaundryMenuAdapter(val context: Context) : RecyclerView.Adapter<LaundryMenuAdapter.ViewHolder>() {
+class LaundryMenuAdapter(val context: Context, val menuList: ArrayList<ShopGoodsListModel.secondModel>) : RecyclerView.Adapter<LaundryMenuAdapter.ViewHolder>() {
 
     private var flag = -1
 
@@ -22,12 +24,12 @@ class LaundryMenuAdapter(val context: Context) : RecyclerView.Adapter<LaundryMen
     }
 
     override fun getItemCount(): Int {
-        return 12
+        return menuList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        if (flag > 0) {
+        if (flag >= 0) {
             if (flag == position) {
                 holder.text.setTextColor(context.resources.getColor(R.color.white))
                 holder.text.setBackgroundResource(R.drawable.bg_them30)
@@ -36,6 +38,8 @@ class LaundryMenuAdapter(val context: Context) : RecyclerView.Adapter<LaundryMen
                 holder.text.setBackgroundResource(R.drawable.bg_white30)
             }
         }
+
+        holder.text.text = menuList[position].secondCategoryName
 
     }
 

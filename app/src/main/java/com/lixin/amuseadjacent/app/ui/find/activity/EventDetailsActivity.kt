@@ -114,8 +114,8 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_type.text = "活动已结束"
         }
 
-        if (model.`object`.activityImg.isNotEmpty()) {
-            ImageLoader.getInstance().displayImage(model.`object`.activityImg[0], image)
+        if (model.`object`.activityImgurl.isNotEmpty()) {
+            ImageLoader.getInstance().displayImage(model.`object`.activityImgurl[0], image)
         }
 
         if (model.`object`.issignup == "0") {// 0未报名 1已报名
@@ -213,7 +213,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 })
             }
             R.id.image -> {
-                PreviewPhoto.preview(this, eventModel.`object`.activityImg, 0)
+                PreviewPhoto.preview(this, eventModel.`object`.activityImgurl, 0)
             }
             R.id.iv_open -> {
                 tv_info.switchs()

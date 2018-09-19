@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.dialog
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.view.MyBottomSheetDialog
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
+import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 
 
@@ -31,13 +33,13 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
 
 
     interface PlusCallBack {
-        fun plus(position: Int) {
+        fun plus(position: Int, num: Int, money: Double) {
 
         }
     }
 
     interface ReduceCallBack {
-        fun reduce(position: Int) {
+        fun reduce(position: Int, num: Int, money: Double) {
 
         }
     }
@@ -53,7 +55,7 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
 
         if (dialog == null) {
             view = LayoutInflater.from(context).inflate(R.layout.bottomsheetdialog_list, null)
-            dialog = MyBottomSheetDialog(context)
+            dialog = MyBottomSheetDialog(context,R.style.ProgressDialog)
             dialog!!.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             dialog!!.setCanceledOnTouchOutside(true)
             dialog!!.setContentView(view)
@@ -61,6 +63,9 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
             recyclerView = view!!.findViewById(R.id.recyclerView)
 
             iv_down = view!!.findViewById(R.id.iv_down)
+
+            dialog!!.delegate.findViewById<View>(android.support.design.R.id.design_bottom_sheet)!!
+                    .setBackgroundColor(context.resources.getColor(R.color.colorTransparent))
 
             recyclerView!!.layoutManager = linearLayoutManager
         }
@@ -87,37 +92,53 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
             return goodsList.size
         }
 
+        @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
 
             val model = goodsList[position]
             ImageLoader.getInstance().displayImage(model.goodsImg, holder.image)
-            val lp = ConstraintLayout.LayoutParams(holder.image.layoutParams)
-            lp.setMargins(12, 0, 0, 0)
-            holder.image.layoutParams = lp
 
-            holder.tv_name.text = model.goodsName
+            var num = model.goodsNum
 
-            if (TextUtils.isEmpty(model.goodsCuprice)) {
-                holder.tv_money.text = " ￥：" + model.goodsPrice
+            model.UnitPrice = if (TextUtils.isEmpty(model.goodsCuprice)) {
+                model.goodsPrice.toDouble()
             } else {
-                holder.tv_money.text = " ￥：" + model.goodsCuprice
+                model.goodsCuprice.toDouble()
             }
 
-            holder.num.text = model.goodsNum.toString()
+            if (model.money == 0.0) {
+                model.money = model.UnitPrice
+            }
+
+            var money = model.money
+            holder.tv_money.text = " ￥：$money"
+
+            holder.num.text = num.toString()
 
             holder.tv_plus.setOnClickListener { v ->
-                plusCallBack.plus(position)
-                holder.num.text = (model.goodsNum++).toString()
+                num++
+                holder.num.text = num.toString()
+
+                money = DoubleCalculationUtil.mul(num.toDouble(), model.UnitPrice)
+                holder.tv_money.text = " ￥：$money"
+
+                plusCallBack.plus(position, num, money)
             }
             holder.tv_reduce.setOnClickListener { v ->
-                if (goodsList[position].goodsNum == 1) {
+                if (num == 1) {
                     return@setOnClickListener
                 }
-                holder.num.text = (model.goodsNum--).toString()
-                reduceCallBack.reduce(position)
+                num--
+                holder.num.text = num.toString()
+
+                money = DoubleCalculationUtil.mul(num.toDouble(), model.UnitPrice)
+                holder.tv_money.text = " ￥：$money"
+
+                reduceCallBack.reduce(position, num, money)
             }
 
-            holder.tv_plus.setOnClickListener { v ->
+            holder.iv_del.setOnClickListener { v ->
                 delCallBack.del(position)
                 notifyItemRemoved(position)
             }
@@ -136,8 +157,8 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
             val tv_reduce = view.findViewById<TextView>(R.id.tv_reduce)
 
             init {
-
-                ic_chack.visibility = View.VISIBLE
+                ic_chack.visibility = View.INVISIBLE
+                ic_chack.setPadding(12, 0, 0, 0)
             }
         }
     }
