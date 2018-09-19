@@ -34,6 +34,10 @@ object StaticUtil {
     var unitName = ""//社区单元名称
     var doorNumber = ""//门牌号
 
+    var Beecloud_Appid = "03feacbf-5f79-4f2c-83de-92910cc6e7b4"
+    var Beecloud_AppSecret = "78cb9f6f-2021-4e56-b66e-f9c6cbb31e0b"
+    var Weixin_Appid = "78cb9f6f-2021-4e56-b66e-f9c6cbb31e0b"
+
     var balance = ""//余额
 
     fun getJpushToken(context: Context): String {

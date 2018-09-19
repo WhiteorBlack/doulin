@@ -45,6 +45,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
     private var flag = "0"//0动态发布，1帮帮发布
 
     private var videoPath = ""
+    private var isChecked = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,7 +91,9 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
                 rv_album.visibility = View.VISIBLE
             }
             R.id.tv_address -> {
-                MyApplication.openActivity(this, SelectionAddressActivity::class.java)
+                val bundle = Bundle()
+                bundle.putBoolean("isChecked",isChecked)
+                MyApplication.openActivityForResult(this, SelectionAddressActivity::class.java,bundle,200)
             }
             R.id.tv_right -> {
                 val content = AbStrUtil.etTostr(et_info)
@@ -155,6 +158,16 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
                 }
             }
             albumAdapter!!.notifyDataSetChanged()
+        }
+
+        if (requestCode == 200 && resultCode == 200 && data != null){
+            if (TextUtils.isEmpty(data.getStringExtra("address"))){
+                isChecked = true
+                tv_address.text = "不显示位置"
+            }else{
+                isChecked = false
+                tv_address.text = data.getStringExtra("address")
+            }
         }
     }
 

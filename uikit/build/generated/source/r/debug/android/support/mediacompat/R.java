@@ -53,18 +53,18 @@ public final class R {
         public static int notification_top_pad_large_text = 0x7f0800d2;
     }
     public static final class drawable {
-        public static int notification_action_background = 0x7f090117;
-        public static int notification_bg = 0x7f090118;
-        public static int notification_bg_low = 0x7f090119;
-        public static int notification_bg_low_normal = 0x7f09011a;
-        public static int notification_bg_low_pressed = 0x7f09011b;
-        public static int notification_bg_normal = 0x7f09011c;
-        public static int notification_bg_normal_pressed = 0x7f09011d;
-        public static int notification_icon_background = 0x7f09011e;
-        public static int notification_template_icon_bg = 0x7f09011f;
-        public static int notification_template_icon_low_bg = 0x7f090120;
-        public static int notification_tile_bg = 0x7f090121;
-        public static int notify_panel_notification_icon_bg = 0x7f090122;
+        public static int notification_action_background = 0x7f09011a;
+        public static int notification_bg = 0x7f09011b;
+        public static int notification_bg_low = 0x7f09011c;
+        public static int notification_bg_low_normal = 0x7f09011d;
+        public static int notification_bg_low_pressed = 0x7f09011e;
+        public static int notification_bg_normal = 0x7f09011f;
+        public static int notification_bg_normal_pressed = 0x7f090120;
+        public static int notification_icon_background = 0x7f090121;
+        public static int notification_template_icon_bg = 0x7f090122;
+        public static int notification_template_icon_low_bg = 0x7f090123;
+        public static int notification_tile_bg = 0x7f090124;
+        public static int notify_panel_notification_icon_bg = 0x7f090125;
     }
     public static final class id {
         public static int action0 = 0x7f0c0006;
@@ -77,8 +77,8 @@ public final class R {
         public static int blocking = 0x7f0c002b;
         public static int cancel_action = 0x7f0c0037;
         public static int chronometer = 0x7f0c003b;
-        public static int end_padder = 0x7f0c007e;
-        public static int forever = 0x7f0c0085;
+        public static int end_padder = 0x7f0c007d;
+        public static int forever = 0x7f0c0084;
         public static int icon = 0x7f0c008c;
         public static int icon_group = 0x7f0c008d;
         public static int info = 0x7f0c009b;
@@ -86,18 +86,18 @@ public final class R {
         public static int line1 = 0x7f0c00ab;
         public static int line3 = 0x7f0c00ac;
         public static int media_actions = 0x7f0c00b9;
-        public static int normal = 0x7f0c00ee;
-        public static int notification_background = 0x7f0c00ef;
-        public static int notification_main_column = 0x7f0c00f0;
-        public static int notification_main_column_container = 0x7f0c00f1;
-        public static int right_icon = 0x7f0c0123;
-        public static int right_side = 0x7f0c0124;
-        public static int status_bar_latest_event_content = 0x7f0c0153;
-        public static int tag_transition_group = 0x7f0c015c;
-        public static int text = 0x7f0c0180;
-        public static int text2 = 0x7f0c0181;
-        public static int time = 0x7f0c018c;
-        public static int title = 0x7f0c0191;
+        public static int normal = 0x7f0c00ed;
+        public static int notification_background = 0x7f0c00ee;
+        public static int notification_main_column = 0x7f0c00ef;
+        public static int notification_main_column_container = 0x7f0c00f0;
+        public static int right_icon = 0x7f0c0122;
+        public static int right_side = 0x7f0c0123;
+        public static int status_bar_latest_event_content = 0x7f0c0152;
+        public static int tag_transition_group = 0x7f0c015b;
+        public static int text = 0x7f0c017f;
+        public static int text2 = 0x7f0c0180;
+        public static int time = 0x7f0c018b;
+        public static int title = 0x7f0c0190;
     }
     public static final class integer {
         public static int cancel_button_image_alpha = 0x7f0d0005;

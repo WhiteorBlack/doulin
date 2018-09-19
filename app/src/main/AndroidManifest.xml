@@ -47,7 +47,9 @@
     <!-- Optional for location -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!-- 用于Android M及以上系统，申请加入忽略电池优化白名单-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
@@ -79,6 +81,10 @@
                 android:resource="@xml/file_paths"/>
         </provider>
 
+        <!--百度-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="Y9f1QO90e2zXCcuFT8mUma4d4IU6Cs1C" />
 
 
 
@@ -164,24 +170,22 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="7f7e24fee3d009e65ee9d215" />
-<!--
-        &lt;!&ndash;自定的广播&ndash;&gt;
+
+        <!--自定的广播-->
         <receiver
             android:name=".app.service.jPushSrevice"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" /> &lt;!&ndash;Required  用户注册SDK的intent&ndash;&gt;
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK消息的intent&ndash;&gt;
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> &lt;!&ndash;Required  用户接收SDK通知栏信息的intent&ndash;&gt;
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> &lt;!&ndash;Required  用户打开自定义通知栏的intent&ndash;&gt;
-                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> &lt;!&ndash;Optional 用户接受Rich Push Javascript 回调函数的intent&ndash;&gt;
-                <action android:name="cn.jpush.android.intent.CONNECTION" />&lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <category android:name="com.lixin.amuseadjacent" />
             </intent-filter>
-        </receiver>-->
-
-
+        </receiver>
 
 
         <!--///////////////////////////////查看图片\\\\\\\\\\\\\\\\\\\\\\\\\-->
@@ -289,6 +293,10 @@
         <!--选择地址-->
         <activity
             android:name=".app.ui.find.activity.SelectionAddressActivity"
+            android:screenOrientation="portrait" />
+        <!--搜索地址-->
+        <activity
+            android:name=".app.ui.find.activity.SearchAddressActivity"
             android:screenOrientation="portrait" />
 
         <!--动态详情回复-->

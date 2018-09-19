@@ -12,29 +12,61 @@
         android:cacheColorHint="@android:color/transparent"
         />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/emptyBg"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginBottom="50dp"
-        android:visibility="gone">
-
+        android:visibility="gone"
+        android:orientation="vertical">
         <ImageView
-            android:id="@+id/emptyBg1"
+            android:id="@+id/ic_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/empty"
-            android:src="@drawable/nim_messages_list_empty_bg"/>
+            android:src="@drawable/ic_empty_msg"/>
 
         <TextView
-            android:id="@+id/message_list_empty_hint"
-            android:layout_width="fill_parent"
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/emptyBg1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dip"
-            android:gravity="center"/>
-    </RelativeLayout>
+            android:layout_marginTop="15dp"
+            android:text="暂无好友对话"
+            android:textColor="@color/black"
+            android:textSize="13sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:textSize="11sp"
+                android:layout_marginStart="8dp"
+                android:text="快去点击" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_add_friend2"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textColor="#FEBC06"
+                android:text="右上角" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:textSize="11sp"
+                android:layout_marginStart="8dp"
+                android:text="添加好友吧" />
+
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

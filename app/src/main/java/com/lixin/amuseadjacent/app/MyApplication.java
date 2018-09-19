@@ -12,6 +12,7 @@ import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.lixin.amuseadjacent.R;
 import com.lixin.amuseadjacent.app.ui.contacts.DemoCache;
 import com.lixin.amuseadjacent.app.ui.contacts.NimSDKOptionConfig;
@@ -71,12 +72,15 @@ public class MyApplication extends MultiDexApplication {
         ImageLoaderUtil.configImageLoader(CONTEXT);
         com.nostra13.universalimageloader.utils.L.disableLogging();
 
+        //网易云信
         DemoCache.setContext(this);
         NIMClient.init(this, getLoginInfo(), NimSDKOptionConfig.getSDKOptions(this));
-        //网易云信
         if (NIMUtil.isMainProcess(this)) {
             NimUIKit.init(this);
         }
+
+        //百度
+        SDKInitializer.initialize(this);
     }
 
     private LoginInfo getLoginInfo() {

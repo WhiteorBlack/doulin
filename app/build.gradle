@@ -18,7 +18,6 @@ android {
                 JPUSH_APPKEY : "7f7e24fee3d009e65ee9d215", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
-
         ndk {
             //设置支持的SO库架构
             abiFilters "armeabi","armeabi-v7a"/*, "x86","arm64-v8a","x86_64"*/
@@ -26,9 +25,13 @@ android {
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'
         }
-
     }
 
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 
     signingConfigs {
         debug {
@@ -115,11 +118,12 @@ dependencies {
     //滑动删除
     implementation project(':floatingActionButton')
     implementation 'cn.jiguang.sdk:jpush:3.1.5'
-//     此处以JPush 3.1.5 版本为例。
+    //     此处以JPush 3.1.5 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.2.3'
     // 此处以JCore 1.2.3 版本为例。
-
     implementation project(path: ':uikit')
-//    implementation 'com.netease.nimlib:basesdk:5.6.1'
+    //    implementation 'com.netease.nimlib:basesdk:5.6.1'
     implementation project(':nicevideoplayer')
+    implementation project(':sdk')
+    implementation files('libs/BaiduLBS_Android.jar')
 }
