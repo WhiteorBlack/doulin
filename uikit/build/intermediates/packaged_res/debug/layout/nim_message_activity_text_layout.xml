@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/editTextMessage"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/bottom_component_margin_horizontal"
         android:layout_marginRight="@dimen/bottom_component_margin_horizontal">
 
@@ -37,21 +38,20 @@
         android:id="@+id/audioTextSwitchLayout"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/switchLayout"
+        android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/bottom_component_margin_horizontal"
         android:layout_toLeftOf="@+id/emoji_button"
         android:layout_toRightOf="@+id/switchLayout">
 
-
         <Button
             android:id="@+id/audioRecord"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/nim_message_input_edittext_box"
+            android:layout_height="36dp"
+            android:background="@drawable/ic_liaotian"
             android:text="@string/record_audio"
             android:textColor="@color/color_black_333333"
-            android:textSize="16sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:textSize="14sp"/>
     </FrameLayout>
 
     <EditText
@@ -59,22 +59,26 @@
         android:textCursorDrawable="@null"
         android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
+        android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/bottom_component_margin_horizontal"
         android:layout_toLeftOf="@+id/emoji_button"
         android:layout_toRightOf="@+id/switchLayout"
         android:autoLink="web|email|phone"
-        android:background="@drawable/nim_message_input_edittext_box"
+        android:background="@drawable/ic_liaotian"
+        android:paddingLeft="12dp"
+        android:paddingRight="@dimen/dp_10"
         android:maxHeight="72dip"
-        android:maxLines="4"
-        android:textSize="16sp" />
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/emoji_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/audioTextSwitchLayout"
         android:layout_marginRight="@dimen/bottom_component_margin_horizontal"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/sendLayout"
         android:background="@drawable/nim_message_button_bottom_emoji_selector"
         android:contentDescription="@string/empty"
@@ -84,8 +88,8 @@
         android:id="@+id/sendLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/audioTextSwitchLayout"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/bottom_component_margin_horizontal">
 
         <ImageView
@@ -99,7 +103,7 @@
 
         <TextView
             android:id="@+id/buttonSendMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/nim_message_button_bottom_send_selector"

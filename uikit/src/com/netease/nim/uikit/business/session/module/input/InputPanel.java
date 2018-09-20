@@ -682,7 +682,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
 
         audioMessageHelper.completeRecord(cancel);
         audioRecordBtn.setText(R.string.record_audio);
-        audioRecordBtn.setBackgroundResource(R.drawable.nim_message_input_edittext_box);
+        audioRecordBtn.setBackgroundResource(R.drawable.ic_liaotian);
         stopAudioRecordAnim();
     }
 
@@ -752,7 +752,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         }
 
         audioRecordBtn.setText(R.string.record_audio_end);
-        audioRecordBtn.setBackgroundResource(R.drawable.nim_message_input_edittext_box_pressed);
+        audioRecordBtn.setBackgroundResource(R.drawable.ic_liaotian);
 
         updateTimerTip(false); // 初始化语音动画状态
         playAudioRecordAnim();

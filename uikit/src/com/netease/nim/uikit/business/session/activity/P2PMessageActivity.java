@@ -3,19 +3,26 @@ package com.netease.nim.uikit.business.session.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.netease.nim.uikit.R;
+import com.netease.nim.uikit.ReportActivity;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.contact.ContactChangedObserver;
 import com.netease.nim.uikit.api.model.main.OnlineStateChangeObserver;
 import com.netease.nim.uikit.api.model.session.SessionCustomization;
 import com.netease.nim.uikit.api.model.user.UserInfoObserver;
 import com.netease.nim.uikit.api.wrapper.NimToolBarOptions;
+import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
 import com.netease.nim.uikit.business.session.constant.Extras;
 import com.netease.nim.uikit.business.session.fragment.MessageFragment;
+import com.netease.nim.uikit.business.team.helper.TeamHelper;
 import com.netease.nim.uikit.business.uinfo.UserInfoHelper;
 import com.netease.nim.uikit.common.activity.ToolBarOptions;
 import com.netease.nim.uikit.impl.NimUIKitImpl;
@@ -25,9 +32,13 @@ import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.CustomNotification;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.List;
 import java.util.Set;
+
+import okhttp3.Call;
 
 
 /**
@@ -61,6 +72,48 @@ public class P2PMessageActivity extends BaseMessageActivity {
         displayOnlineState();
         registerObservers(true);
         registerOnlineStateChangeListener(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.custom_notification_activity_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.shield_user){
+            String json = "{\"cmd\":\"adddeleteShield\",\"uid\":\"" + NimUIKit.getAccount() + "\",\"auid\":\"" + sessionId + "\"}";
+            OkHttpUtils.post().url( "http://39.107.106.122/wisdom/api/service?").addParams("json",json)
+                    .build().execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    Toast.makeText(P2PMessageActivity.this, "网络错误",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    try {
+                        JSONObject json = JSON.parseObject(response);
+                        if (json.getString("result").equals("0")) {
+                            Toast.makeText(P2PMessageActivity.this, "屏蔽成功", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(P2PMessageActivity.this, json.getString("resultNote"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.getLocalizedMessage();
+                    }
+                }
+            });
+        }
+        if (id == R.id.report_user){
+            Intent intent = new Intent(this, ReportActivity.class);
+            intent.putExtra("sessionId",sessionId);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

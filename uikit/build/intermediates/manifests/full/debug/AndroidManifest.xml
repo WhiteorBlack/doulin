@@ -149,6 +149,7 @@
             android:name="com.netease.nim.uikit.business.session.activity.WatchPicAndVideoMenuActivity"
             android:configChanges="keyboardHidden"
             android:theme="@style/DarkTheme" />
+        <activity android:name="com.netease.nim.uikit.ReportActivity" />
 
         <provider
             android:name="com.netease.nim.uikit.common.media.picker.model.GenericFileProvider"

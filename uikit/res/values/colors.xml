@@ -54,6 +54,9 @@
     <color name="color_grey_ababab">#ababab</color>
     <color name="color_yellow_796413">#796413</color>
     <color name="color_yellow_b39729">#b39729</color>
+    <color name="back_color">#f5f5f5</color>
+    <color name="back_color1">#f1f2f4</color>
+    <color name="back_color2">#FEBC06</color>
 
     <!-- setting -->
     <color name="color_black_ff333333">#ff333333</color>

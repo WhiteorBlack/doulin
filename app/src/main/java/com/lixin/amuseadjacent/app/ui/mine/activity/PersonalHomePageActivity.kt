@@ -139,7 +139,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
                 })
             }
             R.id.tv_dialogue -> {
-                NimUIKit.startP2PSession(this, Preferences.getUserAccount())
+                NimUIKit.startP2PSession(this, auid)
             }
         }
     }
