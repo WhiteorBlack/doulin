@@ -20,6 +20,7 @@ class WebViewActivity : BaseActivity() {
      * 优惠券说明 5
      * 影响力说明 6
      * 关于逗邻 7
+     * id=8  交易说明
      * */
 
     override fun onCreate(savedInstanceState: Bundle?) {

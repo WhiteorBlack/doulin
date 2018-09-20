@@ -13,8 +13,10 @@ import android.view.WindowManager;
  */
 
 public class MyBottomSheetDialog extends BottomSheetDialog {
-    public MyBottomSheetDialog(@NonNull Context context) {
-        super(context);
+
+
+    public MyBottomSheetDialog(@NonNull Context context, int theme) {
+        super(context, theme);
     }
 
     @Override

@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:text="烤肉饭烤肉饭 饭烤肉饭烤肉饭烤肉饭烤肉饭烤肉饭饭烤肉饭烤肉饭烤肉饭烤肉饭烤肉饭饭烤肉饭烤肉饭烤肉饭烤肉饭烤肉饭饭烤肉饭烤肉饭烤肉饭烤肉饭烤肉饭饭烤肉饭烤肉饭烤肉饭烤肉饭烤肉饭"
+                android:text="   "
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/sub_fant"
                 app:layout_constraintEnd_toEndOf="parent"

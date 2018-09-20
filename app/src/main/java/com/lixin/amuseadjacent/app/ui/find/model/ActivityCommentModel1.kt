@@ -28,6 +28,7 @@ class ActivityCommentModel1 : Serializable {
 
         var secondNum = ""//二级评论数量
         var isZan = ""//是否已经赞过 0未赞过 1已赞过
+
     }
 
 }

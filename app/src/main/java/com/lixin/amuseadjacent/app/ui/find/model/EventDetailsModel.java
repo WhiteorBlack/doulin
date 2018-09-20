@@ -39,7 +39,7 @@ public class EventDetailsModel implements Serializable {
 
         public String activityMoney = "";//人均费用
         public String activityState = "";//状态 0报名中 1进行中 2已结束
-        public ArrayList<String> activityImg = new ArrayList();//图片路径数组
+        public ArrayList<String> activityImgurl = new ArrayList();//图片路径数组
         public String zanNum = "";//点赞数量
 
         public String commentNum = "";//评论数量
