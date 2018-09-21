@@ -3,6 +3,7 @@ package com.netease.nim.uikit;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -32,7 +33,8 @@ public class ReportActivity extends Activity implements View.OnClickListener{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.suggest_back_layout);
-
+        StatusBarUtil.setColor(ReportActivity.this, ContextCompat.getColor(ReportActivity.this, R.color.white), 0);
+        StatusBarUtil.StatusBarLightMode(this);
         sessionId = getIntent().getStringExtra("sessionId");
 
         iv_back = findViewById(R.id.iv_back);

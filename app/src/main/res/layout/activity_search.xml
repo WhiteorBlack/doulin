@@ -23,6 +23,7 @@
             android:drawablePadding="5dp"
             android:hint="搜索"
             android:imeOptions="actionSearch"
+            android:textSize="@dimen/sp_14"
             android:padding="10dp"
             android:singleLine="true" />
 
@@ -42,9 +43,11 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:background="@color/white">
 
         <TextView
@@ -64,8 +67,10 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp" />
-
     </RelativeLayout>
 
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

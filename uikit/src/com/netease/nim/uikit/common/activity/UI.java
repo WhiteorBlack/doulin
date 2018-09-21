@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.util.log.LogUtil;
@@ -29,6 +30,7 @@ public abstract class UI extends AppCompatActivity {
     private static Handler handler;
 
     private Toolbar toolbar;
+    private TextView tv_title;
 
     @Override
     protected void onStart() {
@@ -100,6 +102,33 @@ public abstract class UI extends AppCompatActivity {
         }
     }
 
+    public void setToolBar(int toolBarId,int titleID ,ToolBarOptions options) {
+        toolbar = (Toolbar) findViewById(toolBarId);
+        tv_title = (TextView) findViewById(titleID);
+        if (options.titleId != 0) {
+//            toolbar.setTitle(options.titleId);
+            tv_title.setText(options.titleId);
+        }
+        if (!TextUtils.isEmpty(options.titleString)) {
+            tv_title.setText(options.titleString);
+        }
+        if (options.logoId != 0) {
+            toolbar.setLogo(options.logoId);
+        }
+        setSupportActionBar(toolbar);
+
+        if (options.isNeedNavigate) {
+            toolbar.setNavigationIcon(options.navigateId);
+            toolbar.setContentInsetStartWithNavigation(0);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onNavigateUpClicked();
+                }
+            });
+        }
+    }
+
     public void setToolBar(int toolbarId, int titleId, int logoId) {
         toolbar = (Toolbar) findViewById(toolbarId);
         toolbar.setTitle(titleId);
@@ -127,13 +156,19 @@ public abstract class UI extends AppCompatActivity {
     public void setTitle(CharSequence title) {
         super.setTitle(title);
         if (toolbar != null) {
-            toolbar.setTitle(title);
+//            toolbar.setTitle(title);
+        }
+        if (tv_title != null) {
+            tv_title.setText(title);
         }
     }
 
     public void setSubTitle(String subTitle) {
         if (toolbar != null) {
-            toolbar.setSubtitle(subTitle);
+//            toolbar.setSubtitle(subTitle);
+        }
+        if (tv_title != null) {
+            tv_title.setText(subTitle);
         }
     }
 

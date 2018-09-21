@@ -15,7 +15,7 @@
         android:clickable="true"
         android:paddingLeft="12dp">
 
-        <ImageView
+        <com.lixin.amuseadjacent.app.view.CircleImageView
             android:id="@+id/image"
             android:layout_width="40dp"
             android:layout_height="40dp"

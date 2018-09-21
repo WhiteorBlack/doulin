@@ -3,6 +3,7 @@ package com.netease.nim.uikit.business.session.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.ReportActivity;
+import com.netease.nim.uikit.StatusBarUtil;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.contact.ContactChangedObserver;
 import com.netease.nim.uikit.api.model.main.OnlineStateChangeObserver;
@@ -28,6 +30,7 @@ import com.netease.nim.uikit.common.activity.ToolBarOptions;
 import com.netease.nim.uikit.impl.NimUIKitImpl;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.friend.FriendService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.CustomNotification;
@@ -49,6 +52,8 @@ import okhttp3.Call;
 public class P2PMessageActivity extends BaseMessageActivity {
 
     private boolean isResume = false;
+    private boolean isBlack = false;
+    MenuItem  gMenuItem = null;
 
     public static void start(Context context, String contactId, SessionCustomization customization, IMMessage anchor) {
         Intent intent = new Intent();
@@ -66,6 +71,15 @@ public class P2PMessageActivity extends BaseMessageActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayShowTitleEnabled(false); //隐藏toolbar自带左侧标题
+        final List<String> blackList = NIMClient.getService(FriendService.class).getBlackList();
+        if (blackList.contains(sessionId)){
+            isBlack = true;
+        }else {
+            isBlack = false;
+        }
+        StatusBarUtil.setColor(P2PMessageActivity.this, ContextCompat.getColor(P2PMessageActivity.this, R.color.white), 0);
+        StatusBarUtil.StatusBarLightMode(this);
 
         // 单聊特例话数据，包括个人信息，
         requestBuddyInfo();
@@ -78,6 +92,12 @@ public class P2PMessageActivity extends BaseMessageActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.custom_notification_activity_menu, menu);
+        gMenuItem= menu.findItem(R.id.shield_user);
+        if (isBlack){
+            if (gMenuItem != null){
+                gMenuItem.setTitle("取消屏蔽此用户");
+            }
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -98,7 +118,9 @@ public class P2PMessageActivity extends BaseMessageActivity {
                     try {
                         JSONObject json = JSON.parseObject(response);
                         if (json.getString("result").equals("0")) {
-                            Toast.makeText(P2PMessageActivity.this, "屏蔽成功", Toast.LENGTH_LONG).show();
+                            Toast.makeText(P2PMessageActivity.this, json.getString("resultNote"), Toast.LENGTH_LONG).show();
+                            isBlack = !isBlack ;
+                            supportInvalidateOptionsMenu();     //通知系统更新menu菜单，onPrepareOptionsMenu()方法
                         } else {
                             Toast.makeText(P2PMessageActivity.this, json.getString("resultNote"), Toast.LENGTH_SHORT).show();
                         }
@@ -114,6 +136,18 @@ public class P2PMessageActivity extends BaseMessageActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (gMenuItem != null){
+            if (isBlack){
+                gMenuItem.setTitle("取消屏蔽此用户");
+            }else {
+                gMenuItem.setTitle("屏蔽此用户");
+            }
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -271,7 +305,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
     @Override
     protected void initToolBar() {
         ToolBarOptions options = new NimToolBarOptions();
-        setToolBar(R.id.toolbar, options);
+        setToolBar(R.id.toolbar,R.id.tv_title, options);
     }
 
     @Override
