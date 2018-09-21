@@ -4,6 +4,17 @@ apply plugin: 'kotlin-kapt'//dataBinging
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    signingConfigs {
+        debug {
+            storeFile file('doulin.jks')
+            storePassword "123456"
+            keyAlias "key0"
+            keyPassword "123456"
+        }
+    }
+
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.lixin.amuseadjacent"
@@ -33,14 +44,6 @@ android {
         }
     }
 
-    signingConfigs {
-        debug {
-            storeFile file('doulin.jks')
-            storePassword "123456"
-            keyAlias "key0"
-            keyPassword "123456"
-        }
-    }
 
 
     //MVVM模式数据绑定
@@ -61,6 +64,11 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
