@@ -10,6 +10,7 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
+import java.util.*
 
 /**
  * 活动、帮帮，详情、评论、回复、点赞
@@ -99,5 +100,26 @@ object DynaComment_133134 {
         })
     }
 
+      interface HideDynamicCallBack {
+        fun hide()
+    }
+
+
+    //隐藏动态
+    fun hide(dynamicId: String, hide: HideDynamicCallBack) {
+        val json = "{\"cmd\":\"updateDynamicState\",\"uid\":\"" + StaticUtil.uid +
+                "\",\"dynamicId\":\"" + dynamicId + "\"}"
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val obj = JSONObject(response)
+                if (obj.getString("result") == "0") {
+                    hide.hide()
+                } else {
+                    ToastUtil.showToast(obj.getString("resultNote"))
+                }
+            }
+        })
+    }
 
 }

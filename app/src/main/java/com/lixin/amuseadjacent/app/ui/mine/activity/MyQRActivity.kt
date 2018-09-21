@@ -5,7 +5,10 @@ import android.os.Build
 import android.os.Bundle
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.netease.nim.uikit.common.media.picker.adapter.PickerAlbumAdapter
+import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_code_my.*
 
 /**
@@ -25,6 +28,10 @@ class MyQRActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT > 19) {
             StatusBarUtil.setColorNoTranslucent(this, Color.parseColor("#1A1A1A"))
         }
+
+        ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
+        tv_name.text=StaticUtil.nickName
+        tv_uid.text=StaticUtil.uid
 
         iv_back.setOnClickListener { v ->
             finish()

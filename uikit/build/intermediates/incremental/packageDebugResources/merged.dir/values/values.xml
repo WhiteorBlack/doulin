@@ -221,6 +221,8 @@
     <item name="BaseQuickAdapter_dragging_support" type="id"/>
     <item name="BaseQuickAdapter_swiping_support" type="id"/>
     <item name="BaseQuickAdapter_viewholder_support" type="id"/>
+    <item name="statusbarutil_fake_status_bar_view" type="id"/>
+    <item name="statusbarutil_translucent_view" type="id"/>
     <string name="add">添加</string>
     <string name="advanced_team">高级群</string>
     <string name="app_name">Library</string>
@@ -439,6 +441,10 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:itemTextAppearance">?android:attr/actionMenuTextAppearance</item>
+        <item name="android:actionOverflowMenuStyle">@style/OverflowMenu</item>
+        <item name="android:dropDownListViewStyle">@style/OverflowMenu</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -458,6 +464,16 @@
     <style name="NoSpaceActionBarTheme" parent="Base.Widget.AppCompat.Toolbar">
         <item name="contentInsetStart">0dp</item>
         <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--设置不覆盖锚点-->
+        <item name="android:dropDownVerticalOffset">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:popupBackground">@color/white</item> <!--更改背景颜色-->
+        <item name="android:showDividers">middle</item>
+        <item name="android:gravity">center</item>
+        <item name="android:divider">@color/back_color1</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
     <style name="Toolbar.SubTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
         <item name="android:textSize">10sp</item>
@@ -524,17 +540,17 @@
     </style>
     <style name="easy_dialog_style" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
-        
+        <!-- 边框 -->
         <item name="android:windowIsFloating">true</item>
-        
+        <!-- 是否浮现在activity之上 -->
         <item name="android:windowIsTranslucent">true</item>
-        
+        <!-- 半透明 -->
         <item name="android:windowNoTitle">true</item>
-        
+        <!-- 无标题 -->
         <item name="android:windowBackground">@color/transparent</item>
-        
+        <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item>
-        
+        <!-- 后面的activity变暗 -->
     </style>
     <style name="edit_text_style">
         <item name="android:textCursorDrawable">@color/black</item>

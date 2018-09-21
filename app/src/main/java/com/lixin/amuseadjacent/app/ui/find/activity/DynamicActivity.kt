@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.find.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.view.View
 import com.lixin.amuseadjacent.R
@@ -15,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import kotlinx.android.synthetic.main.activity_talent.*
 import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -72,6 +74,19 @@ class DynamicActivity : BaseActivity() {
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
         tab.setupWithViewPager(viewPager)
+
+        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
+            }
+
+        })
 
         banner.setOnBannerListener { i ->
             val bundle = Bundle()

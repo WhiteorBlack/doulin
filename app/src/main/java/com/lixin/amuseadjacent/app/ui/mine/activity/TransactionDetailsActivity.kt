@@ -2,14 +2,18 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.TransactionAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.BalanceDetailsModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Wallet_119121
+import kotlinx.android.synthetic.main.activity_webview.*
+import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -38,6 +42,14 @@ class TransactionDetailsActivity : BaseActivity() {
     private fun init() {
         inittitle("交易明细")
         StatusBarWhiteColor()
+
+        iv_right.visibility = View.VISIBLE
+        iv_right.setImageResource(R.drawable.ic_description)
+        iv_right.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putInt("flag", 5)
+            MyApplication.openActivity(this, WebViewActivity::class.java,bundle)
+        }
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -85,9 +97,9 @@ class TransactionDetailsActivity : BaseActivity() {
         detailsList.addAll(model.dataList)
 
         if (totalPage <= 1) {
-            if(detailsList.isEmpty()){
+            if (detailsList.isEmpty()) {
                 xrecyclerview.setNullData(this)
-            }else{
+            } else {
                 xrecyclerview.noMoreLoading()
             }
         }

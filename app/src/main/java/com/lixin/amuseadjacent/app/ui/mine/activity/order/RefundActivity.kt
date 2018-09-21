@@ -4,13 +4,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.PermissionsDialog
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.AlbumAdapter
+import com.lixin.amuseadjacent.app.ui.mine.request.RefundOrder_147
+import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_refund.*
 import java.util.ArrayList
 
@@ -18,7 +23,7 @@ import java.util.ArrayList
  * 申请退款
  * Created by Slingge on 2018/9/4
  */
-class RefundActivity : BaseActivity() ,AlbumAdapter.ImageRemoveCallback{
+class RefundActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback {
 
     private var albumAdapter: AlbumAdapter? = null
     private val imageList = ArrayList<LocalMedia>()
@@ -43,6 +48,16 @@ class RefundActivity : BaseActivity() ,AlbumAdapter.ImageRemoveCallback{
 
         albumAdapter = AlbumAdapter(this, imageList, maxNum, this)
         rv_album.adapter = albumAdapter
+
+        tv_enter.setOnClickListener { v ->
+            val content = AbStrUtil.etTostr(et_reason)
+            if (TextUtils.isEmpty(content)) {
+                ToastUtil.showToast("请输入退款原因")
+                return@setOnClickListener
+            }
+            ProgressDialog.showDialog(this)
+            RefundOrder_147.refund(this, intent.getStringExtra("num"), content, imageList, intent.getIntExtra("position", -1))
+        }
     }
 
 

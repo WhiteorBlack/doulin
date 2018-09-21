@@ -72,11 +72,7 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
                     val imageAdapter = ImageAdapter(context, model.bangbangImgUrl)
                     holder.rv_image.adapter = imageAdapter
                 }
-
-
             }
-
-
         } else {//活动
             holder.cl_1.visibility = View.GONE
             holder.cl_2.visibility = View.VISIBLE
@@ -104,7 +100,6 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
         val cl_1 = view.findViewById<View>(R.id.cl_1)//动态
         val cl_2 = view.findViewById<View>(R.id.cl_2)//帮帮
 
-        val line1 = view.findViewById<View>(R.id.line1)
         val line2 = view.findViewById<View>(R.id.line2)
         val line = view.findViewById<View>(R.id.line)
 
@@ -134,7 +129,6 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
 
 
         init {
-            line1.visibility = View.GONE
             line2.visibility = View.GONE
             line.visibility = View.VISIBLE
 

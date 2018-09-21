@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -14,8 +15,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
+import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
@@ -30,7 +33,7 @@ import com.xiao.nicevideoplayer.TxVideoPlayerController
  * flag 0动态，1帮帮
  * Created by Slingge on 2018/8/22
  */
-class DynamicAdapter(val context: Context, val flag: String, val dynaList: ArrayList<FindModel.dynamicModel>) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
+class DynamicAdapter(val context: Activity, val flag: String, val dynaList: ArrayList<FindModel.dynamicModel>) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -110,7 +113,7 @@ class DynamicAdapter(val context: Context, val flag: String, val dynaList: Array
             ImageLoader.getInstance().displayImage(model.dynamicImg, controller.imageView())
             holder.player.setController(controller)
         }
-        /* holder.tv_follow.setOnClickListener { v ->
+         holder.tv_follow.setOnClickListener { v ->
              ProgressDialog.showDialog(context)
              Mail_138139.follow(dynaList[position].dynamicUid, object : Mail_138139.FollowCallBack {
                  override fun follow() {
@@ -126,7 +129,7 @@ class DynamicAdapter(val context: Context, val flag: String, val dynaList: Array
                      notifyDataSetChanged()
                  }
              })
-         }*/
+         }
 
 
         holder.itemView.setOnClickListener { v ->
@@ -139,7 +142,6 @@ class DynamicAdapter(val context: Context, val flag: String, val dynaList: Array
     }
 
 
-    private var niceVideoPlayer: NiceVideoPlayer? = null
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cl_item = view.findViewById<ConstraintLayout>(R.id.cl_item)

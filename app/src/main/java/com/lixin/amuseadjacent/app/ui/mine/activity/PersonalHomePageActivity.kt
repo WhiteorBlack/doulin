@@ -1,28 +1,28 @@
 package com.lixin.amuseadjacent.app.ui.mine.activity
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
-import com.lixin.amuseadjacent.app.ui.contacts.Preferences
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.ui.mine.fragment.DataFragment
-import com.lixin.amuseadjacent.app.ui.mine.fragment.DesignerFragment
+import com.lixin.amuseadjacent.app.ui.mine.fragment.TalentFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.DynamicFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.InteractionFragment
 import com.lixin.amuseadjacent.app.ui.mine.model.HomePageModel
-import com.lixin.amuseadjacent.app.ui.mine.model.UserInfoModel
 import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.netease.nim.uikit.api.NimUIKit
 import com.nostra13.universalimageloader.core.ImageLoader
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import kotlinx.android.synthetic.main.activity_personal_home_page.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
@@ -35,7 +35,7 @@ import java.util.ArrayList
  */
 class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
-    private var auid = ""//与StaticUtil.uid相同查看自己的，不同别人的
+    var auid = ""//与StaticUtil.uid相同查看自己的，不同别人的
 
     private var imgaeAdapter: ImageAdapter? = null
     private var imageList = ArrayList<String>()
@@ -87,19 +87,38 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
         dataFragment = DataFragment()
         list.add(dataFragment!!)
 
+        val bundle=Bundle()
+        bundle.putString("auid",auid)
+
         val fragment2 = DynamicFragment()
+        fragment2.arguments=bundle
         list.add(fragment2)
 
-        val fragment3 = DesignerFragment()
+        val fragment3 = TalentFragment()
+        fragment3.arguments=bundle
         list.add(fragment3)
 
         val fragment4 = InteractionFragment()
+        fragment4.arguments=bundle
         list.add(fragment4)
 
 
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 4
         tab.setupWithViewPager(viewPager)
+        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
+            }
+
+        })
 
 
         val gridLayoutManager = GridLayoutManager(this, 4)

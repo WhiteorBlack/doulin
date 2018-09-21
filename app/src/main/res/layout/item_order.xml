@@ -8,6 +8,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/cl_item"
         android:background="@drawable/touch_bg">
 
         <View
@@ -118,6 +119,7 @@
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:paddingTop="5dp"
+            android:visibility="gone"
             android:text="    退款    "
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/sub_fant"

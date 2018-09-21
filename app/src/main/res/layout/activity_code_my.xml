@@ -53,14 +53,16 @@
 
     <TextView
         android:id="@+id/tv_uid"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="12dp"
         android:text="slingge"
         android:textColor="@color/black"
-        android:textSize="@dimen/main_fant"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_header"
+        app:layout_constraintEnd_toEndOf="@+id/view6"
         app:layout_constraintStart_toEndOf="@+id/iv_header" />
 
 

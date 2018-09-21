@@ -17,6 +17,7 @@ object StaticUtil {
     //val ReleaseDynamicBang="http://192.168.3.142:8080/wisdom/api/addDynamic"//发布动态帮帮地址
     val TalenExperienceImage = "http://39.107.106.122/wisdom/api/addimgs"//上传达人经历
     val EventEstablish = "http://39.107.106.122/wisdom/api/AddActivity"//创建活动
+    val RefundOrder = "http://39.107.106.122/wisdom/api/refundOrder"//订单退款
 
     var uid = ""// Id
     var phone = ""//
@@ -25,7 +26,7 @@ object StaticUtil {
     var age = ""//
     var sex = ""
 
-    var rytoken=""//用户网易云token
+    var rytoken = ""//用户网易云token
 
     var headerUrl = ""//头像
 
@@ -41,6 +42,10 @@ object StaticUtil {
     var Weixin_Appid = "78cb9f6f-2021-4e56-b66e-f9c6cbb31e0b"
 
     var balance = ""//余额
+
+    var RefundResult = 2//订单状态退款操作
+    var EvaluateResult = 3//订单状态评价操作
+
 
     fun getJpushToken(context: Context): String {
         return JPushInterface.getRegistrationID(context)

@@ -84,15 +84,15 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
     private void init() {
         flag = getIntent().getStringExtra("flag");
+
         tv_right = findViewById(R.id.tv_right);
+        tv_right.setOnClickListener(this);
         if (flag.equals("0")) {
             inittitle("动态详情");
         } else {
-            inittitle("帮帮详情");
-            tv_right = findViewById(R.id.tv_right);
-            tv_right.setText("收藏");
             tv_right.setVisibility(View.VISIBLE);
-            tv_right.setOnClickListener(this);
+            inittitle("帮帮详情");
+            tv_right.setText("收藏");
         }
 
         StatusBarWhiteColor();
@@ -179,6 +179,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     @Subscribe
     public void onEvent(DynamiclDetailsModel model) {
         this.model = model;
+
         ImageLoader.getInstance().displayImage(model.object.dynamicIcon, iv_header, ImageLoaderUtil.HeaderDIO());
         tv_name.setText(model.object.dynamicName);
         tv_effect.setText("影响力" + model.object.userEffectNum);
@@ -196,11 +197,23 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             tv_follow.setText("已关注");
         }
 
-        if (model.object.iscang.equals("0")) {//没有收藏
-            tv_right.setText("已收藏");
+        if (flag.equals("0")) {//0帮帮
+            if (model.object.dynamicUid.equals(StaticUtil.INSTANCE.getUid())) {
+                tv_right.setVisibility(View.VISIBLE);
+                if (model.object.state.equals("0")) {//0正常显示 1隐藏
+                    tv_right.setText("隐藏");
+                } else {
+                    tv_right.setText("已隐藏");
+                }
+            }
         } else {
-            tv_right.setText("收藏");
+            if (model.object.iscang.equals("0")) {//没有收藏
+                tv_right.setText("已收藏");
+            } else {
+                tv_right.setText("收藏");
+            }
         }
+
 
         isZan = model.object.isZan;
         if (model.object.isZan.equals("0")) {//0未赞过 1已赞过
@@ -272,16 +285,27 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.tv_right:
                 ProgressDialog.INSTANCE.showDialog(this);
-                Event_221222223224.INSTANCE.EventCollect("0", dynaId, () -> {
-                    if (model.object.iscang.equals("0")) {//没有收藏
-                        tv_right.setText("已收藏");
-                        model.object.iscang = "1";
-                    } else {
-                        tv_right.setText("收藏");
-                        model.object.iscang = "0";
-                    }
-                });
-
+                if (model.object.type.equals("0")) {//0动态 1帮帮
+                    DynaComment_133134.INSTANCE.hide(dynaId, () -> {//隐藏自己的动态
+                        if (model.object.state.equals("0")) {////0正常显示 1隐藏
+                            tv_right.setText("已隐藏");
+                            model.object.state = "1";
+                        } else {
+                            tv_right.setText("隐藏");
+                            model.object.state = "0";
+                        }
+                    });
+                } else {
+                    Event_221222223224.INSTANCE.EventCollect("0", dynaId, () -> {
+                        if (model.object.iscang.equals("0")) {//没有收藏
+                            tv_right.setText("已收藏");
+                            model.object.iscang = "1";
+                        } else {
+                            tv_right.setText("收藏");
+                            model.object.iscang = "0";
+                        }
+                    });
+                }
                 break;
             case R.id.image0:
                 PreviewPhoto.INSTANCE.preview(DynamicDetailsActivity.this, imageList, 0);

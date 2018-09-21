@@ -8,6 +8,7 @@
     <!--个人主页动态-->
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/touch_bg"
@@ -37,33 +38,50 @@
             app:layout_constraintStart_toStartOf="@+id/tv_day"
             app:layout_constraintTop_toBottomOf="@+id/tv_day" />
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:maxWidth="90dp"
-            android:maxHeight="90dp"
-            android:layout_marginLeft="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_dyna"
-            app:layout_constraintStart_toEndOf="@+id/tv_day"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_info"
+        <RelativeLayout
+            android:id="@+id/rl_item"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:text="圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一"
-            android:textColor="@color/colorTabText"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintBottom_toTopOf="@+id/tv_zan"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toTopOf="@+id/image" />
+            app:layout_constraintStart_toEndOf="@+id/tv_day"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:maxHeight="90dp"
+                android:maxWidth="90dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_dyna" />
+
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignBottom="@+id/image"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/image"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/image"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:text="圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一圆即是一"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/sub_fant" />
+
+
+            <com.xiao.nicevideoplayer.NiceVideoPlayer
+                android:id="@+id/player"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+        </RelativeLayout>
 
 
         <TextView
@@ -71,19 +89,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:drawableLeft="@drawable/ic_comment2"
             android:drawablePadding="5dp"
             android:paddingLeft="10dp"
             android:paddingTop="3dp"
+
             android:text="23"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_item" />
 
         <TextView
             android:id="@+id/tv_zan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
             android:drawableLeft="@drawable/ic_zan"
             android:drawablePadding="5dp"
             android:paddingLeft="10dp"
@@ -107,8 +128,8 @@
             android:id="@+id/line2"
             android:layout_width="0.5dp"
             android:layout_height="0dp"
-            android:background="@color/colorLine"
             android:layout_marginBottom="3dp"
+            android:background="@color/colorLine"
             app:layout_constraintBottom_toTopOf="@+id/line1"
             app:layout_constraintEnd_toEndOf="@+id/tv_day"
             app:layout_constraintStart_toStartOf="@+id/tv_day"
@@ -121,10 +142,10 @@
             android:layout_height="1dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/image" />
+            app:layout_constraintStart_toStartOf="@+id/rl_item"
+            app:layout_constraintTop_toBottomOf="@+id/tv_comment" />
 
 
     </android.support.constraint.ConstraintLayout>

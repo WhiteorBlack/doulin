@@ -20,6 +20,7 @@ import com.lixin.amuseadjacent.app.ui.service.activity.ShopCarActivity
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.fragment_mine.*
 import org.greenrobot.eventbus.EventBus
@@ -46,6 +47,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         if (Build.VERSION.SDK_INT > 19) {
             StatusBarUtil.setStutaViewHeight(activity, view_staus2)
             StatusBarUtil.setStutaViewHeight(activity, view_staus)
+            view_staus.visibility = View.VISIBLE
             StatusBarUtil.setColorNoTranslucent(activity, resources.getColor(R.color.colorTheme))
         }
 
@@ -82,6 +84,14 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         MyApplication.openActivity(activity, CollectionActivity::class.java)
                     }
                     5 -> {//实名认证
+                        if (userModel!!.authentication == "1") {// 0未认证 1认证审核中 2认证成功 3审核拒绝
+                            ToastUtil.showToast("您的认证正在审核..")
+                            return
+                        }
+                        if (userModel!!.authentication == "2") {// 0未认证 1认证审核中 2认证成功 3审核拒绝
+                            ToastUtil.showToast("您已认证成功")
+                            return
+                        }
                         MyApplication.openActivity(activity, RealNameAuthenticationActivity::class.java)
                     }
                 }
@@ -99,7 +109,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         MyApplication.openActivity(activity, HelpActivity::class.java)
                     }
                     1 -> {//邀请好友
-                        MyApplication.openActivity(activity, InvitingFriendsAcivity::class.java)
+                        val bundle = Bundle()
+                        bundle.putString("id", userModel!!.inviteCode)
+                        MyApplication.openActivity(activity, InvitingFriendsAcivity::class.java, bundle)
                     }
                     2 -> {//更换社区
                         MyApplication.openActivity(activity, ReplaceCommunityActivity::class.java)
@@ -185,8 +197,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     @Subscribe
     fun onEvent(model: UserInfoModel) {
         userModel = model
-        StaticUtil.headerUrl=model.icon
-        StaticUtil.nickName=model.nickname
+        StaticUtil.headerUrl = model.icon
+        StaticUtil.nickName = model.nickname
 
         ImageLoader.getInstance().displayImage(model.icon, iv_heaser)
         tv_id.text = model.nickname

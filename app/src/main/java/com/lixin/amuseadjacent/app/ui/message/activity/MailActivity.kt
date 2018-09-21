@@ -52,13 +52,12 @@ class MailActivity : BaseActivity(), View.OnClickListener, MailCallBack {
         fragment0!!.arguments = bundle
         fragment0!!.setMailCall(this)
 
-        switchFragment(fragment0!!)
-
-
         //个人中心跳转
         if (intent != null) {
-            flag=intent.getIntExtra("flag", 0)
+            flag = intent.getIntExtra("flag", 0)
             select(flag)
+        } else {
+            switchFragment(fragment0!!)
         }
     }
 

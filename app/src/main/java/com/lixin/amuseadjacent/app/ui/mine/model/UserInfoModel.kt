@@ -18,6 +18,6 @@ class UserInfoModel :Serializable {
     var attenNum = ""//关注数量
     var fansNum = ""//粉丝数
     var inviteCode = ""//邀请码
-    var authentication = ""
+    var authentication = ""//认证状态 0未认证 1认证审核中 2认证成功 3审核拒绝
     var balance = ""
 }

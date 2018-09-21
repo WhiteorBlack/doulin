@@ -13,8 +13,8 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/include"
         android:layout_above="@+id/cl_3"
+        android:layout_below="@+id/include"
         android:background="@color/white">
 
         <android.support.constraint.ConstraintLayout
@@ -46,15 +46,17 @@
             <TextView
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:padding="12dp"
-                android:text="13523089556"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.367"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_name"
                 app:layout_constraintStart_toEndOf="@+id/tv_name"
-                app:layout_constraintTop_toBottomOf="@+id/line1" />
+                app:layout_constraintTop_toTopOf="@+id/tv_name"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tv_address"
@@ -218,167 +220,220 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/orderNum" />
 
-
-            <!--待评价-->
-            <TextView
-                android:id="@+id/placeTime"
-                android:layout_width="wrap_content"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_stat"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/orderNum">
+
+                <TextView
+                    android:id="@+id/placeTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="下单时间："
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_placeTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="20183.5.26"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/placeTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/placeTime" />
+
+                <TextView
+                    android:id="@+id/collectTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="收货时间："
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/payTime" />
+
+                <TextView
+                    android:id="@+id/tv_collectTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="20183.5.26"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/collectTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/collectTime" />
+
+                <!--代取件-->
+
+                <TextView
+                    android:id="@+id/payType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="支付方式："
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/placeTime" />
+
+                <TextView
+                    android:id="@+id/tv_payType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="支付宝支付"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/payType"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/payType" />
+
+                <TextView
+                    android:id="@+id/payTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="支付时间："
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/payType" />
+
+                <TextView
+                    android:id="@+id/tv_payTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="2018.03.12"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/payTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/payTime" />
+
+                <!--待送件-->
+                <TextView
+                    android:id="@+id/takeTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="取件时间："
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/payTime" />
+
+                <TextView
+                    android:id="@+id/tv_takeTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="2018.03.23"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/takeTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/takeTime" />
+
+
+                <TextView
+                    android:id="@+id/cleaningEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="清洗结束："
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/takeTime" />
+
+                <TextView
+                    android:id="@+id/tv_cleaningEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="2018.03.23"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/cleaningEnd"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cleaningEnd" />
+
+                <TextView
+                    android:id="@+id/returnTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="归还时间："
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cleaningEnd" />
+
+                <TextView
+                    android:id="@+id/tv_returnTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="2018.03.23"
+                    android:textColor="@color/colorTabText"
+                    android:textSize="@dimen/main_fant"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/returnTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/returnTime" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_refundInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="退款原因："
+                android:textColor="#999999"
+                android:textSize="@dimen/sub_fant"
                 android:visibility="gone"
-                android:text="下单时间："
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
+                app:layout_constraintTop_toBottomOf="@+id/cl_stat" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_refund"
+                android:layout_width="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/orderNum" />
-
-            <TextView
-                android:id="@+id/tv_placeTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="20183.5.26"
-                android:visibility="gone"
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                app:layout_constraintBottom_toBottomOf="@+id/placeTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/placeTime" />
-
-            <TextView
-                android:id="@+id/collectTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
-                android:text="收货时间："
-                android:visibility="gone"
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/payTime" />
-
-            <TextView
-                android:id="@+id/tv_collectTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="20183.5.26"
-                android:visibility="gone"
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                app:layout_constraintBottom_toBottomOf="@+id/collectTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/collectTime" />
-
-            <!--代取件-->
-
-            <TextView
-                android:id="@+id/payType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
-                android:text="支付方式："
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/orderNum" />
-
-            <TextView
-                android:id="@+id/tv_payType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="支付宝支付"
-                android:visibility="gone"
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                app:layout_constraintBottom_toBottomOf="@+id/payType"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/payType" />
-
-            <TextView
-                android:id="@+id/payTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
-                android:text="支付时间："
-                android:visibility="gone"
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/payType" />
-
-            <TextView
-                android:id="@+id/tv_payTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="2018.03.12"
-                android:visibility="gone"
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                app:layout_constraintBottom_toBottomOf="@+id/payTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/payTime" />
-
-            <!--待送件-->
-            <TextView
-                android:id="@+id/takeTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
-                android:text="取件时间："
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/payTime" />
-
-            <TextView
-                android:id="@+id/tv_takeTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="2018.03.23"
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/takeTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/takeTime" />
-
-
-            <TextView
-                android:id="@+id/cleaningEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="12dp"
-                android:text="清洗结束："
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/takeTime" />
-
-            <TextView
-                android:id="@+id/tv_cleaningEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:text="2018.03.23"
-                android:textColor="@color/colorTabText"
-                android:textSize="@dimen/main_fant"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/cleaningEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cleaningEnd" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_refundInfo"
+                android:layout_height="wrap_content" />
 
 
         </android.support.constraint.ConstraintLayout>
@@ -391,8 +446,8 @@
         android:id="@+id/cl_3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray2"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray2">
 
         <TextView
             android:id="@+id/tv_pay"
@@ -425,7 +480,8 @@
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/sub_fant"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_pay" />
+            app:layout_constraintEnd_toStartOf="@+id/tv_pay"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_refund"
@@ -441,7 +497,8 @@
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/sub_fant"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_again" />
+            app:layout_constraintEnd_toStartOf="@+id/tv_again"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

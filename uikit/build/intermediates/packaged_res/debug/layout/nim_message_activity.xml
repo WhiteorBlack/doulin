@@ -17,9 +17,19 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/white"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:subtitleTextAppearance="@style/Toolbar.SubTitleText"/>
+            app:subtitleTextAppearance="@style/Toolbar.SubTitleText"
+            app:popupTheme="@style/OverflowMenu">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="title"
+                android:textSize="17sp"
+                android:textColor="@color/black"/>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
 </LinearLayout>

@@ -27,6 +27,8 @@ class InvitingFriendsAcivity : BaseActivity() {
         inittitle("邀请好友")
         StatusBarWhiteColor()
 
+        tv_id.text = intent.getStringExtra("id")
+
         val linelayout = LinearLayoutManager(this)
         linelayout.orientation = LinearLayoutManager.VERTICAL
 

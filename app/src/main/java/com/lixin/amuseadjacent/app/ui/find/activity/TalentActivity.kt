@@ -29,7 +29,7 @@ class TalentActivity : BaseActivity() {
     private val imageList = ArrayList<String>()
 
     private var url = ""
-      var type="0"//0未申请达人 1达人审核中 2审核通过 3申请达人失败
+    var type = "0"//0未申请达人 1达人审核中 2审核通过 3申请达人失败
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +47,9 @@ class TalentActivity : BaseActivity() {
         tv_right.visibility = View.VISIBLE
         tv_right.text = "达人认证"
         tv_right.setOnClickListener { v ->
-            val bundle=Bundle()
-            bundle.putString("type",type)
-            MyApplication.openActivity(this, TalentAuthenticationActivity::class.java,bundle)
+            val bundle = Bundle()
+            bundle.putString("type", type)
+            MyApplication.openActivity(this, TalentAuthenticationActivity::class.java, bundle)
         }
 
         val tabList = ArrayList<String>()
@@ -68,7 +68,7 @@ class TalentActivity : BaseActivity() {
 
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
-        viewPager.offscreenPageLimit=3
+        viewPager.offscreenPageLimit = 3
         tab.setupWithViewPager(viewPager)
 
         banner.setOnBannerListener { i ->
@@ -85,7 +85,7 @@ class TalentActivity : BaseActivity() {
         if (imageList.isNotEmpty()) {
             return
         }
-        type=model.isApply
+        type = model.isApply
         url = model.topImgDetailUrl
         imageList.clear()
         imageList.add(model.topImgUrl)

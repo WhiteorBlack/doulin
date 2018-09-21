@@ -23,6 +23,8 @@ class WebViewActivity : BaseActivity() {
      * id=8  交易说明
      * */
 
+    private val URL="http://39.107.106.122/wisdom/api/about/displayContent?"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
@@ -37,14 +39,22 @@ class WebViewActivity : BaseActivity() {
         val flag = intent.getIntExtra("flag", -1)
         if (flag == 0) {//优惠券说名
             inittitle("优惠券说明")
+            webView!!.loadUrl(URL+"id=5")
         } else if (flag == 1) {//常见问题
             inittitle("常见问题")
+//            webView!!.loadUrl(URL+"id=5")
         } else if (flag == 2) {//关于逗邻
             inittitle("关于逗邻")
-        } else if (flag == 3) {//关于逗邻
+            webView!!.loadUrl(URL+"id=7")
+        } else if (flag == 3) {//用户协议
             inittitle("用户协议")
-        } else if (flag == 4) {//关于逗邻
+            webView!!.loadUrl(URL+"id=1")
+        } else if (flag == 4) {//隐私协议
             inittitle("隐私协议")
+            webView!!.loadUrl(URL+"id=2")
+        } else if (flag ==5) {// 交易说明
+            inittitle("交易说明")
+            webView!!.loadUrl(URL+"id=8")
         } else {
             inittitle(intent.getStringExtra("title"))
             webView!!.loadUrl(intent.getStringExtra("url"))
