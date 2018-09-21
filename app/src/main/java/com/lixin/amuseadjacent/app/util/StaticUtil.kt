@@ -25,6 +25,8 @@ object StaticUtil {
     var age = ""//
     var sex = ""
 
+    var rytoken=""//用户网易云token
+
     var headerUrl = ""//头像
 
     var effectNum = ""//影响力值

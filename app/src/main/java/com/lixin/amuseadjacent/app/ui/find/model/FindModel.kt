@@ -20,7 +20,7 @@ class FindModel : Serializable {
 
     class redmanModel {
         //日榜前三名
-        var userId = ""
+        var userid = ""
         var userImg = ""
     }
 
@@ -70,7 +70,7 @@ class FindModel : Serializable {
         var activityNownum = ""//活动当前人数
         var   activityMoney=""//人均费用
         var activityState = ""//状态 0报名中 1进行中 2已结束
-        var userId = ""//发布人id
+        var userid = ""//发布人id
         var userName = ""//发布人昵称
 
 

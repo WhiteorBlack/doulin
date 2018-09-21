@@ -27,6 +27,7 @@ public class SharedPreferencesUtil {
 	public static String communityId="communityId";
 	public static String headerUrl="headerUrl";
 	public static String nickName="nickName";
+	public static String rytoken="rytoken";
 
 
 	/**

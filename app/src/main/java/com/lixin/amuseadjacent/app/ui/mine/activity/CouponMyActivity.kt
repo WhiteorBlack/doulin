@@ -29,6 +29,8 @@ class CouponMyActivity : BaseActivity() {
         inittitle("我的优惠券")
         StatusBarWhiteColor()
 
+        val type = intent.getIntExtra("type", 0)//type1 选择优惠券
+
         tv_right.visibility = View.VISIBLE
         tv_right.text = "优惠券说明"
         tv_right.setOnClickListener { v ->
@@ -47,6 +49,7 @@ class CouponMyActivity : BaseActivity() {
             val fragment = CouponMyFragment()
             val bundle = Bundle()
             bundle.putInt("flag", i)
+            bundle.putInt("type", type)
             fragment.arguments = bundle
             list.add(fragment)
         }

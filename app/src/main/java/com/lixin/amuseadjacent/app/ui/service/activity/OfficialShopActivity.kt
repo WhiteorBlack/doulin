@@ -34,7 +34,8 @@ import org.greenrobot.eventbus.Subscribe
  * Created by Slingge on 2018/8/30
  */
 class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdapter.AddShopCar
-        , ShopCartDialog.PlusCallBack, ShopCartDialog.ReduceCallBack, ShopCartDialog.DelCallBack {
+        , ShopCartDialog.PlusCallBack, ShopCartDialog.ReduceCallBack, ShopCartDialog.DelCallBack
+        , ShopCartDialog.SettlementCallBack {
 
     private var type = ""//0新校果蔬，1超市便利
 
@@ -114,7 +115,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
 
         tv_money.text = "合计：￥ $totalMoney"
 
-        shopCartDialog = ShopCartDialog(this, this, this)
+        shopCartDialog = ShopCartDialog(this, this, this, this)
 
         ProgressDialog.showDialog(this)
         OfficialShopGoodsList_35.shop(type)
@@ -173,6 +174,12 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         carNum()
     }
 
+    //结算
+    override fun Settlement() {
+        super.Settlement()
+        GoSettlement()
+    }
+
     //购物车数量
     private fun carNum() {
         var num = 0
@@ -210,6 +217,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         rightList = model.dataList
         rightAdapter = ShopRightAdapter(this, title, rightList, this)
         rv_right.adapter = rightAdapter
+        rightAdapter!!.setType(type)
     }
 
 
@@ -239,15 +247,25 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
             }
             R.id.tv_right -> {
                 val bundle = Bundle()
-                bundle.putInt("flag",type.toInt())
+                bundle.putInt("flag", type.toInt())
                 MyApplication.openActivity(this, OfficialShopDetailsActivity::class.java, bundle)
             }
             R.id.tv_settlement -> {
-                MyApplication.openActivity(this, SubmissionOrderActivity::class.java)
+                GoSettlement()
             }
         }
     }
 
+    private fun GoSettlement() {
+        if (carList.isEmpty()) {
+            ToastUtil.showToast("购物车还是空的")
+            return
+        }
+        val bundle = Bundle()
+        bundle.putString("type", type)
+        bundle.putSerializable("list", carList)
+        MyApplication.openActivity(this, SubmissionOrderActivity::class.java, bundle)
+    }
 
     //平滑滚动到指定位置
     private fun smoothMoveToPosition(mLinearLayoutManager: LinearLayoutManager, n: Int) {
@@ -268,6 +286,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
 
     override fun onDestroy() {
         super.onDestroy()
+        shopCartDialog!!.destroy()
         EventBus.getDefault().unregister(this)
     }
 

@@ -16,6 +16,7 @@ import cn.beecloud.entity.BCReqParams
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.service.request.BalancePay_154
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -27,8 +28,13 @@ import kotlinx.android.synthetic.main.include_basetop.*
  */
 class PaymentActivity : BaseActivity(), View.OnClickListener {
 
-    private var payType=""
-    private var toastMsg=""
+    private var payType = ""
+    private var toastMsg = ""
+
+    private var oderNum = ""
+    private var balance = ""
+    private var payMoney = ""//支付金额
+
 
     //支付结果返回入口
     internal var bcCallback: BCCallback = BCCallback { bcResult ->
@@ -113,6 +119,14 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
 
     private fun init() {
         inittitle("支付")
+
+        oderNum = intent.getStringExtra("oderNum")
+        balance = intent.getStringExtra("balance")
+        payMoney = intent.getStringExtra("payMoney")
+
+        tv_money.text = payMoney
+        tv_balance.text = balance
+
         include.setBackgroundColor(resources.getColor(R.color.colorTheme))
         tv_title.setTextColor(resources.getColor(R.color.white))
         iv_back.setImageResource(R.drawable.ic_back_w)
@@ -124,20 +138,26 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
         cb_balance.setOnClickListener(this)
 
         tv_pay.setOnClickListener { v ->
-            if(TextUtils.isEmpty(payType)){
+            if (TextUtils.isEmpty(payType)) {
                 ToastUtil.showToast("请选择支付方式")
                 return@setOnClickListener
             }
 
-            if(payType=="balance"){
-                BalancePay_154.pay("","",object :BalancePay_154.BalancePayCallBack{
+            if (payType == "balance") {
+                if (payMoney.toDouble() > balance.toDouble()) {
+                    ToastUtil.showToast("余额不足")
+                    return@setOnClickListener
+                }
+                ProgressDialog.showDialog(this)
+                BalancePay_154.pay(oderNum, payMoney, object : BalancePay_154.BalancePayCallBack {
                     override fun pay() {
+                        finish()
                         MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java)
                     }
                 })
             }
 
-            if (payType=="alipay"){
+            if (payType == "alipay") {
                 val aliParam = BCPay.PayParams()
                 aliParam.channelType = BCReqParams.BCChannelTypes.ALI_APP
                 aliParam.billTitle = "支付"
@@ -146,7 +166,7 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
                 BCPay.getInstance(this).reqPaymentAsync(
                         aliParam, bcCallback)
             }
-            if (payType=="weixin"){
+            if (payType == "weixin") {
                 //对于微信支付, 手机内存太小会有OutOfResourcesException造成的卡顿, 以致无法完成支付
                 //这个是微信自身存在的问题
                 if (BCPay.isWXAppInstalledAndSupported() && BCPay.isWXPaySupported()) {
@@ -160,7 +180,7 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
                             bcCallback)            //支付完成后回调入口
                 } else {
                     Toast.makeText(this,
-                            "您尚未安装微信或者安装的微信版本不支持",Toast.LENGTH_LONG).show()
+                            "您尚未安装微信或者安装的微信版本不支持", Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -168,21 +188,21 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
-            R.id.cb_alipay->{
-                cb_weixin.isChecked=false
-                cb_balance.isChecked=false
+            R.id.cb_alipay -> {
+                cb_weixin.isChecked = false
+                cb_balance.isChecked = false
 
-                payType="alipay"
+                payType = "alipay"
             }
-            R.id.cb_weixin->{
-                cb_alipay.isChecked=false
-                cb_balance.isChecked=false
-                payType="weixin"
+            R.id.cb_weixin -> {
+                cb_alipay.isChecked = false
+                cb_balance.isChecked = false
+                payType = "weixin"
             }
-            R.id.cb_balance->{
-                cb_alipay.isChecked=false
-                cb_weixin.isChecked=false
-                payType="balance"
+            R.id.cb_balance -> {
+                cb_alipay.isChecked = false
+                cb_weixin.isChecked = false
+                payType = "balance"
             }
         }
     }

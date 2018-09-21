@@ -87,6 +87,10 @@
             android:value="Y9f1QO90e2zXCcuFT8mUma4d4IU6Cs1C" />
 
 
+        <!--腾讯TBS浏览服务X5内核 更新之后似乎可有可无-->
+        <meta-data
+            android:name="QBSDKAppKey"
+            android:value="Q7xpuMkavjlnT1JB+DounMu3" />
 
         <!--///////////////////////////////////////////极光推送\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
         <!--极光推送-->
@@ -193,6 +197,7 @@
 
         <activity
             android:name=".app.ui.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
         <activity

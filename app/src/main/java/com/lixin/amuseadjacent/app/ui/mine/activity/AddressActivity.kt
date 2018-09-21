@@ -29,6 +29,8 @@ class AddressActivity : BaseActivity() {
     private var totalPage = 1
     private var onRefresh = 0
 
+    private var flag=0//0正常，1选择地址
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.xrecyclerview)
@@ -49,11 +51,13 @@ class AddressActivity : BaseActivity() {
             MyApplication.openActivity(this, EditAddressActivity::class.java, bundle)
         }
 
+        flag=intent.getIntExtra("flag",0)
+
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         xrecyclerview.layoutManager = linearLayoutManager
 
-        addressAdapter = AddressAdapter(this, addList)
+        addressAdapter = AddressAdapter(this, addList,flag)
         xrecyclerview.adapter = addressAdapter
 
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)

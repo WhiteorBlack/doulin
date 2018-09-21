@@ -1,10 +1,12 @@
 package com.lixin.amuseadjacent.app.ui.mine.model
 
+import java.io.Serializable
+
 /**
  * 我的优惠券列表
  * Created by Slingge on 2018/9/12
  */
-class CouponMyModel {
+class CouponMyModel : Serializable {
 
     var result = ""
     var resultNote = ""
@@ -12,7 +14,7 @@ class CouponMyModel {
 
     var dataList = ArrayList<couponModel>()
 
-    class couponModel {
+    class couponModel : Serializable {
         var securitiesid = ""//优惠券id
         var securitiesPrice = ""//优惠券金额
 

@@ -51,7 +51,20 @@ class ViolationReportFragment : BaseFragment() {
 
         xrecyclerview.layoutManager = linearLayoutManager
 
+        violationReportAdapter = ViolationReportAdapter(activity!!, flag,violationList,reportList)
+        xrecyclerview.adapter = violationReportAdapter
 
+        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
+        xrecyclerview.layoutAnimation = controller
+        violationReportAdapter!!.notifyDataSetChanged()
+        xrecyclerview.scheduleLayoutAnimation()
+
+        ProgressDialog.showDialog(activity!!)
+        if (flag == 0) {
+            ViolationReport_129130.irregularities(nowPage)
+        }else{
+            ViolationReport_129130.report(nowPage)
+        }
     }
 
     private fun init() {
@@ -70,20 +83,7 @@ class ViolationReportFragment : BaseFragment() {
             reportList.clear()
         }
 
-        violationReportAdapter = ViolationReportAdapter(activity!!, flag,violationList,reportList)
-        xrecyclerview.adapter = violationReportAdapter
 
-        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        xrecyclerview.layoutAnimation = controller
-        violationReportAdapter!!.notifyDataSetChanged()
-        xrecyclerview.scheduleLayoutAnimation()
-
-        ProgressDialog.showDialog(activity!!)
-        if (flag == 0) {
-            ViolationReport_129130.irregularities(nowPage)
-        }else{
-            ViolationReport_129130.report(nowPage)
-        }
     }
 
     //违规
@@ -106,9 +106,7 @@ class ViolationReportFragment : BaseFragment() {
         }else if(onRefresh==2){
             xrecyclerview.loadMoreComplete()
         }
-
         violationReportAdapter!!.notifyDataSetChanged()
-
     }
 
     //举报

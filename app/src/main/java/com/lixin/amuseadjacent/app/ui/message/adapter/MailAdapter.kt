@@ -36,6 +36,12 @@ class MailAdapter(val context: Activity, val flag: Int, val mailList: ArrayList<
 
         if (flag == 2) {
             holder.tv_follow.visibility = View.VISIBLE
+            if (mailList[position].isAttention == "0") {
+                holder.tv_follow.text = "+  关注"
+            } else {
+                holder.tv_follow.text = "已关注"
+            }
+
             holder.tv_follow.setOnClickListener { v ->
                 ProgressDialog.showDialog(context)
                 Mail_138139.follow(model.userId, object : Mail_138139.FollowCallBack {
@@ -45,7 +51,7 @@ class MailAdapter(val context: Activity, val flag: Int, val mailList: ArrayList<
                         } else {
                             mailList[position].isAttention = "0"
                         }
-                        notifyItemChanged(position)
+                        notifyDataSetChanged()
                     }
                 })
             }

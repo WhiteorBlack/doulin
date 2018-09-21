@@ -29,14 +29,14 @@ object Register_11 {
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0" || obj.getString("resultNote") == "该手机号已注册") {
                     ToastUtil.showToast("注册成功")
-                    try {
-                        StaticUtil.uid = obj.getString("uid")
-                    } catch (e: JSONException) {
-                    }
+
+                    StaticUtil.uid = obj.getString("uid")
+
+                    StaticUtil.rytoken = obj.getString("rytoken")
                     StaticUtil.phone = phone
                     val sp = context.getSharedPreferences(SharedPreferencesUtil.NAME, 0)
                     sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.Pass, pass)
-                            .putString(SharedPreferencesUtil.uid,StaticUtil.uid).commit()
+                            .putString(SharedPreferencesUtil.uid, StaticUtil.uid).putString(SharedPreferencesUtil.rytoken, StaticUtil.rytoken).commit()
                     MyApplication.openActivity(context, PersonalImageActivity::class.java)
                     context.finish()
                 } else {

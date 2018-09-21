@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:text="洛克贝尔"
+                android:text=" "
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintStart_toEndOf="@+id/iv_address2" />
@@ -43,7 +43,7 @@
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="159765412"
+                android:text=" "
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/sub_fant"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_name"
@@ -55,7 +55,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="12dp"
-                android:text="什么地址神鹿"
+                android:text=" "
                 android:textColor="@color/colorTabText"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
             <ImageView
-                android:id="@+id/iv_right"
+                android:id="@+id/iv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
@@ -197,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
-                android:text="￥110"
+                android:text="￥"
                 android:textColor="@color/red"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintBottom_toBottomOf="@+id/actualpay"

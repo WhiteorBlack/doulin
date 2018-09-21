@@ -1,7 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.service.adapter
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -11,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
+import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
 import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
@@ -19,7 +19,7 @@ import com.nostra13.universalimageloader.core.ImageLoader
  */
 class ShopRightAdapter(val context: Context, val titleList: String, val rightList: ArrayList<ShopGoodsModel.dataModel>, val addShopCar: AddShopCar) : RecyclerView.Adapter<ShopRightAdapter.ViewHolder>() {
 
-    private var flag = 0
+    private var type = ""//0新鲜果蔬 1洗衣洗鞋 2超市便利
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_shop_right2, parent, false)
@@ -71,11 +71,18 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
 
 
         holder.iv_add.setOnClickListener { v ->
-            addShopCar.addCar(position)
+            ShopCar_12412537.addCar(type, model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
+                override fun addCar() {
+                    addShopCar.addCar(position)
+                }
+            })
         }
 
     }
 
+    fun setType(type: String) {
+        this.type = type
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tv_title = view.findViewById<TextView>(R.id.tv_title)

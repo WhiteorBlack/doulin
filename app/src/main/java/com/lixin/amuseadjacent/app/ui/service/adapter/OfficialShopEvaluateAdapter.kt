@@ -13,6 +13,7 @@ import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
+ * 官方店铺详情评论
  * Created by Slingge on 2018/9/19
  */
 class OfficialShopEvaluateAdapter (val context: Context, var commentList: ArrayList<OfficialShopDetailsModel.dataModel>)

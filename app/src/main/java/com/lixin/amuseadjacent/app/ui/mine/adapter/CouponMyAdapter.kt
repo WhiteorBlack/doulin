@@ -1,10 +1,14 @@
 package com.lixin.amuseadjacent.app.ui.mine.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ActionMenuView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.mine.model.CouponMyModel
@@ -14,7 +18,8 @@ import com.lixin.amuseadjacent.app.ui.mine.model.CouponMyModel
  * flag //0未使用，1已使用，2已过期
  * Created by Slingge on 2018/8/18
  */
-class CouponMyAdapter(val context: Context, val couponList: ArrayList<CouponMyModel.couponModel>, val flag: Int) : RecyclerView.Adapter<CouponMyAdapter.ViewHolder>() {
+class CouponMyAdapter(val context: Activity, val couponList: ArrayList<CouponMyModel.couponModel>, val flag: Int
+                      , val type: Int) : RecyclerView.Adapter<CouponMyAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -51,6 +56,17 @@ class CouponMyAdapter(val context: Context, val couponList: ArrayList<CouponMyMo
 
         holder.tv_time.text = model.securitiesEndTime
         holder.tv_name.text = model.securitiesName
+
+        holder.itemView.setOnClickListener { v ->
+            if (flag == 0 || type == 1) {//选择优惠券
+                val bundle = Bundle()
+                bundle.putSerializable("model", model)
+                val intent = Intent()
+                intent.putExtras(bundle)
+                context.setResult(1, intent)
+                context.finish()
+            }
+        }
 
     }
 

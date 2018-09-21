@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.service.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -7,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.message.activity.SearchActivity
+import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.PopularShopAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.PopularShopModel
 import com.lixin.amuseadjacent.app.ui.service.request.PopularShop_39310
@@ -55,7 +58,9 @@ class PopularShopActivity : BaseActivity() {
         iv_right.visibility = View.VISIBLE
         iv_right.setImageResource(R.drawable.ic_search1)
         iv_right.setOnClickListener { v ->
-            MyApplication.openActivity(this, SearchActivity::class.java)
+            val bundle = Bundle()
+            bundle.putInt("flag", 303)
+            MyApplication.openActivityForResult(this, SearchActivity::class.java, bundle, 0)
         }
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -66,13 +71,21 @@ class PopularShopActivity : BaseActivity() {
 
         xrecyclerview.layoutManager = linearLayoutManager
         xrecyclerview.addHeaderView(headerView)
-        xrecyclerview.setPullRefreshEnabled(false)
         xrecyclerview.setLoadingMoreEnabled(false)
+
+        xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onLoadMore() {
+            }
+
+            override fun onRefresh() {
+                search = ""
+                PopularShop_39310.shop(search)
+            }
+        })
 
         xrecyclerview.addOnItemTouchListener(object : RecyclerItemTouchListener(xrecyclerview) {
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {
                 val i = vh!!.adapterPosition - 2
-                ToastUtil.showToast(i.toString())
                 if (i < 0 || i >= shopList.size) {
                     return
                 }
@@ -83,6 +96,12 @@ class PopularShopActivity : BaseActivity() {
         })
 
         banner = headerView.findViewById(R.id.banner)
+        banner!!.setOnBannerListener { i ->
+            val bundle = Bundle()
+            bundle.putString("title", "")
+            bundle.putString("url", bannerList[i].topImgDetailUrl)
+            MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
+        }
 
         ProgressDialog.showDialog(this)
         PopularShop_39310.shop(search)
@@ -91,12 +110,13 @@ class PopularShopActivity : BaseActivity() {
     @Subscribe
     fun onEvent(model: PopularShopModel) {
         val imageList = ArrayList<String>()
-        bannerUrl = model.topImgDetailUrl
-        imageList.add(model.topImgUrl)
+        bannerList = model.bannerList
+        for (i in 0 until bannerList.size) {
+            imageList.add(bannerList[i].topImgUrl)
+        }
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
                 .start()
-        bannerList = model.bannerList
 
         shopList = model.dataList
         shopAdapter = PopularShopAdapter(this, shopList)
@@ -105,6 +125,17 @@ class PopularShopActivity : BaseActivity() {
         xrecyclerview.layoutAnimation = controller
         shopAdapter!!.notifyDataSetChanged()
         xrecyclerview.scheduleLayoutAnimation()
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) {
+            return
+        }
+        search = data.getStringExtra("search")
+        ProgressDialog.showDialog(this)
+        PopularShop_39310.shop(search)
     }
 
 

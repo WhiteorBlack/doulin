@@ -7,10 +7,12 @@ import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.entrance.request.SginIn_1213
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.SMSVerificationCode
 import com.lixin.amuseadjacent.app.util.TimerUtil
+import com.lxkj.linxintechnologylibrary.app.util.ProgressDialogUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_passverification_sgin.*
 
@@ -78,6 +80,7 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 VCode = timerUtil!!.num
+                ProgressDialog.showDialog(this)
                 SMSVerificationCode.sendSMS(this, phone, VCode!!)
                 timerUtil!!.timersStart()
             }
@@ -102,6 +105,7 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
                         ToastUtil.showToast("请输入密码")
                         return
                     }
+                    ProgressDialog.showDialog(this)
                     SginIn_1213.passSgin(this, phone, pass)
                 }
             }

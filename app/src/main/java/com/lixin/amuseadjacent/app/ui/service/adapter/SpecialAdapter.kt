@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.service.model.SpecialModel
+import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import java.util.ArrayList
 
@@ -34,12 +36,33 @@ class SpecialAdapter(val context: Context, var specialList: ArrayList<SpecialMod
         ImageLoader.getInstance().displayImage(model.goodsImg, holder.image)
         holder.tv_name.text = model.goodsName
         holder.tv_money.text = "￥" + model.goodsPrice
+
+        if (model.isSelect) {
+            holder.tv_num.visibility = View.VISIBLE
+        } else {
+            holder.tv_num.visibility = View.INVISIBLE
+        }
+
+        holder.iv_add.setOnClickListener { v ->
+            if (model.isSelect) {
+                return@setOnClickListener
+            }
+            ShopCar_12412537.addCar(model.goodsType, model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
+                override fun addCar() {
+                    ToastUtil.showToast("加入购物车成功")
+                    holder.tv_num.visibility = View.VISIBLE
+                }
+            })
+        }
+
     }
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image = view.findViewById<ImageView>(R.id.image)
+        val iv_add = view.findViewById<ImageView>(R.id.iv_add)
 
+        val tv_num = view.findViewById<TextView>(R.id.tv_num)
         val tv_name = view.findViewById<TextView>(R.id.tv_name)
         val tv_money = view.findViewById<TextView>(R.id.tv_money)
     }

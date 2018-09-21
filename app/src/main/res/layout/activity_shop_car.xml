@@ -9,15 +9,277 @@
         android:id="@+id/include"
         layout="@layout/include_basetop" />
 
-
-    <com.example.xrecyclerview.XRecyclerView
-        android:id="@+id/rv_car"
-        android:layout_width="0dp"
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/tv_del"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_market"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/cb_market"
+                    style="@style/CheckBox"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_market"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cb_market"
+                    android:layout_alignTop="@+id/cb_market"
+                    android:layout_toRightOf="@+id/cb_market"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="超市便利"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/main_fant" />
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_market"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/line_market_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray2" />
+
+                <TextView
+                    android:id="@+id/tv_settlement_market"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:background="@color/colorTheme"
+                    android:gravity="center"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="去结算"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_fant"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_market_1" />
+
+                <TextView
+                    android:id="@+id/tv_totalMoney_market"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合计：￥0.0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sub_fant"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_settlement_market"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_settlement_market"
+                    app:layout_constraintHorizontal_bias="0.7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_settlement_market" />
+
+
+                <View
+                    android:id="@+id/line_market_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#fafafa"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_settlement_market" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_clothes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/cb_clothes"
+                    style="@style/CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:paddingBottom="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_clothes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cb_clothes"
+                    android:layout_alignTop="@+id/cb_clothes"
+                    android:layout_toRightOf="@+id/cb_clothes"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="洗衣洗鞋"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/main_fant" />
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_clothes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/line_clothes_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray2" />
+
+                <TextView
+                    android:id="@+id/tv_settlement_clothes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:background="@color/colorTheme"
+                    android:gravity="center"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="去结算"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_fant"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_clothes_1" />
+
+                <TextView
+                    android:id="@+id/tv_totalMoney_clothes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合计：￥0.0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sub_fant"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_settlement_clothes"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_settlement_clothes"
+                    app:layout_constraintHorizontal_bias="0.7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_settlement_clothes" />
+
+
+                <View
+                    android:id="@+id/line_clothes_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#fafafa"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_settlement_clothes" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_fruits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/cb_fruits"
+                    style="@style/CheckBox"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="12dp" />
+
+                <TextView
+                    android:id="@+id/tv_fruits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cb_fruits"
+                    android:layout_alignTop="@+id/cb_fruits"
+                    android:layout_toRightOf="@+id/cb_fruits"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="洗衣洗鞋"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/main_fant" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_fruits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/line_fruits_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray2" />
+
+                <TextView
+                    android:id="@+id/tv_settlement_fruits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:background="@color/colorTheme"
+                    android:gravity="center"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="去结算"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/main_fant"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_fruits_1" />
+
+                <TextView
+                    android:id="@+id/tv_totalMoney_fruits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合计：￥0.0"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sub_fant"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_settlement_fruits"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_settlement_fruits"
+                    app:layout_constraintHorizontal_bias="0.7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_settlement_fruits" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
 
     <TextView
         android:id="@+id/tv_del"

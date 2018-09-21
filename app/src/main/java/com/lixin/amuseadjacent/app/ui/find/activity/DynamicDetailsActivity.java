@@ -26,7 +26,6 @@ import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139;
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter;
 import com.lixin.amuseadjacent.app.util.*;
 import com.lixin.amuseadjacent.app.view.CircleImageView;
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -85,6 +84,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
     private void init() {
         flag = getIntent().getStringExtra("flag");
+        tv_right = findViewById(R.id.tv_right);
         if (flag.equals("0")) {
             inittitle("动态详情");
         } else {
@@ -198,10 +198,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
         if (model.object.iscang.equals("0")) {//没有收藏
             tv_right.setText("已收藏");
-            model.object.iscang = "1";
         } else {
             tv_right.setText("收藏");
-            model.object.iscang = "0";
         }
 
         isZan = model.object.isZan;

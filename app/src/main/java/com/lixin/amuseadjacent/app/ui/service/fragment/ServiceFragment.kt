@@ -110,7 +110,6 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
 
 
     private fun init() {
-
         linearLayoutManager = GridLayoutManager(activity, 3)
 
         headerView = LayoutInflater.from(activity).inflate(R.layout.header_service, null, false)//头布局

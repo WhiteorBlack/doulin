@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.service.activity.SubmissionOrderActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.LaundryAdapter
+import com.lixin.amuseadjacent.app.ui.service.model.CarModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
-import com.lxkj.linxintechnologylibrary.app.util.ProgressDialogUtil
+import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_laundry.*
 import org.greenrobot.eventbus.EventBus
@@ -22,11 +25,12 @@ import org.greenrobot.eventbus.Subscribe
  * 洗衣洗鞋
  * Created by Slingge on 2018/8/31
  */
-class LaundryFrament : BaseFragment() {
+class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
 
     private var laundryAdapter: LaundryAdapter? = null
     private var gridLayoutManager: GridLayoutManager? = null
     private var goodList = ArrayList<ShopGoodsModel.dataModel>()
+    private   var carList = ArrayList<ShopGoodsModel.dataModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_laundry, container, false)
@@ -40,7 +44,7 @@ class LaundryFrament : BaseFragment() {
 
         rv_clothes.layoutManager = gridLayoutManager
 
-        laundryAdapter = LaundryAdapter(activity!!,goodList)
+        laundryAdapter = LaundryAdapter(activity!!, goodList, this)
         rv_clothes.adapter = laundryAdapter
 
 
@@ -49,6 +53,54 @@ class LaundryFrament : BaseFragment() {
     private fun init() {
         gridLayoutManager = GridLayoutManager(activity!!, 3)
     }
+
+
+    //添加到购物车
+    override fun addCar(position: Int) {
+        if (goodList[position].isSelect) {
+            return
+        }
+        goodList[position].isSelect = true
+        goodList[position].goodsNum = 1
+        laundryAdapter!!.notifyItemChanged(position)
+        carList.add(goodList[position])
+
+        val model=CarModel.editModel()
+        model.goodModel=carList[position]
+        model.flag=0
+        model.position=position
+        EventBus.getDefault().post(model)
+    }
+
+    //购物车数量增加
+    fun plusCar(position: Int, num: Int, money: Double) {
+        goodList[position].goodsNum = num
+        laundryAdapter!!.notifyItemChanged(position)
+
+        carList[position].goodsNum = num
+        carList[position].money = money
+    }
+
+    //购物车数量减少
+    fun reduceCar(position: Int, num: Int, money: Double) {
+        goodList[position].goodsNum = num
+        goodList[position].money = money
+        laundryAdapter!!.notifyItemChanged(position)
+
+        carList[position].goodsNum = num
+        carList[position].money = money
+    }
+
+    //购物车删除
+    fun delCar(position: Int) {
+        goodList[position].isSelect = false
+        goodList[position].goodsNum = 0
+        laundryAdapter!!.notifyItemChanged(position)
+
+        carList.removeAt(position)
+    }
+
+
 
     @Subscribe
     fun onEvent(model: ShopGoodsModel) {

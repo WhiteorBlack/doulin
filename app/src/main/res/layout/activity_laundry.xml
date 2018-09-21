@@ -123,7 +123,7 @@
             android:src="@drawable/ic_car2" />
 
         <cn.bingoogolapple.badgeview.BGABadgeTextView
-            android:id="@+id/tv_msgNum"
+            android:id="@+id/tv_msgNum0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -135,18 +135,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_money"
+            android:id="@+id/tv_money0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:layout_toRightOf="@+id/iv_car"
-            android:text="合计：￥"
+            android:text="合计：￥0.0"
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/sub_fant" />
 
         <TextView
-            android:id="@+id/tv_settlement"
+            android:id="@+id/tv_settlement0"
             android:layout_width="wrap_content"
             android:layout_height="49dp"
             android:layout_alignParentRight="true"

@@ -16,18 +16,22 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.view.MyBottomSheetDialog
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 
 
 /**
  * Created by Slingge on 2018/9/18
  */
-class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceCallBack, val delCallBack: DelCallBack) {
+class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceCallBack,
+                     val delCallBack: DelCallBack, val settlementCallBack: SettlementCallBack) {
 
     private var dialog: MyBottomSheetDialog? = null
     private var linearLayoutManager: LinearLayoutManager? = null
     private var recyclerView: RecyclerView? = null
     private var view: View? = null
+
+    private var SettlementView: View? = null
 
     private var iv_down: ImageView? = null
 
@@ -46,7 +50,11 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
 
     interface DelCallBack {
         fun del(position: Int) {
+        }
+    }
 
+    interface SettlementCallBack {
+        fun Settlement() {
         }
     }
 
@@ -55,12 +63,14 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
 
         if (dialog == null) {
             view = LayoutInflater.from(context).inflate(R.layout.bottomsheetdialog_list, null)
-            dialog = MyBottomSheetDialog(context,R.style.ProgressDialog)
+            dialog = MyBottomSheetDialog(context, R.style.ProgressDialog)
             dialog!!.window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             dialog!!.setCanceledOnTouchOutside(true)
             dialog!!.setContentView(view)
             linearLayoutManager = LinearLayoutManager(context)
             recyclerView = view!!.findViewById(R.id.recyclerView)
+
+            SettlementView = view!!.findViewById(R.id.view)
 
             iv_down = view!!.findViewById(R.id.iv_down)
 
@@ -70,6 +80,10 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
             recyclerView!!.layoutManager = linearLayoutManager
         }
         dialog!!.show()
+
+        SettlementView!!.setOnClickListener { v ->
+            settlementCallBack.Settlement()
+        }
 
         val adapter = Adapter(context, rightList)
         recyclerView!!.adapter = adapter
@@ -113,10 +127,15 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
 
             var money = model.money
             holder.tv_money.text = " ￥：$money"
-
+            holder.tv_name.text = model.goodsName
             holder.num.text = num.toString()
 
             holder.tv_plus.setOnClickListener { v ->
+
+                if (!TextUtils.isEmpty(model.goodsStock) && num == model.goodsStock.toInt()) {
+                    ToastUtil.showToast("库存不足")
+                    return@setOnClickListener
+                }
                 num++
                 holder.num.text = num.toString()
 

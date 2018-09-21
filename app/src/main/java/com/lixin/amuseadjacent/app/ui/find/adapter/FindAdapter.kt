@@ -16,6 +16,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
@@ -111,28 +112,32 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 }
             } else {
                 holder.player.visibility = View.VISIBLE
+                holder.player.setPlayerType(NiceVideoPlayer.TYPE_IJK)
                 holder.player.setUp(model.dynamicVideo, null)
                 val controller = TxVideoPlayerController(context)
+                controller.setTitle("")
+//                controller.setLenght()
+
                 ImageLoader.getInstance().displayImage(model.dynamicImg, controller.imageView())
                 holder.player.setController(controller)
             }
-             holder.tv_follow.setOnClickListener { v ->
-                 ProgressDialog.showDialog(context)
-                 Mail_138139.follow(dynaList[position].dynamicUid, object : Mail_138139.FollowCallBack {
-                     override fun follow() {
-                         for (i in 0 until dynaList.size) {
-                             if (dynaList[position].dynamicUid == dynaList[i].dynamicUid) {
-                                 if (dynaList[i].isAttention == "0") {// 0未关注 1已关注
-                                     dynaList[i].isAttention = "1"
-                                 } else {
-                                     dynaList[i].isAttention = "0"
-                                 }
-                             }
-                         }
-                         notifyDataSetChanged()
-                     }
-                 })
-             }
+            holder.tv_follow.setOnClickListener { v ->
+                ProgressDialog.showDialog(context)
+                Mail_138139.follow(dynaList[position].dynamicUid, object : Mail_138139.FollowCallBack {
+                    override fun follow() {
+                        for (i in 0 until dynaList.size) {
+                            if (dynaList[position].dynamicUid == dynaList[i].dynamicUid) {
+                                if (dynaList[i].isAttention == "0") {// 0未关注 1已关注
+                                    dynaList[i].isAttention = "1"
+                                } else {
+                                    dynaList[i].isAttention = "0"
+                                }
+                            }
+                        }
+                        notifyDataSetChanged()
+                    }
+                })
+            }
         } else {//活动
             holder.cl_1.visibility = View.GONE
             holder.cl_2.visibility = View.VISIBLE
@@ -180,14 +185,18 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 bundle.putString("flag", "0")
                 bundle.putString("id", dynaList[position].dynamicId)
                 MyApplication.openActivity(context, DynamicDetailsActivity::class.java, bundle)
+            } else if (actiivtyList != null) {
+                val bundle = Bundle()
+                bundle.putString("name", actiivtyList[position].activityName)
+                bundle.putString("id", actiivtyList[position].activityId)
+                MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
             }
-
         }
 
     }
 
     fun stopPlay() {
-        if(niceVideoPlayer!=null){
+        if (niceVideoPlayer != null) {
             niceVideoPlayer!!.pause()
         }
     }

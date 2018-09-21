@@ -47,7 +47,9 @@ class CouponMyFragment : BaseFragment() {
         include.visibility = View.GONE
         xrecyclerview.layoutManager = linearLayoutManager
 
-        couponAdapter = CouponMyAdapter(activity!!, couponList, flag)
+        val type = arguments!!.getInt("type", 0)//type1选择优惠券
+
+        couponAdapter = CouponMyAdapter(activity!!, couponList, flag, type)
         xrecyclerview.adapter = couponAdapter
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {

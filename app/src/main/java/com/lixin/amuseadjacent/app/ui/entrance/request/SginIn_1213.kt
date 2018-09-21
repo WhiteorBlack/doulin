@@ -48,6 +48,27 @@ object SginIn_1213 {
                             sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.communityId).commit()
                             MyApplication.openActivity(context, MainActivity::class.java)
                         }
+                        NimUIKit.login(LoginInfo(obj.getString("uid"), obj.getString("rytoken")), object : RequestCallback<LoginInfo> {
+                            override fun onSuccess(param: LoginInfo) {
+                                LogUtil.i("NimUIKit", "login success")
+                                DemoCache.setAccount(obj.getString("uid"))
+                                Preferences.saveUserAccount(obj.getString("uid"))
+                                Preferences.saveUserToken(obj.getString("rytoken"))
+                            }
+
+                            override fun onFailed(code: Int) {
+                                if (code == 302 || code == 404) {
+//                                    Toast.makeText(context, "帐号或密码错误", Toast.LENGTH_SHORT).show()
+                                } else {
+//                                    Toast.makeText(context, "登录失败: $code", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+
+                            override fun onException(exception: Throwable) {
+//                                Toast.makeText(context,"无效输入", Toast.LENGTH_LONG).show()
+                            }
+                        })
+
                         sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.uid, StaticUtil.uid)
                                 .commit()
                         StaticUtil.phone = phone
@@ -82,9 +103,9 @@ object SginIn_1213 {
                             StaticUtil.communityId = obj.getString("communityId")
                             sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.communityId).commit()
                             MyApplication.openActivity(context, MainActivity::class.java)
-                        }
 
-                        NimUIKit.login(LoginInfo(obj.getString("uid"), obj.getString("rytoken")), object : RequestCallback<LoginInfo> {
+
+                             NimUIKit.login(LoginInfo(obj.getString("uid"), obj.getString("rytoken")), object : RequestCallback<LoginInfo> {
                             override fun onSuccess(param: LoginInfo) {
                                 LogUtil.i("NimUIKit", "login success")
                                 DemoCache.setAccount(obj.getString("uid"))
@@ -104,10 +125,11 @@ object SginIn_1213 {
                                 Toast.makeText(context,"无效输入", Toast.LENGTH_LONG).show()
                             }
                         })
-                        StaticUtil.phone = phone
-                        sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.Pass, pass)
-                                .putString(SharedPreferencesUtil.uid, StaticUtil.uid).commit()
-                        AppManager.finishAllActivity()
+                            StaticUtil.phone = phone
+                            sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.Pass, pass)
+                                    .putString(SharedPreferencesUtil.uid, StaticUtil.uid).commit()
+                            AppManager.finishAllActivity()
+                        }
                     } catch (e: JSONException) {
                     }
                 } else {
