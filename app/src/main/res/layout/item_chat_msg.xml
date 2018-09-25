@@ -6,7 +6,6 @@
 
     <!--消息-->
 
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ll_bank"
         android:layout_width="match_parent"
