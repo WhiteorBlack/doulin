@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.baidu.mapapi.search.core.PoiInfo
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult
 import com.baidu.mapapi.search.poi.PoiResult
 import com.lixin.amuseadjacent.R
-import com.lixin.amuseadjacent.app.MyApplication
-import com.lixin.amuseadjacent.app.ui.find.activity.BangDetailsActivity
 
 /**
  * 地址

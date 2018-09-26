@@ -20,10 +20,6 @@ public class PileLayout extends ViewGroup {
      * 两个子控件之间的垂直间隙
      */
     protected float vertivalSpace;
-
-    /**
-     * 重叠宽度
-     */
     protected float pileWidth;
 
     public PileLayout(Context context) {
@@ -108,42 +104,45 @@ public class PileLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int viewWidth = r - l;
-        int leftOffset = getPaddingLeft();
-        int topOffset = getPaddingTop();
-        int rowMaxHeight = 0;
-        int rowIndex = 0;//当前行位置
-        View childView;
-        for( int w = 0, count = getChildCount(); w < count; w++ ){
-            childView = getChildAt(w);
-            if(childView.getVisibility() == GONE) continue;
-
-            MarginLayoutParams lp = (MarginLayoutParams) childView.getLayoutParams();
-            // 如果加上当前子View的宽度后超过了ViewGroup的宽度，就换行
-            int occupyWidth = lp.leftMargin + childView.getMeasuredWidth() + lp.rightMargin;
-            if(leftOffset + occupyWidth + getPaddingRight() > viewWidth){
-                leftOffset = getPaddingLeft();  // 回到最左边
-                topOffset += rowMaxHeight + vertivalSpace;  // 换行
-                rowMaxHeight = 0;
-
-                rowIndex = 0;
+        int count = getChildCount();
+        //父view的总宽度
+        int viewWidth = getWidth() -getPaddingRight()-getPaddingLeft();
+        //子view的右边界
+        int maxWidth =viewWidth;
+        //子view距离顶部的高度
+        int maxHeight = 0;
+        //父组件的padingTop
+        int topOfset =getPaddingTop();
+        //记录 第几个字view
+        int index = 0;
+        for (int i = 0; i <count ; i++) {
+            View childAt = getChildAt(i);
+            if(childAt.getVisibility() == GONE){
+                continue;
             }
-
-            int left = leftOffset + lp.leftMargin;
-            int top = topOffset + lp.topMargin;
-            int right = leftOffset+ lp.leftMargin + childView.getMeasuredWidth();
-            int bottom =  topOffset + lp.topMargin + childView.getMeasuredHeight();
-            childView.layout(left, top, right, bottom);
-
-            // 横向偏移
-            leftOffset += occupyWidth;
-            // 试图更新本行最高View的高度
-            int occupyHeight = lp.topMargin + childView.getMeasuredHeight() + lp.bottomMargin;
-            if(rowIndex != count - 1){
-                leftOffset -= pileWidth;
+            MarginLayoutParams lp = (MarginLayoutParams) childAt.getLayoutParams();
+            int childWidth = lp.leftMargin +lp.rightMargin +childAt.getMeasuredWidth();
+            int childHeight = lp.topMargin+lp.bottomMargin +childAt.getMeasuredHeight();
+            //从右往左排,view的右边距小于view的宽度时换行
+            if(childWidth > maxWidth){
+                //换行
+                topOfset+=maxHeight;
+                maxHeight =0;
+                index = 0;
+                maxWidth =viewWidth;
             }
-            rowMaxHeight = Math.max(rowMaxHeight, occupyHeight);
-            rowIndex++;
+            int left = maxWidth - childWidth;
+            int top = topOfset+lp.topMargin;
+            int right = maxWidth;
+            int bottom = topOfset +lp.topMargin+ childAt.getMeasuredHeight();
+            childAt.layout(left,top,right,bottom);
+
+            maxWidth -=childWidth;
+            if(index != count -1){
+                maxWidth += pileWidth;
+            }
+            maxHeight = Math.max(maxHeight,childHeight);
+            index++;
         }
     }
 

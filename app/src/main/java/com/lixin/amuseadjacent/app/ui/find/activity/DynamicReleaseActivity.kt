@@ -103,7 +103,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
                 }
 
                 val adress = AbStrUtil.tvTostr(tv_address)
-                if (TextUtils.isEmpty(content)) {
+                if (TextUtils.isEmpty(adress)) {
                     ToastUtil.showToast("请输入发布地址")
                     return
                 }

@@ -43,4 +43,6 @@ public interface RecentContactsCallback {
      * @return Tip消息摘要
      */
     String getDigestOfTipMsg(RecentContact recent);
+
+    void onDeleItem(RecentContact recent, int position);
 }

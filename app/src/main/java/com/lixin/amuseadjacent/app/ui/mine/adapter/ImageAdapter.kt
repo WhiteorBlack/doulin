@@ -13,9 +13,10 @@ import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
  * 方形图片
+ * flag 0跳转预览图片，1不跳转预览图片
  * Created by Slingge on 2018/8/18
  */
-class ImageAdapter(val context: Context, val list: ArrayList<String>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(val context: Context, val list: ArrayList<String>, val flag: Int) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,8 +32,10 @@ class ImageAdapter(val context: Context, val list: ArrayList<String>) : Recycler
 
         ImageLoader.getInstance().displayImage(list[position], holder.image)
 
-        holder.image.setOnClickListener { v ->
-            ToPreviewPhoto.toPhoto(context, list, position)
+        if (flag == 0) {
+            holder.image.setOnClickListener { v ->
+                ToPreviewPhoto.toPhoto(context, list, position)
+            }
         }
 
     }

@@ -44,7 +44,7 @@ class SearchActivity : BaseActivity() {
 
     private fun initRecycler_view(){
         adapter = SearchChatAdapter(this)
-        recycle_view.setLayoutManager(LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false))
+        recycle_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recycle_view.adapter = adapter
         adapter!!.setOnClickListener(object: SearchChatAdapter.OnItemClickListener{
             override fun itemClick(account: String) {
@@ -86,6 +86,8 @@ class SearchActivity : BaseActivity() {
                 }else {
                     // 查询最近联系人列表数据
                     ProgressDialog.showDialog(this)
+                    recentList.clear()
+                    userInfo = null
                     NIMClient.getService(MsgService::class.java).queryRecentContacts().setCallback(object : RequestCallbackWrapper<List<RecentContact>?>() {
                         override fun onResult(code: Int, recents: List<RecentContact>?, exception: Throwable?) {
                             if (code != ResponseCode.RES_SUCCESS.toInt() || recents == null) {
@@ -94,13 +96,14 @@ class SearchActivity : BaseActivity() {
                             }
                             for (i in 0 until recents.size){
                                 userInfo = NimUIKit.getUserInfoProvider().getUserInfo(recents[i].contactId)  //根据账号获取用户信息
-                                if (userInfo != null && !TextUtils.isEmpty(userInfo!!.name)){
+                                if (userInfo != null && !TextUtils.isEmpty(userInfo!!.name) && keytag == userInfo!!.name){
+//                                    Log.e("dada",userInfo!!.avatar)
                                     recentList.add(recents[i])
                                     break
                                 }
                             }
 
-                            if (recentList .isEmpty()){
+                            if (recentList.isEmpty()){
                                 ToastUtil.showToast("此聊天不存在")
                             }else{
                                 adapter!!.refresh(recentList,userInfo!!)

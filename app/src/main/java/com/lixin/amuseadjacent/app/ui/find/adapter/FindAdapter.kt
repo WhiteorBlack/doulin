@@ -22,6 +22,7 @@ import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.xiao.nicevideoplayer.NiceVideoPlayer
@@ -63,11 +64,20 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             holder.tv_comment.text = model.commentNum
             holder.tv_zan.text = model.zanNum
 
-            if (model.isAttention == "0") {// 0未关注 1已关注
-                holder.tv_follow.text = "关注"
-            } else {
-                holder.tv_follow.text = "已关注"
+            if(model.dynamicUid== StaticUtil.uid){
+                holder.tv_follow.visibility=View.INVISIBLE
+            }else{
+                holder.tv_follow.visibility=View.VISIBLE
+                if (model.isAttention == "0") {// 0未关注 1已关注
+                    holder.tv_follow.text = "关注"
+                    holder.tv_follow.visibility=View.VISIBLE
+                } else {
+                    holder.tv_follow.visibility=View.INVISIBLE
+                }
             }
+
+
+
 
             if (model.isZan == "0") {//0未赞过 1已赞过
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
@@ -103,7 +113,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                     } else {
                         holder.ll_image.visibility = View.GONE
                         holder.rv_image.visibility = View.VISIBLE
-                        val imageAdapter = ImageAdapter(context, model.dynamicImgList)
+                        val imageAdapter = ImageAdapter(context, model.dynamicImgList,1)
                         holder.rv_image.adapter = imageAdapter
                     }
                 } else {
@@ -116,7 +126,6 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 holder.player.setUp(model.dynamicVideo, null)
                 val controller = TxVideoPlayerController(context)
                 controller.setTitle("")
-//                controller.setLenght()
 
                 ImageLoader.getInstance().displayImage(model.dynamicImg, controller.imageView())
                 holder.player.setController(controller)
@@ -155,6 +164,12 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             } else {
                 holder.tv_follow.text = "已关注"
             }
+            if(model.userid== StaticUtil.uid){
+                holder.tv_follow.visibility=View.INVISIBLE
+            }else{
+                holder.tv_follow.visibility=View.VISIBLE
+            }
+
 
             if (model.isZan == "0") {//0未赞过 1已赞过
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
@@ -235,12 +250,20 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
         val tv_address = view.findViewById<TextView>(R.id.tv_address)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
 
+
+        //分割线
+        val line = view.findViewById<View>(R.id.line)
+        val line_view = view.findViewById<View>(R.id.line_view)
+
         init {
             cl_1.visibility = View.VISIBLE
             cl_2.visibility = View.GONE
 
             val linearLayoutManager = GridLayoutManager(context, 3)
             rv_image.layoutManager = linearLayoutManager
+
+            line.visibility = View.GONE
+            line_view.visibility = View.VISIBLE
 
             player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer
 

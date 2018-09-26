@@ -45,7 +45,6 @@ class MyMsgAdapter(val context: Context, val list: ArrayList<MsgListModel.msgMod
 
         holder.tv_info.text = model.messageTitle
         holder.tv_time.text = model.messageTime
-
     }
 
 

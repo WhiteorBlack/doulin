@@ -16,11 +16,15 @@ import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
+import com.lixin.amuseadjacent.app.ui.mine.activity.FeedbackActivity
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
+import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.*
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_event_details.*
+import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -38,10 +42,13 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private var eventId = ""// 活动id
 
+    private var imageList = ArrayList<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
+        AndroidBug5497Workaround.assistActivity(this)//底部EditText不能被软键盘顶起
         EventBus.getDefault().register(this)
         init()
     }
@@ -59,12 +66,14 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_sign.setOnClickListener(this)
         iv_signInfo.setOnClickListener(this)
         tv_send.setOnClickListener(this)
+        temp_comment.setOnClickListener(this)
+        pl_header.setOnClickListener(this)
 
-        image.setOnClickListener(this)
+        tv_info.setTextColor(resources.getColor(R.color.black))
 
-        tv_info.setTextColor(resources.getColor(R.color.colorTabText))
-        tv_info.setTextSize(15)
-        tv_info.setTextMaxLine(2)
+        banner.setOnBannerListener { i ->
+            PreviewPhoto.preview(this, imageList, i)
+        }
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -98,13 +107,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
     @Subscribe
     fun onEvent(model: EventDetailsModel) {
         eventModel = model
-        tv_info.setText(model.`object`.activityDesc)
-        if (tv_info.line() >= 2) {
-            iv_open.setOnClickListener(this)
-            iv_open.visibility = View.VISIBLE
-        } else {
-            iv_open.visibility = View.INVISIBLE
-        }
+        tv_info.text = model.`object`.activityDesc
 
         if (model.`object`.activityState == "0") {//0报名中 1进行中 2已结束
             tv_type.text = "活动报名中"
@@ -114,9 +117,10 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_type.text = "活动已结束"
         }
 
-        if (model.`object`.activityImgurl.isNotEmpty()) {
-            ImageLoader.getInstance().displayImage(model.`object`.activityImgurl[0], image)
-        }
+        imageList = model.`object`.activityImgurl
+        banner.setImages(imageList)
+                .setImageLoader(GlideImageLoader())
+                .start()
 
         if (model.`object`.issignup == "0") {// 0未报名 1已报名
             tv_sign.visibility = View.VISIBLE
@@ -171,7 +175,6 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
 
         commentList.addAll(model.commList)
         commentAdapter!!.notifyDataSetChanged()
-
     }
 
 
@@ -191,13 +194,13 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                     }
                 })
             }
-            R.id.tv_send->{
+            R.id.tv_send -> {
                 val content = AbStrUtil.etTostr(et_comment)
                 if (TextUtils.isEmpty(content)) {
                     return
                 }
                 ProgressDialog.showDialog(this)
-                ActivityComment_272829210.comment("0",eventId,"", content, object : ActivityComment_272829210.CommentCallBack {
+                ActivityComment_272829210.comment("0", eventId, "", content, object : ActivityComment_272829210.CommentCallBack {
                     override fun commemt() {
                         et_comment.setText("")
                         val model = ActivityCommentModel1.commModel()
@@ -215,12 +218,13 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             R.id.image -> {
                 PreviewPhoto.preview(this, eventModel.`object`.activityImgurl, 0)
             }
-            R.id.iv_open -> {
-                tv_info.switchs()
-                iv_open.visibility = View.INVISIBLE
+            R.id.temp_comment -> {//评论
+                val bundle = Bundle()
+                bundle.putString("id", eventModel.`object`.activityId)
+                MyApplication.openActivityForResult(this, FeedbackActivity::class.java, bundle, 1)
             }
             R.id.tv_sign -> {//报名
-                if (eventModel.`object`.activityState != "") {
+                if (eventModel.`object`.activityState != "0") {
                     ToastUtil.showToast("报名已结束")
                     return
                 }
@@ -228,7 +232,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 bundle.putString("id", eventId)
                 MyApplication.openActivityForResult(this, EventSginUpActivity::class.java, bundle, 0)
             }
-            R.id.iv_signInfo -> {//报名列表
+            R.id.iv_signInfo, R.id.pl_header -> {//报名列表
                 val bundle = Bundle()
                 bundle.putSerializable("list", eventModel.signList)
                 MyApplication.openActivity(this, EventEnteredActivity::class.java, bundle)
@@ -245,6 +249,20 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         if (requestCode == 0) {//报名成功
             tv_sign.visibility = View.GONE
             rl_3.visibility = View.VISIBLE
+        } else if (requestCode == 1) {//评论
+            val content = data.getStringExtra("content")
+            val model = ActivityCommentModel1.commModel()
+            model.commentContent = content
+            model.commentIcon = StaticUtil.headerUrl
+            model.commentId = ""
+            model.commentName = StaticUtil.nickName
+            model.commentTime = GetDateTimeUtil.getYMDHMS()
+            model.commentUid = StaticUtil.uid
+            model.secondNum = "0"
+            model.zanNum = "0"
+            model.isZan = "0"
+            commentList.add(0, model)
+            commentAdapter!!.notifyDataSetChanged()
         }
     }
 

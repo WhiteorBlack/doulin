@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.lixin.amuseadjacent.R
-import com.lixin.amuseadjacent.app.MyApplication
-import com.lixin.amuseadjacent.app.ui.mine.activity.MyAlbumActivity
 import com.lixin.amuseadjacent.app.util.ImageFileUtil
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil

@@ -89,6 +89,7 @@ class DynamicFragment : BaseFragment() {
             dynaList.clear()
             dynamicAdapter!!.notifyDataSetChanged()
         }
+        nowPage=1
         ProgressDialog.showDialog(activity!!)
         DynamicList_219.dynamic("0", flag, nowPage)
     }
@@ -116,13 +117,11 @@ class DynamicFragment : BaseFragment() {
     }
 
     fun Refresh(){
-        if(flag==1){
-            return
-        }
         if (dynaList.isNotEmpty()) {
             dynaList.clear()
             dynamicAdapter!!.notifyDataSetChanged()
         }
+        nowPage=1
         ProgressDialog.showDialog(activity!!)
         DynamicList_219.dynamic("0", flag, nowPage)
     }

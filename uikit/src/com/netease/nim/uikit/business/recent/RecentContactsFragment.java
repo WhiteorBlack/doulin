@@ -140,7 +140,7 @@ public class RecentContactsFragment extends TFragment {
         // recyclerView
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addOnItemTouchListener(touchListener);
+//        recyclerView.addOnItemTouchListener(touchListener);
 
         // ios style
         OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
@@ -149,12 +149,12 @@ public class RecentContactsFragment extends TFragment {
         DropManager.getInstance().setDropListener(new DropManager.IDropListener() {
             @Override
             public void onDropBegin() {
-                touchListener.setShouldDetectGesture(false);
+//                touchListener.setShouldDetectGesture(false);
             }
 
             @Override
             public void onDropEnd() {
-                touchListener.setShouldDetectGesture(true);
+//                touchListener.setShouldDetectGesture(true);
             }
         });
     }
@@ -172,6 +172,21 @@ public class RecentContactsFragment extends TFragment {
             @Override
             public void onUnreadCountChange(int unreadCount) {
 
+            }
+
+            @Override
+            public void onDeleItem(RecentContact recent, int position) {
+                // 删除会话，删除后，消息历史被一起删除
+                NIMClient.getService(MsgService.class).deleteRecentContact(recent);
+                NIMClient.getService(MsgService.class).clearChattingHistory(recent.getContactId(), recent.getSessionType());
+                adapter.remove(position);
+
+                postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshMessages(true);
+                    }
+                });
             }
 
             @Override
@@ -194,31 +209,30 @@ public class RecentContactsFragment extends TFragment {
             }
         };
     }
-
-    private SimpleClickListener<RecentContactAdapter> touchListener = new SimpleClickListener<RecentContactAdapter>() {
-        @Override
-        public void onItemClick(RecentContactAdapter adapter, View view, int position) {
-            if (callback != null) {
-                RecentContact recent = adapter.getItem(position);
-                callback.onItemClick(recent);
-            }
-        }
-
-        @Override
-        public void onItemLongClick(RecentContactAdapter adapter, View view, int position) {
-            showLongClickMenu(adapter.getItem(position), position);
-        }
-
-        @Override
-        public void onItemChildClick(RecentContactAdapter adapter, View view, int position) {
-
-        }
-
-        @Override
-        public void onItemChildLongClick(RecentContactAdapter adapter, View view, int position) {
-
-        }
-    };
+//
+//    private SimpleClickListener<RecentContactAdapter> touchListener = new SimpleClickListener<RecentContactAdapter>() {
+//        @Override
+//        public void onItemClick(RecentContactAdapter adapter, View view, int position) {
+//            if (callback != null) {
+//                RecentContact recent = adapter.getItem(position);
+//                callback.onItemClick(recent);
+//            }
+//        }
+//
+//        @Override
+//        public void onItemLongClick(RecentContactAdapter adapter, View view, int position) {
+//        }
+//
+//        @Override
+//        public void onItemChildClick(RecentContactAdapter adapter, View view, int position) {
+//
+//        }
+//
+//        @Override
+//        public void onItemChildLongClick(RecentContactAdapter adapter, View view, int position) {
+//
+//        }
+//    };
 
     OnlineStateChangeObserver onlineStateChangeObserver = new OnlineStateChangeObserver() {
         @Override

@@ -87,7 +87,15 @@ class TalentFragment : BaseFragment() {
     }
 
     @Subscribe
+    fun onEvent(onRefresh: Boolean) {
+        xrecyclerview.setPullRefreshEnabled(onRefresh)
+    }
+
+    @Subscribe
     fun onEvent(model: TalentModel) {
+        if (!isVisibleToUser) {
+            return
+        }
         talentList.addAll(model.dataList)
 
         totalPage = model.totalPage

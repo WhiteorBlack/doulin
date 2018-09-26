@@ -22,6 +22,7 @@ import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -59,11 +60,19 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
         holder.tv_comment.text = model.commentNum
         holder.tv_zan.text = model.zanNum
 
-        if (model.isAttention == "0") {// 0未关注 1已关注
-            holder.tv_follow.text = "关注"
-        } else {
-            holder.tv_follow.text = "已关注"
+        if(model.dynamicUid==StaticUtil.uid){
+            holder.tv_follow.visibility=View.INVISIBLE
+        }else{
+            holder.tv_follow.visibility=View.VISIBLE
+            if (model.isAttention == "0") {// 0未关注 1已关注
+                holder.tv_follow.text = "关注"
+                holder.tv_follow.visibility=View.VISIBLE
+            } else {
+                holder.tv_follow.text = "已关注"
+                holder.tv_follow.visibility=View.INVISIBLE
+            }
         }
+
 
         if (model.isZan == "0") {//0未赞过 1已赞过
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
@@ -99,7 +108,7 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
                 } else {
                     holder.ll_image.visibility = View.GONE
                     holder.rv_image.visibility = View.VISIBLE
-                    val imageAdapter = ImageAdapter(context, model.dynamicImgList)
+                    val imageAdapter = ImageAdapter(context, model.dynamicImgList,1)
                     holder.rv_image.adapter = imageAdapter
                 }
             } else {

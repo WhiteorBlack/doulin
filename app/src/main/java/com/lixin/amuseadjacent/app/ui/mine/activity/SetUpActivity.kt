@@ -82,9 +82,12 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
                 sp.edit().putString(SharedPreferencesUtil.Phone, "")
                         .putString(SharedPreferencesUtil.Pass, "")
                         .putString(SharedPreferencesUtil.uid, "")
+                        .putString(SharedPreferencesUtil.communityName, "")
+                        .putString(SharedPreferencesUtil.communityId, "")
                         .commit()
-                finish()
-//                MainActivity().destroy()
+                StaticUtil.uid = ""
+                StaticUtil.communityId = ""
+                AppManager.finishAllActivity()
                 MyApplication.openActivity(this, SginInActivity::class.java)
             }
             R.id.tv_updata -> {

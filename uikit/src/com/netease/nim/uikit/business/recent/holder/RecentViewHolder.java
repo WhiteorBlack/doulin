@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.netease.nim.uikit.R;
@@ -60,16 +61,19 @@ public abstract class RecentViewHolder extends RecyclerViewHolder<BaseQuickAdapt
 
     protected TextView tvOnlineState;
 
+    protected TextView tv_del;
+    protected RelativeLayout rl_item;
+
     // 子类覆写
     protected abstract String getContent(RecentContact recent);
 
     @Override
     public void convert(BaseViewHolder holder, RecentContact data, int position, boolean isScrolling) {
-        inflate(holder, data);
+        inflate(holder, data, position);
         refresh(holder, data, position);
     }
 
-    public void inflate(BaseViewHolder holder, final RecentContact recent) {
+    public void inflate(BaseViewHolder holder, final RecentContact recent, final int position) {
         this.portraitPanel = holder.getView(R.id.portrait_panel);
         this.imgHead = holder.getView(R.id.img_head);
         this.tvNickname = holder.getView(R.id.tv_nickname);
@@ -81,6 +85,23 @@ public abstract class RecentViewHolder extends RecyclerViewHolder<BaseQuickAdapt
         this.bottomLine = holder.getView(R.id.bottom_line);
         this.topLine = holder.getView(R.id.top_line);
         this.tvOnlineState = holder.getView(R.id.tv_online_state);
+        this.tv_del = holder.getView(R.id.tv_del);
+        this.rl_item = holder.getView(R.id.rl_item);
+
+        rl_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCallback().onItemClick(recent);
+            }
+        });
+
+        tv_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCallback().onDeleItem(recent, position);
+            }
+        });
+
         holder.addOnClickListener(R.id.unread_number_tip);
 
         this.tvUnread.setTouchListener(new DropFake.ITouchListener() {
@@ -173,11 +194,11 @@ public abstract class RecentViewHolder extends RecyclerViewHolder<BaseQuickAdapt
         switch (status) {
             case fail:
                 imgMsgStatus.setImageResource(R.drawable.nim_g_ic_failed_small);
-                imgMsgStatus.setVisibility(View.VISIBLE);
+                imgMsgStatus.setVisibility(View.GONE);
                 break;
             case sending:
                 imgMsgStatus.setImageResource(R.drawable.nim_recent_contact_ic_sending);
-                imgMsgStatus.setVisibility(View.VISIBLE);
+                imgMsgStatus.setVisibility(View.GONE);
                 break;
             default:
                 imgMsgStatus.setVisibility(View.GONE);

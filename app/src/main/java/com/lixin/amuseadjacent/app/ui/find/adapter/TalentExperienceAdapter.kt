@@ -45,7 +45,7 @@ class TalentExperienceAdapter(val context: Activity, val talentExpList: ArrayLis
         holder.tv_info.text = model.content
         holder.tv_time.text = model.startTime + "～" + model.endTime
 
-        val adapter = ImageAdapter(context, model.imgurl)
+        val adapter = ImageAdapter(context, model.imgurl,0)
         holder.rv_image.adapter = adapter
 
         holder.iv_del.setOnClickListener { v ->

@@ -65,6 +65,7 @@ public class MyApplication extends MultiDexApplication {
         StaticUtil.INSTANCE.setCommunityId(sp.getString(SharedPreferencesUtil.communityId, ""));
         StaticUtil.INSTANCE.setHeaderUrl(sp.getString(SharedPreferencesUtil.headerUrl, ""));
         StaticUtil.INSTANCE.setNickName(sp.getString(SharedPreferencesUtil.nickName, ""));
+        StaticUtil.INSTANCE.setCommunityName(sp.getString(SharedPreferencesUtil.communityName, ""));
 
         abLog.INSTANCE.setE(true);
 //        JPushInterface.init(this);
@@ -84,6 +85,9 @@ public class MyApplication extends MultiDexApplication {
         SDKInitializer.initialize(this);
 
         initTBS();
+
+//        CrashHandler catchExcep = new CrashHandler(this);
+//        Thread.setDefaultUncaughtExceptionHandler(catchExcep);
     }
 
 
@@ -102,7 +106,8 @@ public class MyApplication extends MultiDexApplication {
             }
 
             @Override
-            public void onCoreInitFinished() {}
+            public void onCoreInitFinished() {
+            }
         };
         //x5内核初始化接口
         QbSdk.initX5Environment(getApplicationContext(), cb);

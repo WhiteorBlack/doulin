@@ -61,7 +61,7 @@ public class PickImageHelper {
         }
 
         CustomAlertDialog dialog = new CustomAlertDialog(context);
-        dialog.setTitle(option.titleResId);
+//        dialog.setTitle(option.titleResId);
 
         dialog.addItem(context.getString(R.string.input_panel_take), new CustomAlertDialog.onSeparateItemClickListener() {
             @Override

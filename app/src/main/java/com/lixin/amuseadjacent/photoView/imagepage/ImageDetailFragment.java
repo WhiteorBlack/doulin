@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.photoView.imagepage;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.lixin.amuseadjacent.R;
 import com.lixin.amuseadjacent.photoView.PhotoViewAttacher;
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -68,7 +70,7 @@ public class ImageDetailFragment extends Fragment {
 				String message = null;
 				switch (failReason.getType()) {
 				case IO_ERROR:
-					message = "下载错误";
+					message = " ";
 					break;
 				case DECODING_ERROR:
 					message = "图片无法显示";
@@ -83,7 +85,9 @@ public class ImageDetailFragment extends Fragment {
 					message = "未知的错误";
 					break;
 				}
-				Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+				if(!TextUtils.isEmpty(message)){
+					ToastUtil.INSTANCE.showToast(message);
+				}
 				progressBar.setVisibility(View.GONE);
 			}
 

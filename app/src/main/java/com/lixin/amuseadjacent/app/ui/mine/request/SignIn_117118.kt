@@ -43,7 +43,7 @@ object SignIn_117118 {
                 super.onResponse(response, id)
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
-                    sginCallBack.sginScore(obj.getString("score"))
+                    sginCallBack.sginScore(obj.getString("effectNum"))
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }
