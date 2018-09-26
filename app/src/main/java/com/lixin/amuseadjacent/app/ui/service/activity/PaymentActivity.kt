@@ -151,8 +151,10 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
                 ProgressDialog.showDialog(this)
                 BalancePay_154.pay(oderNum, payMoney, object : BalancePay_154.BalancePayCallBack {
                     override fun pay() {
+                        val bundle=Bundle()
+                        bundle.putString("orderNum",oderNum)
+                        MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java,bundle)
                         finish()
-                        MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java)
                     }
                 })
             }

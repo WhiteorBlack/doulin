@@ -90,7 +90,7 @@ object Talent212_218225 {
                 super.onResponse(response, id)
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
-                    ToastUtil.showToast("达人认证申请成功，正在审核中")
+                    ToastUtil.showToast("达人认证成功")
                     applyTalenCallBack.Apply()
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))

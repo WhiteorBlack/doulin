@@ -105,9 +105,9 @@ class TalentTypeActivity : BaseActivity() {
                     R.layout.layout_flow_talent_type, fl_business, false) as TextView
             tv.text = mode.labelList3[i].labelName
             tv.setOnClickListener {
-                cleanTextColor3()
                 cleanTextColor1()
                 cleanTextColor2()
+                cleanTextColor3()
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_them3)
 
@@ -122,21 +122,21 @@ class TalentTypeActivity : BaseActivity() {
 
 
     private fun cleanTextColor1() {
-        for (i in skillTvList.indices) {
+        for (i in 0 until skillTvList.size) {
             skillTvList[i].setTextColor(Color.parseColor("#ff333333"))
             skillTvList[i].setBackgroundResource(R.drawable.bg_gray3)
         }
     }
 
     private fun cleanTextColor2() {
-        for (i in skillTvList.indices) {
+        for (i in 0 until occupationTvList.size) {
             occupationTvList[i].setTextColor(Color.parseColor("#ff333333"))
             occupationTvList[i].setBackgroundResource(R.drawable.bg_gray3)
         }
     }
 
     private fun cleanTextColor3() {
-        for (i in skillTvList.indices) {
+        for (i in 0 until businessTvList.size) {
             businessTvList[i].setTextColor(Color.parseColor("#ff333333"))
             businessTvList[i].setBackgroundResource(R.drawable.bg_gray3)
         }

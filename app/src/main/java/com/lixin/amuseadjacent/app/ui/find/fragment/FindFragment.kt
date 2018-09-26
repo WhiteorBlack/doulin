@@ -2,12 +2,11 @@ package com.lixin.amuseadjacent.app.ui.find.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
@@ -24,6 +23,7 @@ import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.nostra13.universalimageloader.core.ImageLoader
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.fragment_find.*
 import kotlinx.android.synthetic.main.header_find.*
@@ -48,8 +48,6 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     private var banner: Banner? = null
     private var bannerUrl = ""
-
-    private var isfirst=true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_find, container, false)
@@ -91,7 +89,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", bannerUrl)
-            MyApplication.openActivity(activity!!, WebViewActivity::class.java,bundle)
+            MyApplication.openActivity(activity!!, WebViewActivity::class.java, bundle)
         }
 
     }
@@ -109,7 +107,6 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         headerView = LayoutInflater.from(activity).inflate(R.layout.header_find, null, false)//头布局
         headerView!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
 
         headerView!!.findViewById<ImageView>(R.id.iv_talent).setOnClickListener(this)
         headerView!!.findViewById<TextView>(R.id.tv_talent).setOnClickListener(this)
@@ -154,12 +151,17 @@ class FindFragment : BaseFragment(), View.OnClickListener {
                 ImageLoader.getInstance().displayImage(model.redmanList[2].userImg, header3, ImageLoaderUtil.HeaderDIO())
             }
         }
-        tv_participate.text = model.theme.themeTitle
-        tv_participate.setOnClickListener { v ->
-            val bundle = Bundle()
-            bundle.putString("url", model.theme.themeDetailUrl)
-            bundle.putString("title", model.theme.themeTitle)
-            MyApplication.openActivity(activity!!, WebViewActivity::class.java,bundle)
+        if (TextUtils.isEmpty(model.theme.themeTitle)) {
+            jingxuna.visibility=View.GONE
+            tv_participate.visibility=View.GONE
+        }else{
+            tv_participate.text = model.theme.themeTitle
+            tv_participate.setOnClickListener { v ->
+                val bundle = Bundle()
+                bundle.putString("url", model.theme.themeDetailUrl)
+                bundle.putString("title", model.theme.themeTitle)
+                MyApplication.openActivity(activity!!, WebViewActivity::class.java, bundle)
+            }
         }
 
         if (findList.isNotEmpty()) {
@@ -199,6 +201,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
     override fun onPause() {
         super.onPause()
         findadapter!!.stopPlay()
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
     }
 
     override fun onDestroy() {

@@ -51,7 +51,6 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
         StatusBarWhiteColor()
         inittitle("活动发布")
 
-
         val linearLayoutManager = GridLayoutManager(this, 3)
 
         rv_album.layoutManager = linearLayoutManager

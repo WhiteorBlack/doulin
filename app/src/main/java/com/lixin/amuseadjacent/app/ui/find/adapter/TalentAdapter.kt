@@ -15,6 +15,7 @@ import com.lixin.amuseadjacent.app.ui.find.model.TalentModel
 import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import com.netease.nim.uikit.api.NimUIKit
 import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
@@ -49,7 +50,7 @@ class TalentAdapter(val context: Context, val talentList: ArrayList<TalentModel.
         }
 
         holder.tv_dialogue.setOnClickListener { v ->
-            ToastUtil.showToast("对话")
+            NimUIKit.startP2PSession(context, model.userId)
         }
         holder.itemView.setOnClickListener { v ->
             val bundle = Bundle()

@@ -44,7 +44,7 @@ class SearchActivity : BaseActivity() {
 
     private fun initRecycler_view(){
         adapter = SearchChatAdapter(this)
-        recycle_view.setLayoutManager(LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false))
+        recycle_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recycle_view.adapter = adapter
         adapter!!.setOnClickListener(object: SearchChatAdapter.OnItemClickListener{
             override fun itemClick(account: String) {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.RedManAdapter
@@ -15,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.find.model.RedmanModel
 import com.lixin.amuseadjacent.app.ui.find.request.Redman_211
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.fragment_redman_list.*
@@ -60,10 +62,8 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
     }
 
     private fun init() {
-
         linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager!!.orientation = LinearLayoutManager.VERTICAL
-
     }
 
     @Subscribe
@@ -94,10 +94,17 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
         tv_name_center.text = model.userName
         tv_effect_center.text = "影响力" + model.userEffectNum
 
-        if (model.isAttention == "0") {// 0未关注 1已关注
-            tv_follow_center.text = "+ 关注"
-        } else {
-            tv_follow_center.text = "已关注"
+        if (model.userId == StaticUtil.uid) {
+            tv_follow_center.visibility = View.INVISIBLE
+        }else{
+            tv_follow_center.visibility = View.VISIBLE
+            if (model.isAttention == "0") {// 0未关注 1已关注
+                tv_follow_center.text = "+ 关注"
+                tv_follow_center.visibility = View.VISIBLE
+            } else {
+                tv_follow_center.text = "已关注"
+                tv_follow_center.visibility = View.INVISIBLE
+            }
         }
     }
 

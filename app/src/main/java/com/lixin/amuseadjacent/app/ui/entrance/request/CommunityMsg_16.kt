@@ -32,7 +32,7 @@ object CommunityMsg_16 {
     /**
      * sex 0女 1男
      * */
-    fun communitMsg(context: Activity, nickname: String, icon: Bitmap, sex: Int, birthday: String, model: UnityModel.unitModel) {
+    fun communitMsg(context: Activity, nickname: String, icon: Bitmap, sex: Int, birthday: String, model: UnityModel.unitModel,communityName:String) {
         ProgressDialog.showDialog(context)
         val json = "{\"cmd\":\"addCommunityMessage\",\"uid\":\"" + StaticUtil.uid + "\",\"nickname\":\"" + nickname +
                 "\",\"icon\":\"" + ImageFileUtil.bitmaptoString(icon) + "\",\"sex\":\"" + sex +
@@ -68,8 +68,10 @@ object CommunityMsg_16 {
                     })
 
                     StaticUtil.communityId = model.communityId
-
-
+                    StaticUtil.communityName = communityName
+                    val sp = context.getSharedPreferences(SharedPreferencesUtil.NAME, 0)
+                    sp.edit().putString(SharedPreferencesUtil.communityId, StaticUtil.communityId)
+                            .putString(SharedPreferencesUtil.communityName, StaticUtil.communityName).commit()
                     MyApplication.openActivity(context, MainActivity::class.java)
                     context.finish()
                     AppManager.finishAllActivity()

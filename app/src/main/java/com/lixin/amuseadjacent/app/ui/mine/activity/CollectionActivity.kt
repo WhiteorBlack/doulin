@@ -3,12 +3,14 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.animation.AnimationUtils
+import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.CollectionAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.CollectModel
 import com.lixin.amuseadjacent.app.ui.mine.request.CollectList_123
+import kotlinx.android.synthetic.main.activity_order_details.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -43,6 +45,28 @@ class CollectionActivity : BaseActivity() {
 
         collectionAdapter = CollectionAdapter(this, collectList)
         xrecyclerview.adapter = collectionAdapter
+
+        xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onRefresh() {
+                onRefresh = 1
+                nowPage = 1
+                if (collectList.isNotEmpty()) {
+                    collectList.clear()
+                    collectionAdapter!!.notifyDataSetChanged()
+                }
+                CollectList_123.collect(nowPage)
+            }
+
+            override fun onLoadMore() {
+                nowPage++
+                if (nowPage>=totalPage) {
+                    xrecyclerview.noMoreLoading()
+                    return
+                }
+                onRefresh = 2
+                CollectList_123.collect(nowPage)
+            }
+        })
 
         ProgressDialog.showDialog(this)
         CollectList_123.collect(nowPage)

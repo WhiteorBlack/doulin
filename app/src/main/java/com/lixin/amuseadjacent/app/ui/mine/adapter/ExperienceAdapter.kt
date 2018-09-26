@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.find.model.TalenExperienceModel
+import com.lixin.amuseadjacent.app.util.PreviewPhoto
 import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
@@ -36,7 +37,7 @@ class ExperienceAdapter(val context: Context, val talentExpList: ArrayList<Talen
         val model = talentExpList[position]
 
         holder.tv_title.text = model.title
-        holder.tv_info.text = model.userDesc
+        holder.tv_info.text = model.content
         holder.tv_time.text = model.startTime + "-" + model.endTime
 
         if (model.imgurl.size == 1) {
@@ -44,25 +45,36 @@ class ExperienceAdapter(val context: Context, val talentExpList: ArrayList<Talen
             holder.ll_image.visibility = View.VISIBLE
             holder.image0.visibility = View.VISIBLE
 
-            holder.image0.visibility = View.GONE
-            holder.image0.visibility = View.GONE
+            holder.image0.setOnClickListener { v ->
+                PreviewPhoto.preview(context, model.imgurl, 0)
+            }
+
+            holder.image1.visibility = View.GONE
+            holder.image2.visibility = View.GONE
 
             ImageLoader.getInstance().displayImage(model.imgurl[0], holder.image0)
 
-        } else if (model.imgurl.size == 1) {
+        } else if (model.imgurl.size == 2) {
             holder.rv_image.visibility = View.GONE
             holder.ll_image.visibility = View.VISIBLE
             holder.image0.visibility = View.GONE
 
-            holder.image0.visibility = View.VISIBLE
-            holder.image0.visibility = View.VISIBLE
+            holder.image1.visibility = View.VISIBLE
+            holder.image2.visibility = View.VISIBLE
+
+            holder.image0.setOnClickListener { v ->
+                PreviewPhoto.preview(context, model.imgurl, 0)
+            }
+            holder.image1.setOnClickListener { v ->
+                PreviewPhoto.preview(context, model.imgurl, 1)
+            }
 
             ImageLoader.getInstance().displayImage(model.imgurl[0], holder.image1)
             ImageLoader.getInstance().displayImage(model.imgurl[1], holder.image2)
         } else {
             holder.rv_image.visibility = View.VISIBLE
             holder.ll_image.visibility = View.GONE
-            val imageAdapter = ImageAdapter(context, model.imgurl)
+            val imageAdapter = ImageAdapter(context, model.imgurl, 0)
             holder.rv_image.adapter = imageAdapter
         }
 

@@ -32,7 +32,7 @@ class CouponMyActivity : BaseActivity() {
         val type = intent.getIntExtra("type", 0)//type1 选择优惠券
 
         tv_right.visibility = View.VISIBLE
-        tv_right.text = "优惠券说明"
+        tv_right.text = "使用说明"
         tv_right.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putInt("flag", 0)

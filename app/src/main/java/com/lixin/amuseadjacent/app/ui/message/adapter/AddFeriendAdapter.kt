@@ -14,6 +14,7 @@ import com.lixin.amuseadjacent.app.ui.message.model.CommunityUserModel
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.AbStrUtil
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 
@@ -49,13 +50,19 @@ class AddFeriendAdapter(val context: Activity, val userList: ArrayList<Community
 
         holder.tv_constellation.text = model.constellation
 
-        if (model.isAttention == "0") {//0未关注 1已关注
-            holder.tv_follow.text = "关注"
-            AbStrUtil.setDrawableLeft(context, R.drawable.ic_add, holder.tv_follow, 5)
-        } else {
-            holder.tv_follow.text = "已关注"
-            AbStrUtil.setDrawableLeft(context, -1, holder.tv_follow, 5)
+        if(model.userId==StaticUtil.uid){
+            holder.tv_follow.visibility=View.INVISIBLE
+        }else{
+            if (model.isAttention == "0") {//0未关注 1已关注
+                holder.tv_follow.text = "关注"
+                AbStrUtil.setDrawableLeft(context, R.drawable.ic_add, holder.tv_follow, 5)
+            } else {
+                holder.tv_follow.text = "已关注"
+                AbStrUtil.setDrawableLeft(context, -1, holder.tv_follow, 5)
+                holder.tv_follow.visibility=View.INVISIBLE
+            }
         }
+
 
         holder.tv_follow.setOnClickListener { v ->
             ProgressDialog.showDialog(context)

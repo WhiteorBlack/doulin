@@ -5,17 +5,19 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.FindFragment
 import com.lixin.amuseadjacent.app.ui.message.fragment.MessageFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.MineFragment
 import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  *
  * */
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private var mFragment = Fragment()
     private var bFragment1: MessageFragment? = null
@@ -35,18 +37,17 @@ class MainActivity : AppCompatActivity() {
         switchFragment(bFragment1!!)
 
         RadioG_Bottem.setOnCheckedChangeListener { radioGroup, i -> selectStyle(i) }
-
     }
 
 
     //根据具体点击切换显示对应fragment
     private fun selectStyle(ID: Int) {
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
         when (ID) {
             R.id.tab_1 -> {
                 if (Build.VERSION.SDK_INT > 19) {
                     StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.white))
                 }
-
                 bFragment1 = MessageFragment()
                 switchFragment(bFragment1!!)
             }

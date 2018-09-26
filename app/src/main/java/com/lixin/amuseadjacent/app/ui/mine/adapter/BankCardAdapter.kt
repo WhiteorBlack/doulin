@@ -1,27 +1,20 @@
 package com.lixin.amuseadjacent.app.ui.mine.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.widget.TextViewCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.activity.BankCardAddActivity
 import com.lixin.amuseadjacent.app.ui.mine.model.MyBankModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Bank_155156157158164
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
-import kotlinx.android.synthetic.main.xrecyclerview.*
-import org.greenrobot.eventbus.EventBus
 
 /**
  * 银行卡
@@ -84,7 +77,6 @@ class BankCardAdapter(val context: Activity, val bankList: ArrayList<MyBankModel
 
         val tv_del = view.findViewById<TextView>(R.id.tv_del)
 
-        val line = view.findViewById<View>(R.id.line)
     }
 
 }

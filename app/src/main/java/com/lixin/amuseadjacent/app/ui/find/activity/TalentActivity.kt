@@ -1,8 +1,10 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
 import android.view.View
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -77,6 +79,15 @@ class TalentActivity : BaseActivity() {
             bundle.putString("url", url)
             MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
         }
+
+        appbar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (verticalOffset >= 0) {
+                EventBus.getDefault().post(true)
+            } else {
+                EventBus.getDefault().post(false)
+            }
+        }
+
     }
 
 

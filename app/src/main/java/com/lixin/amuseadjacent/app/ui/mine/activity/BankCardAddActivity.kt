@@ -47,7 +47,6 @@ class BankCardAddActivity : BaseActivity() {
 
         flag = intent.getIntExtra("flag", 0)
 
-
         spinnerAdapter = ArrayAdapter(this@BankCardAddActivity,
                 R.layout.item_spinner_text, spinnerItems)
         sp_bank.adapter = spinnerAdapter

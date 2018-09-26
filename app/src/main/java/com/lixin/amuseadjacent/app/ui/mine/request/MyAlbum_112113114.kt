@@ -62,7 +62,7 @@ object MyAlbum_112113114 {
                         val obj = JSONObject(response)
                         if (obj.getString("result") == "0") {
                             ToastUtil.showToast("上传成功")
-                            setHeaderImage(imageList[0].pictureType, context, imageList)//设置第一张为头像
+//                            setHeaderImage(imageList[0].pictureType, context, imageList)//设置第一张为头像
                         } else {
                             ToastUtil.showToast(obj.getString("resultNote"))
                         }
@@ -71,22 +71,20 @@ object MyAlbum_112113114 {
     }
 
 
-    fun setHeaderImage(imgId: String, context: Activity, imageList: ArrayList<LocalMedia>) {
+    interface HeaderImageCallBack{
+        fun headerIcon(iconUrl:String)
+    }
+
+    //设置为头像
+    fun setHeaderImage(imgId: String, headerImageCallBack: HeaderImageCallBack) {
         val json = "{\"cmd\":\"addImageIcon\",\"uid\":\"" + StaticUtil.uid + "\",\"imgId\":\"" + imgId + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
-                    StaticUtil.headerUrl=obj.getString("object")
-
-                    val bundle = Bundle()
-                    bundle.putParcelableArrayList("LocalMedia", imageList)
-                    val intent = Intent()
-                    intent.putExtras(bundle)
-                    context.setResult(0, intent)
-                    context.finish()
-                    abLog.e("设置为头像", response)
+                    StaticUtil.headerUrl = obj.getString("object")
+                    headerImageCallBack.headerIcon(StaticUtil.headerUrl)
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }

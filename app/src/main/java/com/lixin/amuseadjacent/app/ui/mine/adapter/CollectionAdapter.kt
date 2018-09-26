@@ -1,7 +1,11 @@
 package com.lixin.amuseadjacent.app.ui.mine.adapter
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.media.Image
+import android.net.Uri
+import android.provider.Settings
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -12,6 +16,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.mine.model.CollectModel
 import com.nostra13.universalimageloader.core.ImageLoader
 
@@ -33,20 +38,18 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = collectList[position]
-
-
-
+        var id = ""
         if (model.type == "0") {//帮帮
             holder.cl_1.visibility = View.VISIBLE
             holder.cl_2.visibility = View.GONE
             holder.tv_type2.text = "帮帮收藏"
 
+            id = model.bangbangId
+
             if (!TextUtils.isEmpty(model.bangbangVideoUrl)) {//视频
                 holder.image0.visibility = View.GONE
                 holder.ll_image.visibility = View.GONE
                 holder.rv_image.visibility = View.GONE
-
-
             } else {
                 if (model.bangbangImgUrl.size == 0) {
                     holder.image0.visibility = View.GONE
@@ -69,7 +72,7 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
                     holder.rv_image.visibility = View.VISIBLE
                     holder.image0.visibility = View.GONE
 
-                    val imageAdapter = ImageAdapter(context, model.bangbangImgUrl)
+                    val imageAdapter = ImageAdapter(context, model.bangbangImgUrl, 1)
                     holder.rv_image.adapter = imageAdapter
                 }
             }
@@ -77,6 +80,8 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
             holder.cl_1.visibility = View.GONE
             holder.cl_2.visibility = View.VISIBLE
             holder.tv_type2.text = "活动收藏"
+
+            id = model.activityId
 
             ImageLoader.getInstance().displayImage(model.activityImg, holder.iv_image)
             holder.tv_name.text = model.activityName
@@ -93,6 +98,27 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
             holder.tv_num.text = "人数：" + model.activityNownum
         }
 
+        holder.iv_del.setOnClickListener { v ->
+            dialog(model.type, id, position)////0帮帮 1活动
+        }
+
+    }
+
+    fun dialog(type: String, id: String, i: Int) {
+        val dialog = AlertDialog.Builder(context)
+//        dialog.setTitle("确定删除收藏？")
+        dialog.setMessage("确定删除收藏？")
+        dialog.setPositiveButton("确定"
+        ) { arg0, arg1 ->
+            Event_221222223224.EventCollect(type, id, object : Event_221222223224.CollectCallBack {
+                override fun collect() {
+                    collectList.removeAt(i)
+                    dialog.show()
+                }
+            })
+        }
+        dialog.setNegativeButton("取消") { arg0, arg1 -> }
+        dialog.show()
     }
 
 
@@ -101,11 +127,10 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
         val cl_2 = view.findViewById<View>(R.id.cl_2)//帮帮
 
         val line2 = view.findViewById<View>(R.id.line2)
-        val line = view.findViewById<View>(R.id.line)
+        val line1 = view.findViewById<View>(R.id.line1)
 
         val tv_type2 = view.findViewById<TextView>(R.id.tv_type2)
         val iv_del = view.findViewById<ImageView>(R.id.iv_del)
-
 
         //活动
         val iv_image = view.findViewById<ImageView>(R.id.iv_image)
@@ -127,10 +152,9 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
 
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
 
-
         init {
             line2.visibility = View.GONE
-            line.visibility = View.VISIBLE
+            line1.visibility = View.VISIBLE
 
             tv_type2.visibility = View.VISIBLE
             iv_del.visibility = View.VISIBLE

@@ -62,7 +62,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
                     holder.ll_image.visibility = View.GONE
                     holder.rv_image.visibility = View.VISIBLE
 
-                    val imageAdapter = ImageAdapter(context, model.bangbangImgUrl)
+                    val imageAdapter = ImageAdapter(context, model.bangbangImgUrl,1)
                     holder.rv_image.adapter = imageAdapter
                 }
             } else {

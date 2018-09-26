@@ -80,7 +80,7 @@ class MyAlbumActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback {
             }
 
             if (num != imageList.size) {//有删除照片
-                MyAlbum_112113114.setHeaderImage(imageList[0].pictureType, this, imageList)
+//                MyAlbum_112113114.setHeaderImage(imageList[0].pictureType, this, imageList)
             }
 
         }

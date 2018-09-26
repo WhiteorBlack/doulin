@@ -16,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.message.adapter.MyMsgAdapter
 import com.lixin.amuseadjacent.app.ui.message.model.MsgListModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -40,6 +41,7 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        tv_title.text=StaticUtil.communityName
 
         iv_mail.setOnClickListener(this)
         iv_add.setOnClickListener(this)

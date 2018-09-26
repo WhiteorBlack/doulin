@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.message.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.TextView
 import cn.bingoogolapple.badgeview.BGABadgeTextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.message.model.CommentNewModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -35,6 +37,25 @@ class CommentNewsAdapter(val context: Context, val commentList: ArrayList<Commen
 
         holder.tex2.text = model.messageTitle
         holder.tv_time.text = model.messageTime
+
+        holder.tv_see.setOnClickListener { v ->
+            if (model.state == "1") {//已经隐藏
+                ToastUtil.showToast("回复找不到了")
+            } else {
+                val bundle = Bundle()
+
+                if (model.type == "1") {
+//                    bundle.putString("")
+//                    MyApplication.openActivity(context, DynamicDetailsActivity::class.java,bundle)
+
+                } else if (model.type == "2") {
+
+                } else if (model.type == "3") {
+
+                }
+            }
+
+        }
 
         holder.tv_del.setOnClickListener { v ->
             MsgList_21.delMsg(model.messageId, "2", object : MsgList_21.DelMsgCallBack {

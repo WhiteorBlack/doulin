@@ -7,6 +7,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.lixin.amuseadjacent.zxing.encoding.EncodingHandler
 import com.netease.nim.uikit.common.media.picker.adapter.PickerAlbumAdapter
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_code_my.*
@@ -30,12 +31,18 @@ class MyQRActivity : BaseActivity() {
         }
 
         ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
-        tv_name.text=StaticUtil.nickName
-        tv_uid.text=StaticUtil.uid
+        tv_name.text = StaticUtil.nickName
+        tv_uid.text = StaticUtil.uid
+
+        val contents = String( StaticUtil.uid.toByteArray(charset("UTF-8")), charset("ISO-8859-1"))
+        val mBitmap = EncodingHandler.createQRCode(contents, 500)
+        iv_code.setImageBitmap(mBitmap)
 
         iv_back.setOnClickListener { v ->
             finish()
         }
     }
+
+
 
 }

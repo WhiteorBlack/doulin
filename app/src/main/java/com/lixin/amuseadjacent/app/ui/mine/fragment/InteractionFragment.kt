@@ -51,7 +51,7 @@ class InteractionFragment : BaseFragment() {
 
         xrecyclerview.layoutManager = linearLayoutManager
 
-        interactionAdapter = InteractionAdapter(activity!!,auid,interactionList)
+        interactionAdapter = InteractionAdapter(activity!!, auid, interactionList)
         xrecyclerview.adapter = interactionAdapter
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
@@ -60,6 +60,7 @@ class InteractionFragment : BaseFragment() {
                     interactionList.clear()
                     interactionAdapter!!.notifyDataSetChanged()
                 }
+                nowPage = 1
                 onRefresh = 1
                 Myinteraction_161162.Interaction(nowPage, auid)
             }

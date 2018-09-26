@@ -73,9 +73,6 @@ class SpecialAreaActivity : BaseActivity() {
         specialAdapter = SpecialAdapter(this, specialList)
         rv_event.adapter = specialAdapter
 
-        if(specialList.isEmpty()){
-            rv_event.setNullDataFragment(this)
-        }
 
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
         rv_event.layoutAnimation = controller

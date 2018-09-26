@@ -103,7 +103,6 @@ class DynamicDetailsReplyActivity : BaseActivity() {
 
     @Subscribe
     fun onEvent(model: ActivityCommentModel1) {
-
         commentList.addAll(model.dataList)
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
         rv_reply.layoutAnimation = controller

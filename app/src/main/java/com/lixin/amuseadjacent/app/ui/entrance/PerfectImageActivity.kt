@@ -34,6 +34,8 @@ class PerfectImageActivity : BaseActivity(), View.OnClickListener, DatePop.Wheel
 
     private var headerBitmap: Bitmap? = null
 
+    private var communityName=""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfect_image)
@@ -106,7 +108,7 @@ class PerfectImageActivity : BaseActivity(), View.OnClickListener, DatePop.Wheel
                     ToastUtil.showToast("请选择您的社区")
                     return
                 }
-                CommunityMsg_16.communitMsg(this, name, headerBitmap!!, sex, age, commModel)
+                CommunityMsg_16.communitMsg(this, name, headerBitmap!!, sex, age, commModel,communityName)
             }
         }
     }
@@ -152,6 +154,7 @@ class PerfectImageActivity : BaseActivity(), View.OnClickListener, DatePop.Wheel
     @Subscribe
     fun onEvent(model: UnityModel.unitModel) {
         commModel = model
+        communityName= model.communityName
         tv_community.text = model.communityName + model.unitName + model.num
     }
 

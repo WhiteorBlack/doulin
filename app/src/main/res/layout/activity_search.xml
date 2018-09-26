@@ -23,7 +23,7 @@
             android:drawablePadding="5dp"
             android:hint="搜索"
             android:imeOptions="actionSearch"
-            android:textSize="@dimen/sp_14"
+            android:textSize="13sp"
             android:padding="10dp"
             android:singleLine="true" />
 
@@ -39,7 +39,7 @@
             android:padding="10dp"
             android:text="取消"
             android:textColor="@color/black"
-            android:textSize="@dimen/main_fant" />
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <RelativeLayout

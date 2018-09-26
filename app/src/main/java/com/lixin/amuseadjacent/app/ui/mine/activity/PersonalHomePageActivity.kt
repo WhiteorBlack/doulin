@@ -69,11 +69,13 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
             }
             cl_3.visibility = View.GONE
         } else {
-            isAttention = intent.getStringExtra("isAttention")
-            if (isAttention == "0") {//0未关注 1已关注
-                tv_follow.text = "未关注"
-            } else {
-                tv_follow.text = "已关注"
+            if(intent.getStringExtra("isAttention")!=null){
+                isAttention = intent.getStringExtra("isAttention")
+                if (isAttention == "0") {//0未关注 1已关注
+                    tv_follow.text = "未关注"
+                } else {
+                    tv_follow.text = "已关注"
+                }
             }
         }
 
@@ -123,7 +125,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
         val gridLayoutManager = GridLayoutManager(this, 4)
         rv_album.layoutManager = gridLayoutManager
-        imgaeAdapter = ImageAdapter(this, imageList)
+        imgaeAdapter = ImageAdapter(this, imageList,0)
         rv_album.adapter = imgaeAdapter
 
 

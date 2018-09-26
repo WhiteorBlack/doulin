@@ -135,7 +135,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             if (model.refundPics.isNotEmpty()) {
                 val linearLayoutManager = GridLayoutManager(this, 4)
                 rv_refund.layoutManager = linearLayoutManager
-                val adapter = ImageAdapter(this, model.refundPics)
+                val adapter = ImageAdapter(this, model.refundPics,0)
                 rv_refund.adapter = adapter
             }
 

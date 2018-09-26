@@ -257,13 +257,14 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/bg_white_line5"
         android:paddingBottom="2dp"
+        android:visibility="gone"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="2dp"
         android:text="活动收藏"
         android:textColor="@color/colorTabText"
         android:textSize="@dimen/sub_fant"
-        android:visibility="gone" />
+        />
 
 
     <ImageView
@@ -282,7 +283,7 @@
 
 
     <include
-        android:id="@+id/line"
+        android:id="@+id/line1"
         layout="@layout/include_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"

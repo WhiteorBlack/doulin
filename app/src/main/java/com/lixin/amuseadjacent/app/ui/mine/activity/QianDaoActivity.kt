@@ -55,30 +55,11 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
 
         iv_left.setOnClickListener(this)
         iv_rightt.setOnClickListener(this)
+        tv_eeffect.setOnClickListener(this)
         tv_date.text = year.toString() + "-" + format(month)
 
         val linearLayout = GridLayoutManager(this, 7)
         recyclerView.layoutManager = linearLayout
-
-        recyclerView.addOnItemTouchListener(object : RecyclerItemTouchListener(recyclerView) {
-            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                val i = vh!!.adapterPosition
-                if (i < 0) {
-                    return
-                }
-                if (todaySign == "0") {
-                    ToastUtil.showToast("今天已签到")
-                    return
-                }
-                ProgressDialog.showDialog(this@QianDaoActivity)
-                SignIn_117118.sgin(object : SignIn_117118.SginCallBack {
-                    override fun sginScore(score: String) {
-                        calendarAdapter!!.setFlag(i)
-                        QianDaoDialog.communityDialog(this@QianDaoActivity, score)
-                    }
-                })
-            }
-        })
 
         getSgin(year.toString() + "-" + format(month))
     }
@@ -118,12 +99,23 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                 tv_date.text = year.toString() + "-" + format(month)
                 getSgin(year.toString() + "-" + format(month))
             }
+            R.id.tv_eeffect -> {
+                if (todaySign == "1") {
+                    ToastUtil.showToast("今天已签到")
+                    return
+                }
+                ProgressDialog.showDialog(this@QianDaoActivity)
+                SignIn_117118.sgin(object : SignIn_117118.SginCallBack {
+                    override fun sginScore(score: String) {
+                        QianDaoDialog.communityDialog(this@QianDaoActivity, score)
+                    }
+                })
+            }
         }
     }
 
     @Subscribe
     fun onEvent(model: SginInModel) {
-
         tv_eeffect.text = "签到即可获得" + model.effectNum + "点影响力"
         todaySign = model.todaySign
 

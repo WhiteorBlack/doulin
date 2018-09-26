@@ -19,12 +19,11 @@ import com.lixin.amuseadjacent.app.util.StatusBarUtil
  * Created by Slingge on 2017/4/6 0006.
  */
 
-open class BaseActivity : AppCompatActivity() {
-
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppManager.getAppManager().addActivity(this)
+        AppManager.addActivity(this)
     }
 
 
@@ -49,8 +48,8 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        AppManager.getAppManager().finishActivity(this)
         ProgressDialog.dissDialog()
     }
+
 
 }

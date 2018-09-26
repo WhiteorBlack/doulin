@@ -23,6 +23,7 @@ import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel;
 import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134;
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224;
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139;
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity;
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter;
 import com.lixin.amuseadjacent.app.util.*;
 import com.lixin.amuseadjacent.app.view.CircleImageView;
@@ -181,6 +182,16 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         this.model = model;
 
         ImageLoader.getInstance().displayImage(model.object.dynamicIcon, iv_header, ImageLoaderUtil.HeaderDIO());
+        iv_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("auid", model.object.dynamicUid);
+                bundle.putString("isAttention", model.object.isAttention);
+                MyApplication.openActivity(DynamicDetailsActivity.this, PersonalHomePageActivity.class, bundle);
+            }
+        });
+
         tv_name.setText(model.object.dynamicName);
         tv_effect.setText("影响力" + model.object.userEffectNum);
         tv_info.setText(model.object.dynamicContent);
@@ -197,6 +208,10 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             tv_follow.setText("已关注");
         }
 
+        if(StaticUtil.INSTANCE.getUid()==model.object.dynamicUid){
+            tv_follow.setVisibility(View.INVISIBLE);
+        }
+
         if (flag.equals("0")) {//0帮帮
             if (model.object.dynamicUid.equals(StaticUtil.INSTANCE.getUid())) {
                 tv_right.setVisibility(View.VISIBLE);
@@ -207,10 +222,10 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 }
             }
         } else {
-            if (model.object.iscang.equals("0")) {//没有收藏
-                tv_right.setText("已收藏");
-            } else {
+            if (model.object.iscang.equals("0")) {//0未收藏 1已收藏
                 tv_right.setText("收藏");
+            } else {
+                tv_right.setText("已收藏");
             }
         }
 
@@ -247,7 +262,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 } else {
                     ll_image.setVisibility(View.GONE);
                     rv_image.setVisibility(View.VISIBLE);
-                    ImageAdapter imageAdapter = new ImageAdapter(this, model.object.dynamicImgList);
+                    ImageAdapter imageAdapter = new ImageAdapter(this, model.object.dynamicImgList, 0);
                     rv_image.setAdapter(imageAdapter);
                 }
             } else {

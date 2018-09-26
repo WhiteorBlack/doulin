@@ -20,6 +20,7 @@ import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 import java.util.ArrayList
@@ -52,10 +53,17 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
             holder.tv_type.text = "已报名"
         }
 
-        if (model.isAttention == "0") {// 0未关注 1已关注
-            holder.tv_follow.text = "关注"
-        } else {
-            holder.tv_follow.text = "已关注"
+        if(model.userid== StaticUtil.uid){
+            holder.tv_follow.visibility=View.INVISIBLE
+        }else{
+            holder.tv_follow.visibility=View.VISIBLE
+            if (model.isAttention == "0") {// 0未关注 1已关注
+                holder.tv_follow.text = "关注"
+                holder.tv_follow.visibility=View.VISIBLE
+            } else {
+                holder.tv_follow.text = "已关注"
+                holder.tv_follow.visibility=View.INVISIBLE
+            }
         }
 
         if (model.isZan == "0") {//0未赞过 1已赞过

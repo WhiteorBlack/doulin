@@ -185,9 +185,11 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
             return
         }
         if (resultCode == RESULT_OK) { //RESULT_OK = -1
-            val bundle = data.extras
-            val scanResult = bundle!!.getString("qr_scan_result")
-            ToastUtil.showToast(scanResult)
+            val scanResult = data.extras!!.getString("qr_scan_result")
+            val bundle = Bundle()
+            bundle.putString("auid", scanResult)
+            bundle.putString("isAttention", "0")
+            MyApplication.openActivity(this, PersonalHomePageActivity::class.java, bundle)
         }
     }
 

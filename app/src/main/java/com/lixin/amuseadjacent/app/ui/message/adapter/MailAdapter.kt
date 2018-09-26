@@ -1,16 +1,20 @@
 package com.lixin.amuseadjacent.app.ui.message.adapter
 
 import android.app.Activity
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.message.model.MailModel
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.AbStrUtil
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 
@@ -35,11 +39,19 @@ class MailAdapter(val context: Activity, val flag: Int, val mailList: ArrayList<
         val model = mailList[position]
 
         if (flag == 2) {
-            holder.tv_follow.visibility = View.VISIBLE
-            if (mailList[position].isAttention == "0") {
-                holder.tv_follow.text = "+  关注"
+
+            if (mailList[position].userId == StaticUtil.uid) {
+                holder.tv_follow.visibility = View.INVISIBLE
             } else {
-                holder.tv_follow.text = "已关注"
+                holder.tv_follow.visibility = View.VISIBLE
+                holder.tv_follow.visibility = View.VISIBLE
+                if (mailList[position].isAttention == "0") {
+                    holder.tv_follow.text = "+  关注"
+                    holder.tv_follow.visibility = View.VISIBLE
+                } else {
+                    holder.tv_follow.text = "已关注"
+                    holder.tv_follow.visibility = View.INVISIBLE
+                }
             }
 
             holder.tv_follow.setOnClickListener { v ->
@@ -55,6 +67,13 @@ class MailAdapter(val context: Activity, val flag: Int, val mailList: ArrayList<
                     }
                 })
             }
+        }
+
+        holder.tv_header.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("auid", mailList[position].userId)
+            bundle.putString("isAttention", mailList[position].isAttention)
+            MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
         }
 
         holder.tv_name.text = model.userName

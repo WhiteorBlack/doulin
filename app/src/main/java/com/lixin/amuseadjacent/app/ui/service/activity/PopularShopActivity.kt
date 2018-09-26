@@ -41,7 +41,7 @@ class PopularShopActivity : BaseActivity() {
     private var banner: Banner? = null
 
     private var search = ""//搜索内容
-    private var bannerUrl = ""//搜索内容
+    private var onRefresh = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +79,7 @@ class PopularShopActivity : BaseActivity() {
 
             override fun onRefresh() {
                 search = ""
+                onRefresh=1
                 PopularShop_39310.shop(search)
             }
         })
@@ -117,6 +118,10 @@ class PopularShopActivity : BaseActivity() {
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
                 .start()
+
+        if(onRefresh==1){
+            xrecyclerview.refreshComplete()
+        }
 
         shopList = model.dataList
         shopAdapter = PopularShopAdapter(this, shopList)

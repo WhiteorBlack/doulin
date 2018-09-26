@@ -1,13 +1,16 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -42,6 +45,13 @@ class EnteredAdapter(val context: Context, val list: ArrayList<EventDetailsModel
         } else {
             holder.tv_age.setBackgroundResource(R.drawable.bg_boy8)
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy, holder.tv_age, 3)
+        }
+
+        holder.iv_header.setOnClickListener { v->
+            val bundle=Bundle()
+            bundle.putString("auid",model.userId)
+            bundle.putString("isAttention","0")
+            MyApplication.openActivity(context,PersonalHomePageActivity::class.java,bundle)
         }
 
     }

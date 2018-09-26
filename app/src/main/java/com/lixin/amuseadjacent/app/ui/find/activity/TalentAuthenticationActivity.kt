@@ -142,8 +142,8 @@ class TalentAuthenticationActivity : BaseActivity(), View.OnClickListener {
                 Talent212_218225.applyTalen(lableType, name, phone, content, lableName, object : Talent212_218225.ApplyTalenCallBack {
                     override fun Apply() {
                         if (type == "0" || type == "3") {
-                            type = "1"
-                            TalentActivity().type = "1"
+                            type = "2"
+                            TalentActivity().type = "2"
                         }
                     }
                 })

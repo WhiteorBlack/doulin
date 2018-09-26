@@ -93,7 +93,7 @@
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_address"
+                android:drawableLeft="@drawable/ic_address3"
                 android:drawablePadding="8dp"
                 android:padding="12dp"
                 android:text="地址"
