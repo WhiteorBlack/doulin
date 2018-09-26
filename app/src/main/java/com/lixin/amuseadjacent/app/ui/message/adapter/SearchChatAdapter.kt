@@ -47,7 +47,7 @@ class SearchChatAdapter(val context: Context) : RecyclerView.Adapter<SearchChatA
         holder.tv_type.text = userInfo!!.name
         holder.tv_info.text = item.content
         holder.tv_msgNum.text = item.unreadCount.toString()
-        val formatter = SimpleDateFormat("yyyy-MM-dd HHmmss")
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val dateString = formatter.format(item.time)
         holder.tv_time.text = dateString
 

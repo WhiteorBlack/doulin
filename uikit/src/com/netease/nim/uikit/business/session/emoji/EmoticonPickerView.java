@@ -115,7 +115,7 @@ public class EmoticonPickerView extends LinearLayout implements IEmoticonCategor
         tabView = (LinearLayout) findViewById(R.id.emoj_tab_view);
         scrollView = (HorizontalScrollView) findViewById(R.id.emoj_tab_view_container);
 
-        findViewById(R.id.top_divider_line).setVisibility(View.VISIBLE);
+//        findViewById(R.id.top_divider_line).setVisibility(View.VISIBLE);
     }
 
     // 添加各个tab按钮

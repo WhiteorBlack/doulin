@@ -1,13 +1,19 @@
 package com.netease.nim.uikit.business.session.module.input;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.business.session.actions.BaseAction;
@@ -43,6 +49,7 @@ public class ActionsPagerAdapter extends PagerAdapter {
                 * ITEM_COUNT_PER_GRID_VIEW, end);
 
         GridView gridView = new GridView(context);
+
         gridView.setAdapter(new ActionsGridviewAdapter(context, subBaseActions));
         if (actions.size() >= 4) {
             gridView.setNumColumns(4);
@@ -65,6 +72,12 @@ public class ActionsPagerAdapter extends PagerAdapter {
                     ViewGroup.LayoutParams layoutParams = viewPager.getLayoutParams();
                     layoutParams.height = context.getResources().getDimensionPixelOffset(
                             R.dimen.message_bottom_function_viewpager_height) / 2;
+
+                    WindowManager manager = ((Activity)context).getWindowManager();
+                    DisplayMetrics outMetrics = new DisplayMetrics();
+                    manager.getDefaultDisplay().getMetrics(outMetrics);
+                    int width = outMetrics.widthPixels;
+                    layoutParams.width = width/2;
                     viewPager.setLayoutParams(layoutParams);
                 }
             });

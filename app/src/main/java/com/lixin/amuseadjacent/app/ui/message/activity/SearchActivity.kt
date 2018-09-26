@@ -97,6 +97,7 @@ class SearchActivity : BaseActivity() {
                             for (i in 0 until recents.size){
                                 userInfo = NimUIKit.getUserInfoProvider().getUserInfo(recents[i].contactId)  //根据账号获取用户信息
                                 if (userInfo != null && !TextUtils.isEmpty(userInfo!!.name) && keytag == userInfo!!.name){
+//                                    Log.e("dada",userInfo!!.avatar)
                                     recentList.add(recents[i])
                                     break
                                 }

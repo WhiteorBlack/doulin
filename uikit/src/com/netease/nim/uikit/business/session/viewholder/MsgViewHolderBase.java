@@ -1,7 +1,9 @@
 package com.netease.nim.uikit.business.session.viewholder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -195,6 +197,28 @@ public abstract class MsgViewHolderBase extends RecyclerViewHolder<BaseMultiItem
             View.inflate(view.getContext(), getContentResId(), contentContainer);
         }
         inflateContentView();
+
+        avatarLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClassName("com.lixin.amuseadjacent", "com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity");
+                intent.putExtra("auid",message.getFromAccount());
+                intent.putExtra("isAttention","0");
+                context.startActivity(intent);
+            }
+        });
+        avatarRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClassName("com.lixin.amuseadjacent", "com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity");
+                intent.putExtra("auid",message.getFromAccount());
+                intent.putExtra("isAttention","0");
+                Log.e("dada",message.getUuid());
+                context.startActivity(intent);
+            }
+        });
     }
 
     protected final void refresh() {
@@ -392,7 +416,7 @@ public abstract class MsgViewHolderBase extends RecyclerViewHolder<BaseMultiItem
 
     private void setReadReceipt() {
         if (shouldDisplayReceipt() && !TextUtils.isEmpty(getMsgAdapter().getUuid()) && message.getUuid().equals(getMsgAdapter().getUuid())) {
-            readReceiptTextView.setVisibility(View.VISIBLE);
+            readReceiptTextView.setVisibility(View.GONE);
         } else {
             readReceiptTextView.setVisibility(View.GONE);
         }

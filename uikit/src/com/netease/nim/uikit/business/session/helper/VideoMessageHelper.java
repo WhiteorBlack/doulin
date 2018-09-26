@@ -53,7 +53,7 @@ public class VideoMessageHelper {
         this.localRequestCode = local;
         this.captureRequestCode = capture;
         CustomAlertDialog dialog = new CustomAlertDialog(activity);
-        dialog.setTitle(activity.getString(R.string.input_panel_video));
+//        dialog.setTitle(activity.getString(R.string.input_panel_video));
         dialog.addItem("拍摄视频", new CustomAlertDialog.onSeparateItemClickListener() {
             @Override
             public void onClick() {
