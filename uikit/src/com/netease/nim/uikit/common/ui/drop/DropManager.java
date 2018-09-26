@@ -18,9 +18,9 @@ public class DropManager {
     // constant
     private static final String TAG = "DropManager";
 
-    static final int TEXT_SIZE = ScreenUtil.sp2px(12); // 12sp
+    static final int TEXT_SIZE = ScreenUtil.sp2px(9); // 12sp
 
-    static final int CIRCLE_RADIUS = ScreenUtil.dip2px(10); // 10dip
+    static final int CIRCLE_RADIUS = ScreenUtil.dip2px(6); // 10dip
 
     public interface IDropListener {
         void onDropBegin();
