@@ -97,17 +97,11 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             }
             R.id.tv_right -> {
                 val content = AbStrUtil.etTostr(et_info)
-                if (TextUtils.isEmpty(content)) {
-                    ToastUtil.showToast("请输入发布内容")
-                    return
-                }
-
                 val adress = AbStrUtil.tvTostr(tv_address)
                 if (TextUtils.isEmpty(adress)) {
                     ToastUtil.showToast("请输入发布地址")
                     return
                 }
-
                 ProgressDialog.showDialog(this)
                 ReleaseDynamicBang_220.release(this, flag, content, imageList, videoPath, adress)
             }

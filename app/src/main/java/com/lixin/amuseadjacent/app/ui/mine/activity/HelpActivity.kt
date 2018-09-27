@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.Subscribe
 import android.content.Intent
 import android.net.Uri
 import com.lixin.amuseadjacent.app.util.AbStrUtil
+import com.netease.nim.uikit.api.NimUIKit
 
 
 /**
@@ -45,6 +46,7 @@ class HelpActivity : BaseActivity(), View.OnClickListener {
         tv_phone.setOnClickListener(this)
 
         tv_report.setOnClickListener(this)
+        tv_service.setOnClickListener(this)
 
         ProgressDialog.showDialog(this)
         Help_128.help()
@@ -60,6 +62,9 @@ class HelpActivity : BaseActivity(), View.OnClickListener {
                 val data = Uri.parse("tel:" + AbStrUtil.tvTostr(tv_phone))
                 intent.data = data
                 startActivity(intent)
+            }
+            R.id.tv_service -> {
+                NimUIKit.startP2PSession(this@HelpActivity, "admin")
             }
         }
     }

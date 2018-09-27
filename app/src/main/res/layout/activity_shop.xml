@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 app:contentScrim="@color/white"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
 
 
                 <LinearLayout

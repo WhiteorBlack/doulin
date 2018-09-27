@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
+import android.view.WindowManager
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -43,6 +44,8 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personal_data)
+        this.window.setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         EventBus.getDefault().register(this)
         init()
     }
@@ -133,6 +136,8 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
 
         et_autograph.setText(pageModel.autograph)//签名
         et_occupation.setText(pageModel.occupation)//职业
+
+        et_note.setText(model.remarks)
 
         tv_sex.text = pageModel.age
         tv_constellation.text = pageModel.constellation

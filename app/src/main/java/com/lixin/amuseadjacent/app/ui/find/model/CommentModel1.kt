@@ -6,14 +6,14 @@ package com.lixin.amuseadjacent.app.ui.find.model
  */
 class CommentModel1 {
 
-
     var result = ""
     var resultNote = ""
 
     var dataList=ArrayList<commModel>()
 
-    class commModel {
+    var `object`=commModel()
 
+    class commModel {
         var commentId = ""//评论id
         var commentUid = ""//评论人id
         var commentIcon = ""//评论人头像
@@ -24,5 +24,7 @@ class CommentModel1 {
         var zanNum = ""//评论点赞数量
         var secondNum = ""///二级评论数量
     }
+
+
 
 }

@@ -201,7 +201,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 }
                 ProgressDialog.showDialog(this)
                 ActivityComment_272829210.comment("0", eventId, "", content, object : ActivityComment_272829210.CommentCallBack {
-                    override fun commemt() {
+                    override fun commemt(commentId:String) {
                         et_comment.setText("")
                         val model = ActivityCommentModel1.commModel()
                         model.commentContent = content
@@ -210,6 +210,8 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                         model.secondNum = "0"
                         model.commentName = StaticUtil.nickName
                         model.zanNum = "0"
+                        model.commentUid=StaticUtil.uid
+                        model.commentId=commentId
                         commentList.add(0, model)
                         commentAdapter!!.notifyDataSetChanged()
                     }
@@ -251,10 +253,11 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             rl_3.visibility = View.VISIBLE
         } else if (requestCode == 1) {//评论
             val content = data.getStringExtra("content")
+            val commentId = data.getStringExtra("id")
             val model = ActivityCommentModel1.commModel()
             model.commentContent = content
             model.commentIcon = StaticUtil.headerUrl
-            model.commentId = ""
+            model.commentId = commentId
             model.commentName = StaticUtil.nickName
             model.commentTime = GetDateTimeUtil.getYMDHMS()
             model.commentUid = StaticUtil.uid

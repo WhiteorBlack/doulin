@@ -16,7 +16,7 @@ object AlbumDialog {
     fun dialog(context: Context, albumEditCallBal: AlbumEditCallBal) {
         val dialog = AlertDialog.Builder(context)
 //        dialog.setTitle(title)
-//        dialog.setMessage("")
+        dialog.setMessage("选择操作")
         dialog.setPositiveButton("设为头像"
         ) { arg0, arg1 ->
             albumEditCallBal.albumedit(0)

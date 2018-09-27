@@ -11,6 +11,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclModel
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
@@ -49,9 +50,9 @@ class DynamicFragment : BaseFragment() {
         include.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
-        xrecyclerview.setPullRefreshEnabled(false)
+//        xrecyclerview.setPullRefreshEnabled(false)
 
-        dynamicAdapter = DynamicAdapter(activity!!,"0", dynaList)
+        dynamicAdapter = DynamicAdapter(activity!!, "0", dynaList)
         xrecyclerview.adapter = dynamicAdapter
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
@@ -89,7 +90,7 @@ class DynamicFragment : BaseFragment() {
             dynaList.clear()
             dynamicAdapter!!.notifyDataSetChanged()
         }
-        nowPage=1
+        nowPage = 1
         ProgressDialog.showDialog(activity!!)
         DynamicList_219.dynamic("0", flag, nowPage)
     }
@@ -116,14 +117,24 @@ class DynamicFragment : BaseFragment() {
         }
     }
 
-    fun Refresh(){
-        if (dynaList.isNotEmpty()) {
-            dynaList.clear()
-            dynamicAdapter!!.notifyDataSetChanged()
+    fun Refresh(i: Int, model: DynamiclDetailsModel?, position: Int) {
+        if (i == flag) {
+            if (model == null) {
+                if (dynaList.isNotEmpty()) {
+                    dynaList.clear()
+                    dynamicAdapter!!.notifyDataSetChanged()
+                }
+                nowPage = 1
+                ProgressDialog.showDialog(activity!!)
+                DynamicList_219.dynamic("0", flag, nowPage)
+            }else{
+                dynaList[position].commentNum = model.`object`.commentNum
+                dynaList[position].isZan = model.`object`.isZan
+                dynaList[position].isAttention = model.`object`.isAttention
+                dynaList[position].zanNum = model.`object`.zanNum
+                dynamicAdapter!!.notifyDataSetChanged()
+            }
         }
-        nowPage=1
-        ProgressDialog.showDialog(activity!!)
-        DynamicList_219.dynamic("0", flag, nowPage)
     }
 
     override fun onPause() {

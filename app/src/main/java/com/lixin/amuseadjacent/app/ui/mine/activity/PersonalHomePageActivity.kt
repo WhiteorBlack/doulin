@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -17,6 +20,7 @@ import com.lixin.amuseadjacent.app.ui.mine.fragment.TalentFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.DynamicFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.InteractionFragment
 import com.lixin.amuseadjacent.app.ui.mine.model.HomePageModel
+import com.lixin.amuseadjacent.app.ui.mine.request.EditeNote_167
 import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
@@ -69,7 +73,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
             }
             cl_3.visibility = View.GONE
         } else {
-            if(intent.getStringExtra("isAttention")!=null){
+            if (intent.getStringExtra("isAttention") != null) {
                 isAttention = intent.getStringExtra("isAttention")
                 if (isAttention == "0") {//0未关注 1已关注
                     tv_follow.text = "未关注"
@@ -89,19 +93,19 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
         dataFragment = DataFragment()
         list.add(dataFragment!!)
 
-        val bundle=Bundle()
-        bundle.putString("auid",auid)
+        val bundle = Bundle()
+        bundle.putString("auid", auid)
 
         val fragment2 = DynamicFragment()
-        fragment2.arguments=bundle
+        fragment2.arguments = bundle
         list.add(fragment2)
 
         val fragment3 = TalentFragment()
-        fragment3.arguments=bundle
+        fragment3.arguments = bundle
         list.add(fragment3)
 
         val fragment4 = InteractionFragment()
-        fragment4.arguments=bundle
+        fragment4.arguments = bundle
         list.add(fragment4)
 
 
@@ -125,7 +129,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
         val gridLayoutManager = GridLayoutManager(this, 4)
         rv_album.layoutManager = gridLayoutManager
-        imgaeAdapter = ImageAdapter(this, imageList,0)
+        imgaeAdapter = ImageAdapter(this, imageList, 0)
         rv_album.adapter = imgaeAdapter
 
 
@@ -135,6 +139,22 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
         tv_follow.setOnClickListener(this)
         tv_dialogue.setOnClickListener(this)
+
+        et_note.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val s = p0!!.toString()
+                if (TextUtils.isEmpty(s)) {
+                    return
+                }
+                EditeNote_167.note(auid, s)
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
     }
 
 
@@ -192,7 +212,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
         tv_sex.text = model.age
         tv_constellation.text = model.constellation
         tv_address.text = model.communityName + model.unitName + model.doorNumber
-
+        et_note.setText(model.remarks)
         tv_name.text = model.nickname
         tv_effect.text = "影响力" + model.effectNum
 

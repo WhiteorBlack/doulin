@@ -17,6 +17,7 @@ import com.lixin.amuseadjacent.app.ui.mine.request.Wallet_119121
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.CashierInputFilter
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.view.MyWebView
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_withdraw.*
 
@@ -44,19 +45,6 @@ class WithdrawActivity : BaseActivity(), View.OnClickListener {
     private fun init() {
         inittitle("提现")
         StatusBarWhiteColor()
-
-        val linelayout = LinearLayoutManager(this)
-        linelayout.orientation = LinearLayoutManager.VERTICAL
-
-        rv_rule.layoutManager = linelayout
-        ruleAdapter = RuleAdapter(this)
-        rv_rule.adapter = ruleAdapter
-
-        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
-        rv_rule.layoutAnimation = controller
-        ruleAdapter!!.notifyDataSetChanged()
-        rv_rule.scheduleLayoutAnimation()
-
         tv_all.setOnClickListener(this)
 
         val filter = arrayOf<InputFilter>(CashierInputFilter())
@@ -64,6 +52,9 @@ class WithdrawActivity : BaseActivity(), View.OnClickListener {
 
         tv_recharge.setOnClickListener(this)
         tv_bank.setOnClickListener(this)
+
+        val webView = webview.webView
+        webView.loadUrl(StaticUtil.WebViewUrl+"id=3")
     }
 
 

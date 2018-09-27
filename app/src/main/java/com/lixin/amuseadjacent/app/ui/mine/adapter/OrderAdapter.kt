@@ -83,7 +83,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_pay.text = "确认送达"
 
             holder.tv_again.visibility = View.VISIBLE
-            holder.tv_pay.visibility = View.VISIBLE
+            holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.VISIBLE
         } else if (orderState == "3") {//3待收货
             holder.tv_type.text = "待收货"

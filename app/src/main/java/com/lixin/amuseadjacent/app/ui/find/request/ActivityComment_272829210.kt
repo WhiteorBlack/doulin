@@ -56,7 +56,7 @@ object ActivityComment_272829210 {
 
 
     interface CommentCallBack {
-        fun commemt()
+        fun commemt(commentId:String)
     }
 
 
@@ -100,7 +100,7 @@ object ActivityComment_272829210 {
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
                     ToastUtil.showToast("评论成功")
-                    commentCallBack.commemt()
+                    commentCallBack.commemt(obj.getString("object"))
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }

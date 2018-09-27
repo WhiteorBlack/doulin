@@ -43,8 +43,6 @@ class TalentFragment : BaseFragment() {
         experienceAdapter = ExperienceAdapter(activity!!,talentExpList)
         rv_experience.adapter = experienceAdapter
 
-        ProgressDialog.showDialog(activity!!)
-        Talent212_218225.TalenExperience(auid)
     }
 
 
@@ -77,7 +75,8 @@ class TalentFragment : BaseFragment() {
     }
 
     override fun loadData() {
-
+        ProgressDialog.showDialog(activity!!)
+        Talent212_218225.TalenExperience(auid)
     }
 
 

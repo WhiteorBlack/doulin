@@ -173,8 +173,8 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_pay.text = "确认送达"
 
             tv_again.visibility = View.VISIBLE
-            tv_pay.visibility = View.VISIBLE
-            tv_refund.visibility = View.GONE
+            tv_pay.visibility = View.GONE
+            tv_refund.visibility = View.VISIBLE
         } else if (orderState == "3") {//3待收货
             tv_pay.text = "确认收货"
             tv_refund.text = "    退款    "

@@ -10,6 +10,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.fragment.DynamicFragment
+import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclModel
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
@@ -34,7 +35,9 @@ class DynamicActivity : BaseActivity() {
     private var bannerUrl = ""
 
     private var fragment0: DynamicFragment? = null
+    private var fragment1: DynamicFragment? = null
 
+    private var i = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,13 +66,18 @@ class DynamicActivity : BaseActivity() {
         tabList.add("全部")
         tabList.add("关注")
         val list = ArrayList<Fragment>()
-        for (i in 0..1) {
-            fragment0 = DynamicFragment()
-            val bundle = Bundle()
-            bundle.putInt("flag", i)
-            fragment0!!.arguments = bundle
-            list.add(fragment0!!)
-        }
+
+        fragment0 = DynamicFragment()
+        val bundle = Bundle()
+        bundle.putInt("flag", 0)
+        fragment0!!.arguments = bundle
+        list.add(fragment0!!)
+
+        fragment1 = DynamicFragment()
+        val bundle1 = Bundle()
+        bundle1.putInt("flag", 1)
+        fragment1!!.arguments = bundle1
+        list.add(fragment1!!)
 
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
@@ -83,6 +91,7 @@ class DynamicActivity : BaseActivity() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                i = tab!!.position
                 NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
             }
 
@@ -111,7 +120,12 @@ class DynamicActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
-            fragment0!!.Refresh()
+            fragment0!!.Refresh(i, null, -1)
+        } else if (requestCode == 3) {
+            val model = data!!.getSerializableExtra("model") as DynamiclDetailsModel
+            val position = data.getIntExtra("position",-1)
+            fragment0!!.Refresh(i, model, position)
+            fragment1!!.Refresh(i, model, position)
         }
     }
 

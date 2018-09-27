@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * 动态/帮帮详情
  * Created by Slingge on 2018/9/15
  */
-public class DynamiclDetailsModel {
+public class DynamiclDetailsModel implements Serializable{
 
 
     public String result = "";
@@ -17,7 +18,7 @@ public class DynamiclDetailsModel {
 
     public objectModel object;
 
-    public class objectModel {
+    public class objectModel implements Serializable{
         public String dynamicId = "";//动态id
         public String dynamicUid = "";//发布动态人id
         public String dynamicName = "";//发布动态人昵称
@@ -42,8 +43,6 @@ public class DynamiclDetailsModel {
         public String isZan = "";//是否已经赞过 0未赞过 1已赞过
         public String isAttention = "";//是否已经关注 0未关注 1已关注
     }
-
-
 
 
 }

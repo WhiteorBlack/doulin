@@ -23,14 +23,8 @@ class DataFragment : BaseFragment() {
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-    }
-
 
     fun setDate(model: HomePageModel) {
-
         tv_autograph.text = model.autograph
         tv_num.text = StaticUtil.uid
         tv_industry.text = model.occupation

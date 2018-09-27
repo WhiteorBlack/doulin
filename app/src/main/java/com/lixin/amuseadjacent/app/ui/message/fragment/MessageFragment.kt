@@ -41,7 +41,7 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        tv_title.text=StaticUtil.communityName
+        tv_title.text = StaticUtil.communityName
 
         iv_mail.setOnClickListener(this)
         iv_add.setOnClickListener(this)
@@ -66,12 +66,22 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
                 if (position < 0 || position >= msgList.size) {
                     return
                 }
-                if (msgList[position].type == "0") {//0系统消息 1订单信息 2评论信息
+                if (msgList[position].type == "0") {//0系统消息 1订单信息 2评论信息 3点赞信息
+                    val bundle = Bundle()
+                    bundle.putString("type", "0")
                     MyApplication.openActivity(activity, OfficialNewsActivity::class.java)
                 } else if (msgList[position].type == "1") {
+                    val bundle = Bundle()
+                    bundle.putString("type", "1")
                     MyApplication.openActivity(activity, OrderNewsActivity::class.java)
                 } else if (msgList[position].type == "2") {
-                    MyApplication.openActivity(activity, CommentNewsActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putString("type", "2")
+                    MyApplication.openActivity(activity, CommentNewsActivity::class.java, bundle)
+                } else if (msgList[position].type == "3") {
+                    val bundle = Bundle()
+                    bundle.putString("type", "3")
+                    MyApplication.openActivity(activity, CommentNewsActivity::class.java, bundle)
                 }
             }
         })

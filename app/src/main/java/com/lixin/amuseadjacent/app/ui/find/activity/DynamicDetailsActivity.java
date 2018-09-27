@@ -1,9 +1,11 @@
 package com.lixin.amuseadjacent.app.ui.find.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.KeyEvent;
 import android.view.View;;
 
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +29,7 @@ import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity;
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter;
 import com.lixin.amuseadjacent.app.util.*;
 import com.lixin.amuseadjacent.app.view.CircleImageView;
+import com.lixin.amuseadjacent.zxing.decoding.Intents;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -36,6 +39,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -60,7 +64,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     private NiceVideoPlayer player;
 
     private TextView tv_time, tv_comment, tv_zan;
-    private TextView tv_right;
+    private TextView tv_right, tv_title;
+    private ImageView iv_back;
 
     private EditText et_comment;
 
@@ -72,6 +77,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     private String flag;// 0动态，1帮帮
 
     private DynamiclDetailsModel model;
+
+    private int position = -1;//列表所在位置
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,14 +92,19 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
     private void init() {
         flag = getIntent().getStringExtra("flag");
+        position = getIntent().getIntExtra("position", -1);
+        dynaId = getIntent().getStringExtra("id");
 
         tv_right = findViewById(R.id.tv_right);
+        tv_title = findViewById(R.id.tv_title);
+        iv_back = findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(this);
         tv_right.setOnClickListener(this);
         if (flag.equals("0")) {
-            inittitle("动态详情");
+            tv_title.setText("动态详情");
         } else {
             tv_right.setVisibility(View.VISIBLE);
-            inittitle("帮帮详情");
+            tv_title.setText("帮帮详情");
             tv_right.setText("收藏");
         }
 
@@ -106,6 +118,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
         commentAdapter = new DynamicCommentAdapter(this, commentList);
         rv_comment.setAdapter(commentAdapter);
+        commentAdapter.setId(dynaId);
 
         tv_zan = findViewById(R.id.tv_zan);
         image0 = findViewById(R.id.image0);
@@ -156,22 +169,6 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             }
         });
 
-        rv_comment.addOnItemTouchListener(new RecyclerItemTouchListener(rv_comment) {
-            @Override
-            public void onItemClick(RecyclerView.ViewHolder vh) {
-                int i = vh.getAdapterPosition();
-                if (i < 0 || i >= commentList.size()) {
-                    return;
-                }
-                Bundle bundle = new Bundle();
-                bundle.putString("id", dynaId);
-                bundle.putSerializable("model", model.dataList.get(i));
-                MyApplication.openActivity(DynamicDetailsActivity.this, DynamicDetailsReplyActivity.class, bundle);
-            }
-        });
-
-        dynaId = getIntent().getStringExtra("id");
-
         ProgressDialog.INSTANCE.showDialog(this);
         DynaComment_133134.INSTANCE.dynamicDetail(dynaId);
     }
@@ -181,15 +178,20 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     public void onEvent(DynamiclDetailsModel model) {
         this.model = model;
 
+        if (model.object.type.equals("0")) {//0动态 1帮帮
+            tv_title.setText("动态详情");
+        } else {
+            tv_right.setVisibility(View.VISIBLE);
+            tv_title.setText("帮帮详情");
+            tv_right.setText("收藏");
+        }
+
         ImageLoader.getInstance().displayImage(model.object.dynamicIcon, iv_header, ImageLoaderUtil.HeaderDIO());
-        iv_header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("auid", model.object.dynamicUid);
-                bundle.putString("isAttention", model.object.isAttention);
-                MyApplication.openActivity(DynamicDetailsActivity.this, PersonalHomePageActivity.class, bundle);
-            }
+        iv_header.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("auid", model.object.dynamicUid);
+            bundle.putString("isAttention", model.object.isAttention);
+            MyApplication.openActivity(DynamicDetailsActivity.this, PersonalHomePageActivity.class, bundle);
         });
 
         tv_name.setText(model.object.dynamicName);
@@ -208,7 +210,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             tv_follow.setText("已关注");
         }
 
-        if(StaticUtil.INSTANCE.getUid()==model.object.dynamicUid){
+        if (StaticUtil.INSTANCE.getUid() == model.object.dynamicUid) {
             tv_follow.setVisibility(View.INVISIBLE);
         }
 
@@ -228,7 +230,6 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 tv_right.setText("已收藏");
             }
         }
-
 
         isZan = model.object.isZan;
         if (model.object.isZan.equals("0")) {//0未赞过 1已赞过
@@ -322,6 +323,9 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                     });
                 }
                 break;
+            case R.id.iv_back:
+                back();
+                break;
             case R.id.image0:
                 PreviewPhoto.INSTANCE.preview(DynamicDetailsActivity.this, imageList, 0);
                 break;
@@ -337,7 +341,12 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 }
                 ProgressDialog.INSTANCE.showDialog(this);
                 DynaComment_133134.INSTANCE.zan(dynaId, "", () -> {
+                    if (model.object.isZan.equals("1")) {
+                        return;
+                    }
                     zanNUm++;
+                    model.object.isZan = "1";
+                    model.object.zanNum = zanNUm + "";
                     tv_zan.setText(zanNUm + "");
                     AbStrUtil.setDrawableLeft(DynamicDetailsActivity.this, R.drawable.ic_zan_hl, tv_zan, 5);
                 });
@@ -348,10 +357,13 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                     return;
                 }
                 ProgressDialog.INSTANCE.showDialog(this);
-                DynaComment_133134.INSTANCE.comment(dynaId, "", content, () -> {
+                DynaComment_133134.INSTANCE.comment(dynaId, "", content, (commentId) -> {
                     commNum++;
                     tv_comment.setText(commNum + "");
                     et_comment.setText("");
+
+                    model.object.commentNum = commNum + "";
+                    tv_comment.setText(commNum+"");
 
                     ActivityCommentModel1.commModel model = new ActivityCommentModel1.commModel();
                     model.setCommentContent(content);
@@ -360,12 +372,36 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                     model.setSecondNum("0");
                     model.setCommentName(StaticUtil.INSTANCE.getNickName());
                     model.setZanNum("0");
+                    model.setCommentId(commentId);
+                    model.setCommentUid(StaticUtil.INSTANCE.getUid());
                     commentList.add(0, model);
                     commentAdapter.notifyDataSetChanged();
                 });
                 break;
         }
     }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                back();
+                break;
+            default:
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void back() {
+        Intent intent = new Intent();
+        intent.putExtra("model", model);
+        intent.putExtra("position", position);
+        setResult(3, intent);
+        finish();
+    }
+
 
     @Override
     protected void onPause() {

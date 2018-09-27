@@ -1,6 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.mine.adapter
 
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
@@ -12,9 +12,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
-import com.netease.nim.uikit.support.permission.annotation.OnMPermissionDenied
+import com.lixin.amuseadjacent.app.ui.mine.request.Myinteraction_161162
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.xiao.nicevideoplayer.NiceVideoPlayer
 import com.xiao.nicevideoplayer.TxVideoPlayerController
@@ -23,7 +24,7 @@ import com.xiao.nicevideoplayer.TxVideoPlayerController
  * 个人主页动态
  * Created by Slingge on 2018/8/18
  */
-class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dynamicModel>) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
+class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynamicModel>) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -54,7 +55,7 @@ class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dyn
             holder.tv_info.visibility = View.VISIBLE
 
             if (model.dynamicImgList.isNotEmpty()) {
-                ImageLoader.getInstance().displayImage(model.dynamicImg, holder.image)
+                ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image)
             }
             holder.tv_info.text = model.dynamicContent
         }
@@ -68,8 +69,17 @@ class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dyn
         } catch (e: Exception) {
         }
 
+        holder.tv_del.setOnClickListener { v ->
+            ProgressDialog.showDialog(context)
+            Myinteraction_161162.DelInteraction("2", model.dynamicId, object : Myinteraction_161162.DelInteractionCallBack {
+                override fun del() {
+                    dynaList.removeAt(position)
+                    notifyDataSetChanged()
+                }
+            })
+        }
 
-        holder.cl.setOnClickListener { v->
+        holder.cl.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putString("flag", "0")
             bundle.putString("id", dynaList[position].dynamicId)
@@ -87,10 +97,11 @@ class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dyn
         val tv_info = view.findViewById<TextView>(R.id.tv_info)
         val tv_comment = view.findViewById<TextView>(R.id.tv_comment)
         val tv_zan = view.findViewById<TextView>(R.id.tv_zan)
+        val tv_del = view.findViewById<TextView>(R.id.tv_del)
 
         val image = view.findViewById<ImageView>(R.id.image)
 
-        val cl=view.findViewById<ConstraintLayout>(R.id.cl)
+        val cl = view.findViewById<ConstraintLayout>(R.id.cl)
 
         init {
             player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer

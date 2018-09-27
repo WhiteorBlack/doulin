@@ -7,14 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.ui.mine.model.EffectDetailsModel
 
 /**
  * 社区影响力
- * flag 0 社区影响力，1影响力详情
  * Created by Slingge on 2018/9/2.
  */
-class EffectDetailsAdapter(val context: Context) : RecyclerView.Adapter<EffectDetailsAdapter.ViewHolder>() {
+class EffectDetailsAdapter(val context: Context, val effList: ArrayList<EffectDetailsModel.dataModel>) : RecyclerView.Adapter<EffectDetailsAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,18 +24,22 @@ class EffectDetailsAdapter(val context: Context) : RecyclerView.Adapter<EffectDe
     }
 
     override fun getItemCount(): Int {
-        return 12
+        return effList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val model = effList[position]
 
-
-
+        holder.tv_name.text = model.effectNumTitle
+        holder.tv_eeffect.text = "+" + model.effectNum
+        holder.tv_time.text = model.effectNumTime
     }
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
+        val tv_name = view.findViewById<TextView>(R.id.tv_name)
+        val tv_eeffect = view.findViewById<TextView>(R.id.tv_eeffect)
+        val tv_time = view.findViewById<TextView>(R.id.tv_time)
     }
 
 

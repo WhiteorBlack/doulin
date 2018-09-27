@@ -18,14 +18,16 @@ import org.greenrobot.eventbus.Subscribe
  * 评论消息
  * Created by Slingge on 2018/8/16
  */
-class CommentNewsActivity:BaseActivity(){
+class CommentNewsActivity : BaseActivity() {
 
-    private var commAdapter: CommentNewsAdapter?=null
+    private var commAdapter: CommentNewsAdapter? = null
     private var commentList = ArrayList<CommentNewModel.msgModel>()
 
     private var nowPage = 1
     private var totalPage = 1
     private var onRefresh = 0
+
+    private var type=""//2评论信息 3点赞信息
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,17 +37,19 @@ class CommentNewsActivity:BaseActivity(){
     }
 
 
-    private fun init(){
+    private fun init() {
         inittitle("收到的消息")
         StatusBarWhiteColor()
 
-        val linearLayoutManager= LinearLayoutManager(this)
-        linearLayoutManager.orientation= LinearLayoutManager.VERTICAL
+        type=intent.getStringExtra("type")//2评论信息 3点赞信息
 
-        xrecyclerview.layoutManager=linearLayoutManager
+        val linearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
-        commAdapter= CommentNewsAdapter(this,commentList)
-        xrecyclerview.adapter=commAdapter
+        xrecyclerview.layoutManager = linearLayoutManager
+
+        commAdapter = CommentNewsAdapter(this,type, commentList)
+        xrecyclerview.adapter = commAdapter
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
@@ -59,8 +63,8 @@ class CommentNewsActivity:BaseActivity(){
             }
 
             override fun onLoadMore() {
-                nowPage ++
-                if(nowPage>=totalPage){
+                nowPage++
+                if (nowPage >= totalPage) {
                     xrecyclerview.noMoreLoading()
                     return
                 }

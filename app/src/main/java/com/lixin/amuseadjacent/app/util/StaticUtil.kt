@@ -18,6 +18,8 @@ object StaticUtil {
     val EventEstablish = "http://39.107.106.122/wisdom/api/AddActivity"//创建活动
     val RefundOrder = "http://39.107.106.122/wisdom/api/refundOrder"//订单退款
 
+    val WebViewUrl="http://39.107.106.122/wisdom/api/about/displayContent?"//webview
+
     var uid = ""// Id
     var phone = ""//
     var communityId = ""//社区Id

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -90,14 +91,20 @@ public class P2PMessageActivity extends BaseMessageActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.custom_notification_activity_menu, menu);
-        gMenuItem= menu.findItem(R.id.shield_user);
-        if (isBlack){
-            if (gMenuItem != null){
-                gMenuItem.setTitle("取消屏蔽此用户");
+
+        if (!TextUtils.isEmpty(sessionId) && sessionId.equals("admin")) {
+
+        }else {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.custom_notification_activity_menu, menu);
+            gMenuItem= menu.findItem(R.id.shield_user);
+            if (isBlack){
+                if (gMenuItem != null){
+                    gMenuItem.setTitle("取消屏蔽此用户");
+                }
             }
         }
+
         return super.onCreateOptionsMenu(menu);
     }
 

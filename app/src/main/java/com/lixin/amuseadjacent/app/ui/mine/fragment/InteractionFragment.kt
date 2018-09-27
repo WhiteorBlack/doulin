@@ -10,10 +10,8 @@ import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
-import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.InteractionAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.InteractionModel
-import com.lixin.amuseadjacent.app.ui.mine.request.MyDynamic_132
 import com.lixin.amuseadjacent.app.ui.mine.request.Myinteraction_161162
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import kotlinx.android.synthetic.main.xrecyclerview.*
@@ -50,7 +48,6 @@ class InteractionFragment : BaseFragment() {
         include.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
-
         interactionAdapter = InteractionAdapter(activity!!, auid, interactionList)
         xrecyclerview.adapter = interactionAdapter
 
@@ -75,9 +72,6 @@ class InteractionFragment : BaseFragment() {
                 Myinteraction_161162.Interaction(nowPage, auid)
             }
         })
-
-        ProgressDialog.showDialog(activity!!)
-        Myinteraction_161162.Interaction(nowPage, auid)
 
     }
 
@@ -117,7 +111,8 @@ class InteractionFragment : BaseFragment() {
     }
 
     override fun loadData() {
-
+        ProgressDialog.showDialog(activity!!)
+        Myinteraction_161162.Interaction(nowPage, auid)
     }
 
     override fun onPause() {

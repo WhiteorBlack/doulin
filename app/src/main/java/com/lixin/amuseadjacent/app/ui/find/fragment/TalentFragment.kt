@@ -47,14 +47,10 @@ class TalentFragment : BaseFragment() {
         include.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
+//        xrecyclerview.setPullRefreshEnabled(false)
 
         talentAdapter = TalentAdapter(activity!!, talentList)
         xrecyclerview.adapter = talentAdapter
-
-        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        xrecyclerview.layoutAnimation = controller
-        talentAdapter!!.notifyDataSetChanged()
-        xrecyclerview.scheduleLayoutAnimation()
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {

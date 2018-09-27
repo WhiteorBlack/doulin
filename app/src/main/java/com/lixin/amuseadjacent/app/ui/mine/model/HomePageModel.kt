@@ -22,6 +22,8 @@ class HomePageModel : Serializable {
     var unitName = ""//社区单元名称
     var doorNumber = ""//门牌号
 
+    var remarks=""//备注
+
     var autograph = ""//个人签名
     var inviteCode = ""//邀请码
     var occupation = ""//职业
