@@ -59,6 +59,9 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             holder.tv_name.text = model.dynamicName
             holder.tv_effect.text = "影响力" + model.userEffectNum
             holder.tv_info.text = model.dynamicContent
+            if(TextUtils.isEmpty(model.dynamicContent)){
+                holder.tv_info.visibility=View.GONE
+            }
 
             holder.tv_time.text = model.time
             holder.tv_comment.text = model.commentNum
@@ -75,8 +78,6 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                     holder.tv_follow.visibility=View.INVISIBLE
                 }
             }
-
-
 
 
             if (model.isZan == "0") {//0未赞过 1已赞过

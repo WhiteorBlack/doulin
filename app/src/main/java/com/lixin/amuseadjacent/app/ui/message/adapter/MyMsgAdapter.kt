@@ -41,6 +41,8 @@ class MyMsgAdapter(val context: Context, val list: ArrayList<MsgListModel.msgMod
             holder.tv_type.text = "订单消息"
         } else if (model.type == "2") {
             holder.tv_type.text = "评论消息"
+        } else if (model.type == "2") {
+            holder.tv_type.text = "点赞消息"
         }
 
         holder.tv_info.text = model.messageTitle

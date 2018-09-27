@@ -68,8 +68,11 @@ class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dyn
         } catch (e: Exception) {
         }
 
+        holder.tv_del.setOnClickListener { v ->
 
-        holder.cl.setOnClickListener { v->
+        }
+
+        holder.cl.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putString("flag", "0")
             bundle.putString("id", dynaList[position].dynamicId)
@@ -87,10 +90,11 @@ class DynamicAdapter(val context: Context, val dynaList: ArrayList<FindModel.dyn
         val tv_info = view.findViewById<TextView>(R.id.tv_info)
         val tv_comment = view.findViewById<TextView>(R.id.tv_comment)
         val tv_zan = view.findViewById<TextView>(R.id.tv_zan)
+        val tv_del = view.findViewById<TextView>(R.id.tv_del)
 
         val image = view.findViewById<ImageView>(R.id.image)
 
-        val cl=view.findViewById<ConstraintLayout>(R.id.cl)
+        val cl = view.findViewById<ConstraintLayout>(R.id.cl)
 
         init {
             player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer
