@@ -31,7 +31,7 @@ class FeedbackActivity : BaseActivity() {
 
 
     private fun init() {
-        if (intent != null) {
+        if (intent.getStringExtra("id") != null) {
             id = intent.getStringExtra("id")
         }
 
@@ -62,9 +62,10 @@ class FeedbackActivity : BaseActivity() {
                 Feedback_131.feed(this, content)
             } else {
                 ActivityComment_272829210.comment("0", id, "", content, object : ActivityComment_272829210.CommentCallBack {
-                    override fun commemt() {
+                    override fun commemt(commentId:String) {
                         val intent = Intent()
                         intent.putExtra("content", content)
+                        intent.putExtra("id", commentId)
                         setResult(1, intent)
                         finish()
                     }

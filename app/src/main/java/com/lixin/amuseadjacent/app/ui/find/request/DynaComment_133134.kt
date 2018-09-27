@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.find.request
 
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
+import com.lixin.amuseadjacent.app.ui.find.model.CommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.abLog
@@ -28,6 +29,23 @@ object DynaComment_133134 {
                 val model = Gson().fromJson(response, DynamiclDetailsModel::class.java)
                 if (model.result == "0") {
                     EventBus.getDefault().post(model)
+                } else {
+                    ToastUtil.showToast(model.resultNote)
+                }
+            }
+        })
+    }
+
+    //获取一级评论
+    fun commentFirst(commentId: String) {
+        val json = "{\"cmd\":\"getcommentdetail\",\"uid\":\"" + StaticUtil.uid + "\",\"commentId\":\"" + commentId + "\"}"
+        abLog.e("获取一级评论",json)
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val model = Gson().fromJson(response, ActivityCommentModel1::class.java)
+                if (model.result == "0") {
+                    EventBus.getDefault().post(model.`object`)
                 } else {
                     ToastUtil.showToast(model.resultNote)
                 }
@@ -92,7 +110,7 @@ object DynaComment_133134 {
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
                     ToastUtil.showToast("评论成功")
-                    commentCallBack.commemt()
+                    commentCallBack.commemt(obj.getString("object"))
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }
@@ -100,7 +118,7 @@ object DynaComment_133134 {
         })
     }
 
-      interface HideDynamicCallBack {
+    interface HideDynamicCallBack {
         fun hide()
     }
 

@@ -89,7 +89,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                             return
                         }
                         if (userModel!!.authentication == "2") {// 0未认证 1认证审核中 2认证成功 3审核拒绝
-                            ToastUtil.showToast("您已认证成功")
+                            ToastUtil.showToast("您已认证完成")
                             return
                         }
                         MyApplication.openActivity(activity, RealNameAuthenticationActivity::class.java)
@@ -111,6 +111,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                     1 -> {//邀请好友
                         val bundle = Bundle()
                         bundle.putString("id", userModel!!.inviteCode)
+                        bundle.putString("url", userModel!!.shareurl)
                         MyApplication.openActivity(activity, InvitingFriendsAcivity::class.java, bundle)
                     }
                     2 -> {//更换社区
@@ -132,7 +133,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         iv_heaser.setOnClickListener(this)
         iv_setting.setOnClickListener(this)
         iv_code.setOnClickListener(this)
-
+        tv_effect.setOnClickListener(this)
         tv_qiandao.setOnClickListener(this)
 
         tv_dynamic.setOnClickListener(this)
@@ -166,6 +167,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.tv_qiandao -> {//签到
                 MyApplication.openActivity(activity, QianDaoActivity::class.java)
+            }
+            R.id.tv_effect -> {//影响力
+                MyApplication.openActivity(activity, EffectCommunityActivity::class.java)
             }
             R.id.tv_dynamic -> {//动态
                 val bundle = Bundle()

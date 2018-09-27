@@ -51,7 +51,6 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
         if (dynaList != null) {//动态
             val model = dynaList!![position]
 

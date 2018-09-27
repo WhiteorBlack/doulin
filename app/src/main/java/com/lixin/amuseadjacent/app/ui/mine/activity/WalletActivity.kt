@@ -103,7 +103,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
         // 第二个参数需要换成你自己的微信AppID.
         val initInfo = BCPay.initWechatPay(this, StaticUtil.Weixin_Appid)
         if (initInfo != null) {
-            ToastUtil.showToast("微信初始化失败")
+//            ToastUtil.showToast("微信初始化失败")
         }
 
         init()

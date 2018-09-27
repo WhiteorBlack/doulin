@@ -105,6 +105,7 @@
                 android:drawableLeft="@drawable/check_box"
                 android:drawablePadding="8dp"
                 android:padding="12dp"
+                android:visibility="gone"
                 android:paddingBottom="6dp"
                 android:text="银行卡支付"
                 android:textColor="@color/black"

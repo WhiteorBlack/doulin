@@ -20,4 +20,5 @@ class UserInfoModel :Serializable {
     var inviteCode = ""//邀请码
     var authentication = ""//认证状态 0未认证 1认证审核中 2认证成功 3审核拒绝
     var balance = ""
+    var shareurl = ""//分享链接
 }

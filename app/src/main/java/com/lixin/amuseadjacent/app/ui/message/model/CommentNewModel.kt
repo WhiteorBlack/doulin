@@ -19,6 +19,8 @@ class CommentNewModel {
         var userId = ""//评论人id
         var userIcon = ""//评论人头像
 
+        var commentId = ""//一级评论id(一级评论消息为空 二级评论消息有)
+
         var type = ""// 1动态帮帮 2活动 3话题
         var objid = ""//动态id或帮帮id或活动id 或话题id
         var state = ""//动态是否已经隐藏 0未隐藏 1已隐藏

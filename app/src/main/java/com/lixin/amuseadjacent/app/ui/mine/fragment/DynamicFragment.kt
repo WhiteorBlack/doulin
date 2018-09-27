@@ -50,7 +50,6 @@ class DynamicFragment : BaseFragment() {
         include.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
-
         dynamicAdapter = DynamicAdapter(activity!!, dynaList)
         xrecyclerview.adapter = dynamicAdapter
 
@@ -75,8 +74,7 @@ class DynamicFragment : BaseFragment() {
             }
         })
 
-        ProgressDialog.showDialog(activity!!)
-        MyDynamic_132.dynamic(nowPage, auid)
+
     }
 
     private fun init() {
@@ -87,7 +85,8 @@ class DynamicFragment : BaseFragment() {
 
 
     override fun loadData() {
-
+        ProgressDialog.showDialog(activity!!)
+        MyDynamic_132.dynamic(nowPage, auid)
     }
 
     @Subscribe

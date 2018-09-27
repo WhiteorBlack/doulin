@@ -37,12 +37,16 @@ class MyMsgAdapter(val context: Context, val list: ArrayList<MsgListModel.msgMod
 
         if (model.type == "0") {
             holder.tv_type.text = "系统消息"
+            holder.image.setImageResource(R.drawable.ic_official_msg)
         } else if (model.type == "1") {
             holder.tv_type.text = "订单消息"
+            holder.image.setImageResource(R.drawable.ic_order)
         } else if (model.type == "2") {
             holder.tv_type.text = "评论消息"
-        } else if (model.type == "2") {
+            holder.image.setImageResource(R.drawable.ic_comment)
+        } else if (model.type == "3") {
             holder.tv_type.text = "点赞消息"
+            holder.image.setImageResource(R.drawable.ic_zan_msg)
         }
 
         holder.tv_info.text = model.messageTitle

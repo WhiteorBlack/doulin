@@ -67,8 +67,12 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
                     return
                 }
                 if (msgList[position].type == "0") {//0系统消息 1订单信息 2评论信息 3点赞信息
+                    val bundle = Bundle()
+                    bundle.putString("type", "0")
                     MyApplication.openActivity(activity, OfficialNewsActivity::class.java)
                 } else if (msgList[position].type == "1") {
+                    val bundle = Bundle()
+                    bundle.putString("type", "1")
                     MyApplication.openActivity(activity, OrderNewsActivity::class.java)
                 } else if (msgList[position].type == "2") {
                     val bundle = Bundle()

@@ -26,6 +26,8 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.util.NIMUtil;
 import com.tencent.smtt.sdk.QbSdk;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
 
@@ -41,7 +43,7 @@ public class MyApplication extends MultiDexApplication {
 //val json = "{\"cmd\":\"getMsg\"" + "}"
 // val json = "{\"cmd\":\"upPrize\",\"prizeId\":\"" + prizeId  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}";
 
-    public static String CameraPath = Environment.getExternalStorageDirectory().getPath() + "/带路圈/";
+    public static String CameraPath = Environment.getExternalStorageDirectory().getPath() + "/逗邻/";
 
     public static MyApplication getInstance() {
         // if语句下是不会走的，Application本身已单例
@@ -83,6 +85,10 @@ public class MyApplication extends MultiDexApplication {
 
         //百度
         SDKInitializer.initialize(this);
+
+        UMShareAPI.get(this);
+        PlatformConfig.setWeixin("wxe73e5c8db33225ac", "f862b2b950468f2ead96259bbde11568");
+        PlatformConfig.setQQZone("1106937627", "KePldFLgZzyUZ47F");
 
         initTBS();
 

@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.GridLayoutManager
@@ -142,10 +143,11 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
 
         holder.itemView.setOnClickListener { v ->
-            val bundle = Bundle()
-            bundle.putString("flag", flag)
-            bundle.putString("id", dynaList[position].dynamicId)
-            MyApplication.openActivity(context, DynamicDetailsActivity::class.java, bundle)
+            val intent = Intent(context, DynamicDetailsActivity::class.java)
+            intent.putExtra("flag", flag)
+            intent.putExtra("position", position)
+            intent.putExtra("id", dynaList[position].dynamicId)
+            context.startActivityForResult(intent,3)
         }
 
     }

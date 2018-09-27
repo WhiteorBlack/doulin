@@ -45,12 +45,8 @@ class SignCalendarAdapter(val context: Context, val list: ArrayList<Int>, val we
                 if (day == date.substring(date.length - 2, date.length)) {
                     holder.tv_day.setTextColor(context.resources.getColor(R.color.white))
                     holder.tv_day.setBackgroundResource(R.drawable.circular_them)
-                } else {
-                    holder.tv_day.setTextColor(context.resources.getColor(R.color.black))
-                    holder.tv_day.setBackgroundColor(context.resources.getColor(R.color.white))
                 }
             }
-
 
             if (flag - week + 2 == day.toInt()) {
                 holder.tv_day.setTextColor(context.resources.getColor(R.color.white))

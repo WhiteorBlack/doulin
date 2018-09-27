@@ -14,6 +14,8 @@ class ActivityCommentModel1 : Serializable {
 
     var dataList = ArrayList<commModel>()
 
+    var `object` = commModel()
+
     class commModel : Serializable {
 
         //热门评论

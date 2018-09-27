@@ -73,15 +73,14 @@
         app:layout_constraintStart_toStartOf="@+id/tv_down"
         app:layout_constraintTop_toBottomOf="@+id/tv_down" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_rule"
-        android:layout_width="0dp"
+    <com.lixin.amuseadjacent.app.view.MyWebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tv_down"
         app:layout_constraintStart_toStartOf="@+id/tv_down"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rule" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_rule"  />
 
 
 </android.support.constraint.ConstraintLayout>

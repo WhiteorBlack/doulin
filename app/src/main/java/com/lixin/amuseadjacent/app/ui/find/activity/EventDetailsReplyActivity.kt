@@ -83,13 +83,15 @@ class EventDetailsReplyActivity : BaseActivity() {
             }
             ProgressDialog.showDialog(this)
             ActivityComment_272829210.comment("0",dyeventId, model.commentId, content, object : ActivityComment_272829210.CommentCallBack {
-                  override fun commemt() {
+                  override fun commemt(commentId:String) {
                       et_comment.setText("")
                       val model = ActivityCommentModel1.commModel()
                       model.commentContent = content
                       model.commentIcon = StaticUtil.headerUrl
                       model.commentTime = GetDateTimeUtil.getYMDHMS()
                       model.secondNum = "0"
+                      model.commentId=commentId
+                      model.commentUid=StaticUtil.uid
                       model.commentName = StaticUtil.nickName
                       model.zanNum = "0"
                       commentList.add(0, model)
@@ -102,7 +104,6 @@ class EventDetailsReplyActivity : BaseActivity() {
 
     @Subscribe
     fun onEvent(model: ActivityCommentModel1) {
-
         commentList.addAll(model.dataList)
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
         rv_reply.layoutAnimation = controller

@@ -100,10 +100,6 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                 getSgin(year.toString() + "-" + format(month))
             }
             R.id.tv_eeffect -> {
-                if (todaySign == "1") {
-                    ToastUtil.showToast("今天已签到")
-                    return
-                }
                 ProgressDialog.showDialog(this@QianDaoActivity)
                 SignIn_117118.sgin(object : SignIn_117118.SginCallBack {
                     override fun sginScore(score: String) {

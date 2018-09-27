@@ -42,11 +42,11 @@ object Myinteraction_161162 {
     }
 
     /**
-     * @param type 0帮帮 1活动
-     * @param objid 0帮帮 1活动
+     * @param type 0帮帮 1活动 2动态
+     * @param objid 帮帮id或活动id
      */
     fun DelInteraction(type: String, objid: String,delInteractionCallBack: DelInteractionCallBack) {
-        val json = "{\"cmd\":\"deleteInteraction\",\"uid\":\"" + "0e8e8f65183c4ff9bf22a0a323ea87e5" + "\",\"type\":\"" + type +
+        val json = "{\"cmd\":\"deleteInteraction\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
                 "\",\"objid\":\"" + objid + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {

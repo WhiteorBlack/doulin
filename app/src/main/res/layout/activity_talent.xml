@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:fitsSystemWindows="true"
                 app:contentScrim="@color/colorTheme"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
 
 
                 <android.support.constraint.ConstraintLayout

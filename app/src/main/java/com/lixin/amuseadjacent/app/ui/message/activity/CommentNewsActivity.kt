@@ -27,6 +27,8 @@ class CommentNewsActivity : BaseActivity() {
     private var totalPage = 1
     private var onRefresh = 0
 
+    private var type=""//2评论信息 3点赞信息
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.xrecyclerview)
@@ -39,12 +41,14 @@ class CommentNewsActivity : BaseActivity() {
         inittitle("收到的消息")
         StatusBarWhiteColor()
 
+        type=intent.getStringExtra("type")//2评论信息 3点赞信息
+
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
         xrecyclerview.layoutManager = linearLayoutManager
 
-        commAdapter = CommentNewsAdapter(this, commentList)
+        commAdapter = CommentNewsAdapter(this,type, commentList)
         xrecyclerview.adapter = commAdapter
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {

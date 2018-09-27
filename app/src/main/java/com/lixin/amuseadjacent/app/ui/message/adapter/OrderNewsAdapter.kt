@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.message.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.message.model.OfficialNewModel
 import com.lixin.amuseadjacent.app.ui.message.model.OrderlNewModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
+import com.lixin.amuseadjacent.app.ui.mine.activity.order.OrderDetailsActivity
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 
 /**
@@ -44,6 +46,13 @@ class OrderNewsAdapter(val context: Context, val orderList: ArrayList<OrderlNewM
                     notifyDataSetChanged()
                 }
             })
+        }
+
+        holder.tv_see.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("num", model.orderNum)
+            bundle.putInt("position", -1)
+            MyApplication.openActivity(context, OrderDetailsActivity::class.java, bundle)
         }
 
     }

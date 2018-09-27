@@ -31,7 +31,7 @@ android {
         ]
         ndk {
             //设置支持的SO库架构
-            abiFilters "armeabi","armeabi-v7a"/*, "x86","arm64-v8a","x86_64"*/
+            abiFilters "armeabi", "armeabi-v7a"/*, "x86","arm64-v8a","x86_64"*/
         }
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'
@@ -43,8 +43,6 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
-
-
 
     //MVVM模式数据绑定
     dataBinding {
@@ -134,4 +132,13 @@ dependencies {
     implementation project(':nicevideoplayer')
     implementation project(':sdk')
     implementation files('libs/BaiduLBS_Android.jar')
+
+    implementation files('libs/SocialSDK_QQ_Simplify.jar')
+    implementation files('libs/SocialSDK_WeChat_Simplify.jar')
+    implementation files('libs/umeng_social_api.jar')
+    implementation files('libs/umeng_shareboard_widget.jar')
+    implementation files('libs/umeng_social_net.jar')
+    implementation files('libs/umeng_social_shareboard.jar')
+    implementation files('libs/umeng_social_tool.jar')
+    implementation files('libs/umeng-common-1.4.4.jar')
 }
