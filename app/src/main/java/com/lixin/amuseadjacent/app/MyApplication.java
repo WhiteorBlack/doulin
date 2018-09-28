@@ -19,6 +19,7 @@ import com.lixin.amuseadjacent.app.ui.contacts.NimSDKOptionConfig;
 import com.lixin.amuseadjacent.app.ui.contacts.Preferences;
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil;
 import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil;
+import com.lixin.amuseadjacent.app.util.SpUtil;
 import com.lixin.amuseadjacent.app.util.StaticUtil;
 import com.lixin.amuseadjacent.app.util.abLog;
 import com.netease.nim.uikit.api.NimUIKit;
@@ -93,6 +94,14 @@ public class MyApplication extends MultiDexApplication {
         PlatformConfig.setQQZone("1106937627", "KePldFLgZzyUZ47F");
 
         initTBS();
+
+        if ((Boolean) SpUtil.get("isOn", true)) {
+//            SpUtil.put("isOn", false);
+//            JPushInterface.stopPush(this);
+        } else {
+            SpUtil.put("isOn", true);
+            JPushInterface.resumePush(this);
+        }
 
 //        CrashHandler catchExcep = new CrashHandler(this);
 //        Thread.setDefaultUncaughtExceptionHandler(catchExcep);
