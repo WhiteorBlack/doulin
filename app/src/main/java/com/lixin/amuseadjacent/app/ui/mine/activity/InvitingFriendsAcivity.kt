@@ -35,7 +35,7 @@ class InvitingFriendsAcivity : BaseActivity() {
         inittitle("邀请好友")
         StatusBarWhiteColor()
 
-        tv_id.text = intent.getStringExtra("id")
+        tv_id.text = StaticUtil.inviteCode
 
 
         val webView = webview.webView
@@ -55,8 +55,8 @@ class InvitingFriendsAcivity : BaseActivity() {
 
         } else {
             val image = UMImage(this, R.mipmap.ic_launcher)//网络图片
-            val web = UMWeb(intent.getStringExtra("url"))
-            web.description = "我的邀请码" + intent.getStringExtra("id")
+            val web = UMWeb(StaticUtil.shareurl)
+            web.description = "我的邀请码" + StaticUtil.inviteCode
             web.setThumb(image)
             web.title = "逗邻"
             ShareAction(this).setPlatform(share_media).setCallback(umShareListener)

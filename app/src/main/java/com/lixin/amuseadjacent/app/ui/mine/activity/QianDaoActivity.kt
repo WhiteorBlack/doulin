@@ -27,6 +27,7 @@ import java.util.ArrayList
 class QianDaoActivity : BaseActivity(), View.OnClickListener {
 
     private var calendarAdapter: SignCalendarAdapter? = null
+    private var dateList=ArrayList<String>()
     private var dayList = ArrayList<Int>()
     private var week = 0
 
@@ -103,6 +104,9 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                 ProgressDialog.showDialog(this@QianDaoActivity)
                 SignIn_117118.sgin(object : SignIn_117118.SginCallBack {
                     override fun sginScore(score: String) {
+                        dateList.add(dateList.size-1,getDateTime.ymd())
+                        calendarAdapter = SignCalendarAdapter(this@QianDaoActivity, dayList, week, dateList)
+                        recyclerView!!.adapter = calendarAdapter
                         QianDaoDialog.communityDialog(this@QianDaoActivity, score)
                     }
                 })
@@ -118,7 +122,8 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
         week = getDateTime.getWeek(year, month)
         dayList = getDateTime.getMonthDay(year, month)
 
-        calendarAdapter = SignCalendarAdapter(this, dayList, week, model.dataList)
+        dateList=model.dataList
+        calendarAdapter = SignCalendarAdapter(this, dayList, week, dateList)
         recyclerView!!.adapter = calendarAdapter
     }
 

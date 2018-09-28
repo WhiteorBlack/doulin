@@ -1,6 +1,8 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -39,6 +41,8 @@ class EnteredAdapter(val context: Context, val list: ArrayList<EventDetailsModel
         holder.tv_name.text = model.userName
         holder.tv_peoNum.text = "人数：" + model.signNum
         holder.tv_age.text = model.userAge
+        holder.tv_phone.text = model.userPhone
+
         if (model.userSex == "0") {//女
             holder.tv_age.setBackgroundResource(R.drawable.bg_girl8)
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_girl, holder.tv_age, 3)
@@ -47,11 +51,18 @@ class EnteredAdapter(val context: Context, val list: ArrayList<EventDetailsModel
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_boy, holder.tv_age, 3)
         }
 
-        holder.iv_header.setOnClickListener { v->
-            val bundle=Bundle()
-            bundle.putString("auid",model.userId)
-            bundle.putString("isAttention","0")
-            MyApplication.openActivity(context,PersonalHomePageActivity::class.java,bundle)
+        holder.tv_phone.setOnClickListener { v ->
+            val intent = Intent(Intent.ACTION_DIAL)
+            val data = Uri . parse ("tel:" + model.userPhone)
+            intent.data = data
+            context.startActivity(intent)
+        }
+
+        holder.iv_header.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("auid", model.userId)
+            bundle.putString("isAttention", "0")
+            MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
         }
 
     }
@@ -63,6 +74,7 @@ class EnteredAdapter(val context: Context, val list: ArrayList<EventDetailsModel
         val tv_name = view.findViewById<TextView>(R.id.tv_name)
         val tv_age = view.findViewById<TextView>(R.id.tv_age)
         val tv_peoNum = view.findViewById<TextView>(R.id.tv_peoNum)
+        val tv_phone = view.findViewById<TextView>(R.id.tv_phone)
     }
 
 

@@ -5,16 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import cn.jpush.android.api.JPushInterface
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.MainActivity
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.entrance.SginInActivity
 import com.lixin.amuseadjacent.app.ui.mine.request.VersionUpData_153
-import com.lixin.amuseadjacent.app.util.AppManager
-import com.lixin.amuseadjacent.app.util.DataCleanManager
-import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil
-import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.*
 import kotlinx.android.synthetic.main.activity_setup.*
 
 /**
@@ -60,6 +58,8 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
         tv_exitlogon.setOnClickListener(this)
 
         tv_updata.setOnClickListener(this)
+        sv_message.setOnClickListener(this)
+        sv_message.isOpened=SpUtil.get("isOn", true) as Boolean
     }
 
     override fun onClick(p0: View?) {
@@ -98,6 +98,14 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = uri
                 startActivity(intent)
+            }
+            R.id.sv_message -> {
+                if(sv_message.isOpened){
+                    JPushInterface.resumePush(this@SetUpActivity)
+                }else{
+                    JPushInterface.stopPush(this@SetUpActivity)
+                }
+                SpUtil.put("isOn", sv_message.isOpened)
             }
         }
 

@@ -19,6 +19,8 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
+import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134
+import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
@@ -80,11 +82,26 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
         } else {
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tv_zan, 5)
         }
+
+        holder.tv_zan.setOnClickListener { v ->
+            if (model.isZan == "1") {
+                return@setOnClickListener
+            }
+            ProgressDialog.showDialog(context)
+            DynaComment_133134.zan(model.dynamicId, "", object : Find_26.ZanCallback {
+                override fun zan() {
+                    dynaList[position].zanNum = (dynaList[position].zanNum.toInt() + 1).toString()
+                    dynaList[position].isZan = "1"
+                    notifyDataSetChanged()
+                }
+            })
+        }
+
         if (TextUtils.isEmpty(model.dynamicVideo)) {
             holder.player.visibility = View.GONE
 
             if (model.dynamicImgList.size > 0) {
-                if (model.dynamicImgList.size <= 3) {
+                if (model.dynamicImgList.size < 3) {
                     holder.rv_image.visibility = View.GONE
                     holder.ll_image.visibility = View.VISIBLE
 

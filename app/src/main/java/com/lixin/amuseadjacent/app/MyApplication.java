@@ -19,6 +19,7 @@ import com.lixin.amuseadjacent.app.ui.contacts.NimSDKOptionConfig;
 import com.lixin.amuseadjacent.app.ui.contacts.Preferences;
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil;
 import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil;
+import com.lixin.amuseadjacent.app.util.SpUtil;
 import com.lixin.amuseadjacent.app.util.StaticUtil;
 import com.lixin.amuseadjacent.app.util.abLog;
 import com.netease.nim.uikit.api.NimUIKit;
@@ -30,6 +31,7 @@ import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Administrator on 2018/3/9 0009.
@@ -69,9 +71,10 @@ public class MyApplication extends MultiDexApplication {
         StaticUtil.INSTANCE.setNickName(sp.getString(SharedPreferencesUtil.nickName, ""));
         StaticUtil.INSTANCE.setCommunityName(sp.getString(SharedPreferencesUtil.communityName, ""));
 
+
         abLog.INSTANCE.setE(true);
-//        JPushInterface.init(this);
-//        JPushInterface.setDebugMode(false);// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);
+        JPushInterface.setDebugMode(false);// 设置开启日志,发布时请关闭日志
 
         ImageLoaderUtil.configImageLoader(CONTEXT);
         com.nostra13.universalimageloader.utils.L.disableLogging();
@@ -91,6 +94,14 @@ public class MyApplication extends MultiDexApplication {
         PlatformConfig.setQQZone("1106937627", "KePldFLgZzyUZ47F");
 
         initTBS();
+
+        CrashHandler catchExcep = new CrashHandler(this);
+        Thread.setDefaultUncaughtExceptionHandler(catchExcep);
+        if ((Boolean) SpUtil.get("isOn", true)) {
+            JPushInterface.resumePush(this);
+        } else {
+            JPushInterface.stopPush(this);
+        }
 
 //        CrashHandler catchExcep = new CrashHandler(this);
 //        Thread.setDefaultUncaughtExceptionHandler(catchExcep);

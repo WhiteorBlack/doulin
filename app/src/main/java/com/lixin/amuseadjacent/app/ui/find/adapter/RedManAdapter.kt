@@ -64,7 +64,7 @@ class RedManAdapter(val context: Activity, val redmanList: ArrayList<RedmanModel
 
         holder.ic_header.setOnClickListener { v ->
             val bundle = Bundle()
-            bundle.putString("aui", model.userId)
+            bundle.putString("auid", model.userId)
             bundle.putString("isAttention", model.isAttention)
             MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
         }

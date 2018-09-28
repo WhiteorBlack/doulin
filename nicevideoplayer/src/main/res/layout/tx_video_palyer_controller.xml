@@ -124,8 +124,9 @@
         android:layout_height="match_parent"
         android:background="#6c0b0b0b"
         android:gravity="center"
+        android:visibility="gone"
         android:orientation="horizontal"
-        android:visibility="gone">
+       >
 
         <TextView
             android:id="@+id/replay"
@@ -147,6 +148,7 @@
             android:drawablePadding="4dp"
             android:padding="8dp"
             android:text="分享"
+            android:visibility="gone"
             android:textColor="@android:color/white"
             android:textSize="13sp" />
     </LinearLayout>

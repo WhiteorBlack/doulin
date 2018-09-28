@@ -109,10 +109,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         MyApplication.openActivity(activity, HelpActivity::class.java)
                     }
                     1 -> {//邀请好友
-                        val bundle = Bundle()
-                        bundle.putString("id", userModel!!.inviteCode)
-                        bundle.putString("url", userModel!!.shareurl)
-                        MyApplication.openActivity(activity, InvitingFriendsAcivity::class.java, bundle)
+                        MyApplication.openActivity(activity, InvitingFriendsAcivity::class.java)
                     }
                     2 -> {//更换社区
                         MyApplication.openActivity(activity, ReplaceCommunityActivity::class.java)
@@ -203,6 +200,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         userModel = model
         StaticUtil.headerUrl = model.icon
         StaticUtil.nickName = model.nickname
+        StaticUtil.shareurl = model.shareurl
+        StaticUtil.inviteCode = model.inviteCode
 
         ImageLoader.getInstance().displayImage(model.icon, iv_heaser)
         tv_id.text = model.nickname

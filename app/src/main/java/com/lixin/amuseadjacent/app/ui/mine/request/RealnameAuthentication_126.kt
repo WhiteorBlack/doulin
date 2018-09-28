@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.mine.request
 
 import android.app.Activity
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
@@ -15,6 +16,9 @@ import java.io.File
 object RealnameAuthentication_126 {
 
     fun authentication(context: Activity, realName: String, idCard: String, phone: String, justPath: String, backPath: String) {
+
+
+        abLog.e("认证............", "$justPath;;;;;;;;$backPath")
 
         val justFile = File(justPath)
         val backFile = File(backPath)

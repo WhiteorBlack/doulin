@@ -151,7 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:text="图片将展示在您的高手页面"
+                android:text="图片将显示在您的个人主页"
                 android:textColor="@color/tab_color_false"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/image"

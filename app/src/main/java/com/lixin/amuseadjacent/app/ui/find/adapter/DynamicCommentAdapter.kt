@@ -71,6 +71,7 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
 
         holder.itemView.setOnClickListener { v ->
             val bundle = Bundle()
+            bundle.putString("commentId", model.commentId)
             bundle.putString("id", dynaId)
             bundle.putSerializable("model", model)
             MyApplication.openActivity(context, DynamicDetailsReplyActivity::class.java, bundle)

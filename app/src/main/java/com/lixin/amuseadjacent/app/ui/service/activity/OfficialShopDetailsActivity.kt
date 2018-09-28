@@ -60,7 +60,7 @@ class OfficialShopDetailsActivity : BaseActivity() {
                     commentAdapter!!.notifyDataSetChanged()
                 }
                 onRefresh = 1
-
+                OfficialShopDetails_34.OfficialShopDetails(flag,nowPage)
             }
 
             override fun onLoadMore() {
@@ -70,7 +70,7 @@ class OfficialShopDetailsActivity : BaseActivity() {
                     return
                 }
                 onRefresh = 2
-
+                OfficialShopDetails_34.OfficialShopDetails(flag,nowPage)
             }
         })
 
@@ -88,7 +88,7 @@ class OfficialShopDetailsActivity : BaseActivity() {
         if (totalPage <= 1) {
             if (commentList.isEmpty()) {
                 rv_comment.setNullDataFragment(this)
-            } else {
+            }else{
                 rv_comment.noMoreLoading()
             }
         }

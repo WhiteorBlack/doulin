@@ -4,7 +4,6 @@
     android:id="@+id/ll_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <!--达人-->
@@ -29,7 +28,6 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
                 app:contentScrim="@color/colorTheme"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
 

@@ -27,7 +27,7 @@ class CommentNewsActivity : BaseActivity() {
     private var totalPage = 1
     private var onRefresh = 0
 
-    private var type=""//2评论信息 3点赞信息
+    private var type = ""//2评论信息 3点赞信息
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +41,14 @@ class CommentNewsActivity : BaseActivity() {
         inittitle("收到的消息")
         StatusBarWhiteColor()
 
-        type=intent.getStringExtra("type")//2评论信息 3点赞信息
+        type = intent.getStringExtra("type")//2评论信息 3点赞信息
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
         xrecyclerview.layoutManager = linearLayoutManager
 
-        commAdapter = CommentNewsAdapter(this,type, commentList)
+        commAdapter = CommentNewsAdapter(this, type, commentList)
         xrecyclerview.adapter = commAdapter
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
@@ -59,7 +59,11 @@ class CommentNewsActivity : BaseActivity() {
                     commentList.clear()
                     commAdapter!!.notifyDataSetChanged()
                 }
-                MsgList_21.commentNew(nowPage)
+                if (type == "2") {
+                    MsgList_21.commentNew(nowPage)
+                } else {
+                    MsgList_21.zanNew(nowPage)
+                }
             }
 
             override fun onLoadMore() {
@@ -69,12 +73,21 @@ class CommentNewsActivity : BaseActivity() {
                     return
                 }
                 onRefresh = 2
-                MsgList_21.commentNew(nowPage)
+                if (type == "2") {
+                    MsgList_21.commentNew(nowPage)
+                } else {
+                    MsgList_21.zanNew(nowPage)
+                }
             }
         })
 
         ProgressDialog.showDialog(this)
-        MsgList_21.commentNew(nowPage)
+        if (type == "2") {
+            MsgList_21.commentNew(nowPage)
+        } else {
+            MsgList_21.zanNew(nowPage)
+        }
+
     }
 
     @Subscribe

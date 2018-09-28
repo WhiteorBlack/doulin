@@ -32,7 +32,7 @@ class MyQRActivity : BaseActivity() {
 
         ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
         tv_name.text = StaticUtil.nickName
-        tv_uid.text = StaticUtil.uid
+        tv_uid.text = StaticUtil.communityName
 
         val contents = String( StaticUtil.uid.toByteArray(charset("UTF-8")), charset("ISO-8859-1"))
         val mBitmap = EncodingHandler.createQRCode(contents, 500)

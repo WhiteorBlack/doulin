@@ -17,6 +17,7 @@ public class LoadingMoreFooter extends LinearLayout {
     public final static int STATE_ERR = 3;
     private TextView mText, mText2;
     private ProgressBar progressBar;
+    private LinearLayout ll_foot;
 
 
     public LoadingMoreFooter(Context context) {
@@ -37,6 +38,7 @@ public class LoadingMoreFooter extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.yun_refresh_footer, this);
         mText = (TextView) findViewById(R.id.msg);
         mText2 = (TextView) findViewById(R.id.msg2);
+        ll_foot=findViewById(R.id.ll_foot);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
@@ -55,7 +57,8 @@ public class LoadingMoreFooter extends LinearLayout {
             case STATE_NOMORE:
                 mText.setText(getContext().getText(R.string.nomore_loading));
                 progressBar.setVisibility(View.GONE);
-                this.setVisibility(View.VISIBLE);
+                this.setVisibility(View.GONE);
+                ll_foot.setVisibility(View.GONE);
                 break;
             case STATE_ERR:
                 mText.setText(getContext().getText(R.string.err));

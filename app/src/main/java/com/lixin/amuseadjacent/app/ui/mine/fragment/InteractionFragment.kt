@@ -89,8 +89,6 @@ class InteractionFragment : BaseFragment() {
         if (totalPage <= 1) {
             if (interactionList.isEmpty()) {
                 xrecyclerview.setNullDataFragment(activity!!)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 

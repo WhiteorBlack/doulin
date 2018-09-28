@@ -112,4 +112,21 @@ object MsgList_21 {
         })
     }
 
+    //点赞消息
+    fun zanNew(nowPage: Int) {
+        val json = "{\"cmd\":\"zanMessageList\",\"uid\":\"" + StaticUtil.uid + "\",\"nowPage\":\"" + nowPage +
+                "\",\"pageCount\":\"" + "20" + "\"}"
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val model = Gson().fromJson(response, CommentNewModel::class.java)
+                if (model.result == "0") {
+                    EventBus.getDefault().post(model)
+                } else {
+                    ToastUtil.showToast(model.resultNote)
+                }
+            }
+        })
+    }
+
 }

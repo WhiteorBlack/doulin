@@ -2,16 +2,16 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/gray2"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/gray2">
 
     <!--服务-->
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
-        android:id="@+id/cl_item"
         android:background="@drawable/touch_bg"
         android:clickable="true">
 
@@ -34,10 +34,11 @@
             android:id="@+id/tv_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:paddingTop="8dp"
-            android:text="国产香蕉8.66元/6根"
+            android:gravity="center"
+            android:text="国产香蕉8.66元/6根国产香蕉8.66元/6根国产香蕉8.66元/6根国产香蕉8.66元/6根国产香蕉8.66元/6根"
             android:textColor="@color/colorTabText"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,12 +49,12 @@
             android:id="@+id/iv_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_marginBottom="12dp"
             android:layout_marginTop="10dp"
             android:maxHeight="60dp"
             android:maxWidth="60dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_shop"
-            android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

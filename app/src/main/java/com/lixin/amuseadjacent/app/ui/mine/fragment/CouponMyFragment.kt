@@ -95,6 +95,9 @@ class CouponMyFragment : BaseFragment() {
 
     @Subscribe
     fun onEvent(model: CouponMyModel) {
+        if(!isVisibleToUser){
+            return
+        }
         totalPage = model.totalPage
 
         couponList.addAll(model.dataList)
@@ -102,8 +105,6 @@ class CouponMyFragment : BaseFragment() {
         if (totalPage <= 1) {
             if (couponList.isEmpty()) {
                 xrecyclerview.setNullDataFragment(activity)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 

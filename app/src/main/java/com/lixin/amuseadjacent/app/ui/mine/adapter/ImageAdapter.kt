@@ -32,10 +32,8 @@ class ImageAdapter(val context: Context, val list: ArrayList<String>, val flag: 
 
         ImageLoader.getInstance().displayImage(list[position], holder.image)
 
-        if (flag == 0) {
-            holder.image.setOnClickListener { v ->
-                ToPreviewPhoto.toPhoto(context, list, position)
-            }
+        holder.image.setOnClickListener { v ->
+            ToPreviewPhoto.toPhoto(context, list, position)
         }
 
     }

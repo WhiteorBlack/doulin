@@ -96,11 +96,6 @@ class TalentFragment : BaseFragment() {
 
         totalPage = model.totalPage
 
-        if (totalPage <= 1) {
-            if (talentList.isNotEmpty()) {
-                xrecyclerview.noMoreLoading()
-            }
-        }
 
         if (onRefresh == 1) {
             xrecyclerview.refreshComplete()

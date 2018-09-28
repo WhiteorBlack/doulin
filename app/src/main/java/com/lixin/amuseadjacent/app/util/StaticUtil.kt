@@ -40,13 +40,15 @@ object StaticUtil {
 
     var Beecloud_Appid = "03feacbf-5f79-4f2c-83de-92910cc6e7b4"
     var Beecloud_AppSecret = "78cb9f6f-2021-4e56-b66e-f9c6cbb31e0b"
-    var Weixin_Appid = "78cb9f6f-2021-4e56-b66e-f9c6cbb31e0b"
+    var Weixin_Appid = "wxe73e5c8db33225ac"
 
     var balance = ""//余额
 
     var RefundResult = 2//订单状态退款操作
     var EvaluateResult = 3//订单状态评价操作
 
+    var shareurl = ""//分享链接
+    var inviteCode = ""//邀请码
 
     fun getJpushToken(context: Context): String {
         return JPushInterface.getRegistrationID(context)

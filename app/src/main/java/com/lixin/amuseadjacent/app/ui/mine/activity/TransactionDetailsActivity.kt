@@ -12,7 +12,6 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.TransactionAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.BalanceDetailsModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Wallet_119121
-import kotlinx.android.synthetic.main.activity_webview.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
@@ -99,8 +98,6 @@ class TransactionDetailsActivity : BaseActivity() {
         if (totalPage <= 1) {
             if (detailsList.isEmpty()) {
                 xrecyclerview.setNullData(this)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 
