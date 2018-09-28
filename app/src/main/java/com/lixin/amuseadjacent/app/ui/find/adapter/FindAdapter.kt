@@ -18,15 +18,20 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
+import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
+import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134
+import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.ToPreviewPhoto
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.xiao.nicevideoplayer.NiceVideoPlayer
 import com.xiao.nicevideoplayer.TxVideoPlayerController
+import kotlinx.android.synthetic.main.activity_event_details.*
 
 /**
  * Created by Slingge on 2018/8/18
@@ -46,7 +51,6 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
         } else {
             return actiivtyList!!.size
         }
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -58,23 +62,23 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             holder.tv_name.text = model.dynamicName
             holder.tv_effect.text = "影响力" + model.userEffectNum
             holder.tv_info.text = model.dynamicContent
-            if(TextUtils.isEmpty(model.dynamicContent)){
-                holder.tv_info.visibility=View.GONE
+            if (TextUtils.isEmpty(model.dynamicContent)) {
+                holder.tv_info.visibility = View.GONE
             }
 
             holder.tv_time.text = model.time
             holder.tv_comment.text = model.commentNum
             holder.tv_zan.text = model.zanNum
 
-            if(model.dynamicUid== StaticUtil.uid){
-                holder.tv_follow.visibility=View.INVISIBLE
-            }else{
-                holder.tv_follow.visibility=View.VISIBLE
+            if (model.dynamicUid == StaticUtil.uid) {
+                holder.tv_follow.visibility = View.INVISIBLE
+            } else {
+                holder.tv_follow.visibility = View.VISIBLE
                 if (model.isAttention == "0") {// 0未关注 1已关注
                     holder.tv_follow.text = "关注"
-                    holder.tv_follow.visibility=View.VISIBLE
+                    holder.tv_follow.visibility = View.VISIBLE
                 } else {
-                    holder.tv_follow.visibility=View.INVISIBLE
+                    holder.tv_follow.visibility = View.INVISIBLE
                 }
             }
 
@@ -84,11 +88,26 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             } else {
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tv_zan, 5)
             }
+            holder.tv_zan.setOnClickListener { v ->
+                if (model.isZan == "1") {
+                    return@setOnClickListener
+                }
+                ProgressDialog.showDialog(context)
+                DynaComment_133134.zan(model.dynamicId, "", object : Find_26.ZanCallback {
+                    override fun zan() {
+                        dynaList[position].zanNum = (dynaList[position].zanNum.toInt() + 1).toString()
+                        dynaList[position].isZan = "1"
+                        notifyDataSetChanged()
+                    }
+                })
+            }
+
+
             if (TextUtils.isEmpty(model.dynamicVideo)) {
                 holder.player.visibility = View.GONE
 
                 if (model.dynamicImgList.size > 0) {
-                    if (model.dynamicImgList.size <= 3) {
+                    if (model.dynamicImgList.size < 3) {
                         holder.rv_image.visibility = View.GONE
                         holder.ll_image.visibility = View.VISIBLE
 
@@ -99,6 +118,9 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                             holder.image2.visibility = View.GONE
 
                             ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image0)
+                            holder.image0.setOnClickListener { v ->
+                                ToPreviewPhoto.toPhoto(context, model.dynamicImgList, 0)
+                            }
 
                         } else {
                             holder.image0.visibility = View.GONE
@@ -108,12 +130,19 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
 
                             ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image1)
                             ImageLoader.getInstance().displayImage(model.dynamicImgList[1], holder.image2)
+
+                            holder.image1.setOnClickListener { v ->
+                                ToPreviewPhoto.toPhoto(context, model.dynamicImgList, 0)
+                            }
+                            holder.image2.setOnClickListener { v ->
+                                ToPreviewPhoto.toPhoto(context, model.dynamicImgList, 1)
+                            }
                         }
 
                     } else {
                         holder.ll_image.visibility = View.GONE
                         holder.rv_image.visibility = View.VISIBLE
-                        val imageAdapter = ImageAdapter(context, model.dynamicImgList,1)
+                        val imageAdapter = ImageAdapter(context, model.dynamicImgList, 1)
                         holder.rv_image.adapter = imageAdapter
                     }
                 } else {
@@ -164,10 +193,10 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             } else {
                 holder.tv_follow.text = "已关注"
             }
-            if(model.userid== StaticUtil.uid){
-                holder.tv_follow.visibility=View.INVISIBLE
-            }else{
-                holder.tv_follow.visibility=View.VISIBLE
+            if (model.userid == StaticUtil.uid) {
+                holder.tv_follow.visibility = View.INVISIBLE
+            } else {
+                holder.tv_follow.visibility = View.VISIBLE
             }
 
 
@@ -175,6 +204,20 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
             } else {
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tv_zan, 5)
+            }
+
+            holder.tv_zan.setOnClickListener { v ->
+                if (model.isZan == "1") {
+                    return@setOnClickListener
+                }
+                ProgressDialog.showDialog(context)
+                ActivityComment_272829210.zan("0", model.activityId, "", object : Find_26.ZanCallback {
+                    override fun zan() {
+                        actiivtyList[position].isZan="1"
+                        actiivtyList[position].zanNum= (actiivtyList[position].zanNum.toInt()+1).toString()
+                        notifyItemChanged(position)
+                    }
+                })
             }
 
             holder.tv_actiivtyname.text = model.activityName

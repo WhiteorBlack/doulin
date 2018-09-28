@@ -115,12 +115,6 @@ class BangBangActivity : BaseActivity() {
 
         totalPage = model.totalPage
 
-        if (totalPage <= 1) {
-            if (dynaList.isNotEmpty()) {
-                rv_event.noMoreLoading()
-            }
-        }
-
         if (onRefresh == 1) {
             rv_event.refreshComplete()
         } else if (onRefresh == 2) {

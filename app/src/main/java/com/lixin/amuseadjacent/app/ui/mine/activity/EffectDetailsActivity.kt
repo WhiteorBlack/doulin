@@ -82,8 +82,6 @@ class EffectDetailsActivity : BaseActivity() {
         if (totalPage == 1) {
             if (effList.isEmpty()) {
                 xrecyclerview.setNullData(this)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 

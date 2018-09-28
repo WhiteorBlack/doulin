@@ -62,7 +62,7 @@ class OrderNewsActivity : BaseActivity() {
             override fun onLoadMore() {
                 nowPage++
                 if (nowPage >= totalPage) {
-                    xrecyclerview.noMoreLoading()
+                    xrecyclerview .noMoreLoading()
                     return
                 }
                 onRefresh = 2
@@ -82,8 +82,6 @@ class OrderNewsActivity : BaseActivity() {
         if (totalPage <= 1) {
             if (orderList.isEmpty()) {
                 xrecyclerview.setNullData(this)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 

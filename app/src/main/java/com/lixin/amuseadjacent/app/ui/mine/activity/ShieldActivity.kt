@@ -89,8 +89,6 @@ class ShieldActivity : BaseActivity() {
         if (totalPage <= 1) {
             if (shieldList.isEmpty()) {
                 xrecyclerview.setNullData(this)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 

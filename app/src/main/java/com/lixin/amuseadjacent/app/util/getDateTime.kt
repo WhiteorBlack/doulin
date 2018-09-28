@@ -20,12 +20,12 @@ object getDateTime {
      * 获取格式年月日
      */
     //获取当前时间
-    val ymd: String
-        get() {
-            val formatter = SimpleDateFormat("yyyy-MM-dd")
-            val curDate = Date(System.currentTimeMillis())
-            return formatter.format(curDate)
-        }
+    fun ymd(): String {
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val curDate = Date(System.currentTimeMillis())
+        return formatter.format(curDate)
+    }
+
 
     /**
      * 获取格式年月日时分秒

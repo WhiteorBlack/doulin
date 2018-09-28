@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import com.google.gson.Gson
@@ -15,6 +17,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.AlbumDialog
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.AlbumAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.HomePageModel
+import com.lixin.amuseadjacent.app.ui.mine.request.EditeNote_167
 import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
 import com.lixin.amuseadjacent.app.ui.mine.request.MyAlbum_112113114
 import com.lixin.amuseadjacent.app.ui.mine.request.UserMessage_111
@@ -76,6 +79,22 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         film.setOnClickListener(this)
         book.setOnClickListener(this)
         label.setOnClickListener(this)
+
+        et_note.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                val s = p0!!.toString()
+                if (TextUtils.isEmpty(s)) {
+                    return
+                }
+                EditeNote_167.note(StaticUtil.uid, s)
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
 
         rv_album.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_album) {
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {

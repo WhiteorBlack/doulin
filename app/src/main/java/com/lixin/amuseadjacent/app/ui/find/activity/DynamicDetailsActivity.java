@@ -241,7 +241,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         if (TextUtils.isEmpty(model.object.dynamicVideo)) {
             player.setVisibility(View.GONE);
             if (model.object.dynamicImgList.size() > 0) {
-                if (model.object.dynamicImgList.size() <= 3) {
+                if (model.object.dynamicImgList.size() < 3) {
                     rv_image.setVisibility(View.GONE);
                     ll_image.setVisibility(View.VISIBLE);
                     if (model.object.dynamicImgList.size() == 1) {

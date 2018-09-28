@@ -60,7 +60,7 @@ class CollectionActivity : BaseActivity() {
             override fun onLoadMore() {
                 nowPage++
                 if (nowPage>=totalPage) {
-                    xrecyclerview.noMoreLoading()
+                    xrecyclerview .noMoreLoading()
                     return
                 }
                 onRefresh = 2
@@ -82,8 +82,6 @@ class CollectionActivity : BaseActivity() {
         if (totalPage <= 1) {
             if (collectList.isEmpty()) {
                 xrecyclerview.setNullData(this)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 

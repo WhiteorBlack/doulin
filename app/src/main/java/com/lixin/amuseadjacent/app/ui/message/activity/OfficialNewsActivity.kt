@@ -81,8 +81,6 @@ class OfficialNewsActivity : BaseActivity() {
         if (totalPage <= 1) {
             if (offList.isEmpty()) {
                 xrecyclerview.setNullData(this)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 

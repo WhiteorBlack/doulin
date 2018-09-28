@@ -105,8 +105,6 @@ class CouponMyFragment : BaseFragment() {
         if (totalPage <= 1) {
             if (couponList.isEmpty()) {
                 xrecyclerview.setNullDataFragment(activity)
-            } else {
-                xrecyclerview.noMoreLoading()
             }
         }
 

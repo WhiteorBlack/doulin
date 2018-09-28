@@ -87,7 +87,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
             holder.tv_price.text = model.activityMoney + "元/人"
             holder.tv_time.text = "时间：" + model.activityTime
             holder.tv_address.text = "地点：" + model.activityName
-            holder.tv_num.text = "人数：" + model.activityName
+            holder.tv_num.text = "人数：" + model.activityNownum+"/"+model.activityAllnum
         }
 
         holder.tv_date.text = model.time

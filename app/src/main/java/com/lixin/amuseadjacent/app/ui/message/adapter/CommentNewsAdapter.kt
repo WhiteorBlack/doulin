@@ -16,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsReplyActivity
 import com.lixin.amuseadjacent.app.ui.message.model.CommentNewModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
  * type=""//2评论信息 3点赞信息
@@ -40,11 +41,11 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
         if (type == "2") {
             holder.text.text = "收到新的评论"
             holder.tex2.text = model.messageTitle
-            holder.image.setImageResource(R.drawable.ic_comment)
+            ImageLoader.getInstance().displayImage(model.userIcon,holder.image)
         } else {
             holder.text.text = "收到新的点赞"
             holder.tex2.text = "点赞消息"
-            holder.image.setImageResource(R.drawable.ic_zan_msg)
+            ImageLoader.getInstance().displayImage(model.userIcon,holder.image)
         }
 
         holder.tv_time.text = model.messageTime

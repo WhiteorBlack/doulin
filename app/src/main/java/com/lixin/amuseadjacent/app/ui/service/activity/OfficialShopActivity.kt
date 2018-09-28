@@ -267,22 +267,6 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         MyApplication.openActivity(this, SubmissionOrderActivity::class.java, bundle)
     }
 
-    //平滑滚动到指定位置
-    private fun smoothMoveToPosition(mLinearLayoutManager: LinearLayoutManager, n: Int) {
-
-        val firstItem = mLinearLayoutManager.findFirstVisibleItemPosition()
-        val lastItem = mLinearLayoutManager.findLastVisibleItemPosition()
-        if (n <= firstItem) {
-            rv_right.smoothScrollToPosition(n)
-        } else if (n <= lastItem) {
-            val top = rv_right.getChildAt(n - firstItem).top
-            rv_right.smoothScrollBy(0, top)
-        } else {
-            mLinearLayoutManager.scrollToPositionWithOffset(n, 0)
-            mLinearLayoutManager.stackFromEnd = true
-        }
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()

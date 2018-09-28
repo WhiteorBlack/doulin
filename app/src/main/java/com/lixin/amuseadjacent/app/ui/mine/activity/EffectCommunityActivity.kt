@@ -2,15 +2,20 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.find.activity.DynamicReleaseActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.EventReleaseActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.EffectAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.EffectModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Effect_312166
+import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_community_effect.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
@@ -53,6 +58,42 @@ class EffectCommunityActivity : BaseActivity() {
         linelayout.orientation = LinearLayoutManager.VERTICAL
 
         rv_effect.layoutManager = linelayout
+        rv_effect.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_effect) {
+            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
+                val i = vh!!.adapterPosition
+                ToastUtil.showToast(i.toString())
+                if (i < 0 || i >= effectList.size) {
+                    return
+                }
+                when (effectList[i].taskId) {//1每日签到 ,2邀请好友 3发布活动  4发布动态 5完善资料 6认证用户
+                    "1" -> {
+                        MyApplication.openActivity(this@EffectCommunityActivity, QianDaoActivity::class.java)
+                    }
+                    "2" -> {
+                        MyApplication.openActivity(this@EffectCommunityActivity, InvitingFriendsAcivity::class.java)
+                    }
+                    "3" -> {
+                        MyApplication.openActivity(this@EffectCommunityActivity, EventReleaseActivity::class.java)
+                    }
+                    "4" -> {
+                        val bundle = Bundle()
+                        bundle.putString("flag", "0")
+                        MyApplication.openActivity(this@EffectCommunityActivity, DynamicReleaseActivity::class.java, bundle)
+                    }
+                    "5" -> {
+                        MyApplication.openActivity(this@EffectCommunityActivity, PersonalDataActivity::class.java)
+                    }
+                    "6" -> {
+                        if (effectList[i].isFinishTask == "1") {
+                            ToastUtil.showToast("已认证")
+                            return
+                        }
+                        MyApplication.openActivity(this@EffectCommunityActivity, RealNameAuthenticationActivity::class.java)
+                    }
+                }
+            }
+        })
+
 
         ProgressDialog.showDialog(this)
         Effect_312166.effect()
@@ -63,6 +104,7 @@ class EffectCommunityActivity : BaseActivity() {
         tv_eeffect.text = model.allEffectNum
         tv_already.text = "今日已获得" + model.dayEffectNum + "点影响力"
 
+        effectList = model.dataList
         effectAdapter = EffectAdapter(this, model.dataList)
         rv_effect.adapter = effectAdapter
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)

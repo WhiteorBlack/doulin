@@ -31,12 +31,12 @@ class StartActivity : BaseActivity() {
         val timer = Timer()
         val task = object : TimerTask() {
             override fun run() {
-              /*  val isFirst = SharedPreferencesUtil.getSharePreBoolean(this@StartActivity, "isFirst")
+                val isFirst = SharedPreferencesUtil.getSharePreBoolean(this@StartActivity, "isFirst")
                 if (!isFirst) {
-                    MyApplication.openActivity(this@StartActivity, SginInActivity::class.java)
+                    MyApplication.openActivity(this@StartActivity, WelComeActivity::class.java)
                     finish()
                     return
-                }*/
+                }
 
                 val uid = SharedPreferencesUtil.getSharePreStr(this@StartActivity, SharedPreferencesUtil.uid)
                 if (!TextUtils.isEmpty(uid)) {

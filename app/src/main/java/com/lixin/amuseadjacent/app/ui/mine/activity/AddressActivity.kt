@@ -78,7 +78,7 @@ class AddressActivity : BaseActivity() {
             override fun onLoadMore() {
                 nowPage++
                 if (nowPage >= totalPage) {
-                    xrecyclerview.noMoreLoading()
+                    xrecyclerview .noMoreLoading()
                     return
                 }
                 onRefresh = 2

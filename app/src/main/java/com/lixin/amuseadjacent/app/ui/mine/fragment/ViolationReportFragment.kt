@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
@@ -13,7 +14,6 @@ import com.lixin.amuseadjacent.app.ui.mine.adapter.ViolationReportAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.IrregularitiesModel
 import com.lixin.amuseadjacent.app.ui.mine.model.ReportModel
 import com.lixin.amuseadjacent.app.ui.mine.request.ViolationReport_129130
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -28,7 +28,7 @@ class ViolationReportFragment : BaseFragment() {
     private var violationReportAdapter: ViolationReportAdapter? = null
 
     private var violationList = ArrayList<IrregularitiesModel.irreguModel>()
-    private var  reportList = ArrayList<ReportModel.irreguModel>()
+    private var reportList = ArrayList<ReportModel.irreguModel>()
 
     private var flag = -1//0违规，1举报
 
@@ -47,22 +47,55 @@ class ViolationReportFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        if (violationList.isNotEmpty()) {
+            violationList.clear()
+        }
+        if (reportList.isNotEmpty()) {
+            reportList.clear()
+        }
         include.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
 
-        violationReportAdapter = ViolationReportAdapter(activity!!, flag,violationList,reportList)
+        violationReportAdapter = ViolationReportAdapter(activity!!, flag, violationList, reportList)
         xrecyclerview.adapter = violationReportAdapter
 
-        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        xrecyclerview.layoutAnimation = controller
-        violationReportAdapter!!.notifyDataSetChanged()
-        xrecyclerview.scheduleLayoutAnimation()
+        xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
+            override fun onRefresh() {
+                nowPage = 1
+                if (violationList.isNotEmpty()) {
+                    violationList.clear()
+                }
+                if (reportList.isNotEmpty()) {
+                    reportList.clear()
+                }
+                violationReportAdapter!!.notifyDataSetChanged()
+                if (flag == 0) {
+                    ViolationReport_129130.irregularities(nowPage)
+                } else {
+                    ViolationReport_129130.report(nowPage)
+                }
+            }
+
+            override fun onLoadMore() {
+                nowPage++
+                if (nowPage >= totalPage) {
+                    xrecyclerview.noMoreLoading()
+                    return
+                }
+                onRefresh=2
+                if (flag == 0) {
+                    ViolationReport_129130.irregularities(nowPage)
+                } else {
+                    ViolationReport_129130.report(nowPage)
+                }
+            }
+        })
 
         ProgressDialog.showDialog(activity!!)
         if (flag == 0) {
             ViolationReport_129130.irregularities(nowPage)
-        }else{
+        } else {
             ViolationReport_129130.report(nowPage)
         }
     }
@@ -76,14 +109,6 @@ class ViolationReportFragment : BaseFragment() {
 
     override fun loadData() {
 
-        if(violationList.isNotEmpty()){
-            violationList.clear()
-        }
-        if(reportList.isNotEmpty()){
-            reportList.clear()
-        }
-
-
     }
 
     //违规
@@ -93,20 +118,20 @@ class ViolationReportFragment : BaseFragment() {
 
         violationList.addAll(model.dataList)
 
-        if (totalPage <= 1) {
-            if(violationList.isEmpty()){
-                xrecyclerview.setNullDataFragment(activity!!)
-            }else{
-                xrecyclerview.noMoreLoading()
-            }
-        }
-
-        if(onRefresh==1){
+        if (onRefresh == 1) {
             xrecyclerview.refreshComplete()
-        }else if(onRefresh==2){
+        } else if (onRefresh == 2) {
             xrecyclerview.loadMoreComplete()
         }
-        violationReportAdapter!!.notifyDataSetChanged()
+        if (nowPage == 1) {
+            val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
+            xrecyclerview.layoutAnimation = controller
+            violationReportAdapter!!.notifyDataSetChanged()
+            xrecyclerview.scheduleLayoutAnimation()
+        } else {
+            violationReportAdapter!!.notifyDataSetChanged()
+        }
+
     }
 
     //举报
@@ -117,16 +142,16 @@ class ViolationReportFragment : BaseFragment() {
         reportList.addAll(model.dataList)
 
         if (totalPage <= 1) {
-            if(violationList.isEmpty()){
+            if (violationList.isEmpty()) {
                 xrecyclerview.setNullDataFragment(activity!!)
-            }else{
+            } else {
                 xrecyclerview.noMoreLoading()
             }
         }
 
-        if(onRefresh==1){
+        if (onRefresh == 1) {
             xrecyclerview.refreshComplete()
-        }else if(onRefresh==2){
+        } else if (onRefresh == 2) {
             xrecyclerview.loadMoreComplete()
         }
 

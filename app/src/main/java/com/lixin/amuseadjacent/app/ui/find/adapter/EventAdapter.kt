@@ -76,7 +76,7 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
         holder.tv_price.text = model.activityMoney + "元/人"
         holder.tv_activitytime.text = "时间：" + model.activityTime
         holder.tv_address.text = "地点：" + model.activityAddress
-        holder.tv_num.text = "人数：" + model.activityAllnum
+        holder.tv_num.text = "人数：" + model.activityNownum+"/"+model.activityAllnum
 
         ImageLoader.getInstance().displayImage(model.userIcon, holder.iv_header, ImageLoaderUtil.HeaderDIO())
         holder.tv_name.text = model.userName

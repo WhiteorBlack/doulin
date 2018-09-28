@@ -47,6 +47,8 @@ object StaticUtil {
     var RefundResult = 2//订单状态退款操作
     var EvaluateResult = 3//订单状态评价操作
 
+    var shareurl = ""//分享链接
+    var inviteCode = ""//邀请码
 
     fun getJpushToken(context: Context): String {
         return JPushInterface.getRegistrationID(context)

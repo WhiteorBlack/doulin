@@ -16,6 +16,8 @@ import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
+import com.lixin.amuseadjacent.app.ui.find.request.Find_26
+import com.lixin.amuseadjacent.app.ui.message.model.CommunityUserModel
 import com.lixin.amuseadjacent.app.ui.mine.activity.FeedbackActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
@@ -68,6 +70,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_send.setOnClickListener(this)
         temp_comment.setOnClickListener(this)
         pl_header.setOnClickListener(this)
+        tv_zan.setOnClickListener(this)
 
         tv_info.setTextColor(resources.getColor(R.color.black))
 
@@ -201,7 +204,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 }
                 ProgressDialog.showDialog(this)
                 ActivityComment_272829210.comment("0", eventId, "", content, object : ActivityComment_272829210.CommentCallBack {
-                    override fun commemt(commentId:String) {
+                    override fun commemt(commentId: String) {
                         et_comment.setText("")
                         val model = ActivityCommentModel1.commModel()
                         model.commentContent = content
@@ -210,8 +213,8 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                         model.secondNum = "0"
                         model.commentName = StaticUtil.nickName
                         model.zanNum = "0"
-                        model.commentUid=StaticUtil.uid
-                        model.commentId=commentId
+                        model.commentUid = StaticUtil.uid
+                        model.commentId = commentId
                         commentList.add(0, model)
                         commentAdapter!!.notifyDataSetChanged()
                     }
@@ -219,6 +222,19 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.image -> {
                 PreviewPhoto.preview(this, eventModel.`object`.activityImgurl, 0)
+            }
+            R.id.tv_zan -> {//赞
+                if (eventModel.`object`.isZan == "1") {
+                    return
+                }
+                ActivityComment_272829210.zan("0", eventModel.`object`.activityId, "", object : Find_26.ZanCallback {
+                    override fun zan() {
+                        eventModel.`object`.isZan = "1"
+                        tv_zan.text = (eventModel.`object`.zanNum.toInt() + 1).toString()
+                        AbStrUtil.setDrawableLeft(this@EventDetailsActivity, R.drawable.ic_zan_hl, tv_zan, 5)
+                    }
+                })
+
             }
             R.id.temp_comment -> {//评论
                 val bundle = Bundle()

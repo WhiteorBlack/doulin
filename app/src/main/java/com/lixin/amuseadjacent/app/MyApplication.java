@@ -30,6 +30,7 @@ import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by Administrator on 2018/3/9 0009.
@@ -69,9 +70,10 @@ public class MyApplication extends MultiDexApplication {
         StaticUtil.INSTANCE.setNickName(sp.getString(SharedPreferencesUtil.nickName, ""));
         StaticUtil.INSTANCE.setCommunityName(sp.getString(SharedPreferencesUtil.communityName, ""));
 
+
         abLog.INSTANCE.setE(true);
-//        JPushInterface.init(this);
-//        JPushInterface.setDebugMode(false);// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);
+        JPushInterface.setDebugMode(false);// 设置开启日志,发布时请关闭日志
 
         ImageLoaderUtil.configImageLoader(CONTEXT);
         com.nostra13.universalimageloader.utils.L.disableLogging();
