@@ -16,6 +16,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.RechargeDialog
 import com.lixin.amuseadjacent.app.ui.mine.model.MyBankModel
+import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -48,13 +49,9 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
         } else if (result == BCPayResult.RESULT_CANCEL) {
             toastMsg = "用户取消支付"
         } else if (result == BCPayResult.RESULT_FAIL) {
-            if (bcPayResult.errCode == -12) {
-                toastMsg = "您尚未安装支付宝"
-            } else {
-                toastMsg = "支付失败, 原因: " + bcPayResult.errCode +
-                        " # " + bcPayResult.errMsg +
-                        " # " + bcPayResult.detailInfo
-            }
+            toastMsg = "支付失败, 原因: " + bcPayResult.errCode +
+                    " # " + bcPayResult.errMsg +
+                    " # " + bcPayResult.detailInfo
             /*
               * 你发布的项目中不应该出现如下错误，此处由于支付宝政策原因，
               * 不再提供支付宝支付的测试功能，所以给出提示说明
@@ -82,11 +79,10 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
     // 通过Handler.Callback()可消除内存泄漏警告
     private val mHandler = Handler(Handler.Callback { msg ->
         Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
+        RechargeDialog.dismiss()
         when (msg.what) {
             1 -> {
-//                toast(resources.getString(R.string.toast13))
-//                setResult(100)
-//                finish()
+                UserInfo_19.userInfo(this)
             }
         }
         true
@@ -103,7 +99,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
         // 第二个参数需要换成你自己的微信AppID.
         val initInfo = BCPay.initWechatPay(this, StaticUtil.Weixin_Appid)
         if (initInfo != null) {
-//            ToastUtil.showToast("微信初始化失败")
+            ToastUtil.showToast("微信初始化失败")
         }
 
         init()
@@ -154,7 +150,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
                 MyApplication.openActivity(this, BankCardActivity::class.java)
             }
             R.id.tv_recharge -> {//充值
-                RechargeDialog.communityDialog(this, null,bcCallback)
+                RechargeDialog.communityDialog(this, null, bcCallback)
             }
         }
     }
@@ -166,7 +162,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
         }
         if (resultCode == 0) {
             val model = data.getSerializableExtra("DynamiclDetailsModel") as MyBankModel.detailsModel
-            RechargeDialog.communityDialog(this, model,bcCallback)
+            RechargeDialog.communityDialog(this, model, bcCallback)
         }
     }
 

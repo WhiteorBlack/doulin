@@ -18,6 +18,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.service.request.BalancePay_154
+import com.lixin.amuseadjacent.app.util.DecimalUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_payment.*
@@ -55,7 +56,7 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
         } else if (result == BCPayResult.RESULT_CANCEL) {
             toastMsg = "用户取消支付"
         } else if (result == BCPayResult.RESULT_FAIL) {
-            if (bcPayResult.errCode == -12) {
+            if (bcPayResult.errCode == -12 && payType == "alipay") {
                 toastMsg = "您尚未安装支付宝"
             } else {
                 toastMsg = "支付失败, 原因: " + bcPayResult.errCode +
@@ -88,12 +89,14 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
     // Defines a Handler object that's attached to the UI thread.
     // 通过Handler.Callback()可消除内存泄漏警告
     private val mHandler = Handler(Handler.Callback { msg ->
+        ProgressDialog.dissDialog()
         Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
         when (msg.what) {
             1 -> {
-//                toast(resources.getString(R.string.toast13))
-//                setResult(100)
-//                finish()
+                val bundle=Bundle()
+                bundle.putString("orderNum",oderNum)
+                MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java,bundle)
+                finish()
             }
         }
         true
@@ -159,12 +162,13 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
                 })
             }
 
+            ProgressDialog.showDialog(this)
             if (payType == "alipay") {
                 val aliParam = BCPay.PayParams()
                 aliParam.channelType = BCReqParams.BCChannelTypes.ALI_APP
-                aliParam.billTitle = "支付"
-                aliParam.billTotalFee = 1  //订单金额(分)
-                aliParam.billNum = "20125481515644"
+                aliParam.billTitle = "支付宝支付"
+                aliParam.billTotalFee = DecimalUtil.ceilInt(payMoney.toDouble()* 100) //订单金额(分)
+                aliParam.billNum = oderNum
                 BCPay.getInstance(this).reqPaymentAsync(
                         aliParam, bcCallback)
             }
@@ -174,9 +178,9 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
                 if (BCPay.isWXAppInstalledAndSupported() && BCPay.isWXPaySupported()) {
                     val payParams = BCPay.PayParams()
                     payParams.channelType = BCReqParams.BCChannelTypes.WX_APP
-                    payParams.billTitle = "支付"   //订单标题
-                    payParams.billTotalFee = 1    //订单金额(分)
-                    payParams.billNum = "20125481515644"  //订单流水号
+                    payParams.billTitle = "微信支付"   //订单标题
+                    payParams.billTotalFee = DecimalUtil.ceilInt(payMoney.toDouble()* 100)    //订单金额(分)
+                    payParams.billNum = oderNum  //订单流水号
                     BCPay.getInstance(this).reqPaymentAsync(
                             payParams,
                             bcCallback)            //支付完成后回调入口

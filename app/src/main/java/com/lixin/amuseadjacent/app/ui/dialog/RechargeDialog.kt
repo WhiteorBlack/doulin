@@ -16,8 +16,10 @@ import cn.beecloud.entity.BCReqParams
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.mine.activity.BankCardActivity
 import com.lixin.amuseadjacent.app.ui.mine.model.MyBankModel
+import com.lixin.amuseadjacent.app.ui.service.request.RechargePay_154
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.CashierInputFilter
+import com.lixin.amuseadjacent.app.util.DecimalUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_withdraw.*
 
@@ -33,8 +35,6 @@ object RechargeDialog {
     private var money = ""
     private var CardId = ""
     private var type = ""
-
-    private var listener: ToPayOnClickListener? = null
 
     fun communityDialog(context: Activity, model: MyBankModel.detailsModel?, bcCallback: BCCallback) {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_recharge, null)
@@ -112,37 +112,38 @@ object RechargeDialog {
                 }
             }
 
-            if (type == "weixin"){
-                //对于微信支付, 手机内存太小会有OutOfResourcesException造成的卡顿, 以致无法完成支付
-                //这个是微信自身存在的问题
-                if (BCPay.isWXAppInstalledAndSupported() && BCPay.isWXPaySupported()) {
-                    val payParams = BCPay.PayParams()
-                    payParams.channelType = BCReqParams.BCChannelTypes.WX_APP
-                    payParams.billTitle = "支付"   //订单标题
-                    payParams.billTotalFee = 1    //订单金额(分)
-                    payParams.billNum = "20125481515644"  //订单流水号
-                    BCPay.getInstance(context).reqPaymentAsync(
-                            payParams,
-                            bcCallback)            //支付完成后回调入口
-                } else {
-                    ToastUtil.showToast("您尚未安装微信或者安装的微信版本不支持")
+            RechargePay_154.pay(AbStrUtil.etTostr(et_money), object : RechargePay_154.RechargePayCallBack{
+                override fun pay(orderNum: String) {
+
+                    if (type == "weixin"){
+                        //对于微信支付, 手机内存太小会有OutOfResourcesException造成的卡顿, 以致无法完成支付
+                        //这个是微信自身存在的问题
+                        if (BCPay.isWXAppInstalledAndSupported() && BCPay.isWXPaySupported()) {
+                            val payParams = BCPay.PayParams()
+                            payParams.channelType = BCReqParams.BCChannelTypes.WX_APP
+                            payParams.billTitle = "充值"   //订单标题
+                            payParams.billTotalFee = DecimalUtil.ceilInt(AbStrUtil.etTostr(et_money).toDouble()* 100)    //订单金额(分)
+                            payParams.billNum = orderNum  //订单流水号
+                            BCPay.getInstance(context).reqPaymentAsync(
+                                    payParams,
+                                    bcCallback)            //支付完成后回调入口
+                        } else {
+                            ToastUtil.showToast("您尚未安装微信或者安装的微信版本不支持")
+                        }
+                    }
+
+                    if (type == "ailpay"){
+                        val aliParam = BCPay.PayParams()
+                        aliParam.channelType = BCReqParams.BCChannelTypes.ALI_APP
+                        aliParam.billTitle = "充值"
+                        aliParam.billTotalFee = DecimalUtil.ceilInt(AbStrUtil.etTostr(et_money).toDouble()* 100)  //订单金额(分)
+                        aliParam.billNum = orderNum
+                        BCPay.getInstance(context).reqPaymentAsync(
+                                aliParam, bcCallback)
+                    }
                 }
-            }
-
-            if (type == "ailpay"){
-                val aliParam = BCPay.PayParams()
-                aliParam.channelType = BCReqParams.BCChannelTypes.ALI_APP
-                aliParam.billTitle = "支付"
-                aliParam.billTotalFee = 1  //订单金额(分)
-                aliParam.billNum = "20125481515644"
-                BCPay.getInstance(context).reqPaymentAsync(
-                        aliParam, bcCallback)
-            }
-
-
-
+            })
         }
-
 
         val dialogWindow = builder!!.window
         dialogWindow.setGravity(Gravity.CENTER)//显示在底部
@@ -155,14 +156,6 @@ object RechargeDialog {
 
         builder!!.window.clearFlags(
                 WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
-    }
-
-    interface ToPayOnClickListener {
-        fun onPayClick(money: String, type: String, CardId: String)
-    }
-
-    fun setToPayOnClickListener(listener: ToPayOnClickListener) {
-        this.listener = listener
     }
 
     fun dismiss() {
