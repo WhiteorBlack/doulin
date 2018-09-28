@@ -95,6 +95,9 @@ class CouponMyFragment : BaseFragment() {
 
     @Subscribe
     fun onEvent(model: CouponMyModel) {
+        if(!isVisibleToUser){
+            return
+        }
         totalPage = model.totalPage
 
         couponList.addAll(model.dataList)
