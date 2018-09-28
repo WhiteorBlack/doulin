@@ -172,7 +172,7 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
             imageList.add(LocalMedia("", 1L, 0, ""))
             abLog.e("相册", Gson().toJson(imageList))
 
-            albumAdapter = AlbumAdapter(this, imageList, 9, null)
+            albumAdapter = AlbumAdapter(this, imageList, 8, null)
             rv_album.adapter = albumAdapter
             albumAdapter!!.setFlag(0)
             albumAdapter!!.setDelShow(false)

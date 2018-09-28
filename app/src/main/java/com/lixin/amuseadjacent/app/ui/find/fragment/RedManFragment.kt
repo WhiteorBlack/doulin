@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.find.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.find.adapter.RedManAdapter
 import com.lixin.amuseadjacent.app.ui.find.model.RedmanModel
 import com.lixin.amuseadjacent.app.ui.find.request.Redman_211
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
@@ -36,6 +38,13 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
     private var redManAdapter: RedManAdapter? = null
     private var redmanList = ArrayList<RedmanModel.dataModel>()
 
+    private var auid0=""//第一名uid
+    private var auid1=""//第二名uid
+    private var auid2=""//第三名uid
+    private var isAttention0=""
+    private var isAttention1=""
+    private var isAttention2=""
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_redman_list, container, false)
         EventBus.getDefault().register(this)
@@ -48,6 +57,10 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
         tv_follow_center.setOnClickListener(this)
         tv_follow_left.setOnClickListener(this)
         tv_follow_right.setOnClickListener(this)
+
+        ic_header_center.setOnClickListener(this)
+        ic_header_left.setOnClickListener(this)
+        ic_header_right.setOnClickListener(this)
 
         rv_radman.layoutManager = linearLayoutManager
         rv_radman.setPullRefreshEnabled(false)
@@ -79,11 +92,23 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
             top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
             top3(model.dataList[1], ic_header_left, tv_name_left, tv_effect_left, tv_follow_left)
             top3(model.dataList[2], ic_header_right, tv_name_right, tv_effect_right, tv_follow_right)
+            auid0=model.dataList[0].userId
+            auid1=model.dataList[1].userId
+            auid2=model.dataList[2].userId
+            isAttention0=model.dataList[0].isAttention
+            isAttention1=model.dataList[1].isAttention
+            isAttention2=model.dataList[2].isAttention
         } else if (redmanList.size == 2) {
             top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
             top3(model.dataList[1], ic_header_left, tv_name_left, tv_effect_left, tv_follow_left)
+            auid0=model.dataList[0].userId
+            auid1=model.dataList[1].userId
+            isAttention0=model.dataList[0].isAttention
+            isAttention1=model.dataList[1].isAttention
         } else if (redmanList.size == 1) {
             top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
+            auid0=model.dataList[0].userId
+            isAttention0=model.dataList[0].isAttention
         }
     }
 
@@ -125,6 +150,13 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
                     }
                 }
                 redManAdapter!!.notifyDataSetChanged()
+                if(i==0){
+                    isAttention0=redmanList[i].isAttention
+                }else if(i==1){
+                    isAttention1=redmanList[i].isAttention
+                }else if(i==2){
+                    isAttention2=redmanList[i].isAttention
+                }
             }
         })
     }
@@ -152,6 +184,33 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
             }
             R.id.tv_follow_right -> {
                 topFollow(2, tv_follow_right)
+            }
+            R.id.ic_header_center -> {
+                if(TextUtils.isEmpty(auid0)){
+                    return
+                }
+                val bundle = Bundle()
+                bundle.putString("auid",auid0)
+                bundle.putString("isAttention", isAttention0)
+                MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
+            }
+            R.id.ic_header_left -> {
+                if(TextUtils.isEmpty(auid1)){
+                    return
+                }
+                val bundle = Bundle()
+                bundle.putString("auid", auid1)
+                bundle.putString("isAttention", isAttention1)
+                MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
+            }
+            R.id.ic_header_right -> {
+                if(TextUtils.isEmpty(auid2)){
+                    return
+                }
+                val bundle = Bundle()
+                bundle.putString("auid",auid2)
+                bundle.putString("isAttention",isAttention2)
+                MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
             }
         }
     }

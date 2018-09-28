@@ -113,7 +113,6 @@ class RealNameAuthenticationActivity : BaseActivity(), View.OnClickListener {
 
                 ProgressDialog.showDialog(this)
                 RealnameAuthentication_126.authentication(this, name, num, phone, justPath, backPath)
-
             }
         }
     }
@@ -134,7 +133,7 @@ class RealNameAuthenticationActivity : BaseActivity(), View.OnClickListener {
             } else {
                 backPath = PictureSelector.obtainMultipleResult(data)[0].path
                 id_back.setImageBitmap(bitmap)
-                id_just.scaleType = ImageView.ScaleType.CENTER_CROP
+                id_back.scaleType = ImageView.ScaleType.CENTER_CROP
             }
         }
     }

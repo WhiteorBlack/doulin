@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,7 +70,6 @@ public class TxVideoPlayerController
 
     private LinearLayout mCompleted;
     private TextView mReplay;
-    private TextView mShare;
 
     private boolean topBottomVisible;
     private CountDownTimer mDismissTopBottomCountDownTimer;
@@ -129,7 +127,6 @@ public class TxVideoPlayerController
 
         mCompleted = (LinearLayout) findViewById(R.id.completed);
         mReplay = (TextView) findViewById(R.id.replay);
-        mShare = (TextView) findViewById(R.id.share);
 
         mCenterStart.setOnClickListener(this);
         mBack.setOnClickListener(this);
@@ -138,7 +135,6 @@ public class TxVideoPlayerController
         mClarity.setOnClickListener(this);
         mRetry.setOnClickListener(this);
         mReplay.setOnClickListener(this);
-        mShare.setOnClickListener(this);
         mSeek.setOnSeekBarChangeListener(this);
         this.setOnClickListener(this);
     }
@@ -381,9 +377,7 @@ public class TxVideoPlayerController
             mNiceVideoPlayer.restart();
         } else if (v == mReplay) {
             mRetry.performClick();
-        } else if (v == mShare) {
-            Toast.makeText(mContext, "分享", Toast.LENGTH_SHORT).show();
-        } else if (v == this) {
+        }  else if (v == this) {
             if (mNiceVideoPlayer.isPlaying()
                     || mNiceVideoPlayer.isPaused()
                     || mNiceVideoPlayer.isBufferingPlaying()

@@ -70,7 +70,7 @@ public class ImageDetailFragment extends Fragment {
 				String message = null;
 				switch (failReason.getType()) {
 				case IO_ERROR:
-					message = " ";
+					message = "";
 					break;
 				case DECODING_ERROR:
 					message = "图片无法显示";

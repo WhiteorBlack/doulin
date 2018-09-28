@@ -95,12 +95,12 @@ public class MyApplication extends MultiDexApplication {
 
         initTBS();
 
+        CrashHandler catchExcep = new CrashHandler(this);
+        Thread.setDefaultUncaughtExceptionHandler(catchExcep);
         if ((Boolean) SpUtil.get("isOn", true)) {
-//            SpUtil.put("isOn", false);
-//            JPushInterface.stopPush(this);
-        } else {
-            SpUtil.put("isOn", true);
             JPushInterface.resumePush(this);
+        } else {
+            JPushInterface.stopPush(this);
         }
 
 //        CrashHandler catchExcep = new CrashHandler(this);

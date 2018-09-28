@@ -59,6 +59,7 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
 
         tv_updata.setOnClickListener(this)
         sv_message.setOnClickListener(this)
+        sv_message.isOpened=SpUtil.get("isOn", true) as Boolean
     }
 
     override fun onClick(p0: View?) {
@@ -99,13 +100,12 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             R.id.sv_message -> {
-                if (SpUtil.get("isOn", true) as Boolean) {
-                    SpUtil.put("isOn", false)
-                    JPushInterface.stopPush(this@SetUpActivity)
-                } else {
-                    SpUtil.put("isOn", true)
+                if(sv_message.isOpened){
                     JPushInterface.resumePush(this@SetUpActivity)
+                }else{
+                    JPushInterface.stopPush(this@SetUpActivity)
                 }
+                SpUtil.put("isOn", sv_message.isOpened)
             }
         }
 
