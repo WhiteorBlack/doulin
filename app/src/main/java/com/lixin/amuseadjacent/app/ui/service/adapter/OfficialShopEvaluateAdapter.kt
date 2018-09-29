@@ -16,7 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader
  * 官方店铺详情评论
  * Created by Slingge on 2018/9/19
  */
-class OfficialShopEvaluateAdapter (val context: Context, var commentList: ArrayList<OfficialShopDetailsModel.dataModel>)
+class OfficialShopEvaluateAdapter(val context: Context, var commentList: ArrayList<OfficialShopDetailsModel.dataModel>)
     : RecyclerView.Adapter<OfficialShopEvaluateAdapter.ViewHolder>() {
 
 
@@ -46,16 +46,20 @@ class OfficialShopEvaluateAdapter (val context: Context, var commentList: ArrayL
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val iv_header = view.findViewById<CircleImageView>(R.id.iv_header)
 
-           val tv_zan = view.findViewById<TextView>(R.id.tv_zan)
+        val tv_zan = view.findViewById<TextView>(R.id.tv_zan)
         val tv_name = view.findViewById<TextView>(R.id.tv_name)
         val ratingBar = view.findViewById<RatingBar>(R.id.ratingBar)
         val tv_comment = view.findViewById<TextView>(R.id.tv_comment)
         val tv_time = view.findViewById<TextView>(R.id.tv_time)
         val tv_commentNum = view.findViewById<TextView>(R.id.tv_commentNum)
+        val tv_del = view.findViewById<TextView>(R.id.tv_del)
 
         init {
-            ratingBar.visibility=View.VISIBLE
-            tv_zan.visibility=View.GONE
+            ratingBar.visibility = View.VISIBLE
+            tv_zan.visibility = View.GONE
+
+            tv_commentNum.visibility = View.GONE
+            tv_del.visibility = View.GONE
         }
     }
 

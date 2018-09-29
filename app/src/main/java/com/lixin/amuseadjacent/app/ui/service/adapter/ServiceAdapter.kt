@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.service.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,7 +11,10 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.lixin.amuseadjacent.R
 import android.widget.TextView
+import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.service.activity.SpecialAreaActivity
 import com.lixin.amuseadjacent.app.ui.service.model.ServiceModel
+import com.lixin.amuseadjacent.app.util.PreviewPhoto
 import com.nostra13.universalimageloader.core.ImageLoader
 import java.util.ArrayList
 
@@ -43,6 +47,17 @@ class ServiceAdapter(val context: Context, val serviceList: ArrayList<ServiceMod
         ImageLoader.getInstance().displayImage(model.optimizationImg, holder.iv_image)
         holder.tv_name.text = model.optimizationName
         holder.tv_info.text = model.optimizationDesc
+
+
+        holder.itemView.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putSerializable("model", serviceList[position])
+            MyApplication.openActivity(context, SpecialAreaActivity::class.java, bundle)
+        }
+
+        holder.iv_image.setOnClickListener { v ->
+            PreviewPhoto.preview(context, model.optimizationImg)
+        }
 
     }
 

@@ -119,7 +119,9 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             payTime.visibility = View.VISIBLE//支付时间
             tv_payTime.visibility = View.VISIBLE
             tv_payTime.text = model.payTime
-        }else{
+        }
+
+        if(model.orderState == "2" || model.orderState == "3"){//显示15分钟送货到家
             tv_sendTime.visibility=View.VISIBLE
             line_tome.visibility=View.VISIBLE
             view_0.visibility=View.GONE

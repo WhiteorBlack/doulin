@@ -36,6 +36,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
     private var addressId = ""
     private var couponId = ""
 
+    private var type = ""//0新鲜果蔬 1洗衣洗鞋 2超市便利
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +48,15 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
     private fun init() {
         inittitle("提交订单")
         StatusBarWhiteColor()
-
+        type = intent.getStringExtra("type")
         carList = intent.getSerializableExtra("list") as ArrayList<ShopGoodsModel.dataModel>
         carNum()
+
+        if (type != "1") {
+            line_tome.visibility=View.VISIBLE
+            tv_sendTime.visibility=View.VISIBLE
+            line_tome1.visibility=View.VISIBLE
+        }
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -75,7 +82,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
                 val msg = AbStrUtil.etTostr(et_note)
 
                 val mode = SubmissionModel()
-                mode.type = intent.getStringExtra("type")//0新鲜果蔬 1洗衣洗鞋 2超市便利
+                mode.type = type//0新鲜果蔬 1洗衣洗鞋 2超市便利
                 mode.allprice = totalMoney.toString()
                 mode.payprice = actualMoney.toString()
                 mode.securitiesid = couponId

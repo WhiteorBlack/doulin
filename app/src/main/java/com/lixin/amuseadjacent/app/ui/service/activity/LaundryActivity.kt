@@ -135,6 +135,7 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
         tab.setupWithViewPager(viewPager)
+        viewPager.offscreenPageLimit=list.size
 
         menuList.clear()
         menuList.addAll(firstList[0].secondList)

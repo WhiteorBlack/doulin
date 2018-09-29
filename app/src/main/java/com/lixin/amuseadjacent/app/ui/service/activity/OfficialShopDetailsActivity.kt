@@ -7,7 +7,6 @@ import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
-import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter
 import com.lixin.amuseadjacent.app.ui.service.adapter.OfficialShopEvaluateAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.OfficialShopDetailsModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopDetails_34
@@ -47,7 +46,7 @@ class OfficialShopDetailsActivity : BaseActivity() {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 
         rv_comment.layoutManager = linearLayoutManager
-
+        rv_comment.setPullRefreshEnabled(false)
         rv_comment.isFocusable = false
 
         commentAdapter = OfficialShopEvaluateAdapter(this, commentList)
@@ -84,14 +83,6 @@ class OfficialShopDetailsActivity : BaseActivity() {
     fun onEvent(model: OfficialShopDetailsModel) {
         commentList.addAll(model.dataList)
         totalPage = model.totalPage
-
-        if (totalPage <= 1) {
-            if (commentList.isEmpty()) {
-                rv_comment.setNullDataFragment(this)
-            }else{
-                rv_comment.noMoreLoading()
-            }
-        }
 
         if (onRefresh == 1) {
             rv_comment.refreshComplete()

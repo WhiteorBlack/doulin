@@ -80,19 +80,6 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
 
         xrecyclerview.addHeaderView(headerView)
 
-
-        xrecyclerview.addOnItemTouchListener(object : RecyclerItemTouchListener(xrecyclerview) {
-            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                val i = vh!!.adapterPosition - 2
-                if (i < 0) {
-                    return
-                }
-                val bundle = Bundle()
-                bundle.putSerializable("model", serviceList[i])
-                MyApplication.openActivity(activity, SpecialAreaActivity::class.java, bundle)
-            }
-        })
-
         banner = headerView!!.findViewById(R.id.banner)
         banner!!.setOnBannerListener { i ->
             ToastUtil.showToast(i.toString())

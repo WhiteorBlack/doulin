@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.service.model.SpecialModel
 import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
+import com.lixin.amuseadjacent.app.util.PreviewPhoto
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import java.util.ArrayList
@@ -53,6 +54,10 @@ class SpecialAdapter(val context: Context, var specialList: ArrayList<SpecialMod
                     holder.tv_num.visibility = View.VISIBLE
                 }
             })
+        }
+
+        holder.image.setOnClickListener { v ->
+            PreviewPhoto.preview(context, model.goodsImg)
         }
 
     }

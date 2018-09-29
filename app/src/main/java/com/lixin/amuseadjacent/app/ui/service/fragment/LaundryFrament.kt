@@ -46,8 +46,6 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
 
         laundryAdapter = LaundryAdapter(activity!!, goodList, this)
         rv_clothes.adapter = laundryAdapter
-
-
     }
 
     private fun init() {
@@ -66,7 +64,7 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
         carList.add(goodList[position])
 
         val model=CarModel.editModel()
-        model.goodModel=carList[position]
+        model.goodModel=carList[carList.size-1]
         model.flag=0
         model.position=position
         EventBus.getDefault().post(model)

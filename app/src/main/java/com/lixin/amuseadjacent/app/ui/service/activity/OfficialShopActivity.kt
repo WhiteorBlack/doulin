@@ -1,13 +1,21 @@
 package com.lixin.amuseadjacent.app.ui.service.activity
 
+import android.animation.Animator
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.graphics.PointF
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -20,6 +28,7 @@ import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsListModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
 import com.lixin.amuseadjacent.app.util.AbStrUtil
+import com.lixin.amuseadjacent.app.util.BezierTypeEvaluator
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -35,7 +44,7 @@ import org.greenrobot.eventbus.Subscribe
  */
 class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdapter.AddShopCar
         , ShopCartDialog.PlusCallBack, ShopCartDialog.ReduceCallBack, ShopCartDialog.DelCallBack
-        , ShopCartDialog.SettlementCallBack {
+        , ShopCartDialog.SettlementCallBack, ShopRightAdapter.ShopOnClickListtener {
 
     private var type = ""//0新校果蔬，1超市便利
 
@@ -216,6 +225,9 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         rightList.clear()
         rightList = model.dataList
         rightAdapter = ShopRightAdapter(this, title, rightList, this)
+        if (rightAdapter!!.shoponclickListtener == null) {
+            rightAdapter!!.setShopOnClickListtener(this)
+        }
         rv_right.adapter = rightAdapter
         rightAdapter!!.setType(type)
     }
@@ -265,6 +277,72 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         bundle.putString("type", type)
         bundle.putSerializable("list", carList)
         MyApplication.openActivity(this, SubmissionOrderActivity::class.java, bundle)
+    }
+
+
+    private var imageView: ImageView? = null
+    //加入购物车
+    override fun add(view: View, position: Int) {
+        //贝塞尔起始数据点
+        val startPosition = IntArray(2)
+        //贝塞尔结束数据点
+        val endPosition = IntArray(2)
+        //控制点
+        val recyclerPosition = IntArray(2)
+
+        view.getLocationInWindow(startPosition)
+        iv_car.getLocationInWindow(endPosition)
+        coordinatorLayout.getLocationInWindow(recyclerPosition)
+
+        val startF = PointF()
+        val endF = PointF()
+        val controllF = PointF()
+
+        startF.x = startPosition[0].toFloat()
+        startF.y = (startPosition[1] - recyclerPosition[1] + 30).toFloat()
+        endF.x = endPosition[0].toFloat() + 45
+        endF.y = (endPosition[1] - recyclerPosition[1] + 30).toFloat()
+        controllF.x = endF.x
+        controllF.y = startF.y
+
+        if (imageView == null) {
+            imageView = ImageView(this)
+            rl_main.addView(imageView)
+            imageView!!.setImageResource(R.drawable.ic_dian)
+            imageView!!.layoutParams.width = 25
+            imageView!!.layoutParams.height = 25
+        }
+
+        imageView!!.x = startF.x
+        imageView!!.y = startF.y
+
+        val valueAnimator = ValueAnimator.ofObject(BezierTypeEvaluator(controllF), startF, endF)
+        valueAnimator.addUpdateListener { animation ->
+            val pointF = animation.animatedValue as PointF
+            imageView!!.x = pointF.x
+            imageView!!.y = pointF.y
+        }
+
+        valueAnimator.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(p0: Animator?) {
+            }
+
+            override fun onAnimationEnd(p0: Animator?) {
+                imageView!!.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(p0: Animator?) {
+            }
+
+            override fun onAnimationStart(p0: Animator?) {
+                imageView!!.visibility = View.VISIBLE
+            }
+        })
+
+        val set = AnimatorSet()
+        set.play(valueAnimator)
+        set.duration = 800
+        set.start()
     }
 
 
