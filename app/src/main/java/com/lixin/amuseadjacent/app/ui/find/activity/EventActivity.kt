@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.app.ui.find.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
@@ -15,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.find.model.EventModel
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
+import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -38,6 +40,8 @@ class EventActivity : BaseActivity() {
     private val imageList = ArrayList<String>()
     private var bannerUrl = ""
 
+    private var banner:Banner?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,16 +61,22 @@ class EventActivity : BaseActivity() {
             MyApplication.openActivityForResult(this, EventReleaseActivity::class.java, 0)
         }
 
+        scrollView.visibility = View.GONE
+
+        rv_event2.visibility = View.VISIBLE
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_event.layoutManager = linearLayoutManager
+        rv_event2.layoutManager = linearLayoutManager
 
-        rv_event.isFocusable = false
+        val headerView = LayoutInflater.from(this).inflate(R.layout.include_banner, null, false)//头布局
+        banner=headerView.findViewById(R.id.banner)
+        rv_event2.addHeaderView(headerView)
+        rv_event2.isFocusable = false
 
         eventAdapter = EventAdapter(this, eventList)
-        rv_event.adapter = eventAdapter
+        rv_event2.adapter = eventAdapter
 
-        rv_event.setLoadingListener(object : XRecyclerView.LoadingListener {
+        rv_event2.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
                 if (eventList.isNotEmpty()) {
                     eventList.clear()
@@ -79,7 +89,7 @@ class EventActivity : BaseActivity() {
             override fun onLoadMore() {
                 nowPage++
                 if (nowPage >= totalPage) {
-                    rv_event.noMoreLoading()
+                    rv_event2.noMoreLoading()
                     return
                 }
                 onRefresh = 2
@@ -88,7 +98,7 @@ class EventActivity : BaseActivity() {
         })
 
 
-        banner.setOnBannerListener { i ->
+        banner!!.setOnBannerListener { i ->
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", bannerUrl)
@@ -113,16 +123,16 @@ class EventActivity : BaseActivity() {
         totalPage = model.totalPage
 
         if (onRefresh == 1) {
-            rv_event.refreshComplete()
+            rv_event2.refreshComplete()
         } else if (onRefresh == 2) {
-            rv_event.loadMoreComplete()
+            rv_event2.loadMoreComplete()
         }
 
         if (nowPage == 1) {
             val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
-            rv_event.layoutAnimation = controller
+            rv_event2.layoutAnimation = controller
             eventAdapter!!.notifyDataSetChanged()
-            rv_event.scheduleLayoutAnimation()
+            rv_event2.scheduleLayoutAnimation()
         } else {
             eventAdapter!!.notifyDataSetChanged()
         }
@@ -131,10 +141,10 @@ class EventActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(data==null){
+        if (data == null) {
             return
         }
-        if(requestCode==0){
+        if (requestCode == 0) {
             if (eventList.isNotEmpty()) {
                 eventList.clear()
                 eventAdapter!!.notifyDataSetChanged()

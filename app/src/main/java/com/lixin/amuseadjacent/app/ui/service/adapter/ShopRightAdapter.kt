@@ -11,15 +11,26 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
+import com.lixin.amuseadjacent.app.util.PreviewPhoto
 import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
  * 店铺右菜单
  * Created by Slingge on 2018/8/30
  */
-class ShopRightAdapter(val context: Context, val titleList: String, val rightList: ArrayList<ShopGoodsModel.dataModel>, val addShopCar: AddShopCar) : RecyclerView.Adapter<ShopRightAdapter.ViewHolder>() {
+class ShopRightAdapter(val context: Context, val titleList: String, val rightList: ArrayList<ShopGoodsModel.dataModel>, val addShopCar: AddShopCar
+) : RecyclerView.Adapter<ShopRightAdapter.ViewHolder>() {
 
     private var type = ""//0新鲜果蔬 1洗衣洗鞋 2超市便利
+
+    interface ShopOnClickListtener {
+        fun add(view: View, position: Int)
+    }
+
+    var shoponclickListtener: ShopOnClickListtener? = null
+    fun setShopOnClickListtener(shoponclickListtener: ShopOnClickListtener) {
+        this.shoponclickListtener = shoponclickListtener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_shop_right2, parent, false)
@@ -71,11 +82,22 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
 
 
         holder.iv_add.setOnClickListener { v ->
+            if (rightList[position].isSelect) {
+                return@setOnClickListener
+            }
             ShopCar_12412537.addCar(type, model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
                 override fun addCar() {
                     addShopCar.addCar(position)
+                    if (shoponclickListtener != null) {
+                        shoponclickListtener!!.add(v, position)
+                    }
+                    rightList[position].isSelect = true
                 }
             })
+        }
+
+        holder.image.setOnClickListener { v ->
+            PreviewPhoto.preview(context, model.goodsImg)
         }
 
     }
@@ -83,6 +105,7 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
     fun setType(type: String) {
         this.type = type
     }
+
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tv_title = view.findViewById<TextView>(R.id.tv_title)

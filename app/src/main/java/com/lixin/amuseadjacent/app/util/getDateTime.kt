@@ -120,6 +120,13 @@ object getDateTime {
         return mMonth
     }
 
+    fun getNowDay(): Int {
+        val c = Calendar.getInstance()
+        c.timeZone = TimeZone.getTimeZone("GMT+8:00")
+        val day = c.get(Calendar.DAY_OF_MONTH)// 获取当日期
+        return day
+    }
+
     fun getDay(): Int {
         val c = Calendar.getInstance()
         c.timeZone = TimeZone.getTimeZone("GMT+8:00")

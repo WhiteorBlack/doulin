@@ -55,10 +55,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="12dp"
-                android:text=" "
+                android:text=""
                 android:textColor="@color/colorTabText"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_address"
                 app:layout_constraintStart_toStartOf="@+id/tv_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
@@ -73,13 +73,53 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
+            <include
+                android:id="@+id/line_tome"
+                layout="@layout/include_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/tv_address" />
+
+            <TextView
+                android:id="@+id/tv_sendTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_sendtime"
+                android:drawableLeft="@drawable/ic_sendtime"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:paddingBottom="3dp"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:paddingRight="10dp"
+                android:paddingTop="3dp"
+                android:text="15分钟送货到家"
+                android:textColor="#2ECD90"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line_tome" />
+
+            <View
+                android:id="@+id/line_tome1"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:visibility="gone"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sendTime" />
+
             <View
                 android:id="@+id/line1"
                 layout="@layout/include_line"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="@color/gray2"
-                app:layout_constraintTop_toBottomOf="@+id/iv_address" />
+                app:layout_constraintTop_toBottomOf="@+id/line_tome1" />
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_comment"
@@ -223,9 +263,9 @@
                 android:id="@+id/tv_careful"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:layout_marginTop="12dp"
                 android:text="注意：洗衣需要两到三天哦，洗完后商家会电话通知你确定是否送达，请保持电话畅通。"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/sub_fant"
@@ -241,11 +281,11 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginTop="50dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:background="@drawable/bg_them8"
-                android:text="提交订单"
                 android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="提交订单"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"

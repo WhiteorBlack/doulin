@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.message.adapter
 
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,7 @@ class OrderNewsAdapter(val context: Context, val orderList: ArrayList<OrderlNewM
             })
         }
 
-        holder.tv_see.setOnClickListener { v ->
+        holder.cl_item.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putString("num", model.orderNum)
             bundle.putInt("position", -1)
@@ -63,7 +64,7 @@ class OrderNewsAdapter(val context: Context, val orderList: ArrayList<OrderlNewM
         val tv_see = view.findViewById<TextView>(R.id.tv_see)
         val tv_time = view.findViewById<TextView>(R.id.tv_time)
         val tv_orderNum = view.findViewById<TextView>(R.id.tv_orderNum)
-
+        val cl_item = view.findViewById<ConstraintLayout>(R.id.cl_item)
         val tex2 = view.findViewById<TextView>(R.id.tex2)
 
         val tv_del = view.findViewById<TextView>(R.id.tv_del)

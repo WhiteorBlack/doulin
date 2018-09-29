@@ -40,6 +40,8 @@ object ShopCar_12412537 {
         })
     }
 
+
+    //3.7 加入购物车
     fun addCar(type: String, goodsId: String, count: String, addCarCallback: AddCarCallback) {
         val json = "{\"cmd\":\"addShopCar\",\"uid\":\"" + StaticUtil.uid + "\",\"goodsId\":\"" + goodsId +
                 "\",\"count\":\"" + count + "\",\"type\":\"" + type + "\"}"

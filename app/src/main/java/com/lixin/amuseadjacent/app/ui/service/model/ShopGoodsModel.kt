@@ -32,6 +32,8 @@ class ShopGoodsModel :Serializable{
         var money=0.0//本商品所有数量支付价格
          var UnitPrice=0.0//
 
+        var isAdd=false//是否加入购物车
+
     }
 
 }

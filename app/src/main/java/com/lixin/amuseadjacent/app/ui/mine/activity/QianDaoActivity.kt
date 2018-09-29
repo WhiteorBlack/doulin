@@ -27,12 +27,13 @@ import java.util.ArrayList
 class QianDaoActivity : BaseActivity(), View.OnClickListener {
 
     private var calendarAdapter: SignCalendarAdapter? = null
-    private var dateList=ArrayList<String>()
+    private var dateList = ArrayList<String>()
     private var dayList = ArrayList<Int>()
     private var week = 0
 
     private var year = 0//单前年份
     private var month = 0//当前月份
+    private var day = 0//当天
 
     private var decimalFormat: DecimalFormat? = null
 
@@ -53,6 +54,7 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
 
         year = getDateTime.getYear()
         month = getDateTime.getMonth()
+        day = getDateTime.getNowDay()
 
         iv_left.setOnClickListener(this)
         iv_rightt.setOnClickListener(this)
@@ -104,8 +106,8 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                 ProgressDialog.showDialog(this@QianDaoActivity)
                 SignIn_117118.sgin(object : SignIn_117118.SginCallBack {
                     override fun sginScore(score: String) {
-                        dateList.add(dateList.size-1,getDateTime.ymd())
-                        calendarAdapter = SignCalendarAdapter(this@QianDaoActivity, dayList, week, dateList)
+                        dateList.add(dateList.size - 1, getDateTime.ymd())
+                        calendarAdapter = SignCalendarAdapter(this@QianDaoActivity, dayList, week, dateList, day)
                         recyclerView!!.adapter = calendarAdapter
                         QianDaoDialog.communityDialog(this@QianDaoActivity, score)
                     }
@@ -122,8 +124,8 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
         week = getDateTime.getWeek(year, month)
         dayList = getDateTime.getMonthDay(year, month)
 
-        dateList=model.dataList
-        calendarAdapter = SignCalendarAdapter(this, dayList, week, dateList)
+        dateList = model.dataList
+        calendarAdapter = SignCalendarAdapter(this, dayList, week, dateList, day)
         recyclerView!!.adapter = calendarAdapter
     }
 

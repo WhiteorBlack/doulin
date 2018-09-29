@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.message.adapter
 
 import android.content.Context
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -41,17 +42,17 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
         if (type == "2") {
             holder.text.text = "收到新的评论"
             holder.tex2.text = model.messageTitle
-            ImageLoader.getInstance().displayImage(model.userIcon,holder.image)
+            ImageLoader.getInstance().displayImage(model.userIcon, holder.image)
         } else {
             holder.text.text = "收到新的点赞"
             holder.tex2.text = "点赞消息"
-            ImageLoader.getInstance().displayImage(model.userIcon,holder.image)
+            ImageLoader.getInstance().displayImage(model.userIcon, holder.image)
         }
 
         holder.tv_time.text = model.messageTime
 
 
-        holder.tv_see.setOnClickListener { v ->
+        holder.cl_item.setOnClickListener { v ->
             if (model.state == "1") {//已经隐藏
                 ToastUtil.showToast("没有找到回复")
             } else {
@@ -92,7 +93,7 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
         val text = view.findViewById<TextView>(R.id.text)
         val tex2 = view.findViewById<TextView>(R.id.tex2)
         val image = view.findViewById<ImageView>(R.id.image)
-
+        val cl_item = view.findViewById<ConstraintLayout>(R.id.cl_item)
         val tv_del = view.findViewById<TextView>(R.id.tv_del)
     }
 

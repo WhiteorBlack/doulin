@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/send_custom_notification"
-        android:icon="@drawable/ic_dian"
+        android:icon="@drawable/ic_diandian"
         android:title=""
         app:showAsAction="always">
         <menu>

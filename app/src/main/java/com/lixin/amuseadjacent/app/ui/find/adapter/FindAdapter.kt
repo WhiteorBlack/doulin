@@ -188,15 +188,17 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 holder.tv_type.text = "已报名"
             }
 
-            if (model.isAttention == "0") {// 0未关注 1已关注
-                holder.tv_follow.text = "关注"
-            } else {
-                holder.tv_follow.text = "已关注"
-            }
+
             if (model.userid == StaticUtil.uid) {
                 holder.tv_follow.visibility = View.INVISIBLE
             } else {
                 holder.tv_follow.visibility = View.VISIBLE
+                if (model.isAttention == "0") {// 0未关注 1已关注
+                    holder.tv_follow.text = "关注"
+                } else {
+                    holder.tv_follow.text = "已关注"
+                    holder.tv_follow.visibility = View.INVISIBLE
+                }
             }
 
 
@@ -224,7 +226,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             holder.tv_price.text = model.activityMoney + "元/人"
             holder.tv_activitytime.text = "时间：" + model.activityTime
             holder.tv_address.text = "地点：" + model.activityAddress
-            holder.tv_num.text = "人数：" + model.activityAllnum
+            holder.tv_num.text = "人数：" +model.activityNownum+"/"+ model.activityAllnum
 
             ImageLoader.getInstance().displayImage(model.userIcon, holder.iv_header, ImageLoaderUtil.HeaderDIO())
             holder.tv_name.text = model.userName

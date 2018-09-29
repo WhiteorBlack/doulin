@@ -68,8 +68,6 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             MyApplication.openActivity(context, OrderDetailsActivity::class.java, bundle)
         }
 
-        holder.tv_type.setTextColor(context.resources.getColor(R.color.colorTheme))
-
         if (orderState == "1") {//1待付款
             holder.tv_type.text = "待付款"
             holder.tv_pay.text = "立即付款"
@@ -79,7 +77,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.GONE
         } else if (orderState == "2") {//2待送货
-            holder.tv_type.text = "待送件"
+            holder.tv_type.text = "待送货"
             holder.tv_pay.text = "确认送达"
 
             holder.tv_again.visibility = View.VISIBLE
@@ -94,7 +92,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.VISIBLE
         } else if (orderState == "4") {//4待取货
-            holder.tv_type.text = "待上门取件"
+            holder.tv_type.text = "待取货"
             holder.tv_pay.text = "确认取件"
             holder.tv_refund.text = "    退款    "
 
@@ -145,14 +143,12 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_refund.visibility = View.GONE
 
         } else if (orderState == "11") {//11已完成
-            holder.tv_type.setTextColor(context.resources.getColor(R.color.black))
             holder.tv_type.text = "已完成"
 
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.GONE
         } else if (orderState == "12") {//12已取消
-            holder.tv_type.setTextColor(context.resources.getColor(R.color.black))
             holder.tv_type.text = "已取消"
 
             holder.tv_again.visibility = View.VISIBLE
