@@ -51,6 +51,12 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
             e.printStackTrace()
         }
 
+        if (SpUtil.get("isOn", true) as Boolean) {
+            sv_message.setOpened(true)
+        } else {
+            sv_message.setOpened(false)
+        }
+
         shield.setOnClickListener(this)
         change_pass.setOnClickListener(this)
         tv_address.setOnClickListener(this)
