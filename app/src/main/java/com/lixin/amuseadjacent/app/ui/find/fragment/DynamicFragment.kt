@@ -50,7 +50,9 @@ class DynamicFragment : BaseFragment() {
         include.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
-//        xrecyclerview.setPullRefreshEnabled(false)
+        xrecyclerview.setPullRefreshEnabled(false)
+
+        xrecyclerview.isFocusable = false
 
         dynamicAdapter = DynamicAdapter(activity!!, "0", dynaList)
         xrecyclerview.adapter = dynamicAdapter
@@ -127,7 +129,7 @@ class DynamicFragment : BaseFragment() {
                 nowPage = 1
                 ProgressDialog.showDialog(activity!!)
                 DynamicList_219.dynamic("0", flag, nowPage)
-            }else{
+            } else {
                 dynaList[position].commentNum = model.`object`.commentNum
                 dynaList[position].isZan = model.`object`.isZan
                 dynaList[position].isAttention = model.`object`.isAttention

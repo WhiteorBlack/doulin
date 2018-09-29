@@ -23,6 +23,7 @@ import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.*
 import com.lixin.amuseadjacent.app.view.CircleImageView
+import com.lixin.amuseadjacent.app.view.PileLayout
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_event_details.*
@@ -169,6 +170,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         if (model.signList.size < 7) {
             maxNun = model.signList.size
         }
+
 
         for (i in 0 until maxNun) {
             val imageView = inflater.inflate(R.layout.item_praise, pl_header, false) as CircleImageView

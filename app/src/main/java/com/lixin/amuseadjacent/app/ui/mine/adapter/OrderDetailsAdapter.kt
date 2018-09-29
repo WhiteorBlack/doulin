@@ -20,7 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader
  * flag
  * Created by Slingge on 2018/9/3
  */
-class OrderCommodityAdapter(val context: Context, val position: Int, val num: String?, val list: ArrayList<MyOrderModel.orderModel>) : RecyclerView.Adapter<OrderCommodityAdapter.ViewHolder>() {
+class OrderDetailsAdapter(val context: Context, val position: Int, val num: String?, val list: ArrayList<MyOrderModel.orderModel>) : RecyclerView.Adapter<OrderDetailsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_order_commodity, parent, false)
@@ -37,7 +37,7 @@ class OrderCommodityAdapter(val context: Context, val position: Int, val num: St
         holder.tv_name.text = model.commodityTitle
         ImageLoader.getInstance().displayImage(model.commodityPic, holder.image)
         holder.tv_num.text = "x" + model.commodityBuyNum
-        holder.tv_money.text = "￥" + model.commodityPrice
+        holder.tv_money2.text = "￥" + model.commodityPrice
 
         holder.itemView.setOnClickListener { v ->
             if (num != null) {
@@ -59,6 +59,10 @@ class OrderCommodityAdapter(val context: Context, val position: Int, val num: St
         val tv_money = view.findViewById<TextView>(R.id.tv_money)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
 
+        init {
+            tv_money2.visibility=View.VISIBLE
+            tv_money.visibility=View.GONE
+        }
 
     }
 

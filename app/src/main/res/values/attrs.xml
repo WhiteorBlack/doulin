@@ -67,5 +67,4 @@
         <attr name="isSetParentClick" format="boolean" />
     </declare-styleable>
 
-
 </resources>

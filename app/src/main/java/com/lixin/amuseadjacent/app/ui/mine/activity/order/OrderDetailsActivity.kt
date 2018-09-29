@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.app.ui.mine.activity.order
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -10,6 +11,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.ui.mine.adapter.OrderCommodityAdapter
+import com.lixin.amuseadjacent.app.ui.mine.adapter.OrderDetailsAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.MyOrderModel
 import com.lixin.amuseadjacent.app.ui.mine.model.OrderDetailsModel
 import com.lixin.amuseadjacent.app.ui.mine.request.MyOrder_144155
@@ -29,7 +31,7 @@ import java.util.ArrayList
 class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private var orderNum = ""
-    private var orderAdapter: OrderCommodityAdapter? = null
+    private var orderAdapter: OrderDetailsAdapter? = null
     private var orderList = ArrayList<MyOrderModel.orderModel>()
 
     private var orderState = ""
@@ -59,7 +61,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_comment.layoutManager = linearLayoutManager
 
-        orderAdapter = OrderCommodityAdapter(this, position, null, orderList)
+        orderAdapter = OrderDetailsAdapter(this, position, null, orderList)
         rv_comment.adapter = orderAdapter
 
         ProgressDialog.showDialog(this)
@@ -73,7 +75,11 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_phone.text = model.userPhone
         tv_address.text = "地址：" + model.city + model.address
         tv_total.text = model.oderAllPrice
-        tv_coupon.text = model.securitiesPrice
+        if(TextUtils.isEmpty( model.securitiesPrice)){
+            tv_coupon.text = "0.00"
+        }else{
+            tv_coupon.text = model.securitiesPrice
+        }
         tv_actualPay.text = "实付：￥" + model.oderPayPrice
 
         totalPay = model.oderPayPrice

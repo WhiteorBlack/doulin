@@ -68,8 +68,6 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             MyApplication.openActivity(context, OrderDetailsActivity::class.java, bundle)
         }
 
-        holder.tv_type.setTextColor(context.resources.getColor(R.color.colorTheme))
-
         if (orderState == "1") {//1待付款
             holder.tv_type.text = "待付款"
             holder.tv_pay.text = "立即付款"
@@ -145,14 +143,12 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_refund.visibility = View.GONE
 
         } else if (orderState == "11") {//11已完成
-            holder.tv_type.setTextColor(context.resources.getColor(R.color.black))
             holder.tv_type.text = "已完成"
 
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.GONE
         } else if (orderState == "12") {//12已取消
-            holder.tv_type.setTextColor(context.resources.getColor(R.color.black))
             holder.tv_type.text = "已取消"
 
             holder.tv_again.visibility = View.VISIBLE

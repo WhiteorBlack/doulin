@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp">
@@ -12,16 +12,25 @@
             android:id="@+id/tv_day"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
+            android:background="@color/white"
             android:gravity="center"
             android:text="5"
-            android:background="@color/white"
             android:textColor="@color/black"
             android:textSize="@dimen/main_fant" />
 
+        <ImageView
+            android:id="@+id/iv_dian"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:visibility="gone"
+            android:layout_below="@+id/tv_day"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_dian" />
 
 
-    </FrameLayout>
+    </RelativeLayout>
 
 
 </FrameLayout>

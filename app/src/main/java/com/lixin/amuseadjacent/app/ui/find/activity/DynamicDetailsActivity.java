@@ -150,6 +150,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         ll_image = findViewById(R.id.ll_image);
         tv_time = findViewById(R.id.tv_time);
         tv_comment = findViewById(R.id.tv_comment);
+        tv_comment.setOnClickListener(this);
 
         et_comment = findViewById(R.id.et_comment);
 
