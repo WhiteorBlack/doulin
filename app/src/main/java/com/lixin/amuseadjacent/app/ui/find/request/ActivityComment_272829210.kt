@@ -93,7 +93,7 @@ object ActivityComment_272829210 {
         val json = "{\"cmd\":\"activityComment\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
                 "\",\"activityId\":\"" + activityId + "\",\"commentId\":\"" + commentId + "\",\"content\":\"" + content + "\"}"
 
-        abLog.e("评论.................", json)
+        abLog.e("活动评论.................", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)

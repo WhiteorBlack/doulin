@@ -75,9 +75,9 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_phone.text = model.userPhone
         tv_address.text = "地址：" + model.city + model.address
         tv_total.text = model.oderAllPrice
-        if(TextUtils.isEmpty( model.securitiesPrice)){
+        if (TextUtils.isEmpty(model.securitiesPrice)) {
             tv_coupon.text = "0.00"
-        }else{
+        } else {
             tv_coupon.text = model.securitiesPrice
         }
         tv_actualPay.text = "实付：￥" + model.oderPayPrice
@@ -121,10 +121,17 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_payTime.text = model.payTime
         }
 
-        if(model.orderState == "2" || model.orderState == "3"){//显示15分钟送货到家
-            tv_sendTime.visibility=View.VISIBLE
-            line_tome.visibility=View.VISIBLE
-            view_0.visibility=View.GONE
+        if (model.orderState == "2" || model.orderState == "3") {//显示15分钟送货到家
+            tv_sendTime.visibility = View.VISIBLE
+            line_tome.visibility = View.VISIBLE
+            view_0.visibility = View.GONE
+        }
+
+        if (model.orderState == "4" || model.orderState == "7") {//洗衣洗鞋显示15分钟上门取衣
+            tv_sendTime.visibility = View.VISIBLE
+            tv_sendTime.text = "15分钟上门取衣"
+            line_tome.visibility = View.VISIBLE
+            view_0.visibility = View.GONE
         }
 
         //1待付款,2待送货,3待收货,4待取货,5清洗中,6待归还,7归还中,8退款中,9已退款,10待评价,11已完成 12已取消
@@ -146,7 +153,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             if (model.refundPics.isNotEmpty()) {
                 val linearLayoutManager = GridLayoutManager(this, 4)
                 rv_refund.layoutManager = linearLayoutManager
-                val adapter = ImageAdapter(this, model.refundPics,0)
+                val adapter = ImageAdapter(this, model.refundPics, 0)
                 rv_refund.adapter = adapter
             }
 

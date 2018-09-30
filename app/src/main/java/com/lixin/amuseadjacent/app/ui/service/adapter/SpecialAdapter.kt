@@ -60,6 +60,10 @@ class SpecialAdapter(val context: Context, var specialList: ArrayList<SpecialMod
             PreviewPhoto.preview(context, model.goodsImg)
         }
 
+        holder.image.setOnClickListener { v ->
+            PreviewPhoto.preview(context, model.goodsImg)
+        }
+
     }
 
 

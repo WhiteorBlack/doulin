@@ -112,7 +112,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
                 search = ""
                 title = leftList[i].firstCategoryName
                 ProgressDialog.showDialog(this@OfficialShopActivity)
-                OfficialShopGoodsList_35.ShopGoods(type, leftList[i].firstCategoryId, search)
+                OfficialShopGoodsList_35.ShopGoods(type, leftList[i].firstCategoryId, search,null)
 //                smoothMoveToPosition(linearLayoutManager2!!, i)
                 shopLeftAdapter!!.setSelect(i)
             }
@@ -133,14 +133,13 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
 
     //添加到小购物车
     override fun addCar(position: Int) {
-        if (rightList[position].isSelect) {
-            return
-        }
-        rightList[position].isSelect = true
-        rightList[position].goodsNum = 1
-        rightAdapter!!.notifyItemChanged(position)
-        carList.add(rightList[position])
 
+        rightList[position].isSelect = true
+        rightList[position].goodsNum += 1
+        rightAdapter!!.notifyItemChanged(position)
+        if(!carList.contains(rightList[position])){
+            carList.add(rightList[position])
+        }
         carNum()
     }
 
@@ -213,7 +212,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         if (leftList.isNotEmpty()) {
             title = leftList[0].firstCategoryName
             ProgressDialog.showDialog(this)
-            OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search)
+            OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search,null)
         }
 
         bannerUrl = model.bannerList[0].topImgDetailUrl
@@ -255,7 +254,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
                 }
                 title = leftList[0].firstCategoryName
                 ProgressDialog.showDialog(this)
-                OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search)
+                OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search,null)
             }
             R.id.tv_right -> {
                 val bundle = Bundle()

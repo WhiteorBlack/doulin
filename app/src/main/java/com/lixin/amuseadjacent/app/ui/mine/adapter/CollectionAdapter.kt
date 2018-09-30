@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.mine.adapter
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -16,15 +17,18 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.mine.model.CollectModel
 import com.nostra13.universalimageloader.core.ImageLoader
+import com.xiao.nicevideoplayer.NiceVideoPlayer
+import com.xiao.nicevideoplayer.TxVideoPlayerController
 
 /**
  * 收藏
  * Created by Slingge on 2018/9/3
  */
-class CollectionAdapter(val context: Context, val collectList: ArrayList<CollectModel.collectModel>) : RecyclerView.Adapter<CollectionAdapter.ViewHolder>() {
+class CollectionAdapter(val context: Activity, val collectList: ArrayList<CollectModel.collectModel>) : RecyclerView.Adapter<CollectionAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,23 +48,35 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
             holder.cl_2.visibility = View.GONE
             holder.tv_type2.text = "帮帮收藏"
 
+            holder.tv_info.text = model.bangbangContent
+
             id = model.bangbangId
 
             if (!TextUtils.isEmpty(model.bangbangVideoUrl)) {//视频
                 holder.image0.visibility = View.GONE
                 holder.ll_image.visibility = View.GONE
                 holder.rv_image.visibility = View.GONE
+                holder.player.visibility = View.VISIBLE
+
+                holder.player.setUp(model.bangbangVideoUrl, null)
+                val controller = TxVideoPlayerController(context)
+                ImageLoader.getInstance().displayImage(model.bangbangImageUrl, controller.imageView())
+                holder.player.setController(controller)
             } else {
+                holder.player.visibility = View.GONE
                 if (model.bangbangImgUrl.size == 0) {
                     holder.image0.visibility = View.GONE
                     holder.ll_image.visibility = View.GONE
                     holder.rv_image.visibility = View.GONE
                 } else if (model.bangbangImgUrl.size == 1) {
+                    holder.rv_image.visibility = View.GONE
+                    holder.ll_image.visibility = View.VISIBLE
                     holder.image0.visibility = View.VISIBLE
                     ImageLoader.getInstance().displayImage(model.bangbangImgUrl[0], holder.image0)
                     holder.ll_image.visibility = View.GONE
                     holder.rv_image.visibility = View.GONE
                 } else if (model.bangbangImgUrl.size == 2) {
+                    holder.rv_image.visibility = View.GONE
                     holder.ll_image.visibility = View.VISIBLE
                     ImageLoader.getInstance().displayImage(model.bangbangImgUrl[0], holder.image1)
                     ImageLoader.getInstance().displayImage(model.bangbangImgUrl[1], holder.image2)
@@ -76,6 +92,15 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
                     holder.rv_image.adapter = imageAdapter
                 }
             }
+
+            holder.cl_1.setOnClickListener { v->
+                val intent = Intent(context, DynamicDetailsActivity::class.java)
+                intent.putExtra("flag", "1")
+                intent.putExtra("position", position)
+                intent.putExtra("id", collectList[position].bangbangId)
+                context.startActivityForResult(intent,3)
+            }
+
         } else {//活动
             holder.cl_1.visibility = View.GONE
             holder.cl_2.visibility = View.VISIBLE
@@ -140,6 +165,8 @@ class CollectionAdapter(val context: Context, val collectList: ArrayList<Collect
         val tv_time = view.findViewById<TextView>(R.id.tv_time)
         val tv_address = view.findViewById<TextView>(R.id.tv_address)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
+
+        val player = view.findViewById<NiceVideoPlayer>(R.id.player)
 
         //帮帮
         val tv_info = view.findViewById<TextView>(R.id.tv_info)

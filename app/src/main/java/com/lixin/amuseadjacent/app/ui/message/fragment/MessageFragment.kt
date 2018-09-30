@@ -33,6 +33,8 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
     private var msgAdaptation: MyMsgAdapter? = null
     private var msgList = ArrayList<MsgListModel.msgModel>()
 
+    private var flag = -1//进入0系统消息 1订单信息 2评论信息 3点赞信息，返回后清零消息数
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_message, container, false)
         EventBus.getDefault().register(this)
@@ -66,6 +68,7 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
                 if (position < 0 || position >= msgList.size) {
                     return
                 }
+                flag = msgList[position].type.toInt()
                 if (msgList[position].type == "0") {//0系统消息 1订单信息 2评论信息 3点赞信息
                     val bundle = Bundle()
                     bundle.putString("type", "0")
@@ -97,6 +100,7 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
 
     @Subscribe
     fun onEvent(model: MsgListModel) {
+
         msgList.addAll(model.dataList)
         msgAdaptation!!.notifyDataSetChanged()
     }
@@ -117,6 +121,22 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
                 MyApplication.openActivity(activity, SearchActivity::class.java)
             }
         }
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        if (flag == -1) {
+            return
+        }
+        for (i in 0 until msgList.size) {
+            if (msgList[i].type.toInt() == flag) {
+                msgList[i].messagenum = "0"
+                break
+            }
+        }
+        msgAdaptation!!.notifyDataSetChanged()
+        flag = -1
     }
 
 

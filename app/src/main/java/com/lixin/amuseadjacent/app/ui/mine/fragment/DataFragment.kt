@@ -23,10 +23,9 @@ class DataFragment : BaseFragment() {
     }
 
 
-
     fun setDate(model: HomePageModel) {
         tv_autograph.text = model.autograph
-        tv_num.text = StaticUtil.uid
+        tv_num.text = model.inviteCode
         tv_industry.text = model.occupation
 
         fl_sport.removeAllViews()
@@ -40,7 +39,7 @@ class DataFragment : BaseFragment() {
         if (model.sportList == null || model.sportList.isEmpty()) {
             var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
-            tv.text="运动"
+            tv.text = "运动"
             tv.setTextColor(resources.getColor(R.color.white))
             tv.setBackgroundResource(R.drawable.bg_hobby_sport)
             tv.visibility = View.INVISIBLE
@@ -48,28 +47,28 @@ class DataFragment : BaseFragment() {
         } else {
 
             for (i in 0 until model.sportList.size) {
-                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_sport)
-                tv.text=model.sportList[i]
+                tv.text = model.sportList[i]
                 fl_sport.addView(tv)
             }
         }
 
         if (model.musicList == null || model.musicList.isEmpty()) {
-            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
-            tv.text="音乐"
+            tv.text = "音乐"
             tv.setTextColor(resources.getColor(R.color.white))
             tv.setBackgroundResource(R.drawable.bg_hobby_music)
             tv.visibility = View.INVISIBLE
             fl_music.addView(tv)
         } else {
             for (i in 0 until model.musicList.size) {
-                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
-                tv.text=model.musicList[i]
+                tv.text = model.musicList[i]
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_music)
                 fl_music.addView(tv)
@@ -77,77 +76,77 @@ class DataFragment : BaseFragment() {
         }
 
         if (model.foodsList == null || model.foodsList.isEmpty()) {
-            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
             tv.setTextColor(resources.getColor(R.color.white))
             tv.setBackgroundResource(R.drawable.bg_hobby_food)
-            tv.text="食物"
+            tv.text = "食物"
             tv.visibility = View.INVISIBLE
             fl_food.addView(tv)
         } else {
             for (i in 0 until model.foodsList.size) {
-                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_food)
-                tv.text=model.foodsList[i]
+                tv.text = model.foodsList[i]
                 fl_food.addView(tv)
             }
         }
 
         if (model.movieList == null || model.movieList.isEmpty()) {
-            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
-            tv.text="电影"
+            tv.text = "电影"
             tv.setTextColor(resources.getColor(R.color.white))
             tv.setBackgroundResource(R.drawable.bg_hobby_film)
             tv.visibility = View.INVISIBLE
             fl_video.addView(tv)
         } else {
             for (i in 0 until model.movieList.size) {
-                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_film)
-                tv.text=model.movieList[i]
+                tv.text = model.movieList[i]
                 fl_video.addView(tv)
             }
         }
 
         if (model.booksList == null || model.booksList.isEmpty()) {
-            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
-            tv.text="书籍"
+            tv.text = "书籍"
             tv.setTextColor(resources.getColor(R.color.white))
             tv.setBackgroundResource(R.drawable.bg_hobby_book)
             tv.visibility = View.INVISIBLE
             fl_book.addView(tv)
         } else {
             for (i in 0 until model.booksList.size) {
-                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_book)
-                tv.text=model.booksList[i]
+                tv.text = model.booksList[i]
                 fl_book.addView(tv)
             }
         }
 
         if (model.otherList == null || model.otherList.isEmpty()) {
-            var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+            var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                     nsv, false) as TextView
             tv.visibility = View.INVISIBLE
-            tv.text="其他"
+            tv.text = "其他"
             tv.setTextColor(resources.getColor(R.color.white))
             tv.setBackgroundResource(R.drawable.bg_hobby_other)
             rv_label.addView(tv)
         } else {
             for (i in 0 until model.otherList.size) {
-                var  tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
+                var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,
                         nsv, false) as TextView
                 tv.setTextColor(resources.getColor(R.color.white))
                 tv.setBackgroundResource(R.drawable.bg_hobby_other)
-                tv.text=model.otherList[i]
+                tv.text = model.otherList[i]
                 rv_label.addView(tv)
             }
         }
@@ -159,8 +158,6 @@ class DataFragment : BaseFragment() {
     override fun loadData() {
 
     }
-
-
 
 
 }

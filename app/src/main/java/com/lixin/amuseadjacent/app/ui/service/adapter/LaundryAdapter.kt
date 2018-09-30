@@ -13,6 +13,8 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
+import com.lixin.amuseadjacent.app.util.abLog
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 
 
@@ -20,12 +22,16 @@ import com.nostra13.universalimageloader.core.ImageLoader
  * 洗衣洗鞋
  * Created by Slingge on 2018/8/22
  */
-class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsModel.dataModel>, val addShopCar: AddShopCar) : RecyclerView.Adapter<LaundryAdapter.ViewHolder>() {
+class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsModel.dataModel>) : RecyclerView.Adapter<LaundryAdapter.ViewHolder>() {
 
     interface AddShopCar {
         fun addCar(position: Int)
     }
 
+    private var addShopCar: AddShopCar? = null
+    fun setAddShopCar(addShopCar: AddShopCar) {
+        this.addShopCar = addShopCar
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_laundry, parent, false)
@@ -38,37 +44,36 @@ class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsMode
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val model = goodList[position]
 
-        model.UnitPrice = if (TextUtils.isEmpty(model.goodsCuprice)) {
-            model.goodsPrice.toDouble()
+        goodList[position].UnitPrice = if (TextUtils.isEmpty(goodList[position].goodsCuprice)) {
+            goodList[position].goodsPrice.toDouble()
         } else {
-            model.goodsCuprice.toDouble()
+            goodList[position].goodsCuprice.toDouble()
         }
 
-        if (model.money == 0.0) {
-            model.money = model.UnitPrice
+        if (goodList[position].money == 0.0) {
+            goodList[position].money = goodList[position].UnitPrice
         }
 
-        var money = model.money
+        var money = goodList[position].money
         holder.tv_money.text = " ￥：$money"
 
-        holder.tv_name.text = model.goodsName
-        ImageLoader.getInstance().displayImage(model.goodsImg, holder.image)
+        holder.tv_name.text = goodList[position].goodsName
+        ImageLoader.getInstance().displayImage(goodList[position].goodsImg, holder.image)
 
-        if(model.isSelect){
-            MyApplication.setRedNum(holder.tv_msgNum, model.goodsNum)
+        if (goodList[position].isSelect) {
+            MyApplication.setRedNum(holder.tv_msgNum, goodList[position].goodsNum)
+            abLog.e("数量.......", goodList[position].goodsNum.toString())
+        } else {
+            MyApplication.setRedNum(holder.tv_msgNum, 0)
         }
 
-
         holder.itemView.setOnClickListener { v ->
-            ShopCar_12412537.addCar("1", model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
+            addShopCar!!.addCar(position)
+            ShopCar_12412537.addCar("1", goodList[position].goodsId, "1", object : ShopCar_12412537.AddCarCallback {
                 override fun addCar() {
-                    MyApplication.setRedNum(holder.tv_msgNum, 1)
-                    addShopCar.addCar(position)
                 }
             })
-
         }
     }
 

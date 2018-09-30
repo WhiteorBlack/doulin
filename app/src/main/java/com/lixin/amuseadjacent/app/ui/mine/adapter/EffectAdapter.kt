@@ -31,8 +31,13 @@ class EffectAdapter(val context: Context, val effectList: ArrayList<EffectModel.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val model = effectList[position]
+        if (model.isFinishTask == "1") {
+            holder.tv_eeffect.text = "已完成"
+        } else {
+            holder.tv_eeffect.text = "+" + model.effectNum + "影响力"
+        }
+
         holder.tv_name.text = model.taskTitle
-        holder.tv_eeffect.text = "+" + model.effectNum + "影响力"
 
         when (model.taskId) {// 1每日签到 ,2邀请好友 3发布活动  4发布动态 5完善资料 6认证用户
             "1" -> {

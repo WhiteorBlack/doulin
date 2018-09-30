@@ -61,12 +61,14 @@
             app:layout_constraintTop_toBottomOf="@+id/line1" />
 
 
-        <ImageView
+        <TextView
             android:id="@+id/iv_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:src="@drawable/ic_card"
+        android:text="逗邻号"
+            android:textColor="#999999"
+            android:textSize="@dimen/sub_fant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/info" />
 
@@ -75,20 +77,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:text="w123456"
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/main_fant"
             app:layout_constraintBottom_toBottomOf="@+id/iv_card"
             app:layout_constraintStart_toEndOf="@+id/iv_card"
             app:layout_constraintTop_toTopOf="@+id/iv_card" />
 
-        <ImageView
+        <TextView
             android:id="@+id/iv_industry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_industry"
+            android:text="职业"
+            android:textColor="#999999"
+            android:textSize="@dimen/sub_fant"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_card" />
 
@@ -97,12 +100,11 @@
             android:id="@+id/tv_industry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:text="xx开发"
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/main_fant"
             app:layout_constraintBottom_toBottomOf="@+id/iv_industry"
-            app:layout_constraintStart_toEndOf="@+id/iv_industry"
+            app:layout_constraintStart_toStartOf="@+id/tv_num"
             app:layout_constraintTop_toTopOf="@+id/iv_industry" />
 
         <include

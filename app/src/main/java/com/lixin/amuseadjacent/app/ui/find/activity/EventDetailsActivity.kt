@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -51,6 +52,8 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
+        this.window.setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         AndroidBug5497Workaround.assistActivity(this)//底部EditText不能被软键盘顶起
         EventBus.getDefault().register(this)
         init()
@@ -87,22 +90,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
 
         commentAdapter = DynamicCommentAdapter(this, commentList)
         rv_comment.adapter = commentAdapter
-        rv_comment.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_comment) {
-            override fun onItemClick(vh: RecyclerView.ViewHolder) {
-//                if (eventModel.`object`.issignup == "0") {//未报名
-//                    ToastUtil.showToast("请先报名")
-//                    return
-//                }
-                val i = vh.adapterPosition
-                if (i < 0 || i >= commentList.size) {
-                    return
-                }
-                val bundle = Bundle()
-                bundle.putString("id", eventId)
-                bundle.putSerializable("model", eventModel.commList[i])
-                MyApplication.openActivity(this@EventDetailsActivity, EventDetailsReplyActivity::class.java, bundle)
-            }
-        })
+        commentAdapter!!.setId(eventId)
 
         ProgressDialog.showDialog(this)
         Event_221222223224.EventDetails(eventId)
@@ -126,13 +114,15 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 .setImageLoader(GlideImageLoader())
                 .start()
 
-        if (model.`object`.issignup == "0") {// 0未报名 1已报名
-            tv_sign.visibility = View.VISIBLE
-            rl_3.visibility = View.GONE
-        } else {
+        if (model.`object`.issignup == "1" || StaticUtil.uid == model.`object`.userid) {// 0未报名 1已报名
             tv_sign.visibility = View.GONE
             rl_3.visibility = View.VISIBLE
+        } else {
+            tv_sign.visibility = View.VISIBLE
+            rl_3.visibility = View.GONE
         }
+
+
         if (model.`object`.iscang == "1") {//0未收藏 1已收藏
             tv_right.visibility = View.GONE
         }
@@ -226,14 +216,18 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 PreviewPhoto.preview(this, eventModel.`object`.activityImgurl, 0)
             }
             R.id.tv_zan -> {//赞
-                if (eventModel.`object`.isZan == "1") {
-                    return
-                }
                 ActivityComment_272829210.zan("0", eventModel.`object`.activityId, "", object : Find_26.ZanCallback {
                     override fun zan() {
-                        eventModel.`object`.isZan = "1"
-                        tv_zan.text = (eventModel.`object`.zanNum.toInt() + 1).toString()
-                        AbStrUtil.setDrawableLeft(this@EventDetailsActivity, R.drawable.ic_zan_hl, tv_zan, 5)
+                        if(eventModel.`object`.isZan == "1"){
+                            eventModel.`object`.isZan = "0"
+                            tv_zan.text = (eventModel.`object`.zanNum.toInt() - 1).toString()
+                            AbStrUtil.setDrawableLeft(this@EventDetailsActivity, R.drawable.ic_zan, tv_zan, 5)
+                        }else{
+                            AbStrUtil.setDrawableLeft(this@EventDetailsActivity, R.drawable.ic_zan_hl, tv_zan, 5)
+                            tv_zan.text = (eventModel.`object`.zanNum.toInt() + 1).toString()
+                            eventModel.`object`.isZan = "1"
+                        }
+
                     }
                 })
 
@@ -283,6 +277,14 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             model.zanNum = "0"
             model.isZan = "0"
             commentList.add(0, model)
+            commentAdapter!!.notifyDataSetChanged()
+            commentAdapter
+        } else if (requestCode == 303) {//二级回复
+            if (data.getStringExtra("type") == "del") {
+                commentList.removeAt(data.getIntExtra("position", 0))
+            } else {
+                commentList[data.getIntExtra("position", 0)] = data.getSerializableExtra("model") as ActivityCommentModel1.commModel
+            }
             commentAdapter!!.notifyDataSetChanged()
         }
     }

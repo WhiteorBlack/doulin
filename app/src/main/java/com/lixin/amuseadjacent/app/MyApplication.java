@@ -224,9 +224,11 @@ public class MyApplication extends MultiDexApplication {
         //注意带上这个显示数字，否则将变成空
         if (MsgNum > 99) {
             badgeTextView.showTextBadge("99+");
+            badgeTextView.setVisibility(View.VISIBLE);
         } else if (MsgNum <= 0) {
             badgeTextView.setVisibility(View.GONE);
         } else {
+            badgeTextView.setVisibility(View.VISIBLE);
             badgeTextView.showTextBadge(MsgNum + "");
         }
     }

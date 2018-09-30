@@ -19,15 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_dyna"
-                android:maxHeight="200dp"
+            <include
+                android:id="@+id/include_banner"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                layout="@layout/include_banner" />
 
             <TextView
                 android:id="@+id/tv_num"
@@ -35,14 +31,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:background="@drawable/bg_half_tran_b30"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:text="数量21"
+                android:paddingBottom="3dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="3dp"
+                android:text="1"
                 android:textColor="@color/white"
                 android:textSize="9sp"
-                app:layout_constraintBottom_toBottomOf="@+id/image"
+                app:layout_constraintBottom_toBottomOf="@+id/include_banner"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
@@ -54,7 +50,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image" />
+                app:layout_constraintTop_toBottomOf="@+id/include_banner" />
 
             <TextView
                 android:id="@+id/tv_money"

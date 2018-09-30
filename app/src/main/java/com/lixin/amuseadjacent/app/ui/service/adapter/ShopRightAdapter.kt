@@ -64,9 +64,7 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
             model.money = model.UnitPrice
         }
 
-        var money = model.money
-        holder.tv_money.text = " ￥：$money"
-
+        holder.tv_money.text = " ￥：${model.UnitPrice.toString()}"
 
         holder.tv_name.text = model.goodsName
         ImageLoader.getInstance().displayImage(model.goodsImg, holder.image)
@@ -82,9 +80,6 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
 
 
         holder.iv_add.setOnClickListener { v ->
-            if (rightList[position].isSelect) {
-                return@setOnClickListener
-            }
             ShopCar_12412537.addCar(type, model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
                 override fun addCar() {
                     addShopCar.addCar(position)

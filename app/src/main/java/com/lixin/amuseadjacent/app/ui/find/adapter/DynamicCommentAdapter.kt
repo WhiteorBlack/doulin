@@ -2,7 +2,9 @@ package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -13,8 +15,12 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsReplyActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsReplyActivity
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
+import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.DeleteComment_227
+import com.lixin.amuseadjacent.app.ui.find.request.Find_26
+import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -59,6 +65,28 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
             holder.tv_del.visibility = View.INVISIBLE
         }
 
+        if (model.isZan == "1") {
+            AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tv_zan, 5)
+        } else {
+            AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
+        }
+        holder.tv_zan!!.setOnClickListener { v ->
+
+            ProgressDialog.showDialog(context)
+            ActivityComment_272829210.zan("0", dynaId, model.commentId, object : Find_26.ZanCallback {
+                override fun zan() {
+                    if (model.isZan == "1") {
+                        commentList[position].isZan = "0"
+                        commentList[position].zanNum = (model.zanNum.toInt() - 1).toString()
+                    } else {
+                        commentList[position].isZan = "1"
+                        commentList[position].zanNum = (model.zanNum.toInt() + 1).toString()
+                    }
+                    notifyDataSetChanged()
+                }
+            })
+        }
+
         holder.tv_del.setOnClickListener { v ->
             ProgressDialog.showDialog(context)
             DeleteComment_227.del(model.commentId, object : DeleteComment_227.DelCommentCallBack {
@@ -69,18 +97,20 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
             })
         }
 
-        holder.itemView.setOnClickListener { v ->
-            val bundle = Bundle()
-            bundle.putString("commentId", model.commentId)
-            bundle.putString("id", dynaId)
-            bundle.putSerializable("model", model)
-            MyApplication.openActivity(context, DynamicDetailsReplyActivity::class.java, bundle)
+
+        holder.cl_item.setOnClickListener { v ->
+            val intent = Intent(context, EventDetailsReplyActivity::class.java)
+            intent.putExtra("model", commentList[position])
+            intent.putExtra("id", dynaId)
+            intent.putExtra("position", position)
+            context.startActivityForResult(intent, 303)
         }
 
     }
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val cl_item = view.findViewById<ConstraintLayout>(R.id.cl_item)
         val iv_header = view.findViewById<CircleImageView>(R.id.iv_header)
 
         val tv_name = view.findViewById<TextView>(R.id.tv_name)

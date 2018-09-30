@@ -12,6 +12,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclModel
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
@@ -41,7 +42,7 @@ class BangBangActivity : BaseActivity() {
 
     private val imageList = ArrayList<String>()
     private var bannerUrl = ""
-    private var banner: Banner?=null
+    private var banner: Banner? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,11 +73,11 @@ class BangBangActivity : BaseActivity() {
         rv_event2.layoutManager = linearLayoutManager
 
         val headerView = LayoutInflater.from(this).inflate(R.layout.include_banner, null, false)//头布局
-        banner=headerView.findViewById(R.id.banner)
+        banner = headerView.findViewById(R.id.banner)
         rv_event2.addHeaderView(headerView)
         rv_event2.isFocusable = false
 
-        bangAdapter = DynamicAdapter(this,"1", dynaList)
+        bangAdapter = DynamicAdapter(this, "1", dynaList)
         rv_event2.adapter = bangAdapter
 
         rv_event2.setLoadingListener(object : XRecyclerView.LoadingListener {
@@ -143,13 +144,15 @@ class BangBangActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == 1) {
-            if (dynaList.isNotEmpty()) {
-                dynaList.clear()
-                bangAdapter!!.notifyDataSetChanged()
-            }
-            ProgressDialog.showDialog(this)
-            DynamicList_219.dynamic("1", 0, nowPage)
+        if (requestCode == 1) {
+            val model = data!!.getSerializableExtra("model") as DynamiclDetailsModel
+            val position = data.getIntExtra("position",-1)
+
+            dynaList[position].commentNum = model.`object`.commentNum
+            dynaList[position].isZan = model.`object`.isZan
+            dynaList[position].isAttention = model.`object`.isAttention
+            dynaList[position].zanNum = model.`object`.zanNum
+            bangAdapter!!.notifyDataSetChanged()
         }
     }
 

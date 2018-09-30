@@ -13,6 +13,7 @@ import com.lixin.amuseadjacent.app.ui.service.model.ServiceModel
 import com.lixin.amuseadjacent.app.ui.service.model.SpecialModel
 import com.lixin.amuseadjacent.app.ui.service.request.Special_311
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
+import com.lixin.amuseadjacent.app.util.PreviewPhoto
 import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -60,6 +61,9 @@ class SpecialAreaActivity : BaseActivity() {
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
                 .start()
+        banner!!.setOnBannerListener { i->
+            PreviewPhoto.preview(this,model.optimizationImgs)
+        }
 
         ProgressDialog.showDialog(this)
         Special_311.special(model.optimizationId)

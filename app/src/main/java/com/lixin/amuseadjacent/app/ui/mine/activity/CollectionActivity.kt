@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.mine.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.animation.AnimationUtils
@@ -7,6 +8,7 @@ import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.ui.mine.adapter.CollectionAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.CollectModel
 import com.lixin.amuseadjacent.app.ui.mine.request.CollectList_123
@@ -59,8 +61,8 @@ class CollectionActivity : BaseActivity() {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage>=totalPage) {
-                    xrecyclerview .noMoreLoading()
+                if (nowPage >= totalPage) {
+                    xrecyclerview.noMoreLoading()
                     return
                 }
                 onRefresh = 2
@@ -90,11 +92,15 @@ class CollectionActivity : BaseActivity() {
         } else if (onRefresh == 2) {
             xrecyclerview.loadMoreComplete()
         }
+        if(nowPage==1){
+            val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
+            xrecyclerview.layoutAnimation = controller
+            collectionAdapter!!.notifyDataSetChanged()
+            xrecyclerview.scheduleLayoutAnimation()
+        }else{
+            collectionAdapter!!.notifyDataSetChanged()
+        }
 
-        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
-        xrecyclerview.layoutAnimation = controller
-        collectionAdapter!!.notifyDataSetChanged()
-        xrecyclerview.scheduleLayoutAnimation()
     }
 
 

@@ -8,6 +8,7 @@ import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
 /**
  * Created by Slingge on 2018/9/18
@@ -31,6 +32,10 @@ object OfficialShopGoodsList_35 {
         })
     }
 
+    interface ShopGoodsCallback{
+        fun GoodList(List: ArrayList<ShopGoodsModel.dataModel>)
+    }
+
 
     //商品
     /**
@@ -38,16 +43,19 @@ object OfficialShopGoodsList_35 {
      * @param categoryId 分类id(洗衣洗鞋是二级分类id，其它是一级分类id
      * @param content 商品名称(搜索用,可为空)
      * */
-    fun ShopGoods(type:String,categoryId:String,content:String) {
+    fun ShopGoods(type:String,categoryId:String,content:String,shopGoodsCallback: ShopGoodsCallback?) {
         val json = "{\"cmd\":\"getCategoryGoods\",\"uid\":\"" + StaticUtil.uid + "\",\"categoryId\":\"" + categoryId+
                 "\",\"communityId\":\"" + StaticUtil.communityId+ "\",\"content\":\"" + content +"\",\"type\":\"" + type + "\"}"
-
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
                 val model = Gson().fromJson(response, ShopGoodsModel::class.java)
                 if (model.result == "0") {
-                    EventBus.getDefault().post(model)
+                    if(shopGoodsCallback==null){
+                        EventBus.getDefault().post(model)
+                    }else{
+                        shopGoodsCallback.GoodList(model.dataList)
+                    }
                 } else {
                     ToastUtil.showToast(model.resultNote)
                 }
