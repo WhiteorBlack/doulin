@@ -20,6 +20,8 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import android.content.Intent.ACTION_CALL
 import android.net.Uri
+import com.lixin.amuseadjacent.app.util.GlideImageLoader
+import kotlinx.android.synthetic.main.include_banner.*
 
 
 /**
@@ -48,7 +50,6 @@ class PopularShopDetailsActivity : BaseActivity(), View.OnClickListener {
         StatusBarWhiteColor()
         inittitle("")
 
-        image.setOnClickListener(this)
         iv_phone.setOnClickListener(this)
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -77,10 +78,14 @@ class PopularShopDetailsActivity : BaseActivity(), View.OnClickListener {
 
         imageList = model.`object`.shopImgUrl
 
-        if (imageList.isNotEmpty()) {
-            ImageLoader.getInstance().displayImage(imageList[0], image)
+        banner!!.setImages(imageList)
+                .setImageLoader(GlideImageLoader())
+                .start()
+        banner!!.setOnBannerListener { i->
+            PreviewPhoto.preview(this,imageList,i)
         }
-        tv_num.text = "数量" + imageList.size.toString()
+
+        tv_num.text = imageList.size.toString()
 
         serviceList = model.dataList
         detailsAdapter = PopularShopDetailsAdapter(this, serviceList)

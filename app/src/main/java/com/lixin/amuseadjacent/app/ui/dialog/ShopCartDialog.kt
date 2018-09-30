@@ -58,6 +58,10 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
         }
     }
 
+    fun setGoodList(context: Activity, rightList: ArrayList<ShopGoodsModel.dataModel>){
+        val adapter = Adapter(context, rightList)
+        recyclerView!!.adapter = adapter
+    }
 
     fun shopCar(context: Activity, rightList: ArrayList<ShopGoodsModel.dataModel>) {
 
@@ -91,7 +95,6 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
         iv_down!!.setOnClickListener { v ->
             dialog!!.dismiss()
         }
-
     }
 
 
@@ -108,8 +111,6 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
 
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-
             val model = goodsList[position]
             ImageLoader.getInstance().displayImage(model.goodsImg, holder.image)
 
@@ -159,7 +160,6 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
 
             holder.iv_del.setOnClickListener { v ->
                 delCallBack.del(position)
-                notifyItemRemoved(position)
             }
 
         }

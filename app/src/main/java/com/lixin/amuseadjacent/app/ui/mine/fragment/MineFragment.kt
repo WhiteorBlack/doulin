@@ -31,7 +31,6 @@ import org.greenrobot.eventbus.Subscribe
  */
 class MineFragment : BaseFragment(), View.OnClickListener {
 
-
     private var mineAdapter: MineAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

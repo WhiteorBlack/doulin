@@ -59,7 +59,7 @@ class DynamicCommentReplyAdapter(val context: Activity, val commentList: ArrayLi
             })
         }
 
-        holder.itemView.setOnClickListener { v ->
+        holder.iv_header.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putString("auid", model.commentUid)
             MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)

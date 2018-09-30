@@ -22,6 +22,8 @@ import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_wallet.*
 import kotlinx.android.synthetic.main.include_basetop.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * Created by Slingge on 2018/9/2.
@@ -45,9 +47,11 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
         msg.what = 2
         if (result == BCPayResult.RESULT_SUCCESS) {
             msg.what = 1
-            toastMsg = "用户支付成功"
+            toastMsg = "支付成功"
+            UserInfo_19.userInfo(this)
+
         } else if (result == BCPayResult.RESULT_CANCEL) {
-            toastMsg = "用户取消支付"
+            toastMsg = "取消支付"
         } else if (result == BCPayResult.RESULT_FAIL) {
             toastMsg = "支付失败, 原因: " + bcPayResult.errCode +
                     " # " + bcPayResult.errMsg +
@@ -92,14 +96,14 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet)
-
+        EventBus.getDefault().register(this)
         BeeCloud.setAppIdAndSecret(StaticUtil.Beecloud_Appid,
                 StaticUtil.Beecloud_AppSecret)
         // 如果用到微信支付，在用到微信支付的Activity的onCreate函数里调用以下函数.
         // 第二个参数需要换成你自己的微信AppID.
         val initInfo = BCPay.initWechatPay(this, StaticUtil.Weixin_Appid)
         if (initInfo != null) {
-            ToastUtil.showToast("微信初始化失败")
+//            ToastUtil.showToast("微信初始化失败")
         }
 
         init()
@@ -166,10 +170,16 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    @Subscribe
+    fun onEvent(balance: String) {
+        tv_balance.text = balance
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
         RechargeDialog.dismiss()
+        EventBus.getDefault().unregister(this)
     }
 
 

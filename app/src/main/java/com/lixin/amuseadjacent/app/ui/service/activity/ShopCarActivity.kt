@@ -313,6 +313,20 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         marketAdapter!!.notifyDataSetChanged()
         clothesAdapter!!.notifyDataSetChanged()
         fruitsAdapter!!.notifyDataSetChanged()
+
+        if(marketList.isEmpty()){
+            rl_market.visibility=View.GONE
+            cl_market.visibility=View.GONE
+        }
+        if(clothesList.isEmpty()){
+            rl_clothes.visibility=View.GONE
+            cl_clothes.visibility=View.GONE
+        }
+        if(fruitsList.isEmpty()){
+            rl_fruits.visibility=View.GONE
+            cl_fruits.visibility=View.GONE
+        }
+
         if (flag == -1) {
             Calculation(0, null)
             Calculation(1, null)
@@ -348,26 +362,41 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
 
     @Subscribe
     fun onEvent(model: ShopCarModel) {
-        marketList = model.marketList
         var linearLayoutManager1 = LinearLayoutManager(this)
+
+        marketList = model.marketList
+        if(marketList.isEmpty()){
+            rl_market.visibility=View.GONE
+            cl_market.visibility=View.GONE
+        }
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
         rv_market.layoutManager = linearLayoutManager1
         marketAdapter = ShopCarDetailsAdapter(this, 0, marketList, this, this, this)
         rv_market.adapter = marketAdapter
 
         clothesList = model.clothesList
+        if(clothesList.isEmpty()){
+            rl_clothes.visibility=View.GONE
+            cl_clothes.visibility=View.GONE
+        }
         linearLayoutManager1 = LinearLayoutManager(this)
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
         rv_clothes.layoutManager = linearLayoutManager1
         clothesAdapter = ShopCarDetailsAdapter(this, 1, clothesList, this, this, this)
         rv_clothes.adapter = clothesAdapter
 
+
         fruitsList = model.fruitsList
+        if(fruitsList.isEmpty()){
+            rl_fruits.visibility=View.GONE
+            cl_fruits.visibility=View.GONE
+        }
         linearLayoutManager1 = LinearLayoutManager(this)
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
         rv_fruits.layoutManager = linearLayoutManager1
         fruitsAdapter = ShopCarDetailsAdapter(this, 2, fruitsList, this, this, this)
         rv_fruits.adapter = fruitsAdapter
+
     }
 
 

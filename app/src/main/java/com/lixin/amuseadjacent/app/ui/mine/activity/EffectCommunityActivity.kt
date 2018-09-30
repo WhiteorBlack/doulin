@@ -102,7 +102,7 @@ class EffectCommunityActivity : BaseActivity() {
     @Subscribe
     fun onEvent(model: EffectModel) {
         tv_eeffect.text = model.allEffectNum
-        tv_already.text = "今日已获得" + model.dayEffectNum + "点影响力"
+        tv_already.text = "今日已获得" + model.dayEffectNum + "影响力"
 
         effectList = model.dataList
         effectAdapter = EffectAdapter(this, model.dataList)

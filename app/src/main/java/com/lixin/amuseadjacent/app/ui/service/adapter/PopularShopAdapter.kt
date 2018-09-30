@@ -35,7 +35,7 @@ class PopularShopAdapter(val context: Context, val shopList: ArrayList<PopularSh
         holder.tv_info.text = model.shopDesc
 
         holder.tv_name.text = model.shopName
-        holder.tv_meony.text = "￥" + model.shopDesc
+        holder.tv_meony.text = "￥" + model.shopPrice
     }
 
 

@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -10,6 +11,7 @@ import android.view.View;;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,7 +31,6 @@ import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity;
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter;
 import com.lixin.amuseadjacent.app.util.*;
 import com.lixin.amuseadjacent.app.view.CircleImageView;
-import com.lixin.amuseadjacent.zxing.decoding.Intents;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -41,6 +42,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 使用的实体类中有 “object”kotlin关键字，所以只能用java类
@@ -51,7 +55,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
     private RecyclerView rv_comment, rv_image;
     private DynamicCommentAdapter commentAdapter;
-    private ArrayList commentList = new ArrayList<ActivityCommentModel1.commModel>();
+    private ArrayList<ActivityCommentModel1.commModel> commentList = new ArrayList();
 
     private ArrayList imageList = new ArrayList<String>();
 
@@ -207,11 +211,13 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
         if (model.object.isAttention.equals("0")) {// 0未关注 1已关注
             tv_follow.setText("关注");
+            tv_follow.setVisibility(View.VISIBLE);
         } else {
             tv_follow.setText("已关注");
+            tv_follow.setVisibility(View.INVISIBLE);
         }
 
-        if (StaticUtil.INSTANCE.getUid() == model.object.dynamicUid) {
+        if (StaticUtil.INSTANCE.getUid().equals(model.object.dynamicUid)) {
             tv_follow.setVisibility(View.INVISIBLE);
         }
 
@@ -337,19 +343,20 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 PreviewPhoto.INSTANCE.preview(DynamicDetailsActivity.this, imageList, 1);
                 break;
             case R.id.tv_zan:
-                if (isZan.equals("1")) {
-                    return;
-                }
                 ProgressDialog.INSTANCE.showDialog(this);
                 DynaComment_133134.INSTANCE.zan(dynaId, "", () -> {
                     if (model.object.isZan.equals("1")) {
-                        return;
+                        zanNUm--;
+                        model.object.isZan = "0";
+                        AbStrUtil.setDrawableLeft(DynamicDetailsActivity.this, R.drawable.ic_zan, tv_zan, 5);
+                    }else{
+                        zanNUm++;
+                        model.object.isZan = "1";
+                        AbStrUtil.setDrawableLeft(DynamicDetailsActivity.this, R.drawable.ic_zan_hl, tv_zan, 5);
                     }
-                    zanNUm++;
-                    model.object.isZan = "1";
                     model.object.zanNum = zanNUm + "";
                     tv_zan.setText(zanNUm + "");
-                    AbStrUtil.setDrawableLeft(DynamicDetailsActivity.this, R.drawable.ic_zan_hl, tv_zan, 5);
+
                 });
                 break;
             case R.id.tv_send:
@@ -364,7 +371,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                     et_comment.setText("");
 
                     model.object.commentNum = commNum + "";
-                    tv_comment.setText(commNum+"");
+                    tv_comment.setText(commNum + "");
 
                     ActivityCommentModel1.commModel model = new ActivityCommentModel1.commModel();
                     model.setCommentContent(content);
@@ -379,9 +386,36 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                     commentAdapter.notifyDataSetChanged();
                 });
                 break;
+            case R.id.tv_comment:
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        InputMethodManager inputManager =
+                                (InputMethodManager) et_comment.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputManager.showSoftInput(et_comment, 0);
+                    }
+                }, 200);
+                break;
         }
     }
 
+    private Timer timer;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        if (requestCode == 303) {//二级回复
+            if (data.getStringExtra("type").equals("del")) {
+                commentList.remove(data.getIntExtra("position", 0));
+            } else {
+                commentList.set(data.getIntExtra("position", 0), (ActivityCommentModel1.commModel) data.getSerializableExtra("model"));
+            }
+            commentAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -89,14 +89,17 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tv_zan, 5)
             }
             holder.tv_zan.setOnClickListener { v ->
-                if (model.isZan == "1") {
-                    return@setOnClickListener
-                }
+
                 ProgressDialog.showDialog(context)
                 DynaComment_133134.zan(model.dynamicId, "", object : Find_26.ZanCallback {
                     override fun zan() {
-                        dynaList[position].zanNum = (dynaList[position].zanNum.toInt() + 1).toString()
-                        dynaList[position].isZan = "1"
+                        if (model.isZan == "1") {
+                            dynaList[position].zanNum = (dynaList[position].zanNum.toInt() - 1).toString()
+                            dynaList[position].isZan = "0"
+                        } else {
+                            dynaList[position].zanNum = (dynaList[position].zanNum.toInt() + 1).toString()
+                            dynaList[position].isZan = "1"
+                        }
                         notifyDataSetChanged()
                     }
                 })
@@ -209,14 +212,16 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             }
 
             holder.tv_zan.setOnClickListener { v ->
-                if (model.isZan == "1") {
-                    return@setOnClickListener
-                }
                 ProgressDialog.showDialog(context)
                 ActivityComment_272829210.zan("0", model.activityId, "", object : Find_26.ZanCallback {
                     override fun zan() {
-                        actiivtyList[position].isZan="1"
-                        actiivtyList[position].zanNum= (actiivtyList[position].zanNum.toInt()+1).toString()
+                        if (model.isZan == "1") {
+                            actiivtyList[position].isZan = "0"
+                            actiivtyList[position].zanNum = (actiivtyList[position].zanNum.toInt() - 1).toString()
+                        } else {
+                            actiivtyList[position].isZan = "1"
+                            actiivtyList[position].zanNum = (actiivtyList[position].zanNum.toInt() + 1).toString()
+                        }
                         notifyItemChanged(position)
                     }
                 })
@@ -226,7 +231,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             holder.tv_price.text = model.activityMoney + "元/人"
             holder.tv_activitytime.text = "时间：" + model.activityTime
             holder.tv_address.text = "地点：" + model.activityAddress
-            holder.tv_num.text = "人数：" +model.activityNownum+"/"+ model.activityAllnum
+            holder.tv_num.text = "人数：" + model.activityNownum + "/" + model.activityAllnum
 
             ImageLoader.getInstance().displayImage(model.userIcon, holder.iv_header, ImageLoaderUtil.HeaderDIO())
             holder.tv_name.text = model.userName

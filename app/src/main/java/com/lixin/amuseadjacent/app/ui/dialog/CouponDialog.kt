@@ -55,10 +55,17 @@ object CouponDialog {
         tv_receive.setOnClickListener { v ->
             ProgressDialog.showDialog(context)
             val model = ReceiveCouponModel()
+            var count = 0
             for (i in 0 until couponList.size) {
                 if (couponList[i].isSelect) {
+                    count++
                     model.securitiesid.add(couponList[i].securitiesid)
                 }
+            }
+            if (count == 0) {
+                ToastUtil.showToast("请选择优惠券")
+                ProgressDialog.dissDialog()
+                return@setOnClickListener
             }
             Coupon_3132.Receive(model)
         }

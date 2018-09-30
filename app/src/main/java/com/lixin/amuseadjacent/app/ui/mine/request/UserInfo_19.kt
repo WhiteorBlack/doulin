@@ -34,6 +34,7 @@ object UserInfo_19 {
                     sp.edit().putString(SharedPreferencesUtil.headerUrl, model.icon).putString(SharedPreferencesUtil.nickName, model.nickname)
                             .commit()
 
+                    EventBus.getDefault().post(StaticUtil.balance)
                     EventBus.getDefault().post(model)
                 } else {
                     ToastUtil.showToast(model.resultNote)

@@ -53,16 +53,16 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
             holder.tv_type.text = "已报名"
         }
 
-        if(model.userid== StaticUtil.uid){
-            holder.tv_follow.visibility=View.INVISIBLE
-        }else{
-            holder.tv_follow.visibility=View.VISIBLE
+        if (model.userid == StaticUtil.uid) {
+            holder.tv_follow.visibility = View.INVISIBLE
+        } else {
+            holder.tv_follow.visibility = View.VISIBLE
             if (model.isAttention == "0") {// 0未关注 1已关注
                 holder.tv_follow.text = "关注"
-                holder.tv_follow.visibility=View.VISIBLE
+                holder.tv_follow.visibility = View.VISIBLE
             } else {
                 holder.tv_follow.text = "已关注"
-                holder.tv_follow.visibility=View.INVISIBLE
+                holder.tv_follow.visibility = View.INVISIBLE
             }
         }
 
@@ -76,7 +76,7 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
         holder.tv_price.text = model.activityMoney + "元/人"
         holder.tv_activitytime.text = "时间：" + model.activityTime
         holder.tv_address.text = "地点：" + model.activityAddress
-        holder.tv_num.text = "人数：" + model.activityNownum+"/"+model.activityAllnum
+        holder.tv_num.text = "人数：" + model.activityNownum + "/" + model.activityAllnum
 
         ImageLoader.getInstance().displayImage(model.userIcon, holder.iv_header, ImageLoaderUtil.HeaderDIO())
         holder.tv_name.text = model.userName
@@ -95,14 +95,16 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
         }
 
         holder.tv_zan.setOnClickListener { v ->
-            if (model.isZan == "1") {//0未赞过 1已赞过
-                return@setOnClickListener
-            }
             ProgressDialog.showDialog(context)
             ActivityComment_272829210.zan("0", model.activityId, "", object : Find_26.ZanCallback {
                 override fun zan() {
-                    eventList[position].isZan = "1"
-                    eventList[position].zanNum = ((eventList[position].zanNum).toInt() + 1).toString()
+                    if (model.isZan == "1") {//0未赞过 1已赞过
+                        eventList[position].isZan = "0"
+                        eventList[position].zanNum = ((eventList[position].zanNum).toInt() - 1).toString()
+                    } else {
+                        eventList[position].isZan = "1"
+                        eventList[position].zanNum = ((eventList[position].zanNum).toInt() + 1).toString()
+                    }
                     notifyDataSetChanged()
                 }
             })

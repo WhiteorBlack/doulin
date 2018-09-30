@@ -14,9 +14,10 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentReplyAdapter
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
-import com.lixin.amuseadjacent.app.ui.find.model.CommentModel1
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
+import com.lixin.amuseadjacent.app.ui.find.request.DeleteComment_227
 import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134
+import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.AndroidBug5497Workaround
 import com.lixin.amuseadjacent.app.util.GetDateTimeUtil
@@ -35,14 +36,17 @@ class DynamicDetailsReplyActivity : BaseActivity() {
 
     private var replyAdapter: DynamicCommentReplyAdapter? = null
     private var commentList = ArrayList<ActivityCommentModel1.commModel>()
+    private var commModel: ActivityCommentModel1.commModel? = null//一级评论
 
     private var headerView: View? = null
+    private var tv_zan: TextView? = null
 
-    private var model = ActivityCommentModel1.commModel()
     private var dynaId = ""
     private var commentId = ""//一级评论id
 
     private var commNum = 0//回复数量
+
+    private var chushi = -1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +61,7 @@ class DynamicDetailsReplyActivity : BaseActivity() {
     private fun init() {
         StatusBarWhiteColor()
         dynaId = intent.getStringExtra("id")
-        commentId=intent.getStringExtra("commentId")
+        commentId = intent.getStringExtra("commentId")
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -73,8 +77,8 @@ class DynamicDetailsReplyActivity : BaseActivity() {
         rv_reply.adapter = replyAdapter
 
         if (intent.getSerializableExtra("model") != null) {
-            model = intent.getSerializableExtra("model") as ActivityCommentModel1.commModel
-            setDetails(model)
+            commModel = intent.getSerializableExtra("model") as ActivityCommentModel1.commModel
+            setDetails(commModel!!)
         } else {
             ProgressDialog.showDialog(this)
             DynaComment_133134.commentFirst(commentId)
@@ -86,11 +90,12 @@ class DynamicDetailsReplyActivity : BaseActivity() {
                 return@setOnClickListener
             }
             ProgressDialog.showDialog(this)
-            DynaComment_133134.comment(dynaId, model.commentId, content, object : ActivityComment_272829210.CommentCallBack {
+            DynaComment_133134.comment(dynaId, commentId, content, object : ActivityComment_272829210.CommentCallBack {
                 override fun commemt(commentId: String) {
                     commNum++
                     inittitle(commNum.toString() + "条回复")
                     headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = commNum.toString() + "回复"
+                    commModel!!.secondNum = commNum.toString()
 
                     et_comment.setText("")
                     val model = ActivityCommentModel1.commModel()
@@ -104,33 +109,72 @@ class DynamicDetailsReplyActivity : BaseActivity() {
                     model.commentId = commentId
                     commentList.add(0, model)
                     replyAdapter!!.notifyDataSetChanged()
+
+                    chushi = 2
                 }
-
             })
-
         }
     }
 
 
     private fun setDetails(model: ActivityCommentModel1.commModel) {
-        headerView!!.findViewById<TextView>(R.id.tv_name).text = model.commentName
-        ImageLoader.getInstance().displayImage(model.commentIcon, headerView!!.findViewById<ImageView>(R.id.iv_header))
-        headerView!!.findViewById<TextView>(R.id.tv_zan).text = model.zanNum
-        headerView!!.findViewById<TextView>(R.id.tv_comment).text = model.commentContent
-        headerView!!.findViewById<TextView>(R.id.tv_time).text = model.commentTime
-        headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = model.secondNum + "回复"
-        commNum = model.secondNum.toInt()
+        commModel = model
+        headerView!!.findViewById<TextView>(R.id.tv_name).text = commModel!!.commentName
+        ImageLoader.getInstance().displayImage(commModel!!.commentIcon, headerView!!.findViewById<ImageView>(R.id.iv_header))
+        tv_zan = headerView!!.findViewById(R.id.tv_zan)
+        tv_zan!!.text = commModel!!.zanNum
+        if (commModel!!.isZan == "1") {//0未赞过 1已赞过
+            AbStrUtil.setDrawableLeft(this, R.drawable.ic_zan_hl, tv_zan, 5)
+        }
+        tv_zan!!.setOnClickListener { v ->
+            ProgressDialog.showDialog(this)
+            DynaComment_133134.zan(dynaId, commentId, object : Find_26.ZanCallback {
+                override fun zan() {
+                    if (commModel!!.isZan == "1") {
+                        commModel!!.zanNum = (commModel!!.zanNum.toInt() - 1).toString()
+                        commModel!!.isZan = "0"
+                    }else{
+                        commModel!!.zanNum = (commModel!!.zanNum.toInt() + 1).toString()
+                        commModel!!.isZan = "1"
+                    }
+                    tv_zan!!.text = commModel!!.zanNum
+                    AbStrUtil.setDrawableLeft(this@DynamicDetailsReplyActivity, R.drawable.ic_zan_hl, tv_zan, 5)
+                    chushi = 1
+                }
+            })
+        }
 
-        inittitle(model.secondNum + "条回复")
+        headerView!!.findViewById<TextView>(R.id.tv_comment).text = commModel!!.commentContent
+        headerView!!.findViewById<TextView>(R.id.tv_time).text = commModel!!.commentTime
+        headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = commModel!!.secondNum + "回复"
+        commNum = commModel!!.secondNum.toInt()
+
+        val tv_del = headerView!!.findViewById<TextView>(R.id.tv_del)
+        if (StaticUtil.uid == model.commentUid) {
+            tv_del.visibility = View.VISIBLE
+        } else {
+            tv_del.visibility = View.GONE
+        }
+
+        tv_del.setOnClickListener { v ->
+            ProgressDialog.showDialog(this)
+            DeleteComment_227.del(model.commentId, object : DeleteComment_227.DelCommentCallBack {
+                override fun delComment() {
+                    chushi = -1
+                    Destroy()
+                }
+            })
+        }
+
+        inittitle(commModel!!.secondNum + "条回复")
 
         ProgressDialog.showDialog(this)
-        DynaComment_133134.commentSecond(dynaId, model.commentId)
+        DynaComment_133134.commentSecond(dynaId, commModel!!.commentId)
     }
 
     @Subscribe
     fun onEvent(model: ActivityCommentModel1.commModel) {
-        this.model = model
-        setDetails(this.model)
+        setDetails(model)
     }
 
     @Subscribe
@@ -142,6 +186,17 @@ class DynamicDetailsReplyActivity : BaseActivity() {
         rv_reply.scheduleLayoutAnimation()
     }
 
+    fun Destroy() {
+        intent.putExtra("position", intent.getIntExtra("position", -1))
+        if (chushi == -1) {
+            intent.putExtra("type", "del")
+        } else {
+            intent.putExtra("type", "")
+        }
+        intent.putExtra("model", commModel)
+        setResult(0, intent)
+        finish()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

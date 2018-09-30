@@ -10,13 +10,16 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
-import com.lixin.amuseadjacent.app.ui.service.activity.SubmissionOrderActivity
+import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
+import com.lixin.amuseadjacent.app.ui.service.activity.LaundryActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.LaundryAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.CarModel
+import com.lixin.amuseadjacent.app.ui.service.model.LaundryMapModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
+import com.lixin.amuseadjacent.app.ui.service.model.TempIdModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
-import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import kotlinx.android.synthetic.main.dialog_community.*
 import kotlinx.android.synthetic.main.fragment_laundry.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -30,7 +33,9 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
     private var laundryAdapter: LaundryAdapter? = null
     private var gridLayoutManager: GridLayoutManager? = null
     private var goodList = ArrayList<ShopGoodsModel.dataModel>()
-    private   var carList = ArrayList<ShopGoodsModel.dataModel>()
+
+    private var goodMap = ArrayList<LaundryMapModel>()
+    private var secondCategoryId = ""//当前二级id
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_laundry, container, false)
@@ -44,7 +49,8 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
 
         rv_clothes.layoutManager = gridLayoutManager
 
-        laundryAdapter = LaundryAdapter(activity!!, goodList, this)
+        laundryAdapter = LaundryAdapter(activity!!, goodList)
+        laundryAdapter!!.setAddShopCar(this)
         rv_clothes.adapter = laundryAdapter
     }
 
@@ -61,65 +67,89 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
         goodList[position].isSelect = true
         goodList[position].goodsNum = 1
         laundryAdapter!!.notifyItemChanged(position)
-        carList.add(goodList[position])
 
-        val model=CarModel.editModel()
-        model.goodModel=carList[carList.size-1]
-        model.flag=0
-        model.position=position
+        val model = CarModel.editModel()
+        model.goodModel = goodList[position]
+        model.flag = 0
+        model.position = position
         EventBus.getDefault().post(model)
     }
 
     //购物车数量增加
-    fun plusCar(position: Int, num: Int, money: Double) {
-        goodList[position].goodsNum = num
-        laundryAdapter!!.notifyItemChanged(position)
-
-        carList[position].goodsNum = num
-        carList[position].money = money
+    fun plusCar(goodId: String, num: Int, money: Double) {
+        for (i in 0 until goodList.size) {
+            if (goodList[i].goodsId == goodId) {
+                goodList[i].goodsNum = num
+                goodList[i].isSelect = true
+                goodList[i].money = money
+                laundryAdapter!!.notifyDataSetChanged()
+                return
+            }
+        }
     }
 
     //购物车数量减少
-    fun reduceCar(position: Int, num: Int, money: Double) {
-        goodList[position].goodsNum = num
-        goodList[position].money = money
-        laundryAdapter!!.notifyItemChanged(position)
-
-        carList[position].goodsNum = num
-        carList[position].money = money
+    fun reduceCar(goodId: String, num: Int, money: Double) {
+        for (i in 0 until goodList.size) {
+            if (goodList[i].goodsId == goodId) {
+                goodList[i].goodsNum = num
+                goodList[i].isSelect = true
+                goodList[i].money = money
+                laundryAdapter!!.notifyItemChanged(i)
+                return
+            }
+        }
     }
 
     //购物车删除
-    fun delCar(position: Int) {
-        goodList[position].isSelect = false
-        goodList[position].goodsNum = 0
-        laundryAdapter!!.notifyItemChanged(position)
-
-        carList.removeAt(position)
+    fun delCar(goodId: String) {
+        for (i in 0 until goodList.size) {
+            if (goodList[i].goodsId == goodId) {
+                goodList[i].isSelect = false
+                goodList[i].goodsNum = 0
+                laundryAdapter!!.notifyItemChanged(i)
+                return
+            }
+        }
     }
 
 
-
+    //二级分类id
     @Subscribe
-    fun onEvent(model: ShopGoodsModel) {
+    fun onEvent(tempModel: TempIdModel) {
+        this.secondCategoryId = tempModel.firstId + tempModel.secondId
+        /*if (goodMap.isNotEmpty()) {
+            for (i in 0 until goodMap.size) {
+                goodMap[i].secondCategoryId = secondCategoryId
+                setDate(goodMap[i].good)
+                return
+            }
+        }*/
+        ProgressDialog.showDialog(activity!!)
+        OfficialShopGoodsList_35.ShopGoods("1", tempModel.secondId, "", object : OfficialShopGoodsList_35.ShopGoodsCallback {
+            override fun GoodList(List: java.util.ArrayList<ShopGoodsModel.dataModel>) {
+                val mapModel = LaundryMapModel()//储存数据，不在二次获取，保存选中状态
+                mapModel.secondCategoryId = secondCategoryId
+                mapModel.good = List
+                goodMap.add(mapModel)
+                setDate(List)
+            }
+        })
+    }
+
+
+    private fun setDate(List: ArrayList<ShopGoodsModel.dataModel>) {
         if (goodList.isNotEmpty()) {
             goodList.clear()
             laundryAdapter!!.notifyDataSetChanged()
         }
-        goodList.addAll(model.dataList)
+        goodList.addAll(List)
+
         val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
         rv_clothes.layoutAnimation = controller
         laundryAdapter!!.notifyDataSetChanged()
         rv_clothes.scheduleLayoutAnimation()
     }
-
-    //二级分类id
-    @Subscribe
-    fun onEvent(secondCategoryId: String) {
-        ProgressDialog.showDialog(activity!!)
-        OfficialShopGoodsList_35.ShopGoods("1", secondCategoryId, "")
-    }
-
 
     override fun loadData() {
 

@@ -36,11 +36,11 @@ class MyMsgAdapter(val context: Context, val list: ArrayList<MsgListModel.msgMod
         MyApplication.setRedNum(holder.tv_msgNum, model.messagenum.toInt())
 
         if (model.type == "0") {
-            holder.tv_type.text = "系统消息"
+            holder.tv_type.text = "官方消息"
             holder.image.setImageResource(R.drawable.ic_official_msg)
         } else if (model.type == "1") {
             holder.tv_type.text = "订单消息"
-            holder.image.setImageResource(R.drawable.ic_order)
+            holder.image.setImageResource(R.drawable.ic_order2)
         } else if (model.type == "2") {
             holder.tv_type.text = "评论消息"
             holder.image.setImageResource(R.drawable.ic_comment)

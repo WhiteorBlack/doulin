@@ -82,7 +82,6 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
 
         banner = headerView!!.findViewById(R.id.banner)
         banner!!.setOnBannerListener { i ->
-            ToastUtil.showToast(i.toString())
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", bannerList[i].topImgDetailUrl)

@@ -33,7 +33,7 @@ class TalentAuthenticationActivity : BaseActivity(), View.OnClickListener {
     private var talentExpAdapter: TalentExperienceAdapter? = null
     private var talentExpList = ArrayList<TalenExperienceModel.dataModel>()
 
-    private var type = "0"// 0未申请达人 1达人审核中 2审核通过 3申请达人失败
+    private var type = "0"// 0未申请达人 1达人审核中 2审核通过
 
     private var lableName = ""//达人类型id
     private var lableType = ""//达人类型 商业职业等
@@ -89,7 +89,7 @@ class TalentAuthenticationActivity : BaseActivity(), View.OnClickListener {
         tv_type.text = model.userlabel
         et_info.setText(model.userDesc)
 
-        if (type == "1" || type == "2") {
+        if (type!="0") {
             NoInput(et_name)
             NoInput(et_phone)
             NoInput(et_info)
@@ -106,14 +106,14 @@ class TalentAuthenticationActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.tv_addExperience -> {
-                if (type == "0" || type == "3") {
+                if (type == "0") {
                     ToastUtil.showToast("请先申请达人认证")
                     return
                 }
                 MyApplication.openActivityForResult(this, TalentAuthenticationAddActivity::class.java, 1)
             }
             R.id.tv_type -> {//达人类型选择
-                if (type == "1" || type == "2") {
+                if (type !="0") {
                     return
                 }
                 MyApplication.openActivityForResult(this, TalentTypeActivity::class.java, 0)
@@ -141,7 +141,7 @@ class TalentAuthenticationActivity : BaseActivity(), View.OnClickListener {
 
                 Talent212_218225.applyTalen(lableType, name, phone, content, lableName, object : Talent212_218225.ApplyTalenCallBack {
                     override fun Apply() {
-                        if (type == "0" || type == "3") {
+                        if (type == "0") {
                             type = "2"
                             TalentActivity().type = "2"
                         }

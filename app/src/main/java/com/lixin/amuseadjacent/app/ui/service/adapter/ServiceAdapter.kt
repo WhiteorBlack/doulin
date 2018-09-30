@@ -49,7 +49,7 @@ class ServiceAdapter(val context: Context, val serviceList: ArrayList<ServiceMod
         holder.tv_info.text = model.optimizationDesc
 
 
-        holder.itemView.setOnClickListener { v ->
+        holder.cl_item.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putSerializable("model", serviceList[position])
             MyApplication.openActivity(context, SpecialAreaActivity::class.java, bundle)

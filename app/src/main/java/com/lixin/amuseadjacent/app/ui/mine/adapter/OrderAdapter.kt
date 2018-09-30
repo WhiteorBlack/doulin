@@ -57,7 +57,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
         val orderCommodityAdapter = OrderCommodityAdapter(context, position, model.orderNum, model.orderCommodity)
         holder.rv_comment.adapter = orderCommodityAdapter
 
-        holder.tv_orderNum.text = model.orderNum
+        holder.tv_orderNum.text ="订单号："+ model.orderNum
 
         var orderState = model.orderState//1待付款,2待送货,3待收货,4待取货,5清洗中,6待归还,7归还中,8退款中,9已退款,10待评价,11已完成 12已取消
 

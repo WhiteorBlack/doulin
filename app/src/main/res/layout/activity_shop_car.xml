@@ -63,6 +63,7 @@
                 android:nestedScrollingEnabled="false" />
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_market"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -150,6 +151,7 @@
                 android:nestedScrollingEnabled="false" />
 
             <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_clothes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -224,7 +226,7 @@
                     android:layout_toRightOf="@+id/cb_fruits"
                     android:background="@color/white"
                     android:gravity="center"
-                    android:text="洗衣洗鞋"
+                    android:text="新鲜果蔬"
                     android:textColor="@color/black"
                     android:textSize="@dimen/main_fant" />
 
@@ -238,6 +240,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
+                android:id="@+id/cl_fruits"
                 android:layout_height="wrap_content">
 
                 <View

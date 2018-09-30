@@ -84,14 +84,17 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
         }
 
         holder.tv_zan.setOnClickListener { v ->
-            if (model.isZan == "1") {
-                return@setOnClickListener
-            }
+
             ProgressDialog.showDialog(context)
             DynaComment_133134.zan(model.dynamicId, "", object : Find_26.ZanCallback {
                 override fun zan() {
-                    dynaList[position].zanNum = (dynaList[position].zanNum.toInt() + 1).toString()
-                    dynaList[position].isZan = "1"
+                    if (model.isZan == "1") {
+                        dynaList[position].zanNum = (dynaList[position].zanNum.toInt() - 1).toString()
+                        dynaList[position].isZan = "0"
+                    }else{
+                        dynaList[position].zanNum = (dynaList[position].zanNum.toInt() + 1).toString()
+                        dynaList[position].isZan = "1"
+                    }
                     notifyDataSetChanged()
                 }
             })
