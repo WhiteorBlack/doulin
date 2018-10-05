@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/cl_main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!--新增、修改收货地址-->
@@ -78,9 +78,9 @@
         android:id="@+id/region"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:padding="12dp"
         android:text="所在地区："
-        android:background="@color/white"
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,10 +94,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/touch_bg"
+        android:drawablePadding="10dp"
         android:drawableRight="@drawable/ic_right"
         android:gravity="right"
         android:padding="12dp"
-        android:drawablePadding="10dp"
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
         app:layout_constraintEnd_toEndOf="parent"
@@ -189,8 +189,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="1dp"
         android:background="@null"
-        android:paddingRight="2dp"
         android:gravity="right|center_vertical"
+        android:paddingRight="2dp"
         android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
@@ -207,9 +207,9 @@
         android:background="@null"
         android:gravity="right|center_vertical"
         android:inputType="number"
-        android:singleLine="true"
         android:maxLength="11"
         android:paddingRight="2dp"
+        android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
         app:layout_constraintBottom_toBottomOf="@+id/phone"
@@ -224,8 +224,8 @@
         android:layout_marginRight="10dp"
         android:background="@null"
         android:gravity="right|center_vertical"
-        android:singleLine="true"
         android:paddingRight="2dp"
+        android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
         app:layout_constraintBottom_toBottomOf="@+id/address"
@@ -233,6 +233,18 @@
         app:layout_constraintStart_toEndOf="@+id/temp"
         app:layout_constraintTop_toTopOf="@+id/address" />
 
+    <TextView
+        android:id="@+id/tv_tim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="*非本小区概不配送"
+        android:textColor="#999999"
+        android:textSize="@dimen/sub_fant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_default" />
 
     <TextView
         android:id="@+id/tv_save"

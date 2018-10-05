@@ -25,6 +25,7 @@ import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.*
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.lixin.amuseadjacent.app.view.PileLayout
+import com.lixin.amuseadjacent.app.view.SDAvatarListLayout
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_event_details.*
@@ -32,6 +33,7 @@ import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import java.util.*
 
 /**
  * 活动详情
@@ -154,18 +156,17 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             model.`object`.iscang = "0"
         }
 
-        val inflater = LayoutInflater.from(this)
-
-        var maxNun = 7
-        if (model.signList.size < 7) {
+        var maxNun =10
+        if (model.signList.size < 10) {
             maxNun = model.signList.size
         }
 
-
-        for (i in 0 until maxNun) {
-            val imageView = inflater.inflate(R.layout.item_praise, pl_header, false) as CircleImageView
-            ImageLoader.getInstance().displayImage(model.signList[i].userImg, imageView)
-            pl_header.addView(imageView)
+        pl_header.setAvatarListListener { imageViewList ->
+            imageViewList.reverse()
+            for (i in 0 until maxNun) {
+                ImageLoader.getInstance().displayImage(model.signList[i].userImg, imageViewList!![i])
+                imageViewList[i].visibility = View.VISIBLE
+            }
         }
 
         commentList.addAll(model.commList)
@@ -218,11 +219,11 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_zan -> {//赞
                 ActivityComment_272829210.zan("0", eventModel.`object`.activityId, "", object : Find_26.ZanCallback {
                     override fun zan() {
-                        if(eventModel.`object`.isZan == "1"){
+                        if (eventModel.`object`.isZan == "1") {
                             eventModel.`object`.isZan = "0"
                             tv_zan.text = (eventModel.`object`.zanNum.toInt() - 1).toString()
                             AbStrUtil.setDrawableLeft(this@EventDetailsActivity, R.drawable.ic_zan, tv_zan, 5)
-                        }else{
+                        } else {
                             AbStrUtil.setDrawableLeft(this@EventDetailsActivity, R.drawable.ic_zan_hl, tv_zan, 5)
                             tv_zan.text = (eventModel.`object`.zanNum.toInt() + 1).toString()
                             eventModel.`object`.isZan = "1"

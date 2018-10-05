@@ -227,7 +227,7 @@
                 android:id="@+id/tv_peoNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" "
+                android:text=""
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintBottom_toBottomOf="@+id/peoNum"
@@ -289,16 +289,14 @@
                 app:layout_constraintStart_toEndOf="@+id/signInfo"
                 app:layout_constraintTop_toTopOf="@+id/signInfo" />
 
-
-            <com.lixin.amuseadjacent.app.view.PileLayout
+            <com.lixin.amuseadjacent.app.view.SDAvatarListLayout
                 android:id="@+id/pl_header"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
-                android:layout_marginRight="36dp"
                 app:layout_constraintEnd_toStartOf="@+id/iv_signInfo"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signInfo" />
-
 
             <ImageView
                 android:id="@+id/iv_signInfo"
@@ -372,9 +370,9 @@
                 android:id="@+id/temp_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/touch_bg"
                 android:padding="12dp"
                 android:text="评论"
-                android:background="@drawable/touch_bg"
                 android:textColor="#999999"
                 android:textSize="@dimen/sub_fant"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -389,6 +387,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/comment" />
+
 
         </android.support.constraint.ConstraintLayout>
 

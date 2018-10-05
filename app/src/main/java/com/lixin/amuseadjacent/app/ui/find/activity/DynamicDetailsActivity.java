@@ -11,6 +11,7 @@ import android.view.View;;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -89,6 +90,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_details);
         AndroidBug5497Workaround.assistActivity(this);//底部EditText不能被软键盘顶起
+        this.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         EventBus.getDefault().register(this);
         init();
     }

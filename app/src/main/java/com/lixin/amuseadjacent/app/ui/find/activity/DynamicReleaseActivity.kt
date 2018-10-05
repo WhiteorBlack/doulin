@@ -62,7 +62,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
         tv_right.text = "完成"
         tv_right.setOnClickListener(this)
         tv_address.setOnClickListener(this)
-        flag=intent.getStringExtra("flag")
+        flag = intent.getStringExtra("flag")
         if (flag == "1") {
             tv_address.visibility = View.GONE
 
@@ -92,14 +92,18 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             }
             R.id.tv_address -> {
                 val bundle = Bundle()
-                bundle.putBoolean("isChecked",isChecked)
-                MyApplication.openActivityForResult(this, SelectionAddressActivity::class.java,bundle,200)
+                bundle.putBoolean("isChecked", isChecked)
+                MyApplication.openActivityForResult(this, SelectionAddressActivity::class.java, bundle, 200)
             }
             R.id.tv_right -> {
                 val content = AbStrUtil.etTostr(et_info)
                 val adress = AbStrUtil.tvTostr(tv_address)
                 if (TextUtils.isEmpty(adress)) {
                     ToastUtil.showToast("请输入发布地址")
+                    return
+                }
+                if (TextUtils.isEmpty(content) && imageList.size==1 && TextUtils.isEmpty(videoPath)) {
+                    ToastUtil.showToast("请输入发布内容")
                     return
                 }
                 ProgressDialog.showDialog(this)
@@ -148,17 +152,17 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
                     return
                 } else {
                     imageList.add(imageList.size - 1, PictureSelector.obtainMultipleResult(data)[i])
-                    videoPath=""
+                    videoPath = ""
                 }
             }
             albumAdapter!!.notifyDataSetChanged()
         }
 
-        if (requestCode == 200 && resultCode == 200 && data != null){
-            if (TextUtils.isEmpty(data.getStringExtra("address"))){
+        if (requestCode == 200 && resultCode == 200 && data != null) {
+            if (TextUtils.isEmpty(data.getStringExtra("address"))) {
                 isChecked = true
                 tv_address.text = "不显示位置"
-            }else{
+            } else {
                 isChecked = false
                 tv_address.text = data.getStringExtra("address")
             }
@@ -192,9 +196,9 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
 
     override fun onDestroy() {
         super.onDestroy()
-        if(PreviewingBitmap!=null){
+        if (PreviewingBitmap != null) {
             PreviewingBitmap!!.recycle()
-            PreviewingBitmap=null
+            PreviewingBitmap = null
         }
     }
 

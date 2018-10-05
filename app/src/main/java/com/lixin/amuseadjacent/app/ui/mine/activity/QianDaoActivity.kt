@@ -106,8 +106,8 @@ class QianDaoActivity : BaseActivity(), View.OnClickListener {
                 ProgressDialog.showDialog(this@QianDaoActivity)
                 SignIn_117118.sgin(object : SignIn_117118.SginCallBack {
                     override fun sginScore(score: String) {
-                        dateList.add(dateList.size - 1, getDateTime.ymd())
-                        calendarAdapter = SignCalendarAdapter(this@QianDaoActivity, dayList, week, dateList, day)
+                        getSgin(year.toString() + "-" + format(month))
+
                         recyclerView!!.adapter = calendarAdapter
                         QianDaoDialog.communityDialog(this@QianDaoActivity, score)
                     }

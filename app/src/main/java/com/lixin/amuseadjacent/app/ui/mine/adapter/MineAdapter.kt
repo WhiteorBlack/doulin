@@ -33,7 +33,6 @@ class MineAdapter(val context: Context, val flag: Int) : RecyclerView.Adapter<Mi
         } else {
             return moreImage.size
         }
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -315,6 +315,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             line.visibility = View.GONE
             line_view.visibility = View.VISIBLE
 
+            player.isFocusable=false
             player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer
 
             niceVideoPlayer = player

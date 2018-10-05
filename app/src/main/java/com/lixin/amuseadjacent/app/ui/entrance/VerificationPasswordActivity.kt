@@ -12,7 +12,6 @@ import com.lixin.amuseadjacent.app.ui.entrance.request.SginIn_1213
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.SMSVerificationCode
 import com.lixin.amuseadjacent.app.util.TimerUtil
-import com.lxkj.linxintechnologylibrary.app.util.ProgressDialogUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_passverification_sgin.*
 
@@ -38,7 +37,7 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
 
 
     private fun init() {
-        if (intent != null) {
+        if (intent != null && intent.getStringExtra("phone") != null) {
             phone = intent.getStringExtra("phone")
             tv_phone.setText(phone)
         }
@@ -74,6 +73,7 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
                 MyApplication.openActivity(this, ForgetPassActivity::class.java)
             }
             R.id.tv_code -> {//获取验证码
+                phone = AbStrUtil.etTostr(tv_phone)
                 if (TextUtils.isEmpty(phone)) {
                     ToastUtil.showToast("请输入手机号")
                     return
@@ -89,6 +89,7 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.iv_sgin -> {
                 if (flag == 0) {
+                    phone = AbStrUtil.etTostr(tv_phone)
                     val code = AbStrUtil.etTostr(et_verifi)
                     if (TextUtils.isEmpty(code)) {
                         ToastUtil.showToast("请输入验证码")
@@ -100,6 +101,7 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
                     }
                     SginIn_1213.smsSgin(this, phone)
                 } else {//密码登录
+                    phone = AbStrUtil.etTostr(tv_phone)
                     val pass = AbStrUtil.etTostr(et_pass)
                     if (TextUtils.isEmpty(pass)) {
                         ToastUtil.showToast("请输入密码")

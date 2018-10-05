@@ -14,7 +14,12 @@ import org.greenrobot.eventbus.EventBus
  */
 object Redman_211 {
 
-    fun redList(type: Int) {
+    interface RedManCallBack{
+        fun redMan(model:RedmanModel)
+    }
+
+
+    fun redList(type: Int,redManCallBack: RedManCallBack) {
         val json = "{\"cmd\":\"getRedmanList\",\"uid\":\"" + StaticUtil.uid +
                 "\",\"communityId\":\"" + StaticUtil.communityId + "\",\"type\":\"" + type + "\"}"
 
@@ -23,7 +28,7 @@ object Redman_211 {
                 super.onResponse(response, id)
                 val model = Gson().fromJson(response, RedmanModel::class.java)
                 if (model.result == "0") {
-                    EventBus.getDefault().post(model)
+                    redManCallBack.redMan(model)
                 } else {
                     ToastUtil.showToast(model.resultNote)
                 }

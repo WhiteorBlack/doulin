@@ -40,7 +40,7 @@ class MyMsgAdapter(val context: Context, val list: ArrayList<MsgListModel.msgMod
             holder.image.setImageResource(R.drawable.ic_official_msg)
         } else if (model.type == "1") {
             holder.tv_type.text = "订单消息"
-            holder.image.setImageResource(R.drawable.ic_order2)
+            holder.image.setImageResource(R.drawable.ic_order)
         } else if (model.type == "2") {
             holder.tv_type.text = "评论消息"
             holder.image.setImageResource(R.drawable.ic_comment)

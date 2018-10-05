@@ -29,7 +29,8 @@ import org.greenrobot.eventbus.Subscribe
  * 红人榜
  * Created by Slingge on 2018/8/30
  */
-class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.FollowCallBack {
+class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.FollowCallBack,
+        Redman_211.RedManCallBack {
 
 
     private var flag = -1
@@ -38,16 +39,15 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
     private var redManAdapter: RedManAdapter? = null
     private var redmanList = ArrayList<RedmanModel.dataModel>()
 
-    private var auid0=""//第一名uid
-    private var auid1=""//第二名uid
-    private var auid2=""//第三名uid
-    private var isAttention0=""
-    private var isAttention1=""
-    private var isAttention2=""
+    private var auid0 = ""//第一名uid
+    private var auid1 = ""//第二名uid
+    private var auid2 = ""//第三名uid
+    private var isAttention0 = ""
+    private var isAttention1 = ""
+    private var isAttention2 = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_redman_list, container, false)
-        EventBus.getDefault().register(this)
         init()
         return view
     }
@@ -75,41 +75,9 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
     }
 
     private fun init() {
+        flag = arguments!!.getInt("flag")
         linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager!!.orientation = LinearLayoutManager.VERTICAL
-    }
-
-    @Subscribe
-    fun onEvent(model: RedmanModel) {
-        redmanList.addAll(model.dataList)
-
-        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        rv_radman.layoutAnimation = controller
-        redManAdapter!!.notifyDataSetChanged()
-        rv_radman.scheduleLayoutAnimation()
-
-        if (redmanList.size >= 3) {
-            top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
-            top3(model.dataList[1], ic_header_left, tv_name_left, tv_effect_left, tv_follow_left)
-            top3(model.dataList[2], ic_header_right, tv_name_right, tv_effect_right, tv_follow_right)
-            auid0=model.dataList[0].userId
-            auid1=model.dataList[1].userId
-            auid2=model.dataList[2].userId
-            isAttention0=model.dataList[0].isAttention
-            isAttention1=model.dataList[1].isAttention
-            isAttention2=model.dataList[2].isAttention
-        } else if (redmanList.size == 2) {
-            top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
-            top3(model.dataList[1], ic_header_left, tv_name_left, tv_effect_left, tv_follow_left)
-            auid0=model.dataList[0].userId
-            auid1=model.dataList[1].userId
-            isAttention0=model.dataList[0].isAttention
-            isAttention1=model.dataList[1].isAttention
-        } else if (redmanList.size == 1) {
-            top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
-            auid0=model.dataList[0].userId
-            isAttention0=model.dataList[0].isAttention
-        }
     }
 
 
@@ -121,7 +89,7 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
 
         if (model.userId == StaticUtil.uid) {
             tv_follow_center.visibility = View.INVISIBLE
-        }else{
+        } else {
             tv_follow_center.visibility = View.VISIBLE
             if (model.isAttention == "0") {// 0未关注 1已关注
                 tv_follow_center.text = "+ 关注"
@@ -150,12 +118,12 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
                     }
                 }
                 redManAdapter!!.notifyDataSetChanged()
-                if(i==0){
-                    isAttention0=redmanList[i].isAttention
-                }else if(i==1){
-                    isAttention1=redmanList[i].isAttention
-                }else if(i==2){
-                    isAttention2=redmanList[i].isAttention
+                if (i == 0) {
+                    isAttention0 = redmanList[i].isAttention
+                } else if (i == 1) {
+                    isAttention1 = redmanList[i].isAttention
+                } else if (i == 2) {
+                    isAttention2 = redmanList[i].isAttention
                 }
             }
         })
@@ -186,16 +154,16 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
                 topFollow(2, tv_follow_right)
             }
             R.id.ic_header_center -> {
-                if(TextUtils.isEmpty(auid0)){
+                if (TextUtils.isEmpty(auid0)) {
                     return
                 }
                 val bundle = Bundle()
-                bundle.putString("auid",auid0)
+                bundle.putString("auid", auid0)
                 bundle.putString("isAttention", isAttention0)
                 MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
             }
             R.id.ic_header_left -> {
-                if(TextUtils.isEmpty(auid1)){
+                if (TextUtils.isEmpty(auid1)) {
                     return
                 }
                 val bundle = Bundle()
@@ -204,17 +172,52 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
                 MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
             }
             R.id.ic_header_right -> {
-                if(TextUtils.isEmpty(auid2)){
+                if (TextUtils.isEmpty(auid2)) {
                     return
                 }
                 val bundle = Bundle()
-                bundle.putString("auid",auid2)
-                bundle.putString("isAttention",isAttention2)
+                bundle.putString("auid", auid2)
+                bundle.putString("isAttention", isAttention2)
                 MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
             }
         }
     }
 
+    override fun redMan(model: RedmanModel) {
+        if (!isViewInitiated) {
+            return
+        }
+
+        redmanList.addAll(model.dataList)
+
+        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
+        rv_radman.layoutAnimation = controller
+        redManAdapter!!.notifyDataSetChanged()
+        rv_radman.scheduleLayoutAnimation()
+
+        if (redmanList.size >= 3) {
+            top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
+            top3(model.dataList[1], ic_header_left, tv_name_left, tv_effect_left, tv_follow_left)
+            top3(model.dataList[2], ic_header_right, tv_name_right, tv_effect_right, tv_follow_right)
+            auid0 = model.dataList[0].userId
+            auid1 = model.dataList[1].userId
+            auid2 = model.dataList[2].userId
+            isAttention0 = model.dataList[0].isAttention
+            isAttention1 = model.dataList[1].isAttention
+            isAttention2 = model.dataList[2].isAttention
+        } else if (redmanList.size == 2) {
+            top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
+            top3(model.dataList[1], ic_header_left, tv_name_left, tv_effect_left, tv_follow_left)
+            auid0 = model.dataList[0].userId
+            auid1 = model.dataList[1].userId
+            isAttention0 = model.dataList[0].isAttention
+            isAttention1 = model.dataList[1].isAttention
+        } else if (redmanList.size == 1) {
+            top3(model.dataList[0], ic_header_center, tv_name_center, tv_effect_center, tv_follow_center)
+            auid0 = model.dataList[0].userId
+            isAttention0 = model.dataList[0].isAttention
+        }
+    }
 
     override fun loadData() {
         ProgressDialog.showDialog(activity!!)
@@ -222,14 +225,10 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
             redmanList.clear()
             redManAdapter!!.notifyDataSetChanged()
         }
-        Redman_211.redList(flag)
+        Redman_211.redList(flag, this)
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
 
 
 }

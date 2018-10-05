@@ -11,6 +11,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.MainActivity
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.entrance.SginInActivity
+import com.lixin.amuseadjacent.app.ui.entrance.VerificationPasswordActivity
 import com.lixin.amuseadjacent.app.ui.mine.request.VersionUpData_153
 import com.lixin.amuseadjacent.app.util.*
 import kotlinx.android.synthetic.main.activity_setup.*
@@ -94,7 +95,7 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
                 StaticUtil.uid = ""
                 StaticUtil.communityId = ""
                 AppManager.finishAllActivity()
-                MyApplication.openActivity(this, SginInActivity::class.java)
+                MyApplication.openActivity(this, VerificationPasswordActivity::class.java)
             }
             R.id.tv_updata -> {
                 if (TextUtils.isEmpty(updataUrl)) {
