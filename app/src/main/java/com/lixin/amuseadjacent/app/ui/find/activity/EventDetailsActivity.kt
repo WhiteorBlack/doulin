@@ -92,7 +92,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
 
         commentAdapter = DynamicCommentAdapter(this, commentList)
         rv_comment.adapter = commentAdapter
-        commentAdapter!!.setId(eventId)
+        commentAdapter!!.setId(eventId, "1")
 
         ProgressDialog.showDialog(this)
         Event_221222223224.EventDetails(eventId)
@@ -156,11 +156,10 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             model.`object`.iscang = "0"
         }
 
-        var maxNun =10
-        if (model.signList.size < 10) {
+        var maxNun = 10
+        if (model.signList != null && model.signList.size < 10) {
             maxNun = model.signList.size
         }
-
         pl_header.setAvatarListListener { imageViewList ->
             imageViewList.reverse()
             for (i in 0 until maxNun) {

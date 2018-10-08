@@ -26,7 +26,9 @@ import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.ToPreviewPhoto
 import com.lixin.amuseadjacent.app.view.CircleImageView
+import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.xiao.nicevideoplayer.NiceVideoPlayer
@@ -38,7 +40,6 @@ import com.xiao.nicevideoplayer.TxVideoPlayerController
  * Created by Slingge on 2018/8/22
  */
 class DynamicAdapter(val context: Activity, val flag: String, val dynaList: ArrayList<FindModel.dynamicModel>) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_find, parent, false)
@@ -57,7 +58,12 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
         ImageLoader.getInstance().displayImage(model.dynamicIcon, holder.iv_header, ImageLoaderUtil.HeaderDIO())
         holder.tv_name.text = model.dynamicName
         holder.tv_effect.text = "影响力" + model.userEffectNum
-        holder.tv_info.text = model.dynamicContent
+        if(TextUtils.isEmpty(model.dynamicContent)){
+            holder.tv_info.visibility=View.GONE
+        }else{
+            holder.tv_info.visibility=View.VISIBLE
+            holder.tv_info.text = model.dynamicContent
+        }
 
         holder.tv_time.text = model.time
         holder.tv_comment.text = model.commentNum
@@ -76,6 +82,14 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
             }
         }
 
+        if(TextUtils.isEmpty(model.dynamicAddress)||model.dynamicAddress=="不显示位置"){
+            holder.tv_add.visibility=View.GONE
+            holder.iv_add.visibility=View.GONE
+        }else{
+            holder.iv_add.visibility=View.VISIBLE
+            holder.tv_add.visibility=View.VISIBLE
+            holder.tv_add.text=model.dynamicAddress
+        }
 
         if (model.isZan == "0") {//0未赞过 1已赞过
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
@@ -110,12 +124,13 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
                     if (model.dynamicImgList.size == 1) {
                         holder.image0.visibility = View.VISIBLE
-
                         holder.image1.visibility = View.GONE
                         holder.image2.visibility = View.GONE
 
                         ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image0)
-
+                        holder.image0.setOnClickListener { v ->
+                            ToPreviewPhoto.toPhoto(context, model.dynamicImgList, 0)
+                        }
                     } else {
                         holder.image0.visibility = View.GONE
 
@@ -124,8 +139,13 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
                         ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image1)
                         ImageLoader.getInstance().displayImage(model.dynamicImgList[1], holder.image2)
+                        holder.image0.setOnClickListener { v ->
+                            ToPreviewPhoto.toPhoto(context, model.dynamicImgList, 0)
+                        }
+                        holder.image0.setOnClickListener { v ->
+                            ToPreviewPhoto.toPhoto(context, model.dynamicImgList, 1)
+                        }
                     }
-
                 } else {
                     holder.ll_image.visibility = View.GONE
                     holder.rv_image.visibility = View.VISIBLE
@@ -137,6 +157,9 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
                 holder.ll_image.visibility = View.GONE
             }
         } else {
+            holder.rv_image.visibility = View.GONE
+            holder.ll_image.visibility = View.GONE
+
             holder.player.visibility = View.VISIBLE
             holder.player.setUp(model.dynamicVideo, null)
             val controller = TxVideoPlayerController(context)
@@ -197,6 +220,10 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
 
         val player: NiceVideoPlayer = view.findViewById(R.id.player)
+
+        //地址
+        val tv_add = view.findViewById<TextView>(R.id.tv_add)
+        val iv_add = view.findViewById<ImageView>(R.id.iv_add)
 
         //活动
         val image = view.findViewById<ImageView>(R.id.image)

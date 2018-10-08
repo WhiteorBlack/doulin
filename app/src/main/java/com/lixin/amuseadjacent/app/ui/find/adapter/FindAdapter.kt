@@ -28,6 +28,8 @@ import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.ToPreviewPhoto
 import com.lixin.amuseadjacent.app.view.CircleImageView
+import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.xiao.nicevideoplayer.NiceVideoPlayer
 import com.xiao.nicevideoplayer.TxVideoPlayerController
@@ -38,7 +40,6 @@ import kotlinx.android.synthetic.main.activity_event_details.*
  */
 class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynamicModel>?,
                   val actiivtyList: ArrayList<FindModel.activityModel>?) : RecyclerView.Adapter<FindAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_find, parent, false)
@@ -82,6 +83,14 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 }
             }
 
+            if (TextUtils.isEmpty(model.dynamicAddress) || model.dynamicAddress == "不显示位置") {
+                holder.tv_add.visibility = View.GONE
+                holder.iv_add.visibility = View.GONE
+            } else {
+                holder.tv_add.visibility = View.VISIBLE
+                holder.iv_add.visibility = View.VISIBLE
+                holder.tv_add.text = model.dynamicAddress
+            }
 
             if (model.isZan == "0") {//0未赞过 1已赞过
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
@@ -153,6 +162,9 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                     holder.ll_image.visibility = View.GONE
                 }
             } else {
+                holder.ll_image.visibility = View.GONE
+                holder.rv_image.visibility = View.GONE
+
                 holder.player.visibility = View.VISIBLE
                 holder.player.setPlayerType(NiceVideoPlayer.TYPE_IJK)
                 holder.player.setUp(model.dynamicVideo, null)
@@ -204,6 +216,23 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 }
             }
 
+            holder.tv_follow.setOnClickListener { v ->
+                ProgressDialog.showDialog(context)
+                Mail_138139.follow(actiivtyList[position].userid, object : Mail_138139.FollowCallBack {
+                    override fun follow() {
+                        for (i in 0 until actiivtyList.size) {
+                            if (actiivtyList[position].userid == actiivtyList[i].userid) {
+                                if (actiivtyList[i].isAttention == "0") {// 0未关注 1已关注
+                                    actiivtyList[i].isAttention = "1"
+                                } else {
+                                    actiivtyList[i].isAttention = "0"
+                                }
+                            }
+                        }
+                        notifyDataSetChanged()
+                    }
+                })
+            }
 
             if (model.isZan == "0") {//0未赞过 1已赞过
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
@@ -300,7 +329,9 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
         val tv_address = view.findViewById<TextView>(R.id.tv_address)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
 
-
+        //地址
+        val tv_add = view.findViewById<TextView>(R.id.tv_add)
+        val iv_add = view.findViewById<ImageView>(R.id.iv_add)
         //分割线
         val line = view.findViewById<View>(R.id.line)
         val line_view = view.findViewById<View>(R.id.line_view)
@@ -315,7 +346,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             line.visibility = View.GONE
             line_view.visibility = View.VISIBLE
 
-            player.isFocusable=false
+            player.isFocusable = false
             player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer
 
             niceVideoPlayer = player

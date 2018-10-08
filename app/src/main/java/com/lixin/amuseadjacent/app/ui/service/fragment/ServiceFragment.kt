@@ -27,6 +27,7 @@ import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -81,6 +82,8 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
         xrecyclerview.addHeaderView(headerView)
 
         banner = headerView!!.findViewById(R.id.banner)
+        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(activity!!,100),banner!!)
+
         banner!!.setOnBannerListener { i ->
             val bundle = Bundle()
             bundle.putString("title", "")

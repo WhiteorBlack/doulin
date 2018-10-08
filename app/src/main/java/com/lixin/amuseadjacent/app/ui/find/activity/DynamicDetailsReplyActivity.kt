@@ -1,12 +1,15 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
@@ -24,9 +27,10 @@ import com.lixin.amuseadjacent.app.util.GetDateTimeUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_dynamic_detailsreply.*
+import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.util.ArrayList
+import java.util.*
 
 /**
  * 动态评论回复
@@ -42,11 +46,10 @@ class DynamicDetailsReplyActivity : BaseActivity() {
     private var tv_zan: TextView? = null
 
     private var dynaId = ""
-    private var commentId = ""//一级评论id
 
     private var commNum = 0//回复数量
 
-    private var chushi = -1
+    private var chushi = -2
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,8 +63,10 @@ class DynamicDetailsReplyActivity : BaseActivity() {
 
     private fun init() {
         StatusBarWhiteColor()
+        iv_back.setOnClickListener{v->
+            finish()
+        }
         dynaId = intent.getStringExtra("id")
-        commentId = intent.getStringExtra("commentId")
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -81,7 +86,7 @@ class DynamicDetailsReplyActivity : BaseActivity() {
             setDetails(commModel!!)
         } else {
             ProgressDialog.showDialog(this)
-            DynaComment_133134.commentFirst(commentId)
+            DynaComment_133134.commentFirst(commModel!!.commentId)
         }
 
         tv_send.setOnClickListener { v ->
@@ -90,10 +95,10 @@ class DynamicDetailsReplyActivity : BaseActivity() {
                 return@setOnClickListener
             }
             ProgressDialog.showDialog(this)
-            DynaComment_133134.comment(dynaId, commentId, content, object : ActivityComment_272829210.CommentCallBack {
+            DynaComment_133134.comment(dynaId, commModel!!.commentId, content, object : ActivityComment_272829210.CommentCallBack {
                 override fun commemt(commentId: String) {
                     commNum++
-                    inittitle(commNum.toString() + "条回复")
+                    tv_title.text=commNum.toString() + "条回复"
                     headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = commNum.toString() + "回复"
                     commModel!!.secondNum = commNum.toString()
 
@@ -128,7 +133,7 @@ class DynamicDetailsReplyActivity : BaseActivity() {
         }
         tv_zan!!.setOnClickListener { v ->
             ProgressDialog.showDialog(this)
-            DynaComment_133134.zan(dynaId, commentId, object : Find_26.ZanCallback {
+            DynaComment_133134.zan(dynaId, commModel!!.commentId, object : Find_26.ZanCallback {
                 override fun zan() {
                     if (commModel!!.isZan == "1") {
                         commModel!!.zanNum = (commModel!!.zanNum.toInt() - 1).toString()
@@ -147,6 +152,17 @@ class DynamicDetailsReplyActivity : BaseActivity() {
         headerView!!.findViewById<TextView>(R.id.tv_comment).text = commModel!!.commentContent
         headerView!!.findViewById<TextView>(R.id.tv_time).text = commModel!!.commentTime
         headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = commModel!!.secondNum + "回复"
+        headerView!!.findViewById<TextView>(R.id.tv_commentNum).setOnClickListener{v->
+            if (timer == null) {
+                timer = Timer()
+            }
+            timer!!.schedule(object : TimerTask() {
+                override fun run() {
+                    val inputManager = this@DynamicDetailsReplyActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.showSoftInput(et_comment, 0)
+                }
+            }, 10)
+        }
         commNum = commModel!!.secondNum.toInt()
 
         val tv_del = headerView!!.findViewById<TextView>(R.id.tv_del)
@@ -166,12 +182,13 @@ class DynamicDetailsReplyActivity : BaseActivity() {
             })
         }
 
-        inittitle(commModel!!.secondNum + "条回复")
+        tv_title.text=commNum.toString() + "条回复"
 
         ProgressDialog.showDialog(this)
         DynaComment_133134.commentSecond(dynaId, commModel!!.commentId)
     }
 
+    private var timer: Timer? = null
     @Subscribe
     fun onEvent(model: ActivityCommentModel1.commModel) {
         setDetails(model)
@@ -187,17 +204,27 @@ class DynamicDetailsReplyActivity : BaseActivity() {
     }
 
     fun Destroy() {
-        intent.putExtra("position", intent.getIntExtra("position", -1))
-        if (chushi == -1) {
-            intent.putExtra("type", "del")
-        } else {
-            intent.putExtra("type", "")
+        if(chushi!=-2){
+            intent.putExtra("position", intent.getIntExtra("position", -1))
+            if (chushi == -1) {
+                intent.putExtra("type", "del")
+            } else {
+                intent.putExtra("type", "")
+            }
+            intent.putExtra("model", commModel)
+            setResult(0, intent)
         }
-        intent.putExtra("model", commModel)
-        setResult(0, intent)
         finish()
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_BACK -> Destroy()
+            else -> {
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)

@@ -144,6 +144,9 @@ class BangBangActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if(data==null){
+            return
+        }
         if (requestCode == 1) {
             val model = data!!.getSerializableExtra("model") as DynamiclDetailsModel
             val position = data.getIntExtra("position",-1)

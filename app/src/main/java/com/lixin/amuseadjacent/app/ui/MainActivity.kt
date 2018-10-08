@@ -9,6 +9,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.FindFragment
 import com.lixin.amuseadjacent.app.ui.message.fragment.MessageFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.MineFragment
+import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager
@@ -35,7 +36,7 @@ class MainActivity : BaseActivity() {
         tab_1.isChecked = true
         bFragment1 = MessageFragment()
         switchFragment(bFragment1!!)
-
+        UserInfo_19.userInfo(this)
         RadioG_Bottem.setOnCheckedChangeListener { radioGroup, i -> selectStyle(i) }
     }
 

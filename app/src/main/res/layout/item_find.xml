@@ -87,7 +87,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_header" />
 
 
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/fl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -106,18 +106,19 @@
                 <LinearLayout
                     android:id="@+id/ll_image"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/image0"
-                        android:layout_width="160dp"
-                        android:layout_height="110dp"
-                        android:maxHeight="110dp"
-                        android:maxWidth="160dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="88dp"
+                        android:adjustViewBounds="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_dyna" />
+                        android:src="@drawable/ic_dyna"
+                        android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/image1"
@@ -126,10 +127,11 @@
                         android:layout_margin="2.5dp"
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
-                        android:maxHeight="450dp"
+                        android:maxHeight="110dp"
                         android:maxWidth="450dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_dyna" />
+                        android:src="@drawable/ic_dyna"
+                        android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/image2"
@@ -138,10 +140,11 @@
                         android:layout_margin="2.5dp"
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
-                        android:maxHeight="450dp"
+                        android:maxHeight="110dp"
                         android:maxWidth="450dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_dyna" />
+                        android:src="@drawable/ic_dyna"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -156,19 +159,42 @@
 
                 <com.xiao.nicevideoplayer.NiceVideoPlayer
                     android:id="@+id/player"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp" />
+                    android:layout_height="150dp"
+                    android:visibility="gone" />
 
 
             </android.support.constraint.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="12dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cl_1"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_address"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cl_1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/iv_add"
+                android:gravity="center"
+                android:text="地址"
+                android:textColor="#999999"
+                android:textSize="11sp"
+                android:visibility="gone" />
 
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/cl_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv_info">
+                android:visibility="gone">
 
                 <com.lixin.amuseadjacent.app.view.RoundImageView5
                     android:id="@+id/image"
@@ -266,7 +292,7 @@
             </android.support.constraint.ConstraintLayout>
 
 
-        </FrameLayout>
+        </RelativeLayout>
 
 
         <TextView
@@ -319,10 +345,10 @@
         <View
             android:id="@+id/line_view"
             android:layout_width="match_parent"
-            android:background="@color/white"
             android:layout_height="12dp"
-            android:visibility="gone"
             android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/tv_time" />
 
     </android.support.constraint.ConstraintLayout>

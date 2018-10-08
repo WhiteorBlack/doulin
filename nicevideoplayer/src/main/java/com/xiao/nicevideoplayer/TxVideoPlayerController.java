@@ -332,7 +332,7 @@ public class TxVideoPlayerController
         mBottom.setVisibility(View.GONE);
         mFullScreen.setImageResource(R.drawable.ic_player_enlarge);
 
-        mLength.setVisibility(View.VISIBLE);
+//        mLength.setVisibility(View.VISIBLE);
 
         mTop.setVisibility(View.VISIBLE);
         mBack.setVisibility(View.GONE);

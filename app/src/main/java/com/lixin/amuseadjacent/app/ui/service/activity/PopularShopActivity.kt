@@ -20,7 +20,7 @@ import com.lixin.amuseadjacent.app.ui.service.model.PopularShopModel
 import com.lixin.amuseadjacent.app.ui.service.request.PopularShop_39310
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
@@ -97,6 +97,7 @@ class PopularShopActivity : BaseActivity() {
         })
 
         banner = headerView.findViewById(R.id.banner)
+        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(this,100),banner!!)
         banner!!.setOnBannerListener { i ->
             val bundle = Bundle()
             bundle.putString("title", "")

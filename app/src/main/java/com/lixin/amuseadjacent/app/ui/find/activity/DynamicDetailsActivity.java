@@ -125,7 +125,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
         commentAdapter = new DynamicCommentAdapter(this, commentList);
         rv_comment.setAdapter(commentAdapter);
-        commentAdapter.setId(dynaId);
+        commentAdapter.setId(dynaId,"0");
 
         tv_zan = findViewById(R.id.tv_zan);
         image0 = findViewById(R.id.image0);
@@ -204,7 +204,11 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
         tv_name.setText(model.object.dynamicName);
         tv_effect.setText("影响力" + model.object.userEffectNum);
-        tv_info.setText(model.object.dynamicContent);
+        if(TextUtils.isEmpty(model.object.dynamicContent)){
+            tv_info.setVisibility(View.GONE);
+        }else{
+            tv_info.setText(model.object.dynamicContent);
+        }
 
         tv_time.setText(model.object.time);
         tv_comment.setText(model.object.commentNum);
@@ -390,14 +394,17 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 });
                 break;
             case R.id.tv_comment:
+                if(timer==null){
+                    timer=new Timer();
+                }
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         InputMethodManager inputManager =
-                                (InputMethodManager) et_comment.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                                (InputMethodManager)DynamicDetailsActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputManager.showSoftInput(et_comment, 0);
                     }
-                }, 200);
+                }, 10);
                 break;
         }
     }

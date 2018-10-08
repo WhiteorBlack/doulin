@@ -23,6 +23,7 @@ import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
+import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_laundry.*
 import kotlinx.android.synthetic.main.include_banner.*
@@ -74,7 +75,7 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
             bundle.putInt("flag", 1)
             MyApplication.openActivity(this, OfficialShopDetailsActivity::class.java, bundle)
         }
-
+        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(this,100),banner)
         banner.setOnBannerListener { i ->
             val bundle = Bundle()
             bundle.putString("title", "")
@@ -259,7 +260,6 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
                     ToastUtil.showToast("购物车还是空的")
                     return
                 }
-
                 shopCartDialog!!.shopCar(this, carList)
             }
             R.id.tv_settlement0 -> {

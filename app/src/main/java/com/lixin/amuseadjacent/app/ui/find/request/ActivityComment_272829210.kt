@@ -99,7 +99,6 @@ object ActivityComment_272829210 {
                 super.onResponse(response, id)
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
-                    ToastUtil.showToast("评论成功")
                     commentCallBack.commemt(obj.getString("object"))
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))

@@ -50,7 +50,6 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
         v.findViewById<View>(R.id.month).visibility=View.VISIBLE
         v.findViewById<View>(R.id.day).visibility=View.VISIBLE
 
-
         //设置是否循环播放
         //        loopView.setNotLoop();
         //滚动监听
@@ -64,7 +63,7 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
 
 //        loopview.setNotLoop()
         loopview.setItems(yearList)
-        loopview.setInitPosition(yearList.size - 1)
+        loopview. setCurrentPosition(90)
 
         loopview2.setNotLoop()
         loopview2.setItems(monthList)
@@ -73,7 +72,7 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
         loopview3.setNotLoop()
         loopview3.setItems(dayList)
         loopview3.setInitPosition(0)
-        wheelViewCallBack.position(yearList[0], monthList[0], dayList[0])
+        wheelViewCallBack.position(yearList[90], monthList[0], dayList[0])
 
         loopview.setListener { index ->
             position = index
@@ -109,8 +108,6 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
         tv_enter.setOnClickListener { v1 -> this@DatePop.dismiss() }
 
         //设置初始位置
-
-
         this.contentView = v
         // 设置SelectPicPopupWindow弹出窗体的宽
         this.width = ViewGroup.LayoutParams.MATCH_PARENT

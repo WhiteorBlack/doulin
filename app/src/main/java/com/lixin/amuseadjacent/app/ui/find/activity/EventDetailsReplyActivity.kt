@@ -1,6 +1,5 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
@@ -45,7 +44,7 @@ class EventDetailsReplyActivity : BaseActivity() {
 
     private var tv_zan: TextView? = null
 
-    private var chushi = -1
+    private var chushi = -2
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -178,14 +177,16 @@ class EventDetailsReplyActivity : BaseActivity() {
 
 
     fun Destroy() {
-        intent.putExtra("position", intent.getIntExtra("position", -1))
-        if (chushi == -1) {
-            intent.putExtra("type", "del")
-        } else {
-            intent.putExtra("type", "")
+        if(chushi!=-2){
+            intent.putExtra("position", intent.getIntExtra("position", -1))
+            if (chushi == -1) {
+                intent.putExtra("type", "del")
+            } else {
+                intent.putExtra("type", "")
+            }
+            intent.putExtra("model", model)
+            setResult(0, intent)
         }
-        intent.putExtra("model", model)
-        setResult(0, intent)
         finish()
     }
 

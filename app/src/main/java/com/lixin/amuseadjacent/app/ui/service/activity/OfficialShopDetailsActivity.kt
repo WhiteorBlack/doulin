@@ -39,7 +39,7 @@ class OfficialShopDetailsActivity : BaseActivity() {
 
 
     private fun init() {
-        inittitle(" ")
+        inittitle("")
         StatusBarWhiteColor()
 
         val linearLayoutManager = LinearLayoutManager(this)

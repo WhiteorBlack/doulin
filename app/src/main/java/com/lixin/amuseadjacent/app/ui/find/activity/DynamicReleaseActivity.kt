@@ -30,6 +30,7 @@ import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_dynamic_release.*
 import kotlinx.android.synthetic.main.include_basetop.*
+import kotlinx.android.synthetic.main.item_rule.*
 import java.util.ArrayList
 
 /**
@@ -97,11 +98,11 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             }
             R.id.tv_right -> {
                 val content = AbStrUtil.etTostr(et_info)
-                val adress = AbStrUtil.tvTostr(tv_address)
-                if (TextUtils.isEmpty(adress)) {
-                    ToastUtil.showToast("请输入发布地址")
-                    return
+                var adress = AbStrUtil.tvTostr(tv_address)
+                if(adress=="不显示位置"){
+                    adress=""
                 }
+
                 if (TextUtils.isEmpty(content) && imageList.size==1 && TextUtils.isEmpty(videoPath)) {
                     ToastUtil.showToast("请输入发布内容")
                     return
@@ -161,7 +162,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
         if (requestCode == 200 && resultCode == 200 && data != null) {
             if (TextUtils.isEmpty(data.getStringExtra("address"))) {
                 isChecked = true
-                tv_address.text = "不显示位置"
+                tv_address.text = ""
             } else {
                 isChecked = false
                 tv_address.text = data.getStringExtra("address")

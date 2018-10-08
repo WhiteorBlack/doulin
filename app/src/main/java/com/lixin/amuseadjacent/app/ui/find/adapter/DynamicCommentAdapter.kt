@@ -32,10 +32,12 @@ import com.nostra13.universalimageloader.core.ImageLoader
 class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<ActivityCommentModel1.commModel>) : RecyclerView.Adapter<DynamicCommentAdapter.ViewHolder>() {
 
     private var dynaId = ""
+    private var type = ""//0动态，1活动
 
 
-    fun setId(dynaId: String) {
+    fun setId(dynaId: String, type: String) {
         this.dynaId = dynaId
+        this.type = type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -99,7 +101,13 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
 
 
         holder.cl_item.setOnClickListener { v ->
-            val intent = Intent(context, EventDetailsReplyActivity::class.java)
+            var intent: Intent? = null
+            if (type == "0") {
+                intent = Intent(context, DynamicDetailsReplyActivity::class.java)
+            } else {
+                intent = Intent(context, EventDetailsReplyActivity::class.java)
+            }
+
             intent.putExtra("model", commentList[position])
             intent.putExtra("id", dynaId)
             intent.putExtra("position", position)

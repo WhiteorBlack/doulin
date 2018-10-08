@@ -91,6 +91,9 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
                         .putString(SharedPreferencesUtil.uid, "")
                         .putString(SharedPreferencesUtil.communityName, "")
                         .putString(SharedPreferencesUtil.communityId, "")
+                        .putString(SharedPreferencesUtil.headerUrl, "")
+                        .putString(SharedPreferencesUtil.nickName, "")
+                        .putString(SharedPreferencesUtil.rytoken, "")
                         .commit()
                 StaticUtil.uid = ""
                 StaticUtil.communityId = ""
