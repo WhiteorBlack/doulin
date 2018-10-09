@@ -209,7 +209,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_refund.visibility = View.VISIBLE
         } else if (orderState == "5") {//5清洗中
 
-            tv_again.visibility = View.VISIBLE
+            tv_again.visibility = View.GONE
             tv_pay.visibility = View.GONE
             tv_refund.visibility = View.GONE
         } else if (orderState == "6") {//6带归还

@@ -37,19 +37,19 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
 
 
     interface PlusCallBack {
-        fun plus(position: Int, num: Int, money: Double) {
+        fun plus(position: Int, num: Int, money: Double, goodId: String) {
 
         }
     }
 
     interface ReduceCallBack {
-        fun reduce(position: Int, num: Int, money: Double) {
+        fun reduce(position: Int, num: Int, money: Double, goodId: String) {
 
         }
     }
 
     interface DelCallBack {
-        fun del(position: Int) {
+        fun del(position: Int, goodId: String) {
         }
     }
 
@@ -58,7 +58,7 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
         }
     }
 
-    fun setGoodList(context: Activity, rightList: ArrayList<ShopGoodsModel.dataModel>){
+    fun setGoodList(context: Activity, rightList: ArrayList<ShopGoodsModel.dataModel>) {
         val adapter = Adapter(context, rightList)
         recyclerView!!.adapter = adapter
     }
@@ -143,7 +143,7 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
                 money = DoubleCalculationUtil.mul(num.toDouble(), model.UnitPrice)
                 holder.tv_money.text = " ￥：$money"
 
-                plusCallBack.plus(position, num, money)
+                plusCallBack.plus(position, num, money, goodsList[position].goodsId)
             }
             holder.tv_reduce.setOnClickListener { v ->
                 if (num == 1) {
@@ -155,11 +155,11 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
                 money = DoubleCalculationUtil.mul(num.toDouble(), model.UnitPrice)
                 holder.tv_money.text = " ￥：$money"
 
-                reduceCallBack.reduce(position, num, money)
+                reduceCallBack.reduce(position, num, money, goodsList[position].goodsId)
             }
 
             holder.iv_del.setOnClickListener { v ->
-                delCallBack.del(position)
+                delCallBack.del(position, goodsList[position].goodsId)
             }
 
         }

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.Image
 import android.net.Uri
+import android.os.Bundle
 import android.provider.Settings
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -17,7 +18,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.mine.model.CollectModel
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -127,18 +130,25 @@ class CollectionAdapter(val context: Activity, val collectList: ArrayList<Collec
             dialog(model.type, id, position)////0帮帮 1活动
         }
 
+        holder.cl_2.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("name", collectList[position].activityName)
+            bundle.putString("id", collectList[position].activityId)
+            MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
+        }
+
     }
 
     fun dialog(type: String, id: String, i: Int) {
         val dialog = AlertDialog.Builder(context)
-//        dialog.setTitle("确定删除收藏？")
         dialog.setMessage("确定删除收藏？")
         dialog.setPositiveButton("确定"
         ) { arg0, arg1 ->
             Event_221222223224.EventCollect(type, id, object : Event_221222223224.CollectCallBack {
                 override fun collect() {
                     collectList.removeAt(i)
-                    dialog.show()
+                    notifyDataSetChanged()
+                    dialog.create().dismiss()
                 }
             })
         }

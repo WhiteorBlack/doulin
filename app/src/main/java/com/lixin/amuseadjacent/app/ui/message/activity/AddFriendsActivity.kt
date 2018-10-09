@@ -124,6 +124,7 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe
     fun onEvent(model: CommunityUserModel) {
+        tv_user.text = "（" + model.allnum + "）"
         totalPage = model.totalPage
         userList.addAll(model.dataList)
 

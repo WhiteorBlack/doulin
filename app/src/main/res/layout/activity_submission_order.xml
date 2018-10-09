@@ -80,7 +80,6 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"
-                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/tv_address" />
 
             <TextView
@@ -95,11 +94,10 @@
                 android:gravity="center"
                 android:paddingBottom="3dp"
                 android:paddingLeft="10dp"
-                android:visibility="gone"
                 android:paddingRight="10dp"
                 android:paddingTop="3dp"
-                android:text="15分钟送货到家"
-                android:textColor="#2ECD90"
+                android:text="平均15分钟送货到家"
+                android:textColor="#f1403c"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/line_tome" />
@@ -108,7 +106,6 @@
                 android:id="@+id/line_tome1"
                 android:layout_width="match_parent"
                 android:layout_height="6dp"
-                android:visibility="gone"
                 android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@+id/tv_sendTime" />
 
@@ -266,6 +263,7 @@
                 android:layout_marginTop="12dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
+                android:visibility="gone"
                 android:text="注意：洗衣需要两到三天哦，洗完后商家会电话通知你确定是否送达，请保持电话畅通。"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/sub_fant"

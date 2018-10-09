@@ -22,11 +22,15 @@ class HomePageModel : Serializable {
     var unitName = ""//社区单元名称
     var doorNumber = ""//门牌号
 
-    var remarks=""//备注
+    var remarks = ""//备注
 
     var autograph = ""//个人签名
     var inviteCode = ""//邀请码
     var occupation = ""//职业
+
+    var hometown = ""//家乡
+    var authentication = ""//认证状态 0未认证 1认证审核中 2认证成功 3审核拒绝
+    var isAttention = ""//是否已经关注 0未关注 1已关注
 
     var albumList = ArrayList<albumModel>()
 

@@ -52,6 +52,7 @@ class DynamicFragment : BaseFragment() {
         xrecyclerview.layoutManager = linearLayoutManager
         dynamicAdapter = DynamicAdapter(activity!!, dynaList)
         xrecyclerview.adapter = dynamicAdapter
+        xrecyclerview.setPullRefreshEnabled(false)
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {

@@ -118,6 +118,9 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         banner = headerView!!.findViewById(R.id.banner)
         banner!!.setOnBannerListener { i ->
+            if(TextUtils.isEmpty(bannerUrl)){
+                return@setOnBannerListener
+            }
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", bannerUrl)

@@ -109,6 +109,7 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_address"
                         app:layout_constraintTop_toTopOf="@+id/tv_address" />
 
+
                     <TextView
                         android:id="@+id/tv_effect"
                         android:layout_width="wrap_content"

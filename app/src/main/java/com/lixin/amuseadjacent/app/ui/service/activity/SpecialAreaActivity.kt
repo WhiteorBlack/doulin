@@ -14,6 +14,7 @@ import com.lixin.amuseadjacent.app.ui.service.model.SpecialModel
 import com.lixin.amuseadjacent.app.ui.service.request.Special_311
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.PreviewPhoto
+import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
 import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -57,7 +58,7 @@ class SpecialAreaActivity : BaseActivity() {
 
         val imageList = ArrayList<String>()
         imageList.add(model.optimizationImgs)
-
+        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(this,100),banner)
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
                 .start()
@@ -76,7 +77,6 @@ class SpecialAreaActivity : BaseActivity() {
         specialList=models.dataList
         specialAdapter = SpecialAdapter(this, specialList)
         rv_event.adapter = specialAdapter
-
 
         val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
         rv_event.layoutAnimation = controller

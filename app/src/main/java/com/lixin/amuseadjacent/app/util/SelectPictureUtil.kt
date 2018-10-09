@@ -55,7 +55,7 @@ object SelectPictureUtil {
                 .minimumCompressSize(100)// 小于100kb的图片不压缩
                 .synOrAsy(true)//同步true或异步false 压缩 默认同步
 //                .cropWH()// 裁剪宽高比，设置如果大于图片本身宽高则无效 int
-                .rotateEnabled(false) // 裁剪是否可旋转图片 true or false
+                .rotateEnabled(true) // 裁剪是否可旋转图片 true or false
                 .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
 //                .videoQuality()// 视频录制质量 0 or 1 int
                 .videoMaxSecond(15)// 显示多少秒以内的视频or音频也可适用 int

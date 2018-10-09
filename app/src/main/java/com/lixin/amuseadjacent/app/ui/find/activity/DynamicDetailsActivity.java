@@ -34,6 +34,7 @@ import com.lixin.amuseadjacent.app.util.*;
 import com.lixin.amuseadjacent.app.view.CircleImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,9 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -152,6 +151,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         tv_effect = findViewById(R.id.tv_effect);
         tv_follow = findViewById(R.id.tv_follow);
         tv_info = findViewById(R.id.tv_info);
+        tv_info.setMaxLines(Integer.MAX_VALUE);
         ll_image = findViewById(R.id.ll_image);
         player = findViewById(R.id.player);
         ll_image = findViewById(R.id.ll_image);
@@ -397,6 +397,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 if(timer==null){
                     timer=new Timer();
                 }
+                et_comment.requestFocus();//获取焦点 光标出现
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -404,7 +405,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                                 (InputMethodManager)DynamicDetailsActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputManager.showSoftInput(et_comment, 0);
                     }
-                }, 10);
+                }, 100);
                 break;
         }
     }
@@ -452,6 +453,13 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     protected void onPause() {
         super.onPause();
         player.pause();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (NiceVideoPlayerManager.instance().onBackPressd()) return;
     }
 
 

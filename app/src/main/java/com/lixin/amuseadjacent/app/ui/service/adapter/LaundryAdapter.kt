@@ -56,7 +56,7 @@ class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsMode
         }
 
         var money = goodList[position].money
-        holder.tv_money.text = " ￥：$money"
+        holder.tv_money.text = " ￥$money"
 
         holder.tv_name.text = goodList[position].goodsName
         ImageLoader.getInstance().displayImage(goodList[position].goodsImg, holder.image)

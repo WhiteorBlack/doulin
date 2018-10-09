@@ -400,6 +400,7 @@
         <!--帮帮-->
         <activity
             android:name=".app.ui.find.activity.BangBangActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
 
@@ -455,6 +456,7 @@
         <!--个人主页-->
         <activity
             android:name=".app.ui.mine.activity.PersonalHomePageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
         <!--个人资料-->
         <activity

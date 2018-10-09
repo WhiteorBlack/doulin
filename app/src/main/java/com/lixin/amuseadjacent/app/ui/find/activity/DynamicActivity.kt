@@ -82,6 +82,10 @@ class DynamicActivity : BaseActivity() {
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
         tab.setupWithViewPager(viewPager)
+        viewPager.isFocusable = false
+        appbar.isFocusable = false
+        coordinatorLayout.isFocusable = false
+        collapsing_toolbar.isFocusable = false
 
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -123,10 +127,17 @@ class DynamicActivity : BaseActivity() {
             fragment0!!.Refresh(i, null, -1)
         } else if (requestCode == 3) {
             val model = data!!.getSerializableExtra("model") as DynamiclDetailsModel
-            val position = data.getIntExtra("position",-1)
+            val position = data.getIntExtra("position", -1)
             fragment0!!.Refresh(i, model, position)
             fragment1!!.Refresh(i, model, position)
         }
+    }
+
+    override fun onBackPressed() {
+        if (NiceVideoPlayerManager.instance().onBackPressd()){
+            return
+        }
+        super.onBackPressed()
     }
 
 

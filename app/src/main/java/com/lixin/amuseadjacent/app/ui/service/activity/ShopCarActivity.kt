@@ -3,7 +3,6 @@ package com.lixin.amuseadjacent.app.ui.service.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -314,17 +313,17 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         clothesAdapter!!.notifyDataSetChanged()
         fruitsAdapter!!.notifyDataSetChanged()
 
-        if(marketList.isEmpty()){
-            rl_market.visibility=View.GONE
-            cl_market.visibility=View.GONE
+        if (marketList.isEmpty()) {
+            rl_market.visibility = View.GONE
+            cl_market.visibility = View.GONE
         }
-        if(clothesList.isEmpty()){
-            rl_clothes.visibility=View.GONE
-            cl_clothes.visibility=View.GONE
+        if (clothesList.isEmpty()) {
+            rl_clothes.visibility = View.GONE
+            cl_clothes.visibility = View.GONE
         }
-        if(fruitsList.isEmpty()){
-            rl_fruits.visibility=View.GONE
-            cl_fruits.visibility=View.GONE
+        if (fruitsList.isEmpty()) {
+            rl_fruits.visibility = View.GONE
+            cl_fruits.visibility = View.GONE
         }
 
         if (flag == -1) {
@@ -334,7 +333,6 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         } else {
             Calculation(flag, null)
         }
-
     }
 
 
@@ -365,9 +363,9 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         var linearLayoutManager1 = LinearLayoutManager(this)
 
         marketList = model.marketList
-        if(marketList.isEmpty()){
-            rl_market.visibility=View.GONE
-            cl_market.visibility=View.GONE
+        if (marketList.isEmpty()) {
+            rl_market.visibility = View.GONE
+            cl_market.visibility = View.GONE
         }
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
         rv_market.layoutManager = linearLayoutManager1
@@ -375,9 +373,9 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         rv_market.adapter = marketAdapter
 
         clothesList = model.clothesList
-        if(clothesList.isEmpty()){
-            rl_clothes.visibility=View.GONE
-            cl_clothes.visibility=View.GONE
+        if (clothesList.isEmpty()) {
+            rl_clothes.visibility = View.GONE
+            cl_clothes.visibility = View.GONE
         }
         linearLayoutManager1 = LinearLayoutManager(this)
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
@@ -387,9 +385,9 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
 
 
         fruitsList = model.fruitsList
-        if(fruitsList.isEmpty()){
-            rl_fruits.visibility=View.GONE
-            cl_fruits.visibility=View.GONE
+        if (fruitsList.isEmpty()) {
+            rl_fruits.visibility = View.GONE
+            cl_fruits.visibility = View.GONE
         }
         linearLayoutManager1 = LinearLayoutManager(this)
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
@@ -397,6 +395,12 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         fruitsAdapter = ShopCarDetailsAdapter(this, 2, fruitsList, this, this, this)
         rv_fruits.adapter = fruitsAdapter
 
+        cb_market.isChecked = true
+        Calculation(0, true)
+        cb_clothes.isChecked = true
+        Calculation(1, true)
+        cb_fruits.isChecked = true
+        Calculation(2, true)
     }
 
 

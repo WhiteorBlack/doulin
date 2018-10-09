@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.util.abLog
 
 /**
  * 签到日历
@@ -30,12 +31,17 @@ class SignCalendarAdapter(val context: Context, val list: ArrayList<Int>, val we
         if (position < week - 1) {
             holder.tv_day.visibility = View.INVISIBLE
         } else {
-            val day = (list[position] - week + 1).toString()
+            var day = (list[position] - week + 1).toString()
             holder.tv_day.text = day
 
             for (i in 0 until dateList.size) {
-                val date = dateList[i]
+                var date = dateList[i]
+                if (day.length == 1) {
+                    day = "0$day"
+                }
+                abLog.e("今天", "$date,$day")
                 if (day == date.substring(date.length - 2, date.length)) {
+
                     holder.iv_dian.visibility = View.VISIBLE
 //                    holder.tv_day.setTextColor(context.resources.getColor(R.color.white))
 //                    holder.tv_day.setBackgroundResource(R.drawable.circular_them)

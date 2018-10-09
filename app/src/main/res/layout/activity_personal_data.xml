@@ -242,6 +242,42 @@
                 app:layout_constraintStart_toEndOf="@+id/occupation"
                 app:layout_constraintTop_toTopOf="@+id/occupation" />
 
+            <include
+                android:id="@+id/line2_2"
+                layout="@layout/include_line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/occupation"
+                app:layout_constraintTop_toBottomOf="@+id/occupation" />
+
+            <TextView
+                android:id="@+id/hometown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="家乡"
+                android:textColor="@color/colorTabText"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/line2_2" />
+            <EditText
+                android:id="@+id/et_hometown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:gravity="right"
+                android:hint="家乡"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/main_fant"
+                app:layout_constraintBottom_toBottomOf="@+id/hometown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hometown"
+                app:layout_constraintTop_toTopOf="@+id/hometown" />
 
             <View
                 android:id="@+id/line3"
@@ -249,7 +285,7 @@
                 android:layout_height="5dp"
                 android:background="@color/gray2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/occupation" />
+                app:layout_constraintTop_toBottomOf="@+id/hometown" />
 
             <TextView
                 android:id="@+id/hobby"
