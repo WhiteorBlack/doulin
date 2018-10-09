@@ -1,5 +1,6 @@
 package com.netease.nim.uikit.business.session.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.netease.nim.uikit.PermissionHelper;
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.ReportActivity;
 import com.netease.nim.uikit.StatusBarUtil;
@@ -87,6 +89,26 @@ public class P2PMessageActivity extends BaseMessageActivity {
         displayOnlineState();
         registerObservers(true);
         registerOnlineStateChangeListener(true);
+        checkPermission();
+    }
+
+    /**
+     * 检查权限
+     */
+    private void checkPermission() {
+        PermissionHelper helper= new PermissionHelper(this);
+        helper.requestPermissions(new PermissionHelper.PermissionListener() {
+                                      @Override
+                                      public void doAfterGrand(String... permission) {
+
+                                      }
+
+                                      @Override
+                                      public void doAfterDenied(String... permission) {
+
+                                      }
+                                  }, Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     @Override

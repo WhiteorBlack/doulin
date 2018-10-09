@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui
 
+import android.Manifest
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import com.lixin.amuseadjacent.app.ui.message.fragment.MessageFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.MineFragment
 import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
+import com.lixin.amuseadjacent.app.util.PermissionHelper
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -38,8 +40,26 @@ class MainActivity : BaseActivity() {
         switchFragment(bFragment1!!)
         UserInfo_19.userInfo(this)
         RadioG_Bottem.setOnCheckedChangeListener { radioGroup, i -> selectStyle(i) }
+        checkPermission()
     }
 
+
+    /**
+     * 检查权限
+     */
+    private fun checkPermission() {
+        val helper= PermissionHelper(this)
+        helper.requestPermissions(object: PermissionHelper.PermissionListener{
+            override fun doAfterGrand(vararg permission: String?) {
+//                initMap()
+            }
+
+            override fun doAfterDenied(vararg permission: String?) {
+            }
+
+        }, Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }
 
     //根据具体点击切换显示对应fragment
     private fun selectStyle(ID: Int) {

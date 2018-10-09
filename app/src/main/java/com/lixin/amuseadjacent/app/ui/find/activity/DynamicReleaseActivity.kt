@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -19,10 +20,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.AlbumAdapter
 import com.lixin.amuseadjacent.app.ui.find.adapter.ReleaseAdapter
 import com.lixin.amuseadjacent.app.ui.find.request.ReleaseDynamicBang_220
-import com.lixin.amuseadjacent.app.util.AbStrUtil
-import com.lixin.amuseadjacent.app.util.ImageFileUtil
-import com.lixin.amuseadjacent.app.util.ImageUtil
-import com.lixin.amuseadjacent.app.util.abLog
+import com.lixin.amuseadjacent.app.util.*
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.huaihuatransit.app.util.StrCallback
@@ -81,8 +79,26 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
 
         albumAdapter = ReleaseAdapter(this, imageList, maxNum, this)
         rv_album.adapter = albumAdapter
+
+        checkPermission()
     }
 
+    /**
+     * 检查权限
+     */
+    private fun checkPermission() {
+        val helper= PermissionHelper(this)
+        helper.requestPermissions(object: PermissionHelper.PermissionListener{
+            override fun doAfterGrand(vararg permission: String?) {
+//                initMap()
+            }
+
+            override fun doAfterDenied(vararg permission: String?) {
+            }
+
+        }, Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE)
+    }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
