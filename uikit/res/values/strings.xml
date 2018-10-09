@@ -86,7 +86,7 @@
     <string name="start_camera_to_record_failed">启动摄像头录制视频失败</string>
     <string name="stop_fail_maybe_stopped">停止失败，可能已经停止</string>
     <string name="video_exception">视频文件异常</string>
-    <string name="im_choose_video_file_size_too_large">视频文件过大，系统限制为20MB</string>
+    <string name="im_choose_video_file_size_too_large">视频文件过大，系统限制为30MB</string>
     <string name="im_choose_video">请选择3GP MP4格式的视频文件</string>
     <string name="video_record_short">录制视频太短</string>
     <string name="download_progress_description">%1$s（%2$s/%3$s）</string>

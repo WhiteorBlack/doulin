@@ -2,7 +2,7 @@ package com.netease.nim.uikit.common.util;
 
 public class C {
     // 视频允许大小
-    public static final long MAX_LOCAL_VIDEO_FILE_SIZE = 20 * 1024 * 1024;
+    public static final long MAX_LOCAL_VIDEO_FILE_SIZE = 30 * 1024 * 1024;
 
 
     // 关于文件后缀的常量
