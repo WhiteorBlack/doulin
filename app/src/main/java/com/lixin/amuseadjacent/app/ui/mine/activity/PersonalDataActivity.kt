@@ -155,6 +155,7 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
 
         et_autograph.setText(pageModel.autograph)//签名
         et_occupation.setText(pageModel.occupation)//职业
+        et_hometown.setText(pageModel.hometown)
 
         et_note.setText(model.remarks)
 
@@ -219,7 +220,9 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_right -> {//保存签名、职业
                 val autograph = AbStrUtil.etTostr(et_autograph)
                 val occupation = AbStrUtil.etTostr(et_occupation)
-                UserMessage_111.userInfo(this, "", "", "", autograph, occupation)
+                val hometown = AbStrUtil.etTostr(et_hometown)
+                ProgressDialog.showDialog(this)
+                UserMessage_111.userInfo(this, "", "", "", autograph, occupation, hometown)
                 MyAlbum_112113114.AddAlbum(this, imageList)
             }
         }

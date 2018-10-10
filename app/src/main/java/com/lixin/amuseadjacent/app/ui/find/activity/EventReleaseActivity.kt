@@ -15,6 +15,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.DatePop
 import com.lixin.amuseadjacent.app.ui.dialog.PermissionsDialog
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.dialog.TimePop
 import com.lixin.amuseadjacent.app.ui.find.adapter.AlbumAdapter
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.util.AbStrUtil
@@ -31,7 +32,7 @@ import java.util.ArrayList
  * Created by Slingge on 2018/8/25.
  */
 class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, TextWatcher
-        , View.OnClickListener, DatePop.WheelViewCallBack2 {
+        , View.OnClickListener, TimePop.WheelViewCallBack2 {
 
     private var flag = 0//0开始时间，1结束时间，2截止时间
 
@@ -39,7 +40,7 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
     private val imageList = ArrayList<LocalMedia>()
     private val maxNum = 9
 
-    private var datePop: DatePop? = null
+    private var datePop: TimePop? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +56,9 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
         inittitle("活动发布")
 
         val linearLayoutManager = GridLayoutManager(this, 3)
-
         rv_album.layoutManager = linearLayoutManager
 
         imageList.add(LocalMedia())
-
         albumAdapter = AlbumAdapter(this, imageList, maxNum, this)
         rv_album.adapter = albumAdapter
 
@@ -86,7 +85,7 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
                 return@setOnClickListener
             }
 
-            if ((starTime.replace("-", "")).toInt() >= (endTime.replace("-", "")).toInt()) {
+            if (replace(starTime) >= replace(endTime)) {
                 ToastUtil.showToast("活动结束时间要晚于开始时间")
                 return@setOnClickListener
             }
@@ -95,14 +94,11 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
                 ToastUtil.showToast("请选择报名截止时间")
                 return@setOnClickListener
             }
-            if ((starTime.replace("-", "")).toInt() >= (signTime.replace("-", "")).toInt()) {
-                ToastUtil.showToast("报名截止时间不能早于开始时间")
+            if (replace(starTime) <= replace(signTime)) {
+                ToastUtil.showToast("开始时间要晚于报名截止时间")
                 return@setOnClickListener
             }
-            if ((signTime.replace("-", "")).toInt() >= (endTime.replace("-", "")).toInt()) {
-                ToastUtil.showToast("报名截止时间不能晚于结束时间")
-                return@setOnClickListener
-            }
+
             val address = AbStrUtil.etTostr(et_address)
             if (TextUtils.isEmpty(address)) {
                 ToastUtil.showToast("请输入活动地点")
@@ -155,13 +151,13 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
     }
 
     //出生日期
-    override fun position(position1: String, position2: String, position3: String) {
+    override fun position(position1: String, position2: String, position3: String, position4: String, position5: String) {
         if (flag == 0) {
-            tv_startTime.text = "$position1-$position2-$position3"
+            tv_startTime.text = "$position1-$position2-$position3 $position4:$position5"
         } else if (flag == 1) {
-            tv_endTime.text = "$position1-$position2-$position3"
+            tv_endTime.text = "$position1-$position2-$position3 $position4:$position5"
         } else {
-            tv_signEnd.text = "$position1-$position2-$position3"
+            tv_signEnd.text = "$position1-$position2-$position3 $position4:$position5"
         }
     }
 
@@ -184,7 +180,7 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
 
     private fun showDatePop() {
         if (datePop == null) {
-            datePop = DatePop(this, this)
+            datePop = TimePop(this, this)
         }
         if (!datePop!!.isShowing) {
             datePop!!.showAtLocation(ll_main, Gravity.CENTER or Gravity.BOTTOM, 0, 0)
@@ -223,5 +219,9 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
         albumAdapter!!.notifyDataSetChanged()
     }
 
+
+    private fun replace(time: String): Long {
+        return time.replace("-", "").replace(" ", "").replace(":", "").toLong()
+    }
 
 }

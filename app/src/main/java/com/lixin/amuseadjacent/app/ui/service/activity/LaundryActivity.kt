@@ -177,8 +177,8 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
     }
 
     //从购物车中增加
-    override fun plus(position: Int, num: Int, money: Double) {
-        super.plus(position, num, money)
+    override fun plus(position: Int, num: Int, money: Double,goodId:String) {
+        super.plus(position, num, money,goodId)
         carList[position].goodsNum = num
         carList[position].money = money
         carNum()
@@ -186,8 +186,8 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
     }
 
     //从购物车中减少
-    override fun reduce(position: Int, num: Int, money: Double) {
-        super.reduce(position, num, money)
+    override fun reduce(position: Int, num: Int, money: Double,goodId:String) {
+        super.reduce(position, num, money,goodId)
         carList[position].goodsNum = num
         carList[position].money = money
         carNum()
@@ -195,8 +195,8 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
     }
 
     //从购物车中删除
-    override fun del(position: Int) {
-        super.del(position)
+    override fun del(position: Int,goodId:String) {
+        super.del(position,goodId)
         fragment!!.delCar(carList[position].goodsId)
         carList.removeAt(position)
         shopCartDialog!!.setGoodList(this, carList)

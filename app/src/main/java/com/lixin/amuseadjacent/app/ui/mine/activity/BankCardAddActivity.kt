@@ -75,12 +75,12 @@ class BankCardAddActivity : BaseActivity() {
                 ToastUtil.showToast("请选择开户银行")
                 return@setOnClickListener
             }
-            val num = et_num.textWithoutSpace
+            val num = AbStrUtil.etTostr(et_num)
             if (TextUtils.isEmpty(num)) {
                 ToastUtil.showToast("请输入银行卡卡号")
                 return@setOnClickListener
             }
-
+            ProgressDialog.showDialog(this)
             Bank_155156157158164.addBank(this, flag, bankName, num, name, BankCardId)
         }
 
@@ -104,12 +104,12 @@ class BankCardAddActivity : BaseActivity() {
             et_num.setText(model.cardNum)
             BankCardId = model.cardId
 
-           /* for (i in 0 until bankList.size) {
-                if (bankId==DynamiclDetailsModel.cardId) {
-                    sp_bank.setPromptId(i)
-                    break
-                }
-            }*/
+            /* for (i in 0 until bankList.size) {
+                 if (bankId==DynamiclDetailsModel.cardId) {
+                     sp_bank.setPromptId(i)
+                     break
+                 }
+             }*/
 
         }
 

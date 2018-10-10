@@ -55,7 +55,6 @@ class EventDetailsReplyActivity : BaseActivity() {
         init()
     }
 
-
     private fun init() {
         model = intent.getSerializableExtra("model") as ActivityCommentModel1.commModel
         tv_title.text = model.secondNum + "条回复"
@@ -81,7 +80,7 @@ class EventDetailsReplyActivity : BaseActivity() {
 
         headerView.findViewById<TextView>(R.id.tv_name).text = model.commentName
         ImageLoader.getInstance().displayImage(model.commentIcon, headerView.findViewById<ImageView>(R.id.iv_header))
-        tv_zan = headerView.findViewById<TextView>(R.id.tv_zan)
+        tv_zan = headerView.findViewById(R.id.tv_zan)
         tv_zan!!.text = model.zanNum
         if (model.isZan == "1") {
             AbStrUtil.setDrawableLeft(this, R.drawable.ic_zan_hl, tv_zan, 5)

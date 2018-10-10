@@ -112,7 +112,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
                 search = ""
                 title = leftList[i].firstCategoryName
                 ProgressDialog.showDialog(this@OfficialShopActivity)
-                OfficialShopGoodsList_35.ShopGoods(type, leftList[i].firstCategoryId, search,null)
+                OfficialShopGoodsList_35.ShopGoods(type, leftList[i].firstCategoryId, search, null)
 //                smoothMoveToPosition(linearLayoutManager2!!, i)
                 shopLeftAdapter!!.setSelect(i)
             }
@@ -133,22 +133,36 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
 
     //添加到小购物车
     override fun addCar(position: Int) {
-
         rightList[position].isSelect = true
         rightList[position].goodsNum += 1
         rightAdapter!!.notifyItemChanged(position)
-        if(!carList.contains(rightList[position])){
+
+        var num = -1//没有在小购物车
+        for (i in 0 until carList.size) {//增加数量
+            if (carList[i].goodsId == rightList[position].goodsId) {
+                num = i
+                break
+            }
+        }
+        if (num == -1) {
             carList.add(rightList[position])
+        } else {
+            carList[num].goodsNum = rightList[position].goodsNum
+            carList[num].money = DoubleCalculationUtil.mul(carList[num].goodsNum.toDouble(), carList[num].UnitPrice)
         }
         carNum()
     }
 
     //从购物车中增加
-    override fun plus(position: Int, num: Int, money: Double) {
-        super.plus(position, num, money)
-        rightList[position].goodsNum = num
-        rightAdapter!!.notifyItemChanged(position)
-
+    override fun plus(position: Int, num: Int, money: Double, goodId: String) {
+        super.plus(position, num, money, goodId)
+        for (i in 0 until rightList.size) {
+            if (rightList[i].goodsId == goodId) {
+                rightList[i].goodsNum = num
+                rightList[i].money = money
+                rightAdapter!!.notifyItemChanged(i)
+            }
+        }
         carList[position].goodsNum = num
         carList[position].money = money
 
@@ -156,12 +170,16 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     }
 
     //从购物车中减少
-    override fun reduce(position: Int, num: Int, money: Double) {
-        super.reduce(position, num, money)
-        rightList[position].goodsNum = num
-        rightList[position].money = money
-        rightAdapter!!.notifyItemChanged(position)
-
+    override fun reduce(position: Int, num: Int, money: Double, goodId: String) {
+        super.reduce(position, num, money, goodId)
+        for (i in 0 until rightList.size) {
+            if (rightList[i].goodsId == goodId) {
+                rightList[i].goodsNum = num
+                rightList[i].money = money
+                rightAdapter!!.notifyItemChanged(i)
+                break
+            }
+        }
         carList[position].goodsNum = num
         carList[position].money = money
 
@@ -169,15 +187,21 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     }
 
     //从购物车中删除
-    override fun del(position: Int) {
-        super.del(position)
-        rightList[position].isSelect = false
-        rightList[position].goodsNum = 0
-        rightAdapter!!.notifyItemChanged(position)
-
+    override fun del(position: Int, goodId: String) {
+        super.del(position, goodId)
+        for (i in 0 until rightList.size) {
+            if (rightList[i].goodsId == goodId) {
+                rightList[i].isSelect = false
+                rightList[i].goodsNum = 0
+                rightAdapter!!.notifyItemChanged(i)
+                break
+            }
+        }
         carList.removeAt(position)
         if (carList.isEmpty()) {
             shopCartDialog!!.dismiss()
+        } else {
+            shopCartDialog!!.setGoodList(this, carList)
         }
         carNum()
     }
@@ -212,7 +236,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         if (leftList.isNotEmpty()) {
             title = leftList[0].firstCategoryName
             ProgressDialog.showDialog(this)
-            OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search,null)
+            OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search, null)
         }
 
         bannerUrl = model.bannerList[0].topImgDetailUrl
@@ -223,6 +247,9 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     fun onEvent(model: ShopGoodsModel) {
         rightList.clear()
         rightList = model.dataList
+        if(rightList.isEmpty()){
+            ToastUtil.showToast("暂无商品")
+        }
         rightAdapter = ShopRightAdapter(this, title, rightList, this)
         if (rightAdapter!!.shoponclickListtener == null) {
             rightAdapter!!.setShopOnClickListtener(this)
@@ -254,7 +281,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
                 }
                 title = leftList[0].firstCategoryName
                 ProgressDialog.showDialog(this)
-                OfficialShopGoodsList_35.ShopGoods(type, leftList[0].firstCategoryId, search,null)
+                OfficialShopGoodsList_35.ShopGoods(type, "", search, null)
             }
             R.id.tv_right -> {
                 val bundle = Bundle()

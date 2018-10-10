@@ -72,15 +72,6 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
                 MyApplication.openActivity(this, PersonalDataActivity::class.java)
             }
             cl_3.visibility = View.GONE
-        } else {
-            if (intent.getStringExtra("isAttention") != null) {
-                isAttention = intent.getStringExtra("isAttention")
-                if (isAttention == "0") {//0未关注 1已关注
-                    tv_follow.text = "未关注"
-                } else {
-                    tv_follow.text = "已关注"
-                }
-            }
         }
 
         val tabList = ArrayList<String>()
@@ -167,6 +158,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.tv_follow -> {
+                ProgressDialog.showDialog(this)
                 Mail_138139.follow(auid, object : Mail_138139.FollowCallBack {
                     override fun follow() {
                         if (isAttention == "0") {//0未关注 1已关注
@@ -207,7 +199,13 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
         ImageLoader.getInstance().displayImage(model.icon, iv_header)
 
-        isAttention = model.icon
+        isAttention = model.isAttention
+
+        if (isAttention == "0") {//0未关注 1已关注
+            tv_follow.text = "未关注"
+        } else {
+            tv_follow.text = "已关注"
+        }
 
         tv_sex.text = model.age
         tv_constellation.text = model.constellation
@@ -219,6 +217,11 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
         dataFragment!!.setDate(model)
     }
 
+
+    override fun onBackPressed() {
+        if (NiceVideoPlayerManager.instance().onBackPressd()) return
+        super.onBackPressed()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

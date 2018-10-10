@@ -25,9 +25,11 @@ object UserMessage_111 {
      * @param  autograph 个人签名
      * @param  occupation 职业
      * */
-    fun userInfo(context: Activity, nickname: String, sex: String, birthday: String, autograph: String, occupation: String) {
+    fun userInfo(context: Activity, nickname: String, sex: String, birthday: String, autograph: String, occupation: String
+                 , hometown: String) {
         val json = "{\"cmd\":\"editUserMessage\",\"uid\":\"" + StaticUtil.uid + "\",\"nickname\":\"" + nickname +
-                "\",\"sex\":\"" + sex + "\",\"birthday\":\"" + birthday + "\",\"autograph\":\"" + autograph + "\",\"occupation\":\"" + occupation + "\"}";
+                "\",\"sex\":\"" + sex + "\",\"birthday\":\"" + birthday + "\",\"autograph\":\"" + autograph + "\",\"occupation\":\"" + occupation +
+                "\",\"hometown\":\"" + hometown +"\"}";
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)

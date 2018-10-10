@@ -22,7 +22,6 @@ public class BankCardNumEditText extends android.support.v7.widget.AppCompatEdit
 
     public BankCardNumEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         this.addTextChangedListener(new BankCardNumWatcher());
     }
 

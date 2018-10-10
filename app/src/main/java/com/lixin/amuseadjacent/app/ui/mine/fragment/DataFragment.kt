@@ -28,13 +28,18 @@ class DataFragment : BaseFragment() {
         tv_num.text = model.inviteCode
         tv_industry.text = model.occupation
 
+
+        if(model.authentication=="2"){
+            tv_authen.visibility=View.VISIBLE
+        }
+        tv_hometown.text=model.hometown
+
         fl_sport.removeAllViews()
         fl_music.removeAllViews()
         fl_food.removeAllViews()
         fl_video.removeAllViews()
         fl_book.removeAllViews()
         rv_label.removeAllViews()
-
 
         if (model.sportList == null || model.sportList.isEmpty()) {
             var tv = LayoutInflater.from(activity).inflate(R.layout.layout_flow_talent_type,

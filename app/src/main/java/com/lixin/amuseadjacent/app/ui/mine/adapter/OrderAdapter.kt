@@ -102,7 +102,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
         } else if (orderState == "5") {//5清洗中
             holder.tv_type.text = "清洗中"
 
-            holder.tv_again.visibility = View.VISIBLE
+            holder.tv_again.visibility = View.GONE
             holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.GONE
         } else if (orderState == "6") {//6带归还

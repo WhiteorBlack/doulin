@@ -64,7 +64,7 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
             model.money = model.UnitPrice
         }
 
-        holder.tv_money.text = " ￥：${model.UnitPrice.toString()}"
+        holder.tv_money.text = " ￥${model.UnitPrice.toString()}"
 
         holder.tv_name.text = model.goodsName
         ImageLoader.getInstance().displayImage(model.goodsImg, holder.image)

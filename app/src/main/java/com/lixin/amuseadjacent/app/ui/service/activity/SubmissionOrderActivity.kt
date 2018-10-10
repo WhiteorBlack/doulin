@@ -14,6 +14,7 @@ import com.lixin.amuseadjacent.app.ui.mine.activity.AddressActivity
 import com.lixin.amuseadjacent.app.ui.mine.activity.CouponMyActivity
 import com.lixin.amuseadjacent.app.ui.mine.model.AddressModel
 import com.lixin.amuseadjacent.app.ui.mine.model.CouponMyModel
+import com.lixin.amuseadjacent.app.ui.mine.request.Address_140141142143
 import com.lixin.amuseadjacent.app.ui.service.adapter.SubmissionOrderAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.model.SubmissionModel
@@ -22,6 +23,9 @@ import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_submission_order.*
+import kotlinx.android.synthetic.main.xrecyclerview.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * 提交订单
@@ -41,6 +45,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_submission_order)
+        EventBus.getDefault().register(this)
         init()
     }
 
@@ -53,9 +58,10 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         carNum()
 
         if (type != "1") {
-            line_tome.visibility=View.VISIBLE
-            tv_sendTime.visibility=View.VISIBLE
-            line_tome1.visibility=View.VISIBLE
+            tv_sendTime.text="平均15分钟送货到家"
+        }else{
+            tv_sendTime.text="平均15分钟上门取衣"
+            tv_careful.visibility=View.VISIBLE
         }
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -67,6 +73,9 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         iv_address.setOnClickListener(this)
         tv_submission.setOnClickListener(this)
         tv_coupon.setOnClickListener(this)
+
+        ProgressDialog.showDialog(this)
+        Address_140141142143.addressList(1)
     }
 
 
@@ -147,7 +156,25 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
             tv_actualpay.text = "￥$actualMoney"
             tv_coupon.text = "￥" + model.securitiesPrice
         }
+    }
 
+    @Subscribe
+    fun onEvent(model: AddressModel) {
+        for (i in 0 until model.dataList.size) {
+            if (model.dataList[i].isdefault == "1") {
+                val model = model.dataList[i]
+                tv_name.text = model.username
+                tv_phone.text = model.userPhone
+                tv_address.text = model.city + model.address
+                addressId = model.addressId
+                return
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }

@@ -98,7 +98,7 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener, DatePop.Wheel
                     return
                 }
                 ProgressDialog.showDialog(this)
-                UserMessage_111.userInfo(this, name, sexInt.toString(), birthday, "", "")
+                UserMessage_111.userInfo(this, name, sexInt.toString(), birthday, "", "","")
             }
         }
     }

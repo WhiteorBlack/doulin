@@ -62,6 +62,26 @@
 
 
         <TextView
+            android:id="@+id/tv_authen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_red2_line30"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:drawableLeft="@drawable/ic_authen"
+            android:drawablePadding="1dp"
+            android:paddingRight="8dp"
+            android:visibility="gone"
+            android:paddingTop="2dp"
+            android:text="已实名"
+            android:textColor="#f1403c"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/info"
+            app:layout_constraintStart_toEndOf="@+id/info"
+            app:layout_constraintTop_toTopOf="@+id/info" />
+
+
+        <TextView
             android:id="@+id/iv_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,22 +98,46 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:textColor="@color/colorTabText"
-            android:textSize="@dimen/main_fant"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_card"
             app:layout_constraintStart_toEndOf="@+id/iv_card"
             app:layout_constraintTop_toTopOf="@+id/iv_card" />
+
+        <TextView
+            android:id="@+id/iv_hometown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="10dp"
+            android:text="家乡"
+            android:textColor="#999999"
+            android:textSize="@dimen/sub_fant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_card" />
+
+
+        <TextView
+            android:id="@+id/tv_hometown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="家乡"
+            android:textColor="@color/colorTabText"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_hometown"
+            app:layout_constraintStart_toStartOf="@+id/tv_num"
+            app:layout_constraintTop_toTopOf="@+id/iv_hometown" />
 
         <TextView
             android:id="@+id/iv_industry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="职业"
             android:textColor="#999999"
             android:textSize="@dimen/sub_fant"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_card" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_hometown" />
 
 
         <TextView
@@ -102,7 +146,7 @@
             android:layout_height="wrap_content"
             android:text="xx开发"
             android:textColor="@color/colorTabText"
-            android:textSize="@dimen/main_fant"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_industry"
             app:layout_constraintStart_toStartOf="@+id/tv_num"
             app:layout_constraintTop_toTopOf="@+id/iv_industry" />

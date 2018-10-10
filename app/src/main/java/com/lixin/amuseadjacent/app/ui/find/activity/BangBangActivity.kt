@@ -164,6 +164,10 @@ class BangBangActivity : BaseActivity() {
         NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (NiceVideoPlayerManager.instance().onBackPressd()) return
+    }
 
     override fun onDestroy() {
         super.onDestroy()

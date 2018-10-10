@@ -14,6 +14,8 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsReplyActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsReplyActivity
 import com.lixin.amuseadjacent.app.ui.message.model.CommentNewModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -67,8 +69,14 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
                         bundle.putString("flag", "-1")
                         MyApplication.openActivity(context, DynamicDetailsActivity::class.java, bundle)
                     }
-                } else if (model.type == "2") {
-
+                } else if (model.type == "2") {//活动
+                    if (!TextUtils.isEmpty(model.commentId)) {
+                        bundle.putSerializable("model", null)
+                        MyApplication.openActivity(context, EventDetailsReplyActivity::class.java, bundle)
+                    } else {
+                        bundle.putString("flag", "-1")
+                        MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
+                    }
                 } else if (model.type == "3") {
 
                 }

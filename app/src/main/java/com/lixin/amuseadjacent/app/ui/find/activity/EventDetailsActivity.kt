@@ -135,7 +135,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_phone.text = model.`object`.activityPhone
         tv_initiator.text = model.`object`.userName
         tv_peoNum.text = model.`object`.activityAllnum + "人"
-        tv_cost.text = model.`object`.activityMoney + "元"
+        tv_cost.text ="￥" +model.`object`.activityMoney + "/人"
         tv_signInfo.text = "（" + model.`object`.activityNownum + "/" + model.`object`.activityAllnum + "）"
         tv_initiator.text = model.`object`.userName
 
@@ -157,16 +157,19 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         }
 
         var maxNun = 10
-        if (model.signList != null && model.signList.size < 10) {
-            maxNun = model.signList.size
-        }
-        pl_header.setAvatarListListener { imageViewList ->
-            imageViewList.reverse()
-            for (i in 0 until maxNun) {
-                ImageLoader.getInstance().displayImage(model.signList[i].userImg, imageViewList!![i])
-                imageViewList[i].visibility = View.VISIBLE
+        if (model.signList != null) {
+            if(model.signList.size < 10){
+                maxNun = model.signList.size
+            }
+            pl_header.setAvatarListListener { imageViewList ->
+                imageViewList.reverse()
+                for (i in 0 until maxNun) {
+                    ImageLoader.getInstance().displayImage(model.signList[i].userImg, imageViewList!![i])
+                    imageViewList[i].visibility = View.VISIBLE
+                }
             }
         }
+
 
         commentList.addAll(model.commList)
         commentAdapter!!.notifyDataSetChanged()
