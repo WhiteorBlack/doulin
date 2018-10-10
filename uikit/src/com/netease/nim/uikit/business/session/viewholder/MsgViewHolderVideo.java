@@ -1,9 +1,18 @@
 package com.netease.nim.uikit.business.session.viewholder;
 
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.business.session.activity.WatchVideoActivity;
+import com.netease.nim.uikit.business.session.audio.MessageAudioControl;
 import com.netease.nim.uikit.common.ui.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
 import com.netease.nim.uikit.common.util.media.BitmapDecoder;
+import com.netease.nim.uikit.common.util.sys.ScreenUtil;
+import com.netease.nim.uikit.impl.NimUIKitImpl;
 import com.netease.nimlib.sdk.msg.attachment.VideoAttachment;
 
 /**
@@ -24,6 +33,7 @@ public class MsgViewHolderVideo extends MsgViewHolderThumbBase {
     protected void onItemClick() {
         WatchVideoActivity.start(context, message);
     }
+
 
     @Override
     protected String thumbFromSourceFile(String path) {

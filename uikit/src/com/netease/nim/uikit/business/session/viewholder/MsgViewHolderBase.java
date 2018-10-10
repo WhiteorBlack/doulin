@@ -20,6 +20,7 @@ import com.netease.nim.uikit.common.ui.imageview.HeadImageView;
 import com.netease.nim.uikit.common.ui.recyclerview.adapter.BaseMultiItemFetchLoadAdapter;
 import com.netease.nim.uikit.common.ui.recyclerview.holder.BaseViewHolder;
 import com.netease.nim.uikit.common.ui.recyclerview.holder.RecyclerViewHolder;
+import com.netease.nim.uikit.common.util.sys.ScreenUtil;
 import com.netease.nim.uikit.common.util.sys.TimeUtil;
 import com.netease.nim.uikit.impl.NimUIKitImpl;
 import com.netease.nimlib.sdk.NIMClient;
@@ -407,9 +408,11 @@ public abstract class MsgViewHolderBase extends RecyclerViewHolder<BaseMultiItem
             if (isReceivedMessage()) {
                 setGravity(bodyContainer, Gravity.LEFT);
                 contentContainer.setBackgroundResource(leftBackground());
+                contentContainer.setPadding(ScreenUtil.dip2px(6), ScreenUtil.dip2px(2), ScreenUtil.dip2px(2), ScreenUtil.dip2px(2));
             } else {
                 setGravity(bodyContainer, Gravity.RIGHT);
                 contentContainer.setBackgroundResource(rightBackground());
+                contentContainer.setPadding(ScreenUtil.dip2px(2), ScreenUtil.dip2px(2), ScreenUtil.dip2px(6), ScreenUtil.dip2px(2));
             }
         }
     }
