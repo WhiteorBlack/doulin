@@ -17,6 +17,7 @@ import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Myinteraction_161162
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.abLog
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.xiao.nicevideoplayer.NiceVideoPlayer
 import com.xiao.nicevideoplayer.TxVideoPlayerController
@@ -64,9 +65,12 @@ class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dy
         holder.tv_zan.text = model.zanNum
         holder.tv_comment.text = model.commentNum
 
+        abLog.e("日期", model.time)
+
         try {
             holder.tv_day.text = model.time.substring(8, 10)
-            holder.tv_month.text = model.time.substring(5, 7).replace("0", "") + "月"
+            val month= model.time.substring(5, 7)
+            holder.tv_month.text = month+ "月"
         } catch (e: Exception) {
         }
 

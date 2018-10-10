@@ -128,12 +128,6 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        ProgressDialog.showDialog(activity!!)
-        Find_26.find()
-    }
-
 
     private fun init() {
         linearLayoutManager = LinearLayoutManager(activity)
@@ -231,6 +225,9 @@ class FindFragment : BaseFragment(), View.OnClickListener {
                 }
             })
         }
+
+        ProgressDialog.showDialog(activity!!)
+        Find_26.find()
     }
 
     override fun loadData() {

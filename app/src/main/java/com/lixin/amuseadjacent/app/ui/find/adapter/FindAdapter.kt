@@ -22,6 +22,7 @@ import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
@@ -285,6 +286,18 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 bundle.putString("id", actiivtyList[position].activityId)
                 MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
             }
+        }
+
+        holder.iv_header.setOnClickListener { v->
+            val bundle = Bundle()
+            if(dynaList!=null){
+                bundle.putString("auid", dynaList[position].dynamicUid)
+                bundle.putString("isAttention", dynaList[position].isAttention)
+            }else{
+                bundle.putString("auid", actiivtyList!![position].userid)
+                bundle.putString("isAttention", actiivtyList[position].isAttention)
+            }
+            MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
         }
 
     }

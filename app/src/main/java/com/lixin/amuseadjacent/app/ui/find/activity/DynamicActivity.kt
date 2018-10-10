@@ -123,10 +123,14 @@ class DynamicActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if(data==null){
+            return
+        }
         if (requestCode == 1) {
             fragment0!!.Refresh(i, null, -1)
+            fragment1!!.Refresh(i, null, -1)
         } else if (requestCode == 3) {
-            val model = data!!.getSerializableExtra("model") as DynamiclDetailsModel
+            val model = data.getSerializableExtra("model") as DynamiclDetailsModel
             val position = data.getIntExtra("position", -1)
             fragment0!!.Refresh(i, model, position)
             fragment1!!.Refresh(i, model, position)

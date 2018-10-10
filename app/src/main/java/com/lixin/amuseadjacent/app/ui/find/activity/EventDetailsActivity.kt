@@ -18,18 +18,11 @@ import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
-import com.lixin.amuseadjacent.app.ui.message.model.CommunityUserModel
 import com.lixin.amuseadjacent.app.ui.mine.activity.FeedbackActivity
-import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
-import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.*
-import com.lixin.amuseadjacent.app.view.CircleImageView
-import com.lixin.amuseadjacent.app.view.PileLayout
-import com.lixin.amuseadjacent.app.view.SDAvatarListLayout
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import kotlinx.android.synthetic.main.activity_event_details.*
-import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -79,6 +72,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_zan.setOnClickListener(this)
 
         tv_info.setTextColor(resources.getColor(R.color.black))
+
 
         banner.setOnBannerListener { i ->
             PreviewPhoto.preview(this, imageList, i)

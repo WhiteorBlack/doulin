@@ -40,7 +40,10 @@ class EventDetailsReplyActivity : BaseActivity() {
     private var commentList = ArrayList<ActivityCommentModel1.commModel>()
 
     private var model = ActivityCommentModel1.commModel()
-    private var dyeventId = ""
+    private var dyeventId = ""//活动id
+    private var commentId = ""//评论id
+
+    private var headerView: View? = null
 
     private var tv_zan: TextView? = null
 
@@ -56,14 +59,6 @@ class EventDetailsReplyActivity : BaseActivity() {
     }
 
     private fun init() {
-        model = intent.getSerializableExtra("model") as ActivityCommentModel1.commModel
-        tv_title.text = model.secondNum + "条回复"
-        iv_back.setOnClickListener { v ->
-            Destroy()
-        }
-        StatusBarWhiteColor()
-
-        dyeventId = intent.getStringExtra("id")
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -71,49 +66,66 @@ class EventDetailsReplyActivity : BaseActivity() {
         rv_reply.setPullRefreshEnabled(false)
         rv_reply.setLoadingMoreEnabled(false)
 
-        val headerView = LayoutInflater.from(this).inflate(R.layout.item_dynamic_comment, null, false)//头布局
+        headerView = LayoutInflater.from(this).inflate(R.layout.item_dynamic_comment, null, false)//头布局
         headerView!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         rv_reply.addHeaderView(headerView)
 
         replyAdapter = DynamicCommentReplyAdapter(this, commentList)
         rv_reply.adapter = replyAdapter
 
-        headerView.findViewById<TextView>(R.id.tv_name).text = model.commentName
-        ImageLoader.getInstance().displayImage(model.commentIcon, headerView.findViewById<ImageView>(R.id.iv_header))
-        tv_zan = headerView.findViewById(R.id.tv_zan)
+
+        dyeventId = intent.getStringExtra("id")
+
+        if(intent.getSerializableExtra("model")!=null){
+            model=intent.getSerializableExtra("model")as ActivityCommentModel1.commModel
+            setDetails()
+        }else{//从评论消息跳转，用借口获取一级评论数据
+            commentId = intent.getStringExtra("commentId")
+            ProgressDialog.showDialog(this)
+            DynaComment_133134.commentFirst(commentId)
+        }
+
+        iv_back.setOnClickListener { v ->
+            Destroy()
+        }
+        StatusBarWhiteColor()
+
+    }
+
+
+    @Subscribe
+    fun onEvent(model: ActivityCommentModel1) {
+        commentList.addAll(model.dataList)
+        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
+        rv_reply.layoutAnimation = controller
+        replyAdapter!!.notifyDataSetChanged()
+        rv_reply.scheduleLayoutAnimation()
+    }
+
+    //从评论消息跳转，接口获取一级评论内容
+    @Subscribe
+    fun onEvent(model: ActivityCommentModel1.commModel) {
+        this.model = model
+        setDetails()
+    }
+
+    fun setDetails() {
+        commentId=model.commentId
+        tv_title.text = model.secondNum + "条回复"
+
+        headerView!!.findViewById<TextView>(R.id.tv_name).text = model.commentName
+        ImageLoader.getInstance().displayImage(model.commentIcon, headerView!!.findViewById<ImageView>(R.id.iv_header))
+        tv_zan = headerView!!.findViewById(R.id.tv_zan)
         tv_zan!!.text = model.zanNum
         if (model.isZan == "1") {
             AbStrUtil.setDrawableLeft(this, R.drawable.ic_zan_hl, tv_zan, 5)
         }
 
-        tv_zan!!.setOnClickListener { v ->
-            if (model.isZan == "1") {
-                return@setOnClickListener
-            }
-            ProgressDialog.showDialog(this)
-            ActivityComment_272829210.zan("0", dyeventId, model.commentId, object : Find_26.ZanCallback {
-                override fun zan() {
-                    if( model.isZan == "1"){
-                        model.isZan = "0"
-                        model.zanNum = (model.zanNum.toInt() - 1).toString()
-                        AbStrUtil.setDrawableLeft(this@EventDetailsReplyActivity, R.drawable.ic_zan, tv_zan, 5)
-                    }else{
-                        model.isZan = "1"
-                        model.zanNum = (model.zanNum.toInt() + 1).toString()
-                        AbStrUtil.setDrawableLeft(this@EventDetailsReplyActivity, R.drawable.ic_zan_hl, tv_zan, 5)
-                    }
-                    chushi = 1
-                    tv_zan!!.text = model.zanNum
-                }
-            })
-        }
+        headerView!!.findViewById<TextView>(R.id.tv_comment).text = model.commentContent
+        headerView!!.findViewById<TextView>(R.id.tv_time).text = model.commentTime
+        headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = model.secondNum + "回复"
 
-        headerView.findViewById<TextView>(R.id.tv_comment).text = model.commentContent
-        headerView.findViewById<TextView>(R.id.tv_time).text = model.commentTime
-        headerView.findViewById<TextView>(R.id.tv_commentNum).text = model.secondNum + "回复"
-
-
-        val tv_del = headerView.findViewById<TextView>(R.id.tv_del)
+        val tv_del = headerView!!.findViewById<TextView>(R.id.tv_del)
         if (StaticUtil.uid == model.commentUid) {
             tv_del.visibility = View.VISIBLE
         } else {
@@ -130,9 +142,27 @@ class EventDetailsReplyActivity : BaseActivity() {
             })
         }
 
-
-        ProgressDialog.showDialog(this)
-        ActivityComment_272829210.getComment1Second("0", dyeventId, model.commentId)
+        tv_zan!!.setOnClickListener { v ->
+            if (model.isZan == "1") {
+                return@setOnClickListener
+            }
+            ProgressDialog.showDialog(this)
+            ActivityComment_272829210.zan("0", dyeventId, model.commentId, object : Find_26.ZanCallback {
+                override fun zan() {
+                    if (model.isZan == "1") {
+                        model.isZan = "0"
+                        model.zanNum = (model.zanNum.toInt() - 1).toString()
+                        AbStrUtil.setDrawableLeft(this@EventDetailsReplyActivity, R.drawable.ic_zan, tv_zan, 5)
+                    } else {
+                        model.isZan = "1"
+                        model.zanNum = (model.zanNum.toInt() + 1).toString()
+                        AbStrUtil.setDrawableLeft(this@EventDetailsReplyActivity, R.drawable.ic_zan_hl, tv_zan, 5)
+                    }
+                    chushi = 1
+                    tv_zan!!.text = model.zanNum
+                }
+            })
+        }
 
         tv_send.setOnClickListener { v ->
             val content = AbStrUtil.etTostr(et_comment)
@@ -156,27 +186,20 @@ class EventDetailsReplyActivity : BaseActivity() {
                     model.secondNum = (model.secondNum.toInt() + 1).toString()
                     replyAdapter!!.notifyDataSetChanged()
                     tv_title.text = model.secondNum + "条回复"
-                    headerView.findViewById<TextView>(R.id.tv_commentNum).text = model.secondNum + "回复"
+                    headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = model.secondNum + "回复"
 
                     chushi = 2
                 }
             })
         }
-    }
 
-
-    @Subscribe
-    fun onEvent(model: ActivityCommentModel1) {
-        commentList.addAll(model.dataList)
-        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
-        rv_reply.layoutAnimation = controller
-        replyAdapter!!.notifyDataSetChanged()
-        rv_reply.scheduleLayoutAnimation()
+        ProgressDialog.showDialog(this)
+        ActivityComment_272829210.getComment1Second("0", dyeventId, model.commentId)
     }
 
 
     fun Destroy() {
-        if(chushi!=-2){
+        if (chushi != -2) {
             intent.putExtra("position", intent.getIntExtra("position", -1))
             if (chushi == -1) {
                 intent.putExtra("type", "del")

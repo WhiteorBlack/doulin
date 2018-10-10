@@ -77,7 +77,6 @@ public class ImageLoaderUtil {
                 .cacheOnDisc(true) // 设置下载的图片是否缓存在SD卡中
                 .displayer(new RoundedBitmapDisplayer(20)) // 设置成圆角图片
                 .build(); // 创建配置过得DisplayImageOption对象
-
         return options;
     }
 

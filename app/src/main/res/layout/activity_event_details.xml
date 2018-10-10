@@ -24,9 +24,20 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
 
-            <include
-                android:id="@+id/include1"
-                layout="@layout/include_banner" />
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+
+                app:is_auto_play="true"
+
+                app:indicator_drawable_selected="@drawable/ic_indicator_hl"
+                app:indicator_drawable_unselected="@drawable/ic_indicator_nor"
+                app:indicator_height="3dp"
+                app:indicator_margin="4dp"
+                app:indicator_width="14dp" />
 
             <com.example.zzh.foldtext_kotlin.FoldTextView
                 android:id="@+id/tv_info"
@@ -35,7 +46,7 @@
                 android:layout_margin="12dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@+id/include1"
+                app:layout_constraintTop_toBottomOf="@+id/banner"
                 app:showMaxLine="2"
                 app:showTipAfterExpand="true"
                 app:tipClickable="true"

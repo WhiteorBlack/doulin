@@ -1,26 +1,25 @@
 package com.lixin.amuseadjacent.app.ui.service.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.google.gson.Gson
 import com.lixin.amuseadjacent.R
-import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
-import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
-import com.lixin.amuseadjacent.app.ui.service.activity.LaundryActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.LaundryAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.CarModel
 import com.lixin.amuseadjacent.app.ui.service.model.LaundryMapModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.model.TempIdModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
-import kotlinx.android.synthetic.main.dialog_community.*
-import kotlinx.android.synthetic.main.fragment_laundry.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -31,11 +30,12 @@ import org.greenrobot.eventbus.Subscribe
 class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
 
     private var laundryAdapter: LaundryAdapter? = null
-    private var gridLayoutManager: GridLayoutManager? = null
     private var goodList = ArrayList<ShopGoodsModel.dataModel>()
 
-    private var goodMap = ArrayList<LaundryMapModel>()
+    private var tempList = ArrayList<ShopGoodsModel.dataModel>()
     private var secondCategoryId = ""//当前二级id
+
+    private var rv_clothes: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_laundry, container, false)
@@ -46,25 +46,37 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        rv_clothes.layoutManager = gridLayoutManager
+        rv_clothes = view!!.findViewById(R.id.rv_clothes)
+        val gridLayoutManager = GridLayoutManager(activity!!, 3)
+        rv_clothes!!.layoutManager = gridLayoutManager
 
         laundryAdapter = LaundryAdapter(activity!!, goodList)
         laundryAdapter!!.setAddShopCar(this)
-        rv_clothes.adapter = laundryAdapter
+        rv_clothes!!.adapter = laundryAdapter
     }
 
     private fun init() {
-        gridLayoutManager = GridLayoutManager(activity!!, 3)
+
     }
 
 
     //添加到购物车
     override fun addCar(position: Int) {
         if (goodList[position].isSelect) {
+            goodList[position].isSelect = false
+            goodList[position].isAdd = false
+            goodList[position].goodsNum = 0
+            laundryAdapter!!.notifyItemChanged(position)
+
+            val model = CarModel.editModel()
+            model.goodModel = goodList[position]
+            model.flag = 1
+            model.position = position
+            EventBus.getDefault().post(model)
             return
         }
         goodList[position].isSelect = true
+        goodList[position].isAdd = true
         goodList[position].goodsNum = 1
         laundryAdapter!!.notifyItemChanged(position)
 
@@ -82,7 +94,7 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
                 goodList[i].goodsNum = num
                 goodList[i].isSelect = true
                 goodList[i].money = money
-                laundryAdapter!!.notifyDataSetChanged()
+                laundryAdapter!!.notifyItemChanged(i)
                 return
             }
         }
@@ -104,7 +116,7 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
     //购物车删除
     fun delCar(goodId: String) {
         for (i in 0 until goodList.size) {
-            if (goodList[i].goodsId == goodId) {
+            if (goodId == goodList[i].goodsId) {
                 goodList[i].isSelect = false
                 goodList[i].goodsNum = 0
                 laundryAdapter!!.notifyItemChanged(i)
@@ -128,10 +140,10 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
         ProgressDialog.showDialog(activity!!)
         OfficialShopGoodsList_35.ShopGoods("1", tempModel.secondId, "", object : OfficialShopGoodsList_35.ShopGoodsCallback {
             override fun GoodList(List: java.util.ArrayList<ShopGoodsModel.dataModel>) {
-                val mapModel = LaundryMapModel()//储存数据，不在二次获取，保存选中状态
-                mapModel.secondCategoryId = secondCategoryId
-                mapModel.good = List
-                goodMap.add(mapModel)
+                /*  val mapModel = LaundryMapModel()//储存数据，不在二次获取，保存选中状态
+                  mapModel.secondCategoryId = secondCategoryId
+                  mapModel.good = List
+                  goodMap.add(mapModel)*/
                 setDate(List)
             }
         })
@@ -143,12 +155,13 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
             goodList.clear()
             laundryAdapter!!.notifyDataSetChanged()
         }
+        tempList = List
         goodList.addAll(List)
 
         val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        rv_clothes.layoutAnimation = controller
+        rv_clothes!!.layoutAnimation = controller
         laundryAdapter!!.notifyDataSetChanged()
-        rv_clothes.scheduleLayoutAnimation()
+        rv_clothes!!.scheduleLayoutAnimation()
     }
 
     override fun loadData() {

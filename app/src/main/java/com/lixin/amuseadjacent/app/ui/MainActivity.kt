@@ -121,8 +121,10 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
+        if (NiceVideoPlayerManager.instance().onBackPressd()){
+            return
+        }
         super.onBackPressed()
-        if (NiceVideoPlayerManager.instance().onBackPressd()) return
     }
 
 }

@@ -84,6 +84,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
     private int position = -1;//列表所在位置
 
+    private int isEdit = -1;//是否操作
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +126,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
         commentAdapter = new DynamicCommentAdapter(this, commentList);
         rv_comment.setAdapter(commentAdapter);
-        commentAdapter.setId(dynaId,"0");
+        commentAdapter.setId(dynaId, "0");
 
         tv_zan = findViewById(R.id.tv_zan);
         image0 = findViewById(R.id.image0);
@@ -204,9 +206,9 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
         tv_name.setText(model.object.dynamicName);
         tv_effect.setText("影响力" + model.object.userEffectNum);
-        if(TextUtils.isEmpty(model.object.dynamicContent)){
+        if (TextUtils.isEmpty(model.object.dynamicContent)) {
             tv_info.setVisibility(View.GONE);
-        }else{
+        } else {
             tv_info.setText(model.object.dynamicContent);
         }
 
@@ -327,6 +329,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                     });
                 } else {
                     Event_221222223224.INSTANCE.EventCollect("0", dynaId, () -> {
+                        isEdit = 0;
                         if (model.object.iscang.equals("0")) {//没有收藏
                             tv_right.setText("已收藏");
                             model.object.iscang = "1";
@@ -352,11 +355,12 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             case R.id.tv_zan:
                 ProgressDialog.INSTANCE.showDialog(this);
                 DynaComment_133134.INSTANCE.zan(dynaId, "", () -> {
+                    isEdit = 1;
                     if (model.object.isZan.equals("1")) {
                         zanNUm--;
                         model.object.isZan = "0";
                         AbStrUtil.setDrawableLeft(DynamicDetailsActivity.this, R.drawable.ic_zan, tv_zan, 5);
-                    }else{
+                    } else {
                         zanNUm++;
                         model.object.isZan = "1";
                         AbStrUtil.setDrawableLeft(DynamicDetailsActivity.this, R.drawable.ic_zan_hl, tv_zan, 5);
@@ -373,6 +377,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 }
                 ProgressDialog.INSTANCE.showDialog(this);
                 DynaComment_133134.INSTANCE.comment(dynaId, "", content, (commentId) -> {
+                    isEdit = 2;
                     commNum++;
                     tv_comment.setText(commNum + "");
                     et_comment.setText("");
@@ -394,15 +399,15 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 });
                 break;
             case R.id.tv_comment:
-                if(timer==null){
-                    timer=new Timer();
+                if (timer == null) {
+                    timer = new Timer();
                 }
                 et_comment.requestFocus();//获取焦点 光标出现
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         InputMethodManager inputManager =
-                                (InputMethodManager)DynamicDetailsActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                (InputMethodManager) DynamicDetailsActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                         inputManager.showSoftInput(et_comment, 0);
                     }
                 }, 100);
@@ -441,10 +446,12 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     }
 
     private void back() {
-        Intent intent = new Intent();
-        intent.putExtra("model", model);
-        intent.putExtra("position", position);
-        setResult(3, intent);
+        if (isEdit != -1) {
+            Intent intent = new Intent();
+            intent.putExtra("model", model);
+            intent.putExtra("position", position);
+            setResult(3, intent);
+        }
         finish();
     }
 
@@ -458,8 +465,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (NiceVideoPlayerManager.instance().onBackPressd()) return;
+        super.onBackPressed();
     }
 
 

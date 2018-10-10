@@ -74,8 +74,6 @@ class DynamicFragment : BaseFragment() {
                 MyDynamic_132.dynamic(nowPage,auid)
             }
         })
-
-
     }
 
     private fun init() {

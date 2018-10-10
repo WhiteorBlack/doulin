@@ -22,6 +22,7 @@ import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
@@ -191,6 +192,13 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
             intent.putExtra("position", position)
             intent.putExtra("id", dynaList[position].dynamicId)
             context.startActivityForResult(intent,3)
+        }
+
+        holder.iv_header.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("auid", model.dynamicUid)
+            bundle.putString("isAttention", model.isAttention)
+            MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
         }
 
     }

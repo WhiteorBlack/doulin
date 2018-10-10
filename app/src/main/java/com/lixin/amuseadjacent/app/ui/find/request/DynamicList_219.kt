@@ -23,7 +23,7 @@ object DynamicList_219 {
      * */
     fun dynamic(state: String, type: Int, nowPage: Int) {
         val json = "{\"cmd\":\"findDynamicList\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.communityId +
-                "\",\"state\":\"" + state + "\",\"type\":\"" + type + "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "10" + "\"}"
+                "\",\"state\":\"" + state + "\",\"type\":\"" + type + "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "15" + "\"}"
 
         abLog.e("动态、帮帮.................", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {

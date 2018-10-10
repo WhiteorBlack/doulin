@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.app.ui.find.request
 import android.app.Activity
 import android.content.Intent
 import com.google.gson.Gson
+import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.EventModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
@@ -31,7 +32,7 @@ object Event_221222223224 {
 
 
         val json = "{\"cmd\":\"findActivityList\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.communityId +
-                "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "10" + "\"}"
+                "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "15" + "\"}"
 
         abLog.e("活动.................", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
@@ -117,7 +118,7 @@ object Event_221222223224 {
 
 
     //创建活动
-    fun  EventEstablish(context: Activity, activityName: String, activityStarttime: String, activityEndtime: String, activitySignEndtime: String,
+    fun EventEstablish(context: Activity, activityName: String, activityStarttime: String, activityEndtime: String, activitySignEndtime: String,
                        activityAddress: String, activityPhone: String, activityAllnum: String, activityMoney: String,
                        activityDesc: String, imageList: ArrayList<LocalMedia>) {
 
@@ -149,7 +150,23 @@ object Event_221222223224 {
     }
 
 
+    //获取活动二级评论
+    fun activityDetailCommentSecond(activityId: String, commentId: String) {
+        val json = "{\"cmd\":\"activityDetailCommentSecond\",\"uid\":\"" + StaticUtil.uid +
+                "\",\"type\":\"" + "0" + "\",\"activityId\":\"" + activityId + "\",\"commentId\":\"" + commentId + "\"}"
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val model = Gson().fromJson(response, ActivityCommentModel1::class.java)
+                if (model.result == "0") {
 
+                } else {
+                    ToastUtil.showToast(model.resultNote)
+                }
+            }
+        })
+
+    }
 
 
 }

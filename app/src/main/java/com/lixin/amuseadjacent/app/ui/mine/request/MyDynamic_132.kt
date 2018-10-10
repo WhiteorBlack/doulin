@@ -18,7 +18,7 @@ object MyDynamic_132 {
 
     fun dynamic(nowPage: Int, auid: String) {
         val json = "{\"cmd\":\"myDynamicList\",\"uid\":\"" + auid + "\",\"communityId\":\"" + StaticUtil.communityId +
-                "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "10" + "\"}"
+                "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "15" + "\",\"myuid\":\"" + StaticUtil.uid + "\"}"
 
         abLog.e("动态、帮帮.................", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {

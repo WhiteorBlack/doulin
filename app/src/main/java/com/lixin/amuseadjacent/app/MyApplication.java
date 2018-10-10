@@ -30,6 +30,7 @@ import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import cn.jpush.android.api.JPushInterface;
 
@@ -45,7 +46,7 @@ public class MyApplication extends MultiDexApplication {
 //val json = "{\"cmd\":\"getMsg\"" + "}"
 // val json = "{\"cmd\":\"upPrize\",\"prizeId\":\"" + prizeId  + "\",\"userNme\":\"" + MyApplication.getUserName() + "\"}";
 
-    public static String CameraPath = Environment.getExternalStorageDirectory().getPath() + "/逗邻/";
+    public static String CameraVideoPath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/com.lixin.amuseadjacent/video/";
 
     public static MyApplication getInstance() {
         // if语句下是不会走的，Application本身已单例
@@ -128,6 +129,8 @@ public class MyApplication extends MultiDexApplication {
         //x5内核初始化接口
         QbSdk.initX5Environment(getApplicationContext(), cb);
     }
+
+
 
 
     private LoginInfo getLoginInfo() {

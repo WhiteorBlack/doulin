@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import cn.bingoogolapple.badgeview.BGABadgeTextView
+import com.google.gson.Gson
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
@@ -43,8 +44,7 @@ class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsMode
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-
+        abLog.e("适配器商品.......", Gson().toJson(goodList[position]))
         goodList[position].UnitPrice = if (TextUtils.isEmpty(goodList[position].goodsCuprice)) {
             goodList[position].goodsPrice.toDouble()
         } else {
@@ -55,18 +55,20 @@ class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsMode
             goodList[position].money = goodList[position].UnitPrice
         }
 
-        var money = goodList[position].money
+        val money = goodList[position].money
         holder.tv_money.text = " ￥$money"
 
         holder.tv_name.text = goodList[position].goodsName
         ImageLoader.getInstance().displayImage(goodList[position].goodsImg, holder.image)
 
         if (goodList[position].isSelect) {
+            holder.tv_msgNum.visibility = View.VISIBLE
             MyApplication.setRedNum(holder.tv_msgNum, goodList[position].goodsNum)
-            abLog.e("数量.......", goodList[position].goodsNum.toString())
         } else {
-            MyApplication.setRedNum(holder.tv_msgNum, 0)
+            holder.tv_msgNum.visibility = View.GONE
         }
+
+        abLog.e("数量.......", goodList[position].goodsNum.toString())
 
         holder.itemView.setOnClickListener { v ->
             addShopCar!!.addCar(position)
@@ -75,6 +77,7 @@ class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsMode
                 }
             })
         }
+
     }
 
 
@@ -83,7 +86,6 @@ class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsMode
         val tv_money = view.findViewById<TextView>(R.id.tv_money)
         val image = view.findViewById<ImageView>(R.id.image)
         val tv_msgNum = view.findViewById<BGABadgeTextView>(R.id.tv_msgNum)
-
     }
 
 

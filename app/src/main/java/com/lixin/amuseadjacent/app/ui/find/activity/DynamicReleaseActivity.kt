@@ -5,32 +5,36 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.MediaMetadataRetriever
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Message
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.PermissionsDialog
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
-import com.lixin.amuseadjacent.app.ui.find.adapter.AlbumAdapter
 import com.lixin.amuseadjacent.app.ui.find.adapter.ReleaseAdapter
 import com.lixin.amuseadjacent.app.ui.find.request.ReleaseDynamicBang_220
 import com.lixin.amuseadjacent.app.util.*
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.entity.LocalMedia
-import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import com.vincent.videocompressor.VideoCompress
 import kotlinx.android.synthetic.main.activity_dynamic_release.*
 import kotlinx.android.synthetic.main.include_basetop.*
-import kotlinx.android.synthetic.main.item_rule.*
+import java.io.File
 import java.util.ArrayList
 
+@Suppress("INACCESSIBLE_TYPE")
 /**
  * 动态发布
  * Created by Slingge on 2018/8/22
@@ -45,6 +49,10 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
 
     private var videoPath = ""
     private var isChecked = true
+
+    //压缩视频输出路径
+    private val currentOutputVideoPath = MyApplication.CameraVideoPath + "out.mp4"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,8 +95,8 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
      * 检查权限
      */
     private fun checkPermission() {
-        val helper= PermissionHelper(this)
-        helper.requestPermissions(object: PermissionHelper.PermissionListener{
+        val helper = PermissionHelper(this)
+        helper.requestPermissions(object : PermissionHelper.PermissionListener {
             override fun doAfterGrand(vararg permission: String?) {
 //                initMap()
             }
@@ -115,12 +123,17 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             R.id.tv_right -> {
                 val content = AbStrUtil.etTostr(et_info)
                 var adress = AbStrUtil.tvTostr(tv_address)
-                if(adress=="不显示位置"){
-                    adress=""
+                if (adress == "不显示位置") {
+                    adress = ""
                 }
 
-                if (TextUtils.isEmpty(content) && imageList.size==1 && TextUtils.isEmpty(videoPath)) {
+                if (TextUtils.isEmpty(content) && imageList.size == 1 && TextUtils.isEmpty(videoPath)) {
                     ToastUtil.showToast("请输入发布内容")
+                    return
+                }
+                if (!TextUtils.isEmpty(videoPath)) {
+                    abLog.e("视频路径", videoPath)
+                    execCommand(flag, content, imageList, videoPath, adress)
                     return
                 }
                 ProgressDialog.showDialog(this)
@@ -151,7 +164,6 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             // 图片、视频、音频选择结果回调
             for (i in 0 until PictureSelector.obtainMultipleResult(data).size) {
                 videoPath = PictureSelector.obtainMultipleResult(data)[i].path
-                abLog.e("“视频路径", videoPath)
                 if (videoPath.endsWith(".mp4") || videoPath.endsWith(".avi") || videoPath.endsWith(".mkv")
                         || videoPath.endsWith(".FLV") || videoPath.endsWith(".MPG") || videoPath.endsWith(".RMVB")
                         || videoPath.endsWith(".3gp") || videoPath.endsWith(".WMV")
@@ -202,6 +214,46 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
                 }
             }
         }
+    }
+
+
+    //压缩视频
+    private fun execCommand(type: String, content: String, imageList: ArrayList<LocalMedia>, videoPath: String,
+                            address: String) {
+        ProgressDialog.showDialog(this)
+        val destDir = File(currentOutputVideoPath)
+        if (!destDir.exists()) {//如果不存在则创建
+            destDir.mkdirs()
+        }
+        val mFile = File(currentOutputVideoPath)
+        if (mFile.exists()) {
+            mFile.delete()
+        }
+
+
+        VideoCompress.compressVideoLow(videoPath, currentOutputVideoPath, object : VideoCompress.CompressListener {
+            override fun onStart() {
+            }
+
+            override fun onSuccess() {
+                ToastUtil.showToast("处理完成")
+                ProgressDialog.showDialog(this@DynamicReleaseActivity)
+                ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList, currentOutputVideoPath, address)
+            }
+
+            override fun onFail() {
+                ProgressDialog.dissDialog()
+                ToastUtil.showToast("视频处理异常，按原文件上传")
+                ProgressDialog.showDialog(this@DynamicReleaseActivity)
+                ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList, videoPath, address)
+            }
+
+            override fun onProgress(percent: Float) {
+                ProgressDialog.showDialog(this@DynamicReleaseActivity)
+            }
+
+        })
+
     }
 
 

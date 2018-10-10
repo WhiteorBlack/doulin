@@ -58,7 +58,7 @@ class FeedbackActivity : BaseActivity() {
                 return@setOnClickListener
             }
             ProgressDialog.showDialog(this)
-            if (TextUtils.isEmpty(content)) {
+            if (TextUtils.isEmpty(id)) {
                 Feedback_131.feed(this, content)
             } else {
                 ActivityComment_272829210.comment("0", id, "", content, object : ActivityComment_272829210.CommentCallBack {

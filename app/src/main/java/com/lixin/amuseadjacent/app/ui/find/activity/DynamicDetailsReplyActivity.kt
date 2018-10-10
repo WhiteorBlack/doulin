@@ -46,6 +46,7 @@ class DynamicDetailsReplyActivity : BaseActivity() {
     private var tv_zan: TextView? = null
 
     private var dynaId = ""
+    private var commentId = ""//动态id
 
     private var commNum = 0//回复数量
 
@@ -85,8 +86,9 @@ class DynamicDetailsReplyActivity : BaseActivity() {
             commModel = intent.getSerializableExtra("model") as ActivityCommentModel1.commModel
             setDetails(commModel!!)
         } else {
+            commentId=intent.getStringExtra("commentId")
             ProgressDialog.showDialog(this)
-            DynaComment_133134.commentFirst(commModel!!.commentId)
+            DynaComment_133134.commentFirst(commentId)
         }
 
         tv_send.setOnClickListener { v ->
@@ -124,6 +126,7 @@ class DynamicDetailsReplyActivity : BaseActivity() {
 
     private fun setDetails(model: ActivityCommentModel1.commModel) {
         commModel = model
+        commentId=commModel!!.commentId
         headerView!!.findViewById<TextView>(R.id.tv_name).text = commModel!!.commentName
         ImageLoader.getInstance().displayImage(commModel!!.commentIcon, headerView!!.findViewById<ImageView>(R.id.iv_header))
         tv_zan = headerView!!.findViewById(R.id.tv_zan)

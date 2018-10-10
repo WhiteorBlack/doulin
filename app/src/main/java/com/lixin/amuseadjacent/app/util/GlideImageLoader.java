@@ -1,8 +1,8 @@
 package com.lixin.amuseadjacent.app.util;
 
 import android.content.Context;
-import android.widget.ImageView;
 
+import com.youth.banner.RoundImageView;
 import com.youth.banner.loader.ImageLoader;
 
 /**
@@ -14,14 +14,14 @@ public class GlideImageLoader extends ImageLoader {
 
 
     @Override
-    public void displayImage(Context context, Object path, ImageView imageView) {
+    public void displayImage(Context context, Object path, RoundImageView imageView) {
         /**
          * context 上下文
          * path 图片路径
          * imageView 加载的控件
          * 可以使用任意图片加载方式
          * */
-        com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(path.toString(), imageView,ImageLoaderUtil.DIO20());
+        com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(path.toString(), imageView);
     }
 
 

@@ -29,10 +29,7 @@ android {
                 JPUSH_APPKEY : "7f7e24fee3d009e65ee9d215", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
-        ndk {
-            //设置支持的SO库架构
-            abiFilters "armeabi", "armeabi-v7a"/*, "x86","arm64-v8a","x86_64"*/
-        }
+        ndk {abiFilters "armeabi", "armeabi-v7a"}
         packagingOptions {
             exclude 'META-INF/DEPENDENCIES'
         }
@@ -99,8 +96,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.youth.banner:banner:1.4.10'
-    //轮播图
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //图片选择
     implementation 'com.android.support:design:27.1.1'
@@ -132,7 +127,6 @@ dependencies {
     implementation project(':nicevideoplayer')
     implementation project(':sdk')
     implementation files('libs/BaiduLBS_Android.jar')
-
     implementation files('libs/SocialSDK_QQ_Simplify.jar')
     implementation files('libs/SocialSDK_WeChat_Simplify.jar')
     implementation files('libs/umeng_social_api.jar')
@@ -141,4 +135,6 @@ dependencies {
     implementation files('libs/umeng_social_shareboard.jar')
     implementation files('libs/umeng_social_tool.jar')
     implementation files('libs/umeng-common-1.4.4.jar')
+    implementation project(':videocompressor')
+    implementation project(':banner')
 }

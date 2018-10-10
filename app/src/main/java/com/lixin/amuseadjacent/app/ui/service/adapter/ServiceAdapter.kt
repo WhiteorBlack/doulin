@@ -48,16 +48,15 @@ class ServiceAdapter(val context: Context, val serviceList: ArrayList<ServiceMod
         holder.tv_name.text = model.optimizationName
         holder.tv_info.text = model.optimizationDesc
 
-
         holder.cl_item.setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putSerializable("model", serviceList[position])
             MyApplication.openActivity(context, SpecialAreaActivity::class.java, bundle)
         }
 
-        holder.iv_image.setOnClickListener { v ->
-            PreviewPhoto.preview(context, model.optimizationImg)
-        }
+//        holder.iv_image.setOnClickListener { v ->
+//            PreviewPhoto.preview(context, model.optimizationImg)
+//        }
 
     }
 

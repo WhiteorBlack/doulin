@@ -1,1 +1,3 @@
-include ':app' ,  ':xrecyclerview', ':okhttputils', ':loopview' , ':bgABadgeView', ':swipeLayoutlibrary', ':nicevideoplayer', ':floatingActionButton',':uikit', "sdk"
+include ':app', ':xrecyclerview', ':okhttputils', ':loopview', ':bgABadgeView', ':swipeLayoutlibrary',
+        ':nicevideoplayer', ':floatingActionButton', ':uikit', "sdk", "videocompressor",
+        "banner"

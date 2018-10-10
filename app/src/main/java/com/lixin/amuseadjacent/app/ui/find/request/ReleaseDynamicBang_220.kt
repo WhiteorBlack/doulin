@@ -1,7 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.request
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Environment
 import android.text.TextUtils
@@ -22,7 +21,6 @@ import java.io.File
  * Created by Slingge on 2018/9/17
  */
 object ReleaseDynamicBang_220 {
-
 
     fun release(context: Activity, type: String, content: String, imageList: ArrayList<LocalMedia>, videoPath: String,
                 address: String) {
@@ -55,7 +53,8 @@ object ReleaseDynamicBang_220 {
                     })
 
         } else {
-            val file = ImageFileUtil.saveFilePath(Environment.getExternalStorageDirectory().path + "/Android/data/com.lixin.amuseadjacent/image" + "/PreviewingVideo.jpg")//保存压缩
+            val file = ImageFileUtil.saveFilePath(Environment.getExternalStorageDirectory().path
+                    + "/Android/data/com.lixin.amuseadjacent/image" + "/PreviewingVideo.jpg")//预览图
             listfile.add(file)
 
             OkHttpUtils.post().url(StaticUtil.ReleaseDynamicBang).addParams("uid", StaticUtil.uid)

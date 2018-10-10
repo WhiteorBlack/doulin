@@ -62,7 +62,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
                     holder.ll_image.visibility = View.GONE
                     holder.rv_image.visibility = View.VISIBLE
 
-                    val imageAdapter = ImageAdapter(context, model.bangbangImgUrl,1)
+                    val imageAdapter = ImageAdapter(context, model.bangbangImgUrl, 1)
                     holder.rv_image.adapter = imageAdapter
                 }
             } else {
@@ -87,20 +87,26 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
             holder.tv_price.text = model.activityMoney + "元/人"
             holder.tv_time.text = "时间：" + model.activityTime
             holder.tv_address.text = "地点：" + model.activityName
-            holder.tv_num.text = "人数：" + model.activityNownum+"/"+model.activityAllnum
+            holder.tv_num.text = "人数：" + model.activityNownum + "/" + model.activityAllnum
         }
 
         holder.tv_date.text = model.time
 
+        if (StaticUtil.uid != model.userId) {
+            holder.iv_del.visibility = View.GONE
+        }else{
+            holder.iv_del.visibility = View.VISIBLE
+        }
+
         holder.iv_del.setOnClickListener { v ->
             ProgressDialog.showDialog(context)
-            var id=""
-            if(model.type=="0"){
-                id=model.bangbangId
-            }else{
-                id=model.activityId
+            var id = ""
+            if (model.type == "0") {
+                id = model.bangbangId
+            } else {
+                id = model.activityId
             }
-            Myinteraction_161162.DelInteraction(model.type,id,object :Myinteraction_161162.DelInteractionCallBack{
+            Myinteraction_161162.DelInteraction(model.type, id, object : Myinteraction_161162.DelInteractionCallBack {
                 override fun del() {
                     interactionList.removeAt(position)
                     notifyDataSetChanged()
@@ -116,7 +122,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
     }
 
 
-   inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cl_1 = view.findViewById<ConstraintLayout>(R.id.cl_1)
         val cl_2 = view.findViewById<ConstraintLayout>(R.id.cl_2)
 
@@ -155,7 +161,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
             tv_type.visibility = View.GONE
 
             if (auid == StaticUtil.uid) {
-                iv_del.visibility=View.VISIBLE
+                iv_del.visibility = View.VISIBLE
             }
         }
 

@@ -18,6 +18,7 @@ import com.lixin.amuseadjacent.app.ui.find.model.EventModel
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
@@ -126,6 +127,13 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
                     notifyDataSetChanged()
                 }
             })
+        }
+
+        holder.iv_header.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("auid", model.userid)
+            bundle.putString("isAttention", model.isAttention)
+            MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
         }
 
     }

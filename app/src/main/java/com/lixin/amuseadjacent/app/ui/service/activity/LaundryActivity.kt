@@ -54,6 +54,8 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
     var carList = ArrayList<ShopGoodsModel.dataModel>()//小购物车商品
     private var shopCartDialog: ShopCartDialog? = null//小购物车
 
+    private var fragmentList=ArrayList<LaundryFrament>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_laundry)
@@ -130,22 +132,23 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         firstList = model.dataList
         val tabList = ArrayList<String>()
 
-        val list = ArrayList<Fragment>()
         for (i in 0 until firstList.size) {
             tabList.add(firstList[i].firstCategoryName)
-            fragment = LaundryFrament()
-            list.add(fragment!!)
+          val  fragment = LaundryFrament()
+            fragmentList.add(fragment)
         }
-        val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
+        fragment=fragmentList[0]
+
+        val adapter = FragmentPagerAdapter(supportFragmentManager, fragmentList, tabList)
         viewPager.adapter = adapter
         tab.setupWithViewPager(viewPager)
-        viewPager.offscreenPageLimit = list.size
+        viewPager.offscreenPageLimit = fragmentList.size
 
         menuList.clear()
         menuList.addAll(firstList[0].secondList)
         menuAdapter!!.notifyDataSetChanged()
         menuAdapter!!.setSelect(0)
-        EventBus.getDefault().post(menuList[0].secondCategoryId)
+//        EventBus.getDefault().post(menuList[0].secondCategoryId)
     }
 
 
@@ -161,6 +164,7 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         }
     }
 
+    //点击商品添加到购物车，或者移除
     @Subscribe
     fun onEvent(model: CarModel.editModel) {
         if (model.flag == 0) {//添加
@@ -169,6 +173,7 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
             for (i in 0 until carList.size) {
                 if (carList[i].goodsId == model.goodModel.goodsId) {
                     carList.removeAt(i)
+                    shopCartDialog!!.setGoodList(this, carList)
                     break
                 }
             }
@@ -197,8 +202,9 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
     //从购物车中删除
     override fun del(position: Int,goodId:String) {
         super.del(position,goodId)
-        fragment!!.delCar(carList[position].goodsId)
+        fragment!!.delCar(goodId)
         carList.removeAt(position)
+        carNum()
         shopCartDialog!!.setGoodList(this, carList)
     }
 
@@ -241,6 +247,8 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
+        fragment=fragmentList[tab!!.position]
+
         menuList.clear()
         menuList.addAll(firstList[tab!!.position].secondList)
         menuAdapter!!.notifyDataSetChanged()
