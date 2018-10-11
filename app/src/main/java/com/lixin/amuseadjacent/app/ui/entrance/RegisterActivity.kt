@@ -60,8 +60,8 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_code -> {
                 var phone = AbStrUtil.etTostr(et_phone)
-                if (TextUtils.isEmpty(phone)) {
-                    ToastUtil.showToast("请输入手机号")
+                if (TextUtils.isEmpty(phone) || phone.length != 11) {
+                    ToastUtil.showToast("请输入11位手机号")
                     return
                 }
 
@@ -71,8 +71,8 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.iv_sgin -> {
                 val phone = AbStrUtil.etTostr(et_phone)
-                if (TextUtils.isEmpty(phone)) {
-                    ToastUtil.showToast("请输入手机号")
+                if (TextUtils.isEmpty(phone) || phone.length != 11) {
+                    ToastUtil.showToast("请输入11位手机号")
                     return
                 }
 

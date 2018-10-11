@@ -7,6 +7,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.util.AbStrUtil
+import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_event_sginup.*
 
@@ -19,6 +20,7 @@ class EventSginUpActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_sginup)
+        et_phone.setText(StaticUtil.phone)
         init()
     }
 

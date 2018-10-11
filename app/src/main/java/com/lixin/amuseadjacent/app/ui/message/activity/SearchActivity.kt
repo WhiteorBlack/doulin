@@ -32,6 +32,7 @@ class SearchActivity : BaseActivity() {
 
     private var flag = 0//303搜索小区店铺
     private var recentList: ArrayList<RecentContact> = ArrayList()
+    private var userInfoList: ArrayList<UserInfo> = ArrayList()
     private var adapter: SearchChatAdapter? = null
     private var userInfo:UserInfo? = null
 
@@ -87,6 +88,7 @@ class SearchActivity : BaseActivity() {
                     // 查询最近联系人列表数据
                     ProgressDialog.showDialog(this)
                     recentList.clear()
+                    userInfoList.clear()
                     userInfo = null
                     NIMClient.getService(MsgService::class.java).queryRecentContacts().setCallback(object : RequestCallbackWrapper<List<RecentContact>?>() {
                         override fun onResult(code: Int, recents: List<RecentContact>?, exception: Throwable?) {
@@ -96,17 +98,20 @@ class SearchActivity : BaseActivity() {
                             }
                             for (i in 0 until recents.size){
                                 userInfo = NimUIKit.getUserInfoProvider().getUserInfo(recents[i].contactId)  //根据账号获取用户信息
-                                if (userInfo != null && !TextUtils.isEmpty(userInfo!!.name) && keytag == userInfo!!.name){
+                                if (userInfo != null && !TextUtils.isEmpty(userInfo!!.name) && userInfo!!.name.contains(keytag)){
 //                                    Log.e("dada",userInfo!!.avatar)
                                     recentList.add(recents[i])
-                                    break
+                                    userInfoList.add(userInfo!!)
                                 }
                             }
 
                             if (recentList.isEmpty()){
                                 ToastUtil.showToast("此聊天不存在")
+                                recentList.clear()
+                                userInfoList.clear()
+                                adapter!!.refresh(recentList,userInfoList)
                             }else{
-                                adapter!!.refresh(recentList,userInfo!!)
+                                adapter!!.refresh(recentList,userInfoList)
                             }
                             ProgressDialog.dissDialog()
                         }

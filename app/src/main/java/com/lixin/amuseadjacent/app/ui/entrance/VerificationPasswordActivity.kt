@@ -74,8 +74,8 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_code -> {//获取验证码
                 phone = AbStrUtil.etTostr(tv_phone)
-                if (TextUtils.isEmpty(phone)) {
-                    ToastUtil.showToast("请输入手机号")
+                if (TextUtils.isEmpty(phone) || phone.length != 11) {
+                    ToastUtil.showToast("请输入11位手机号")
                     return
                 }
 
@@ -99,6 +99,10 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
                         ToastUtil.showToast("验证码错误")
                         return
                     }
+                    if (TextUtils.isEmpty(phone) || phone.length != 11) {
+                        ToastUtil.showToast("请输入11位手机号")
+                        return
+                    }
                     SginIn_1213.smsSgin(this, phone)
                 } else {//密码登录
                     phone = AbStrUtil.etTostr(tv_phone)
@@ -107,6 +111,12 @@ class VerificationPasswordActivity : BaseActivity(), View.OnClickListener {
                         ToastUtil.showToast("请输入密码")
                         return
                     }
+
+                    if (TextUtils.isEmpty(phone) || phone.length != 11) {
+                        ToastUtil.showToast("请输入11位手机号")
+                        return
+                    }
+
                     ProgressDialog.showDialog(this)
                     SginIn_1213.passSgin(this, phone, pass)
                 }

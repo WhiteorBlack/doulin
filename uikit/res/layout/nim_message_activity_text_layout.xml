@@ -59,7 +59,7 @@
         android:textCursorDrawable="@null"
         android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/bottom_component_margin_horizontal"
         android:layout_toLeftOf="@+id/emoji_button"
@@ -68,8 +68,7 @@
         android:background="@drawable/ic_liaotian"
         android:paddingLeft="12dp"
         android:paddingRight="@dimen/dp_10"
-        android:maxHeight="72dip"
-        android:maxLines="1"
+        android:maxLines="3"
         android:ellipsize="end"
         android:textSize="14sp" />
 

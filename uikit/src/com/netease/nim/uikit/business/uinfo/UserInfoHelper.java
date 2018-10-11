@@ -20,7 +20,8 @@ public class UserInfoHelper {
         } else if (sessionType == SessionTypeEnum.Team) {
             return TeamHelper.getTeamName(id);
         }
-        return id;
+//        return id;
+        return "";
     }
 
     /**
@@ -36,7 +37,8 @@ public class UserInfoHelper {
             if (userInfo != null && !TextUtils.isEmpty(userInfo.getName())) {
                 return userInfo.getName();
             } else {
-                return account;
+//                return account;
+                return "";
             }
         }
     }
@@ -47,7 +49,8 @@ public class UserInfoHelper {
         if (userInfo != null && !TextUtils.isEmpty(userInfo.getName())) {
             return userInfo.getName();
         } else {
-            return account;
+//            return account;
+            return "";
         }
     }
 

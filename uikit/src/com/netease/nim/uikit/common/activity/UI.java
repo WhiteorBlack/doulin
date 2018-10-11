@@ -2,6 +2,7 @@ package com.netease.nim.uikit.common.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -102,12 +103,13 @@ public abstract class UI extends AppCompatActivity {
         }
     }
 
-    public void setToolBar(int toolBarId,int titleID ,ToolBarOptions options) {
+    //王丹加的
+    public void setToolBar(int toolBarId,int titleID ,final ToolBarOptions options) {
         toolbar = (Toolbar) findViewById(toolBarId);
         tv_title = (TextView) findViewById(titleID);
         if (options.titleId != 0) {
 //            toolbar.setTitle(options.titleId);
-            tv_title.setText(options.titleId);
+//            tv_title.setText(options.titleId);
         }
         if (!TextUtils.isEmpty(options.titleString)) {
             tv_title.setText(options.titleString);

@@ -137,6 +137,7 @@
         android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"
+        android:maxLength="19"
         app:layout_constraintBottom_toBottomOf="@+id/tv_num"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/et_name"

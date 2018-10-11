@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -90,6 +92,22 @@ public class P2PMessageActivity extends BaseMessageActivity {
         registerObservers(true);
         registerOnlineStateChangeListener(true);
         checkPermission();
+
+        if (!TextUtils.isEmpty(sessionId) && sessionId.equals("admin")) {
+
+        }else {
+            TextView tv_title = (TextView) findViewById(R.id.tv_title);
+            tv_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setClassName("com.lixin.amuseadjacent", "com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity");
+                    intent.putExtra("auid",sessionId);
+                    intent.putExtra("isAttention","0");
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     /**

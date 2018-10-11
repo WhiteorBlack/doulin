@@ -25,7 +25,7 @@ class SearchChatAdapter(val context: Context) : RecyclerView.Adapter<SearchChatA
 
     private var list: ArrayList<RecentContact>? = null
     private var onItemClickListener:OnItemClickListener? = null
-    private var userInfo:UserInfo? = null
+    private var userInfoList: ArrayList<UserInfo>? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_chat_msg, parent, false)
         return ViewHolder(view)
@@ -42,9 +42,10 @@ class SearchChatAdapter(val context: Context) : RecyclerView.Adapter<SearchChatA
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val item = list!![position]
+        val infoItem = userInfoList!![position]
 
-        ImageLoader.getInstance().displayImage(userInfo!!.avatar, holder.image, ImageLoaderUtil.HeaderDIO())
-        holder.tv_type.text = userInfo!!.name
+        ImageLoader.getInstance().displayImage(infoItem!!.avatar, holder.image, ImageLoaderUtil.HeaderDIO())
+        holder.tv_type.text = infoItem!!.name
         holder.tv_info.text = item.content
         holder.tv_msgNum.text = item.unreadCount.toString()
         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -67,9 +68,9 @@ class SearchChatAdapter(val context: Context) : RecyclerView.Adapter<SearchChatA
         fun itemClick(account:String)
     }
 
-    fun refresh(list: ArrayList<RecentContact>,userInfo: UserInfo) {
+    fun refresh(list: ArrayList<RecentContact>,userInfoList: ArrayList<UserInfo>) {
         this.list = list
-        this.userInfo = userInfo
+        this.userInfoList = userInfoList
         notifyDataSetChanged()
     }
 
