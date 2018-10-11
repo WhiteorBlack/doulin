@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.fragment
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -17,6 +18,8 @@ import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.*
 import com.lixin.amuseadjacent.app.ui.find.adapter.FindAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
+import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
@@ -108,6 +111,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
                 onRefresh = 1
                 Find_26.find()
             }
+
             override fun onLoadMore() {
             }
         })
@@ -118,7 +122,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         banner = headerView!!.findViewById(R.id.banner)
         banner!!.setOnBannerListener { i ->
-            if(TextUtils.isEmpty(bannerUrl)){
+            if (TextUtils.isEmpty(bannerUrl)) {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
@@ -174,7 +178,8 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             val bundle = Bundle()
             bundle.putString("name", eventModel!!.activityName)
             bundle.putString("id", eventModel!!.activityId)
-            MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
+            bundle.putInt("count", -303)
+            MyApplication.openActivityForResult(activity, EventDetailsActivity::class.java, bundle,2)
         }
 
         tv_follow!!.setOnClickListener { v ->
@@ -320,7 +325,6 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         tv_time!!.text = eventModel!!.time
         tv_comment!!.text = eventModel!!.commentNum
         tv_zan!!.text = eventModel!!.zanNum
-
     }
 
 
@@ -343,6 +347,65 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             }
         }
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data == null) {
+            return
+        }
+        if (requestCode == 1) {
+            val position = data.getIntExtra("position", -1)
+            if (position == -1) {
+                return
+            }
+            val model = data.getSerializableExtra("model") as DynamiclDetailsModel
+            findList[position].commentNum = model.`object`.commentNum
+            findList[position].isZan = model.`object`.isZan
+            findList[position].isAttention = model.`object`.isAttention
+            findList[position].zanNum = model.`object`.zanNum
+            findadapter!!.notifyDataSetChanged()
+        } else if (requestCode == 2) {//活动
+            val model = data.getSerializableExtra("model") as EventDetailsModel
+
+            eventModel!!.commentNum = model.`object`.commentNum
+            eventModel!!.zanNum = model.`object`.zanNum
+            eventModel!!.isZan = model.`object`.isZan
+            eventModel!!.isAttention = model.`object`.isAttention
+            eventModel!!.iscang = model.`object`.iscang
+            eventModel!!.issignup = model.`object`.issignup
+
+            if (eventModel!!.isZan == "0") {//0未赞过 1已赞过
+                AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, tv_zan, 5)
+            } else {
+                AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, tv_zan, 5)
+            }
+            if (eventModel!!.issignup == "0") {//0未报名 1已报名
+                tv_type!!.text = "未报名"
+            } else {
+                tv_type!!.text = "已报名"
+            }
+            if (eventModel!!.userid == StaticUtil.uid) {
+                tv_follow!!.visibility = View.INVISIBLE
+            } else {
+                tv_follow!!.visibility = View.VISIBLE
+                if (eventModel!!.isAttention == "0") {// 0未关注 1已关注
+                    tv_follow!!.text = "关注"
+                } else {
+                    tv_follow!!.text = "已关注"
+                    tv_follow!!.visibility = View.INVISIBLE
+                }
+            }
+            tv_comment!!.text = eventModel!!.commentNum
+            tv_zan!!.text = eventModel!!.zanNum
+        }
+    }
+
+    @Subscribe
+    fun onEvent() {
+
+    }
+
 
     override fun onPause() {
         super.onPause()

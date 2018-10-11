@@ -41,7 +41,7 @@ object ShopCar_12412537 {
     }
 
 
-    //3.7 加入购物车
+    //3.7 加入购物车.type0新鲜果蔬 1洗衣洗鞋 2超市便利
     fun addCar(type: String, goodsId: String, count: String, addCarCallback: AddCarCallback) {
         val json = "{\"cmd\":\"addShopCar\",\"uid\":\"" + StaticUtil.uid + "\",\"goodsId\":\"" + goodsId +
                 "\",\"count\":\"" + count + "\",\"type\":\"" + type + "\"}"

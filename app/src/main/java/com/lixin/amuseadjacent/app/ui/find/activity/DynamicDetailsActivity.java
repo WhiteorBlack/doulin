@@ -90,7 +90,6 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_details);
-        AndroidBug5497Workaround.assistActivity(this);//底部EditText不能被软键盘顶起
         this.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         EventBus.getDefault().register(this);
@@ -102,6 +101,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         flag = getIntent().getStringExtra("flag");
         position = getIntent().getIntExtra("position", -1);
         dynaId = getIntent().getStringExtra("id");
+
+        tv_comment = findViewById(R.id.tv_comment);
 
         tv_right = findViewById(R.id.tv_right);
         tv_title = findViewById(R.id.tv_title);
@@ -117,6 +118,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         }
 
         StatusBarWhiteColor();
+        findViewById(R.id.view_staus).setVisibility(View.GONE);
 
         rv_comment = findViewById(R.id.rv_comment);
 
@@ -127,6 +129,15 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         commentAdapter = new DynamicCommentAdapter(this, commentList);
         rv_comment.setAdapter(commentAdapter);
         commentAdapter.setId(dynaId, "0");
+        commentAdapter.setDelCommentCallBack(new DynamicCommentAdapter.DelCommentCallBack() {
+            @Override
+            public void delComment() {
+                commNum = Integer.valueOf(model.object.commentNum) - 1;
+                model.object.commentNum = commNum + "";
+                tv_comment.setText(model.object.commentNum);
+                isEdit=2;
+            }
+        });
 
         tv_zan = findViewById(R.id.tv_zan);
         image0 = findViewById(R.id.image0);

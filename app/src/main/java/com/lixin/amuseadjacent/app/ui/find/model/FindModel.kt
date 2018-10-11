@@ -80,6 +80,8 @@ class FindModel : Serializable {
         var zanNum = ""//点赞数量
         var commentNum = ""//评论数量
 
+        var iscang = ""//
+
         var time = ""//时间
         var isZan = ""//是否已经赞过 0未赞过 1已赞过
         var isAttention = ""//是否已经关注 0未关注 1已关注

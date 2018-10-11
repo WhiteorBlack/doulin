@@ -1,10 +1,12 @@
 package com.lixin.amuseadjacent.app.ui.find.model
 
+import java.io.Serializable
+
 /**
  * 达人
  * Created by Slingge on 2018/9/17
  */
-class EventModel {
+class EventModel :Serializable{
     var result = ""
     var resultNote = ""
     var totalPage = 1
@@ -14,7 +16,7 @@ class EventModel {
 
     var dataList = ArrayList<dataModel>()
 
-    class dataModel {
+    class dataModel :Serializable{
         var userid = ""//发布人id
         var userName = ""//发布人昵称
         var userIcon = ""//发布人头像

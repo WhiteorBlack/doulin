@@ -121,6 +121,11 @@ class OrderActivity : BaseActivity() {
         } else if (requestCode == StaticUtil.RefundResult) {//评价成功
             orderList[position].orderState = "11"
             orderAdapter!!.notifyDataSetChanged()
+        }else if (requestCode == StaticUtil.OrderDetailsResult) { //订单详情中的操作
+            if(data.getStringExtra("type")=="del"){
+                orderList.removeAt(position)
+                orderAdapter!!.notifyDataSetChanged()
+            }
         }else{
             if (orderList.isNotEmpty()) {
                 orderList.clear()

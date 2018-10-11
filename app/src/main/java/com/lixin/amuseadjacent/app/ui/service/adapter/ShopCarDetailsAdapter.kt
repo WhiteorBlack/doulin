@@ -18,7 +18,8 @@ import com.nostra13.universalimageloader.core.ImageLoader
  * Created by Slingge on 2018/8/30
  */
 class ShopCarDetailsAdapter(val context: Context, val flag: Int, val carList: ArrayList<ShopCarModel.carModel>,
-                            val selectCallBack: SelectCallBack, val editNumCallBack: EditNumCallBack, val delCarCallBack: DelCarCallBack) : RecyclerView.Adapter<ShopCarDetailsAdapter.ViewHolder>() {
+                            val selectCallBack: SelectCallBack, val editNumCallBack: EditNumCallBack, val delCarCallBack: DelCarCallBack)
+    : RecyclerView.Adapter<ShopCarDetailsAdapter.ViewHolder>() {
 
     private var isEdit = false//true 编辑状态
 

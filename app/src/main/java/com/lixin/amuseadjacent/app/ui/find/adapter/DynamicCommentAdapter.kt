@@ -34,6 +34,15 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
     private var dynaId = ""
     private var type = ""//0动态，1活动
 
+    interface DelCommentCallBack {
+        fun delComment()
+    }
+
+    private var delCommentCallBack: DelCommentCallBack? = null
+
+    fun setDelCommentCallBack(delCommentCallBack: DelCommentCallBack) {
+        this.delCommentCallBack = delCommentCallBack
+    }
 
     fun setId(dynaId: String, type: String) {
         this.dynaId = dynaId
@@ -73,7 +82,6 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
             AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
         }
         holder.tv_zan!!.setOnClickListener { v ->
-
             ProgressDialog.showDialog(context)
             ActivityComment_272829210.zan("0", dynaId, model.commentId, object : Find_26.ZanCallback {
                 override fun zan() {
@@ -95,6 +103,9 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
                 override fun delComment() {
                     commentList.removeAt(position)
                     notifyDataSetChanged()
+                    if (delCommentCallBack != null) {
+                        delCommentCallBack!!.delComment()
+                    }
                 }
             })
         }

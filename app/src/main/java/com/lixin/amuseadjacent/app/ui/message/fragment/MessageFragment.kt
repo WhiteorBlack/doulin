@@ -41,6 +41,7 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
         return view
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         tv_title.text = StaticUtil.communityName
@@ -100,6 +101,7 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
 
     @Subscribe
     fun onEvent(model: MsgListModel) {
+        tv_title.text = StaticUtil.communityName
 
         msgList.addAll(model.dataList)
         msgAdaptation!!.notifyDataSetChanged()

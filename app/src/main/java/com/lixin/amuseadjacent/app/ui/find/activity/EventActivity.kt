@@ -12,6 +12,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.EventAdapter
+import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.EventModel
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
@@ -144,13 +145,26 @@ class EventActivity : BaseActivity() {
         if (data == null) {
             return
         }
-        if (requestCode == 0) {
+        if (requestCode == 0) {//创建活动
             if (eventList.isNotEmpty()) {
                 eventList.clear()
                 eventAdapter!!.notifyDataSetChanged()
             }
             nowPage = 1
             Event_221222223224.EventList(nowPage)
+        }else if(requestCode == 2){//活动详情操作
+            val model=data.getSerializableExtra("model") as EventDetailsModel
+            val position=data.getIntExtra("count",-1)
+            if(position==-1){
+                return
+            }
+            eventList[position].commentNum=model.`object`.commentNum
+            eventList[position].zanNum=model.`object`.zanNum
+            eventList[position].isZan=model.`object`.isZan
+            eventList[position].isAttention=model.`object`.isAttention
+            eventList[position].iscang=model.`object`.iscang
+            eventList[position].issignup=model.`object`.issignup
+            eventAdapter!!.notifyDataSetChanged()
         }
     }
 

@@ -32,7 +32,9 @@ abstract class BaseActivity : AppCompatActivity() {
         tv_title.text = title
 
         val iv_back = findViewById<ImageView>(R.id.iv_back)
-        iv_back.setOnClickListener { view -> finish() }
+        iv_back.setOnClickListener { view ->
+            finish()
+        }
     }
 
     //白色状态栏

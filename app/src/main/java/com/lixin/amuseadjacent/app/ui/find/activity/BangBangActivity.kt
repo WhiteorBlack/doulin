@@ -147,7 +147,7 @@ class BangBangActivity : BaseActivity() {
         if(data==null){
             return
         }
-        if (requestCode == 1) {
+        if (requestCode == 3) {
             val model = data!!.getSerializableExtra("model") as DynamiclDetailsModel
             val position = data.getIntExtra("position",-1)
 
@@ -155,7 +155,7 @@ class BangBangActivity : BaseActivity() {
             dynaList[position].isZan = model.`object`.isZan
             dynaList[position].isAttention = model.`object`.isAttention
             dynaList[position].zanNum = model.`object`.zanNum
-            bangAdapter!!.notifyDataSetChanged()
+            bangAdapter!!.notifyItemChanged(position)
         }
     }
 

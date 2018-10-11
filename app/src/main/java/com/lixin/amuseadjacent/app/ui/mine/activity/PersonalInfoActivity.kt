@@ -26,7 +26,6 @@ import org.greenrobot.eventbus.Subscribe
  */
 class PersonalInfoActivity : BaseActivity(), View.OnClickListener, DatePop.WheelViewCallBack2 {
 
-
     private var datePop: DatePop? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +39,6 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener, DatePop.Wheel
         super.onStart()
         tv_name.text = StaticUtil.nickName
         ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
-//        if(StaticUtil.sex=="0") {//女
-//            tv_srx.text="女"
-//        }else{
-//            tv_srx.text="男"
-//        }
     }
 
     private fun init() {
@@ -55,6 +49,14 @@ class PersonalInfoActivity : BaseActivity(), View.OnClickListener, DatePop.Wheel
         tv_right.setOnClickListener(this)
         tv_right.text = "完成"
 
+        val model=intent.getSerializableExtra("model") as HomePageModel
+        et_nick.setText(model.nickname)
+        tv_birthday.text=model.birthday
+        if(model.sex=="0"){
+            tv_srx.text="女"
+        }else{
+            tv_srx.text="男"
+        }
         ImageLoader.getInstance().displayImage(StaticUtil.headerUrl, iv_header)
 
         tv_srx.setOnClickListener(this)

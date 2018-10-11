@@ -14,6 +14,7 @@ class HomePageModel : Serializable {
     var nickname = ""
     var sex = ""
     var age = ""
+    var birthday = ""//出生年月日
     var effectNum = ""//影响力
     var constellation = ""//星座
     var communityId = ""//社区单元id

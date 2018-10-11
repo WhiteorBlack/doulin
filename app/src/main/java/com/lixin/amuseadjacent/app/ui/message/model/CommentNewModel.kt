@@ -16,8 +16,10 @@ class CommentNewModel {
         var messageId = ""
         var messageTitle = ""
         var messageTime = ""
+        var messageContent = ""
         var userId = ""//评论人id
         var userIcon = ""//评论人头像
+
 
         var commentId = ""//一级评论id(一级评论消息为空 二级评论消息有)
 

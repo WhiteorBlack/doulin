@@ -1,22 +1,17 @@
 package com.lixin.amuseadjacent.app.ui.service.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.google.gson.Gson
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.service.adapter.LaundryAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.CarModel
-import com.lixin.amuseadjacent.app.ui.service.model.LaundryMapModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.model.TempIdModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
@@ -63,11 +58,8 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
     //添加到购物车
     override fun addCar(position: Int) {
         if (goodList[position].isSelect) {
-            goodList[position].isSelect = false
-            goodList[position].isAdd = false
-            goodList[position].goodsNum = 0
+            goodList[position].goodsNum=goodList[position].goodsNum+1
             laundryAdapter!!.notifyItemChanged(position)
-
             val model = CarModel.editModel()
             model.goodModel = goodList[position]
             model.flag = 1

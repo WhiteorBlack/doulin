@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.GridLayoutManager
@@ -279,21 +280,27 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 val bundle = Bundle()
                 bundle.putString("flag", "0")
                 bundle.putString("id", dynaList[position].dynamicId)
-                MyApplication.openActivity(context, DynamicDetailsActivity::class.java, bundle)
-            } else if (actiivtyList != null) {
+                bundle.putInt("position", position)
+                val intent = Intent(context, DynamicDetailsActivity::class.java)
+                intent.putExtras(bundle)
+                context.startActivityForResult(intent, 1)
+            } else if (actiivtyList != null) {//FindFramgent中不使用
                 val bundle = Bundle()
                 bundle.putString("name", actiivtyList[position].activityName)
                 bundle.putString("id", actiivtyList[position].activityId)
-                MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
+                bundle.putInt("count", position)
+                val intent = Intent(context, EventDetailsActivity::class.java)
+                intent.putExtras(bundle)
+                context.startActivityForResult(intent, 2)
             }
         }
 
-        holder.iv_header.setOnClickListener { v->
+        holder.iv_header.setOnClickListener { v ->
             val bundle = Bundle()
-            if(dynaList!=null){
+            if (dynaList != null) {
                 bundle.putString("auid", dynaList[position].dynamicUid)
                 bundle.putString("isAttention", dynaList[position].isAttention)
-            }else{
+            } else {
                 bundle.putString("auid", actiivtyList!![position].userid)
                 bundle.putString("isAttention", actiivtyList[position].isAttention)
             }

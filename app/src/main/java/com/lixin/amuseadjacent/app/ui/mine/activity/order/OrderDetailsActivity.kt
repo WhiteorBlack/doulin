@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.mine.activity.order
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.lixin.amuseadjacent.app.ui.mine.request.MyOrder_144155
 import com.lixin.amuseadjacent.app.ui.service.activity.PaymentActivity
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_order_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -114,11 +116,13 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_placeTime.text = model.adtime
 
             if (model.orderState == "12") {
-                return
+                tv_del.visibility=View.VISIBLE
+                tv_del.setOnClickListener(this)
+            }else{
+                payTime.visibility = View.VISIBLE//支付时间
+                tv_payTime.visibility = View.VISIBLE
+                tv_payTime.text = model.payTime
             }
-            payTime.visibility = View.VISIBLE//支付时间
-            tv_payTime.visibility = View.VISIBLE
-            tv_payTime.text = model.payTime
         }
 
         if (model.orderState == "2" || model.orderState == "3") {//显示15分钟送货到家
@@ -298,6 +302,19 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
                     ProgressDialog.showDialog(this)
                     MyOrder_144155.againOrder(this, orderNum)
                 }
+            }
+            R.id.tv_del -> {
+                ProgressDialog.showDialog(this)
+                MyOrder_144155.delOrder( orderNum,object :MyOrder_144155.OrderEditCallBack{
+                    override fun cancel() {
+                       ToastUtil.showToast("删除成功")
+                        val intent = Intent()
+                        intent.putExtra("type", "del")
+                        intent.putExtra("position", position)
+                        setResult(0, intent)
+                        finish()
+                    }
+                })
             }
         }
     }

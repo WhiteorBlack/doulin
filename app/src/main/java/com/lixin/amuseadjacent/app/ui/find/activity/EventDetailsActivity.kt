@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -15,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
+import com.lixin.amuseadjacent.app.ui.find.model.EventModel
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
@@ -43,13 +45,16 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private var imageList = ArrayList<String>()
 
+    private var isChuLi = -1//是否操作
+
+    private var count = -1//列表中的下标
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
         this.window.setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        AndroidBug5497Workaround.assistActivity(this)//底部EditText不能被软键盘顶起
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         EventBus.getDefault().register(this)
         init()
     }
@@ -57,8 +62,13 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private fun init() {
         StatusBarWhiteColor()
-        inittitle(intent.getStringExtra("name"))
+        view_staus.visibility = View.GONE
+        tv_right.text = intent.getStringExtra("name")
+        iv_back.setOnClickListener(this)
+
         eventId = intent.getStringExtra("id")
+
+        count = intent.getIntExtra("count", -1)
 
         tv_right.visibility = View.VISIBLE
         tv_right.text = "收藏"
@@ -87,6 +97,14 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         commentAdapter = DynamicCommentAdapter(this, commentList)
         rv_comment.adapter = commentAdapter
         commentAdapter!!.setId(eventId, "1")
+
+        commentAdapter!!.setDelCommentCallBack(object : DynamicCommentAdapter.DelCommentCallBack {
+            override fun delComment() {
+                eventModel.`object`.commentNum = ((eventModel.`object`.commentNum).toInt() - 1).toString()
+                tv_comment.text = eventModel.`object`.commentNum
+                isChuLi = 0
+            }
+        })
 
         ProgressDialog.showDialog(this)
         Event_221222223224.EventDetails(eventId)
@@ -118,7 +136,6 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             rl_3.visibility = View.GONE
         }
 
-
         if (model.`object`.iscang == "1") {//0未收藏 1已收藏
             tv_right.visibility = View.GONE
         }
@@ -129,7 +146,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_phone.text = model.`object`.activityPhone
         tv_initiator.text = model.`object`.userName
         tv_peoNum.text = model.`object`.activityAllnum + "人"
-        tv_cost.text ="￥" +model.`object`.activityMoney + "/人"
+        tv_cost.text = "￥" + model.`object`.activityMoney + "/人"
         tv_signInfo.text = "（" + model.`object`.activityNownum + "/" + model.`object`.activityAllnum + "）"
         tv_initiator.text = model.`object`.userName
 
@@ -152,7 +169,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
 
         var maxNun = 10
         if (model.signList != null) {
-            if(model.signList.size < 10){
+            if (model.signList.size < 10) {
                 maxNun = model.signList.size
             }
             pl_header.setAvatarListListener { imageViewList ->
@@ -183,6 +200,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                             tv_right.text = "收藏"
                             eventModel.`object`.iscang = "0"
                         }
+                        isChuLi = 1
                     }
                 })
             }
@@ -206,6 +224,10 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                         model.commentId = commentId
                         commentList.add(0, model)
                         commentAdapter!!.notifyDataSetChanged()
+
+                        eventModel.`object`.commentNum = ((eventModel.`object`.commentNum).toInt() + 1).toString()
+                        tv_comment.text = eventModel.`object`.commentNum
+                        isChuLi = 2
                     }
                 })
             }
@@ -217,17 +239,18 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                     override fun zan() {
                         if (eventModel.`object`.isZan == "1") {
                             eventModel.`object`.isZan = "0"
-                            tv_zan.text = (eventModel.`object`.zanNum.toInt() - 1).toString()
+                            eventModel.`object`.zanNum = (eventModel.`object`.zanNum.toInt() - 1).toString()
+                            tv_zan.text = (eventModel.`object`.zanNum)
                             AbStrUtil.setDrawableLeft(this@EventDetailsActivity, R.drawable.ic_zan, tv_zan, 5)
                         } else {
                             AbStrUtil.setDrawableLeft(this@EventDetailsActivity, R.drawable.ic_zan_hl, tv_zan, 5)
-                            tv_zan.text = (eventModel.`object`.zanNum.toInt() + 1).toString()
                             eventModel.`object`.isZan = "1"
+                            eventModel.`object`.zanNum = (eventModel.`object`.zanNum.toInt() + 1).toString()
+                            tv_zan.text = eventModel.`object`.zanNum
                         }
-
+                        isChuLi = 3
                     }
                 })
-
             }
             R.id.temp_comment -> {//评论
                 val bundle = Bundle()
@@ -248,6 +271,9 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 bundle.putSerializable("list", eventModel.signList)
                 MyApplication.openActivity(this, EventEnteredActivity::class.java, bundle)
             }
+            R.id.back -> {
+                onBack()
+            }
         }
     }
 
@@ -260,6 +286,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         if (requestCode == 0) {//报名成功
             tv_sign.visibility = View.GONE
             rl_3.visibility = View.VISIBLE
+            isChuLi = 4
         } else if (requestCode == 1) {//评论
             val content = data.getStringExtra("content")
             val commentId = data.getStringExtra("id")
@@ -276,6 +303,10 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             commentList.add(0, model)
             commentAdapter!!.notifyDataSetChanged()
             commentAdapter
+
+            eventModel.`object`.commentNum = ((eventModel.`object`.commentNum).toInt() + 1).toString()
+            tv_comment.text = eventModel.`object`.commentNum
+            isChuLi = 2
         } else if (requestCode == 303) {//二级回复
             if (data.getStringExtra("type") == "del") {
                 commentList.removeAt(data.getIntExtra("position", 0))
@@ -283,8 +314,32 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 commentList[data.getIntExtra("position", 0)] = data.getSerializableExtra("model") as ActivityCommentModel1.commModel
             }
             commentAdapter!!.notifyDataSetChanged()
+            isChuLi = 5
         }
     }
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_BACK -> onBack()
+            else -> {
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+
+    private fun onBack() {
+        if (isChuLi != -1) {
+            val intent = Intent()
+            intent.putExtra("type", "0")
+            intent.putExtra("model", eventModel)
+            intent.putExtra("count", count)
+            setResult(0, intent)
+        }
+        finish()
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()

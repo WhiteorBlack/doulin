@@ -21,7 +21,7 @@ public class EventDetailsModel implements Serializable {
     public ArrayList<ActivityCommentModel1.commModel> commList;
 
 
-    public class objectModel {
+    public class objectModel implements Serializable{
         public String activityId = "";//活动id
         public String activityName = "";//活动名称
         public String activityDesc = "";//活动简介

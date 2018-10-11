@@ -10,12 +10,13 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.util.ImageFileUtil
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.lxkj.runproject.app.view.SquareImage
 import com.nostra13.universalimageloader.core.ImageLoader
 
 
 /**
- * 实名信息图片
+ *
  * Created by Slingge on 2017/5/3 0003.
  */
 
@@ -37,8 +38,8 @@ class ReleaseAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val
             holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
             holder.iv_del.visibility = View.GONE
             holder.image.setOnClickListener { v ->
-
                 SelectPictureUtil.selectVodeoPicture(context, maxNum - list.size + 1, 0)
+                ToastUtil.showToast("可选择、录制10秒内视频")
             }
         } else {
             holder.iv_del.visibility = View.VISIBLE

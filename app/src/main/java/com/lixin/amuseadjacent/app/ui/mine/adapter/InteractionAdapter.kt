@@ -2,6 +2,8 @@ package com.lixin.amuseadjacent.app.ui.mine.adapter
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.service.carrier.MessagePdu
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
@@ -13,7 +15,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
 import com.lixin.amuseadjacent.app.ui.mine.model.InteractionModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Myinteraction_161162
 import com.lixin.amuseadjacent.app.util.StaticUtil
@@ -94,7 +99,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
 
         if (StaticUtil.uid != model.userId) {
             holder.iv_del.visibility = View.GONE
-        }else{
+        } else {
             holder.iv_del.visibility = View.VISIBLE
         }
 
@@ -112,6 +117,21 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
                     notifyDataSetChanged()
                 }
             })
+        }
+
+        holder.itemView.setOnClickListener { v ->
+            if (model.type == "0") {//0帮帮 1活动
+                val intent = Intent(context, DynamicDetailsActivity::class.java)
+                intent.putExtra("flag", "1")
+                intent.putExtra("position", position)
+                intent.putExtra("id", model.bangbangId)
+                context.startActivityForResult(intent, 3)
+            } else {
+                val bundle = Bundle()
+                bundle.putString("id", model.activityId)
+                bundle.putString("name", model.activityName)
+                MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
+            }
         }
 
     }

@@ -88,13 +88,6 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
         holder.tv_comment.text = model.commentNum
         holder.tv_zan.text = model.zanNum
 
-        holder.cl_item.setOnClickListener { v ->
-            val bundle = Bundle()
-            bundle.putString("id", model.activityId)
-            bundle.putString("name", model.activityName)
-            MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
-        }
-
         holder.tv_zan.setOnClickListener { v ->
             ProgressDialog.showDialog(context)
             ActivityComment_272829210.zan("0", model.activityId, "", object : Find_26.ZanCallback {
@@ -109,6 +102,14 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
                     notifyDataSetChanged()
                 }
             })
+        }
+
+        holder.cl_item.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("id", model.activityId)
+            bundle.putString("name", model.activityName)
+            bundle.putInt("count",position)
+            MyApplication.openActivityForResult(context, EventDetailsActivity::class.java, bundle,2)
         }
 
         holder.tv_follow.setOnClickListener { v ->

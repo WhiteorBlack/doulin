@@ -47,7 +47,7 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
             ImageLoader.getInstance().displayImage(model.userIcon, holder.image)
         } else {
             holder.text.text = "收到新的点赞"
-            holder.tex2.text = "点赞消息"
+            holder.tex2.text = model.messageContent
             ImageLoader.getInstance().displayImage(model.userIcon, holder.image)
         }
 
@@ -56,32 +56,37 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
 
         holder.cl_item.setOnClickListener { v ->
             if (model.state == "1") {//已经隐藏
-                ToastUtil.showToast("没有找到回复")
+                if (model.type == "1") {
+                    ToastUtil.showToast("没有找到该动态")
+                } else if (model.type == "2") {
+                    ToastUtil.showToast("没有找到该活动")
+                } else if (model.type == "3") {
+                    ToastUtil.showToast("没有找到该话题")
+                }
             } else {
                 val bundle = Bundle()
                 bundle.putString("commentId", model.commentId)
                 bundle.putString("id", model.objid)
                 if (model.type == "1") {//1动态帮帮 2活动 3话题
-                    if (!TextUtils.isEmpty(model.commentId)) {
-                        bundle.putSerializable("model", null)
-                        MyApplication.openActivity(context, DynamicDetailsReplyActivity::class.java, bundle)
-                    } else {
-                        bundle.putString("flag", "-1")
-                        MyApplication.openActivity(context, DynamicDetailsActivity::class.java, bundle)
-                    }
+                    /* if (!TextUtils.isEmpty(model.commentId)) {
+                         bundle.putSerializable("model", null)
+                         MyApplication.openActivity(context, DynamicDetailsReplyActivity::class.java, bundle)
+                     } else {*/
+                    bundle.putString("flag", "-1")
+                    MyApplication.openActivity(context, DynamicDetailsActivity::class.java, bundle)
+//                    }
                 } else if (model.type == "2") {//活动
-                    if (!TextUtils.isEmpty(model.commentId)) {
+                    /*if (!TextUtils.isEmpty(model.commentId)) {
                         bundle.putSerializable("model", null)
                         MyApplication.openActivity(context, EventDetailsReplyActivity::class.java, bundle)
-                    } else {
-                        bundle.putString("flag", "-1")
-                        MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
-                    }
+                    } else {*/
+                    bundle.putString("flag", "-1")
+                    MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
+//                    }
                 } else if (model.type == "3") {
 
                 }
             }
-
         }
 
         holder.tv_del.setOnClickListener { v ->

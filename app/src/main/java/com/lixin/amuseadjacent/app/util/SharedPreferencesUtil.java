@@ -24,8 +24,8 @@ public class SharedPreferencesUtil {
 	public static String Phone="phone";
 	public static String Pass="pass";
 	public static String uid="uid";
-	public static String communityId="communityId";
-	public static String communityName="communityName";
+	public static String communityId="communityId";//社区id
+	public static String communityName="communityName";//社区名
 	public static String headerUrl="headerUrl";
 	public static String nickName="nickName";
 	public static String rytoken="rytoken";

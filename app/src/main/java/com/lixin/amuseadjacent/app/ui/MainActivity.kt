@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui
 
 import android.Manifest
+import android.content.Intent
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.FindFragment
+import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.ui.message.fragment.MessageFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.MineFragment
 import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
@@ -48,8 +50,8 @@ class MainActivity : BaseActivity() {
      * 检查权限
      */
     private fun checkPermission() {
-        val helper= PermissionHelper(this)
-        helper.requestPermissions(object: PermissionHelper.PermissionListener{
+        val helper = PermissionHelper(this)
+        helper.requestPermissions(object : PermissionHelper.PermissionListener {
             override fun doAfterGrand(vararg permission: String?) {
 //                initMap()
             }
@@ -120,8 +122,16 @@ class MainActivity : BaseActivity() {
         }
     }
 
+
+    //保证findFramgent能获取到onActivityResult
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode,resultCode,data)
+        bFragment2!!.onActivityResult(requestCode, resultCode, data)
+    }
+
+
     override fun onBackPressed() {
-        if (NiceVideoPlayerManager.instance().onBackPressd()){
+        if (NiceVideoPlayerManager.instance().onBackPressd()) {
             return
         }
         super.onBackPressed()

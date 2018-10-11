@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.app.ui.mine.request
 import android.app.Activity
 import android.content.Context
 import com.lixin.amuseadjacent.app.ui.entrance.model.UnityModel
+import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -23,7 +24,7 @@ object CommunityMessage_127 {
                 super.onResponse(response, id)
                val obj=JSONObject(response)
                 if(obj.getString("result")=="0"){
-                    ToastUtil.showToast("更换社区信息成功")
+                    ToastUtil.showToast("更换社区信息申请成功")
                     context.finish()
                 }else{
                     ToastUtil.showToast(obj.getString("resultNote"))

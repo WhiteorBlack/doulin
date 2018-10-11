@@ -16,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.AlbumDialog
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.AlbumAdapter
+import com.lixin.amuseadjacent.app.ui.message.model.CommunityUserModel
 import com.lixin.amuseadjacent.app.ui.mine.model.HomePageModel
 import com.lixin.amuseadjacent.app.ui.mine.request.EditeNote_167
 import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
@@ -43,6 +44,8 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
 
     private var albumAdapter: AlbumAdapter? = null
     private val imageList = ArrayList<LocalMedia>()
+
+    private var homePageModel: HomePageModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,7 +141,7 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe
     fun onEvent(model: HomePageModel) {
-        val pageModel = model
+        homePageModel = model
 
         ImageLoader.getInstance().displayImage(model.icon, iv_header)
 
@@ -153,21 +156,21 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         tv_name.text = StaticUtil.nickName
         tv_effect.text = "影响力" + StaticUtil.effectNum
 
-        et_autograph.setText(pageModel.autograph)//签名
-        et_occupation.setText(pageModel.occupation)//职业
-        et_hometown.setText(pageModel.hometown)
+        et_autograph.setText(homePageModel!!.autograph)//签名
+        et_occupation.setText(homePageModel!!.occupation)//职业
+        et_hometown.setText(homePageModel!!.hometown)
 
         et_note.setText(model.remarks)
 
-        tv_sex.text = pageModel.age
-        tv_constellation.text = pageModel.constellation
-        tv_address.text = pageModel.communityName + pageModel.unitName + pageModel.doorNumber
+        tv_sex.text = homePageModel!!.age
+        tv_constellation.text = homePageModel!!.constellation
+        tv_address.text = homePageModel!!.communityName + homePageModel!!.unitName + homePageModel!!.doorNumber
 
         if (imageList.isEmpty()) {
-            for (i in 0 until pageModel.albumList.size) {
+            for (i in 0 until homePageModel!!.albumList.size) {
                 val localMedia = LocalMedia()
-                localMedia.path = pageModel.albumList[i].imgUrl
-                localMedia.pictureType = pageModel.albumList[i].imgId
+                localMedia.path = homePageModel!!.albumList[i].imgUrl
+                localMedia.pictureType = homePageModel!!.albumList[i].imgId
                 imageList.add(localMedia)
             }
             imageList.add(LocalMedia("", 1L, 0, ""))
@@ -179,27 +182,27 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
             albumAdapter!!.setDelShow(false)
         }
 
-        if (!pageModel.sportList.isEmpty()) {
-            tv_sport.text = pageModel.sportList[0]
+        if (!homePageModel!!.sportList.isEmpty()) {
+            tv_sport.text = homePageModel!!.sportList[0]
         }
 
-        if (!pageModel.musicList.isEmpty()) {
-            tv_music.text = pageModel.musicList[0]
+        if (!homePageModel!!.musicList.isEmpty()) {
+            tv_music.text = homePageModel!!.musicList[0]
         }
 
-        if (!pageModel.foodsList.isEmpty()) {
-            tv_food.text = pageModel.foodsList[0]
+        if (!homePageModel!!.foodsList.isEmpty()) {
+            tv_food.text = homePageModel!!.foodsList[0]
         }
 
-        if (!pageModel.movieList.isEmpty()) {
-            tv_film.text = pageModel.movieList[0]
+        if (!homePageModel!!.movieList.isEmpty()) {
+            tv_film.text = homePageModel!!.movieList[0]
         }
 
-        if (!pageModel.booksList.isEmpty()) {
-            tv_book.text = pageModel.booksList[0]
+        if (!homePageModel!!.booksList.isEmpty()) {
+            tv_book.text = homePageModel!!.booksList[0]
         }
-        if (!pageModel.otherList.isEmpty()) {
-            tv_label.text = pageModel.otherList[0]
+        if (!homePageModel!!.otherList.isEmpty()) {
+            tv_label.text = homePageModel!!.otherList[0]
         }
     }
 
@@ -207,7 +210,9 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.view_person -> {//个人信息
-                MyApplication.openActivity(this, PersonalInfoActivity::class.java)
+                val bundle = Bundle()
+                bundle.putSerializable("model", homePageModel)
+                MyApplication.openActivity(this, PersonalInfoActivity::class.java, bundle)
             }
             R.id.sport, R.id.music, R.id.food, R.id.film, R.id.book -> {//爱好资料
                 MyApplication.openActivity(this, HobbyActivity::class.java)

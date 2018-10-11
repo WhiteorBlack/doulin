@@ -11,6 +11,9 @@ class MsgListModel {
 
     var result = ""
     var resultNote = ""
+    var communityId = ""
+    var communityName = ""
+
     var dataList = ArrayList<msgModel>()
 
     class msgModel : Serializable {

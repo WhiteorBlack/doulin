@@ -21,7 +21,6 @@ import com.lixin.amuseadjacent.app.ui.mine.model.CouponMyModel
 class CouponMyAdapter(val context: Activity, val couponList: ArrayList<CouponMyModel.couponModel>, val flag: Int
                       , val type: Int) : RecyclerView.Adapter<CouponMyAdapter.ViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_coupon_my, parent, false)
         return ViewHolder(view)

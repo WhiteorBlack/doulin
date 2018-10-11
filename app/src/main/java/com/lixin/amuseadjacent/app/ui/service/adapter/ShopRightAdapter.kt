@@ -79,7 +79,7 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
         }
 
 
-        holder.iv_add.setOnClickListener { v ->
+        holder.iv_add.setOnClickListener { v ->//type0新鲜果蔬 1洗衣洗鞋 2超市便利
             ShopCar_12412537.addCar(type, model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
                 override fun addCar() {
                     addShopCar.addCar(position)

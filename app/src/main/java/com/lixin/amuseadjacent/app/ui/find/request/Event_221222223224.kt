@@ -30,7 +30,6 @@ object Event_221222223224 {
 
     fun EventList(nowPage: Int) {
 
-
         val json = "{\"cmd\":\"findActivityList\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + StaticUtil.communityId +
                 "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "15" + "\"}"
 

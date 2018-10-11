@@ -20,7 +20,6 @@ import com.lixin.amuseadjacent.app.ui.find.request.DeleteComment_227
 import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.util.AbStrUtil
-import com.lixin.amuseadjacent.app.util.AndroidBug5497Workaround
 import com.lixin.amuseadjacent.app.util.GetDateTimeUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -53,7 +52,6 @@ class EventDetailsReplyActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dynamic_detailsreply)
-        AndroidBug5497Workaround.assistActivity(this)//底部EditText不能被软键盘顶起
         EventBus.getDefault().register(this)
         init()
     }
@@ -89,7 +87,7 @@ class EventDetailsReplyActivity : BaseActivity() {
             Destroy()
         }
         StatusBarWhiteColor()
-
+        view_staus.visibility = View.GONE
     }
 
 

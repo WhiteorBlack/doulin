@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe
  */
 class InteractionFragment : BaseFragment() {
 
+
     private var linearLayoutManager: LinearLayoutManager? = null
     private var interactionList = ArrayList<InteractionModel.dataModel>()
     private var interactionAdapter: InteractionAdapter? = null

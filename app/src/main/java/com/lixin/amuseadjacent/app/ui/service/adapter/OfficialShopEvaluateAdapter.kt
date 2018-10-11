@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.service.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.MyApplication
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.ui.service.model.OfficialShopDetailsModel
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -35,11 +38,17 @@ class OfficialShopEvaluateAdapter(val context: Context, var commentList: ArrayLi
 
         holder.tv_name.text = model.commentName
         ImageLoader.getInstance().displayImage(model.commentIcon, holder.iv_header)
-        holder.tv_name.text = model.commentName
         holder.tv_comment.text = model.commentContent
         holder.tv_time.text = model.commentTime
 
         holder.ratingBar.rating = model.commentStar.toFloat()
+
+        holder.iv_header.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("auid", model.commentUid)
+            bundle.putString("isAttention", "")
+            MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
+        }
     }
 
 

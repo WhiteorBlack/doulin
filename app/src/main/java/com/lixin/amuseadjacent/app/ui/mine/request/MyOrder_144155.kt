@@ -204,4 +204,22 @@ object MyOrder_144155 {
         })
     }
 
+
+    //删除订单
+    fun delOrder(orderNum:String,orderEditCallBack:OrderEditCallBack){
+        val json = "{\"cmd\":\"realdeleteorder\",\"uid\":\"" + StaticUtil.uid +
+              "\",\"orderNum\":\"" + orderNum + "\"}"
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json",json).build().execute(object :StrCallback(){
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val obj=JSONObject(response)
+                if(obj.getString("result")=="0"){
+                    orderEditCallBack.cancel()
+                }else{
+                    ToastUtil.showToast(obj.getString("resultNote"))
+                }
+            }
+        })
+    }
+
 }

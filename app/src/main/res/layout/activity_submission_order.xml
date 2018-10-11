@@ -263,10 +263,10 @@
                 android:layout_marginTop="12dp"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
-                android:visibility="gone"
                 android:text="注意：洗衣需要两到三天哦，洗完后商家会电话通知你确定是否送达，请保持电话畅通。"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/sub_fant"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_note" />
@@ -275,10 +275,10 @@
                 android:id="@+id/tv_submission"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="12dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/bg_them8"
                 android:gravity="center"
                 android:paddingBottom="10dp"
@@ -289,8 +289,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_careful"
-                app:layout_goneMarginBottom="50dp" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_careful" />
 
         </android.support.constraint.ConstraintLayout>
 
