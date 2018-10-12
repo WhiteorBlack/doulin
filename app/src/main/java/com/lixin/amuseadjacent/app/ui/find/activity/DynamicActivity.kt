@@ -33,11 +33,12 @@ class DynamicActivity : BaseActivity() {
     private val imageList = ArrayList<String>()
 
     private var bannerUrl = ""
+    private var topImgDetailUrlState = ""//图片点击详情链接状态 0 有效 1无效
 
     private var fragment0: DynamicFragment? = null
     private var fragment1: DynamicFragment? = null
 
-    private var i = 0;
+    private var i = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,6 +103,9 @@ class DynamicActivity : BaseActivity() {
         })
 
         banner.setOnBannerListener { i ->
+            if(topImgDetailUrlState=="1"){
+                return@setOnBannerListener
+            }
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", bannerUrl)
@@ -113,6 +117,7 @@ class DynamicActivity : BaseActivity() {
     @Subscribe
     fun onEvent(model: DynamiclModel) {
         bannerUrl = model.topImgUrl
+        topImgDetailUrlState=model.topImgDetailUrlState
         imageList.clear()
         imageList.add(bannerUrl)
         banner!!.setImages(imageList)

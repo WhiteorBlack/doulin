@@ -38,7 +38,6 @@ class ShopLeftAdapter(val context: Context, var leftList: ArrayList<ShopGoodsLis
         }
 
         holder.tv_name.text = leftList[position].firstCategoryName
-
     }
 
 

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray2"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <include
@@ -18,7 +19,8 @@
     <com.example.xrecyclerview.XRecyclerView
         android:id="@+id/xrecyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_3"
         android:layout_below="@+id/include" />
 
 
@@ -60,5 +62,51 @@
         android:textColor="@color/white"
         android:textSize="17sp"
         android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rl_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorLine"
+        >
+
+        <include
+            android:id="@+id/line5"
+            layout="@layout/include_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+
+        <EditText
+            android:id="@+id/et_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_toLeftOf="@+id/tv_send"
+            android:background="@drawable/bg_white1"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/main_fant" />
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/bg_bule3"
+            android:paddingBottom="8dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="8dp"
+            android:text="发送"
+            android:textColor="@color/white"
+            android:textSize="@dimen/main_fant" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

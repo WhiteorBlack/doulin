@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.Subscribe
 class CouponMyFragment : BaseFragment() {
 
     private var flag = -1//0未使用，1已使用，2已过期
+    private var type = -1//选择优惠券,0新鲜果蔬 1洗衣洗鞋 2超市便利
 
     private var nowPage = 1
     private var totalPage = 1
@@ -47,10 +48,11 @@ class CouponMyFragment : BaseFragment() {
         include.visibility = View.GONE
         xrecyclerview.layoutManager = linearLayoutManager
 
-        val type = arguments!!.getInt("type", 0)//type1选择优惠券
+        type = arguments!!.getInt("type", -1)//type1选择优惠券
 
         couponAdapter = CouponMyAdapter(activity!!, couponList, flag, type)
         xrecyclerview.adapter = couponAdapter
+        couponAdapter!!.setTotalMoney(arguments!!.getDouble("money",0.0))
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
@@ -95,12 +97,31 @@ class CouponMyFragment : BaseFragment() {
 
     @Subscribe
     fun onEvent(model: CouponMyModel) {
-        if(!isVisibleToUser){
+        if (!isVisibleToUser) {
             return
         }
         totalPage = model.totalPage
 
-        couponList.addAll(model.dataList)
+        if (flag == 0 && type != -1) {
+            for (i in 0 until model.dataList.size) {
+                if (type == 0) {//0新鲜果蔬 1洗衣洗鞋 2超市便利
+                    if (model.dataList[i].securitiesType =="2") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                        couponList.add(model.dataList[i])
+                    }
+                }else if(type == 1){
+                    if (model.dataList[i].securitiesType =="1") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                        couponList.add(model.dataList[i])
+                    }
+                }else if(type == 2){
+                    if (model.dataList[i].securitiesType =="0") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                        couponList.add(model.dataList[i])
+                    }
+                }
+            }
+        }else{
+            couponList.addAll(model.dataList)
+        }
+
 
         if (totalPage <= 1) {
             if (couponList.isEmpty()) {

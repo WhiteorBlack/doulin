@@ -12,6 +12,8 @@ class ActivityCommentModel1 : Serializable {
     var result = ""
     var resultNote = ""
 
+    var totalPage=1
+
     var dataList = ArrayList<commModel>()
 
     var `object` = commModel()

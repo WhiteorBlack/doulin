@@ -40,6 +40,7 @@ class EventActivity : BaseActivity() {
 
     private val imageList = ArrayList<String>()
     private var bannerUrl = ""
+    private var topImgDetailUrlState = ""//图片点击详情链接状态 0 有效 1无效
 
     private var banner:Banner?=null
 
@@ -100,6 +101,9 @@ class EventActivity : BaseActivity() {
 
 
         banner!!.setOnBannerListener { i ->
+            if(topImgDetailUrlState=="1"){
+             return@setOnBannerListener
+            }
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", bannerUrl)
@@ -113,6 +117,7 @@ class EventActivity : BaseActivity() {
     fun onEvent(model: EventModel) {
         if (imageList.isEmpty()) {
             bannerUrl = model.topImgUrl
+            topImgDetailUrlState=model.topImgDetailUrlState
             imageList.add(bannerUrl)
             banner!!.setImages(imageList)
                     .setImageLoader(GlideImageLoader())

@@ -18,6 +18,7 @@ class PopularShopModel {
     class bannerModel {
         var topImgUrl = ""
         var topImgDetailUrl = ""//图片点击详情链接
+        var topImgDetailUrlState = ""//图片点击详情链接状态 0 有效 1无效
     }
 
     class dataModel {

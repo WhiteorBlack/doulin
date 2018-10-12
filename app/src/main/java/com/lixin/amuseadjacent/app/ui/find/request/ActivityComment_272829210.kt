@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.find.request
 
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
+import com.lixin.amuseadjacent.app.ui.find.model.TopicModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.huaihuatransit.app.util.StrCallback
@@ -19,9 +20,9 @@ object ActivityComment_272829210 {
 
 
     //获取一级评论,0活动 1话题
-    fun getComment1(type: String, activityId: String, nowPage: Int, pageCount: Int) {
+    fun getComment1(type: String, activityId: String, nowPage: Int) {
         val json = "{\"cmd\":\"activityDetailComment\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
-                "\",\"activityId\":\"" + activityId + "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + pageCount + "\"}"
+                "\",\"activityId\":\"" + activityId + "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + 15 + "\"}"
         abLog.e("获取评论", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
@@ -56,7 +57,7 @@ object ActivityComment_272829210 {
 
 
     interface CommentCallBack {
-        fun commemt(commentId:String)
+        fun commemt(commentId: String)
     }
 
 
@@ -102,6 +103,23 @@ object ActivityComment_272829210 {
                     commentCallBack.commemt(obj.getString("object"))
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
+                }
+            }
+        })
+    }
+
+
+    //话题详情
+    fun getthemedetail(themeId: String) {
+        val json = "{\"cmd\":\"getthemedetail\",\"uid\":\"" + StaticUtil.uid + "\",\"themeId\":\"" + themeId + "\"}"
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val model = Gson().fromJson(response, TopicModel::class.java)
+                if (model.result == "0") {
+                    EventBus.getDefault().post(model.`object`)
+                } else {
+                    ToastUtil.showToast(model.resultNote)
                 }
             }
         })

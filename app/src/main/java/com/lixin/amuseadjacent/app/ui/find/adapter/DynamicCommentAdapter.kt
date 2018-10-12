@@ -32,7 +32,7 @@ import com.nostra13.universalimageloader.core.ImageLoader
 class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<ActivityCommentModel1.commModel>) : RecyclerView.Adapter<DynamicCommentAdapter.ViewHolder>() {
 
     private var dynaId = ""
-    private var type = ""//0动态，1活动
+    private var type = ""//0动态，1活动,2话题
 
     interface DelCommentCallBack {
         fun delComment()
@@ -121,6 +121,7 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
 
             intent.putExtra("model", commentList[position])
             intent.putExtra("id", dynaId)
+            intent.putExtra("type",type)
             intent.putExtra("position", position)
             context.startActivityForResult(intent, 303)
         }

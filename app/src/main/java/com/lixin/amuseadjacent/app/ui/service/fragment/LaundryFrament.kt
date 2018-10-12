@@ -15,6 +15,7 @@ import com.lixin.amuseadjacent.app.ui.service.model.CarModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.model.TempIdModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
+import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -59,6 +60,7 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
     override fun addCar(position: Int) {
         if (goodList[position].isSelect) {
             goodList[position].goodsNum=goodList[position].goodsNum+1
+            goodList[position].money=DoubleCalculationUtil.mul(goodList[position].goodsNum.toDouble(),goodList[position].UnitPrice)
             laundryAdapter!!.notifyItemChanged(position)
             val model = CarModel.editModel()
             model.goodModel = goodList[position]

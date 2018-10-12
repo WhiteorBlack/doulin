@@ -43,8 +43,8 @@ import org.greenrobot.eventbus.Subscribe
  * Created by Slingge on 2018/8/30
  */
 class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdapter.AddShopCar
-        , ShopCartDialog.PlusCallBack, ShopCartDialog.ReduceCallBack, ShopCartDialog.DelCallBack
-        , ShopCartDialog.SettlementCallBack, ShopRightAdapter.ShopOnClickListtener {
+        , ShopRightAdapter.ReduceShopCar, ShopCartDialog.PlusCallBack, ShopCartDialog.ReduceCallBack,
+        ShopCartDialog.DelCallBack, ShopCartDialog.SettlementCallBack, ShopRightAdapter.ShopOnClickListtener {
 
     private var type = ""//0新校果蔬，1超市便利
 
@@ -57,6 +57,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     private var linearLayoutManager2: LinearLayoutManager? = null
 
     private var bannerUrl = ""//顶部广告跳转
+    private var topImgDetailUrlState = ""//图片点击详情链接状态 0 有效 1无效
 
     private var search = ""//搜索内容
 
@@ -153,6 +154,22 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         carNum()
     }
 
+    //从适配器中减少数量
+    override fun reduceCar(position: Int) {
+        rightList[position].goodsNum -= 1
+        rightAdapter!!.notifyItemChanged(position)
+
+        for (i in 0 until carList.size) {//增加数量
+            if (carList[i].goodsId == rightList[position].goodsId) {
+                carList[i].goodsNum = rightList[position].goodsNum
+                carList[i].money = DoubleCalculationUtil.mul(carList[i].goodsNum.toDouble(), carList[i].UnitPrice)
+                break
+            }
+        }
+        carNum()
+    }
+
+
     //从购物车中增加
     override fun plus(position: Int, num: Int, money: Double, goodId: String) {
         super.plus(position, num, money, goodId)
@@ -240,6 +257,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         }
 
         bannerUrl = model.bannerList[0].topImgDetailUrl
+        topImgDetailUrlState = model.bannerList[0].topImgDetailUrlState
         ImageLoader.getInstance().displayImage(model.bannerList[0].topImgUrl, iv_bg)
     }
 
@@ -247,10 +265,10 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     fun onEvent(model: ShopGoodsModel) {
         rightList.clear()
         rightList = model.dataList
-        if(rightList.isEmpty()){
+        if (rightList.isEmpty()) {
             ToastUtil.showToast("暂无商品")
         }
-        rightAdapter = ShopRightAdapter(this, title, rightList, this)
+        rightAdapter = ShopRightAdapter(this, title, rightList, this, this)
         if (rightAdapter!!.shoponclickListtener == null) {
             rightAdapter!!.setShopOnClickListtener(this)
         }
@@ -269,6 +287,9 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
                 shopCartDialog!!.shopCar(this, carList)
             }
             R.id.iv_bg -> {
+                if (topImgDetailUrlState == "1") {
+                    return
+                }
                 val bundle = Bundle()
                 bundle.putString("title", "")
                 bundle.putString("url", bannerUrl)

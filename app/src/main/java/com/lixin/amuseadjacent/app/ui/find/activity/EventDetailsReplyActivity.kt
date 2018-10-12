@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
@@ -27,13 +29,13 @@ import kotlinx.android.synthetic.main.activity_dynamic_detailsreply.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.util.ArrayList
+import java.util.*
 
 /**
- * 活动评论回复
+ * 活动、话题评论回复
  * Created by Slingge on 2018/8/25.
  */
-class EventDetailsReplyActivity : BaseActivity() {
+class EventDetailsReplyActivity : BaseActivity(), DynamicCommentReplyAdapter.DelCommentCallBack {
 
     private var replyAdapter: DynamicCommentReplyAdapter? = null
     private var commentList = ArrayList<ActivityCommentModel1.commModel>()
@@ -43,8 +45,10 @@ class EventDetailsReplyActivity : BaseActivity() {
     private var commentId = ""//评论id
 
     private var headerView: View? = null
-
+    private var timer: Timer? = null
     private var tv_zan: TextView? = null
+
+    private var type=""//0活动,1话题
 
     private var chushi = -2
 
@@ -70,14 +74,21 @@ class EventDetailsReplyActivity : BaseActivity() {
 
         replyAdapter = DynamicCommentReplyAdapter(this, commentList)
         rv_reply.adapter = replyAdapter
-
+        replyAdapter!!.setDelCommentCallBack(this)
 
         dyeventId = intent.getStringExtra("id")
+        type= intent.getStringExtra("type")
+        if(type=="1"){
+            type="0"
+        }else if(type=="2"){
+            type="1"
+        }
 
-        if(intent.getSerializableExtra("model")!=null){
-            model=intent.getSerializableExtra("model")as ActivityCommentModel1.commModel
+
+        if (intent.getSerializableExtra("model") != null) {
+            model = intent.getSerializableExtra("model") as ActivityCommentModel1.commModel
             setDetails()
-        }else{//从评论消息跳转，用借口获取一级评论数据
+        } else {//从评论消息跳转，用借口获取一级评论数据
             commentId = intent.getStringExtra("commentId")
             ProgressDialog.showDialog(this)
             DynaComment_133134.commentFirst(commentId)
@@ -108,7 +119,7 @@ class EventDetailsReplyActivity : BaseActivity() {
     }
 
     fun setDetails() {
-        commentId=model.commentId
+        commentId = model.commentId
         tv_title.text = model.secondNum + "条回复"
 
         headerView!!.findViewById<TextView>(R.id.tv_name).text = model.commentName
@@ -141,11 +152,8 @@ class EventDetailsReplyActivity : BaseActivity() {
         }
 
         tv_zan!!.setOnClickListener { v ->
-            if (model.isZan == "1") {
-                return@setOnClickListener
-            }
             ProgressDialog.showDialog(this)
-            ActivityComment_272829210.zan("0", dyeventId, model.commentId, object : Find_26.ZanCallback {
+            ActivityComment_272829210.zan(type, dyeventId, model.commentId, object : Find_26.ZanCallback {
                 override fun zan() {
                     if (model.isZan == "1") {
                         model.isZan = "0"
@@ -162,13 +170,26 @@ class EventDetailsReplyActivity : BaseActivity() {
             })
         }
 
+        headerView!!.findViewById<TextView>(R.id.tv_commentNum).setOnClickListener { v ->
+            if (timer == null) {
+                timer = Timer()
+            }
+            et_comment.requestFocus()//获取焦点 光标出现
+            timer!!.schedule(object : TimerTask() {
+                override fun run() {
+                    val inputManager = this@EventDetailsReplyActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.showSoftInput(et_comment, 0)
+                }
+            }, 10)
+        }
+
         tv_send.setOnClickListener { v ->
             val content = AbStrUtil.etTostr(et_comment)
             if (TextUtils.isEmpty(content)) {
                 return@setOnClickListener
             }
             ProgressDialog.showDialog(this)
-            ActivityComment_272829210.comment("0", dyeventId, model.commentId, content, object : ActivityComment_272829210.CommentCallBack {
+            ActivityComment_272829210.comment(type, dyeventId, model.commentId, content, object : ActivityComment_272829210.CommentCallBack {
                 override fun commemt(commentId: String) {
                     et_comment.setText("")
                     val sercmodel = ActivityCommentModel1.commModel()
@@ -192,7 +213,13 @@ class EventDetailsReplyActivity : BaseActivity() {
         }
 
         ProgressDialog.showDialog(this)
-        ActivityComment_272829210.getComment1Second("0", dyeventId, model.commentId)
+        ActivityComment_272829210.getComment1Second(type, dyeventId, model.commentId)
+    }
+
+    override fun del() {
+        chushi = -3
+        model.secondNum = (model.secondNum.toInt() - 1).toString()
+        headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = model.secondNum + "回复"
     }
 
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
+import com.google.gson.Gson
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -18,6 +19,7 @@ import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
+import com.lixin.amuseadjacent.app.util.abLog
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.activity_event.*
@@ -42,6 +44,7 @@ class BangBangActivity : BaseActivity() {
 
     private val imageList = ArrayList<String>()
     private var bannerUrl = ""
+    private var topImgDetailUrlState = ""//图片点击详情链接状态 0 有效 1无效
     private var banner: Banner? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,6 +105,9 @@ class BangBangActivity : BaseActivity() {
         })
 
         banner!!.setOnBannerListener { i ->
+            if(topImgDetailUrlState=="1"){
+                return@setOnBannerListener
+            }
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", bannerUrl)
@@ -115,6 +121,7 @@ class BangBangActivity : BaseActivity() {
     fun onEvent(model: DynamiclModel) {
         if (imageList.isEmpty()) {
             bannerUrl = model.topImgUrl
+            topImgDetailUrlState=model.topImgDetailUrlState
             imageList.add(bannerUrl)
             banner!!.setImages(imageList)
                     .setImageLoader(GlideImageLoader())
@@ -148,14 +155,14 @@ class BangBangActivity : BaseActivity() {
             return
         }
         if (requestCode == 3) {
-            val model = data!!.getSerializableExtra("model") as DynamiclDetailsModel
+            val model = data.getSerializableExtra("model") as DynamiclDetailsModel
             val position = data.getIntExtra("position",-1)
-
             dynaList[position].commentNum = model.`object`.commentNum
             dynaList[position].isZan = model.`object`.isZan
             dynaList[position].isAttention = model.`object`.isAttention
             dynaList[position].zanNum = model.`object`.zanNum
-            bangAdapter!!.notifyItemChanged(position)
+
+            bangAdapter!!.notifyDataSetChanged()
         }
     }
 

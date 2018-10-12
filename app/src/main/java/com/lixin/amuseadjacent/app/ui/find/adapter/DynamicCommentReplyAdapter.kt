@@ -26,6 +26,14 @@ import java.util.ArrayList
  */
 class DynamicCommentReplyAdapter(val context: Activity, val commentList: ArrayList<ActivityCommentModel1.commModel>) : RecyclerView.Adapter<DynamicCommentReplyAdapter.ViewHolder>() {
 
+    interface DelCommentCallBack {
+        fun del()
+    }
+
+    private var delCommentCallBack: DelCommentCallBack? = null
+    fun setDelCommentCallBack(delCommentCallBack: DelCommentCallBack) {
+        this.delCommentCallBack = delCommentCallBack
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_dynamic_reply, parent, false)
@@ -55,6 +63,9 @@ class DynamicCommentReplyAdapter(val context: Activity, val commentList: ArrayLi
                 override fun delComment() {
                     commentList.removeAt(position)
                     notifyDataSetChanged()
+                    if(delCommentCallBack!=null){
+                        delCommentCallBack!!.del()
+                    }
                 }
             })
         }

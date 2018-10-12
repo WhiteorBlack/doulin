@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -80,9 +82,9 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         temp_comment.setOnClickListener(this)
         pl_header.setOnClickListener(this)
         tv_zan.setOnClickListener(this)
+        tv_comment.setOnClickListener(this)
 
         tv_info.setTextColor(resources.getColor(R.color.black))
-
 
         banner.setOnBannerListener { i ->
             PreviewPhoto.preview(this, imageList, i)
@@ -274,9 +276,22 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             R.id.back -> {
                 onBack()
             }
+            R.id.tv_comment -> {
+                if (timer == null) {
+                    timer = Timer()
+                }
+                et_comment.requestFocus()//获取焦点 光标出现
+                timer!!.schedule(object : TimerTask() {
+                    override fun run() {
+                        val inputManager = this@EventDetailsActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputManager.showSoftInput(et_comment, 0)
+                    }
+                }, 100)
+            }
         }
     }
 
+    private var timer: Timer? = null
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
