@@ -82,31 +82,13 @@
             android:textSize="@dimen/main_fant" />
 
     </FrameLayout>
-    <android.support.v4.widget.NestedScrollView
-        app:layout_constraintTop_toBottomOf="@+id/fl_search"
+
+    <fragment
+        android:id="@+id/recent_contacts_fragment"
+        android:layout_marginTop="@dimen/dp_10"
+        android:name="com.netease.nim.uikit.business.recent.RecentContactsFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_msg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:nestedScrollingEnabled="false"
-                android:background="@color/white"/>
-
-                <fragment
-                    android:id="@+id/recent_contacts_fragment"
-                    android:name="com.netease.nim.uikit.business.recent.RecentContactsFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </fragment>
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/fl_search"></fragment>
 
 </android.support.constraint.ConstraintLayout>

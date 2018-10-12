@@ -57,45 +57,45 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
             StatusBarBlackWordUtil.StatusBarLightMode(activity)
         }
 
-        val linearLayoutManager = LinearLayoutManager(activity)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_msg.layoutManager = linearLayoutManager
-        msgAdaptation = MyMsgAdapter(activity!!, msgList)
-        rv_msg.adapter = msgAdaptation
+//        val linearLayoutManager = LinearLayoutManager(activity)
+//        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+//        rv_msg.layoutManager = linearLayoutManager
+//        msgAdaptation = MyMsgAdapter(activity!!, msgList)
+//        rv_msg.adapter = msgAdaptation
+//
+//        rv_msg.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_msg) {
+//            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
+//                val position = vh!!.adapterPosition
+//                if (position < 0 || position >= msgList.size) {
+//                    return
+//                }
+//                flag = msgList[position].type.toInt()
+//                if (msgList[position].type == "0") {//0系统消息 1订单信息 2评论信息 3点赞信息
+//                    val bundle = Bundle()
+//                    bundle.putString("type", "0")
+//                    MyApplication.openActivity(activity, OfficialNewsActivity::class.java)
+//                } else if (msgList[position].type == "1") {
+//                    val bundle = Bundle()
+//                    bundle.putString("type", "1")
+//                    MyApplication.openActivity(activity, OrderNewsActivity::class.java)
+//                } else if (msgList[position].type == "2") {
+//                    val bundle = Bundle()
+//                    bundle.putString("type", "2")
+//                    MyApplication.openActivity(activity, CommentNewsActivity::class.java, bundle)
+//                } else if (msgList[position].type == "3") {
+//                    val bundle = Bundle()
+//                    bundle.putString("type", "3")
+//                    MyApplication.openActivity(activity, CommentNewsActivity::class.java, bundle)
+//                }
+//            }
+//        })
 
-        rv_msg.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_msg) {
-            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                val position = vh!!.adapterPosition
-                if (position < 0 || position >= msgList.size) {
-                    return
-                }
-                flag = msgList[position].type.toInt()
-                if (msgList[position].type == "0") {//0系统消息 1订单信息 2评论信息 3点赞信息
-                    val bundle = Bundle()
-                    bundle.putString("type", "0")
-                    MyApplication.openActivity(activity, OfficialNewsActivity::class.java)
-                } else if (msgList[position].type == "1") {
-                    val bundle = Bundle()
-                    bundle.putString("type", "1")
-                    MyApplication.openActivity(activity, OrderNewsActivity::class.java)
-                } else if (msgList[position].type == "2") {
-                    val bundle = Bundle()
-                    bundle.putString("type", "2")
-                    MyApplication.openActivity(activity, CommentNewsActivity::class.java, bundle)
-                } else if (msgList[position].type == "3") {
-                    val bundle = Bundle()
-                    bundle.putString("type", "3")
-                    MyApplication.openActivity(activity, CommentNewsActivity::class.java, bundle)
-                }
-            }
-        })
-
-        if (msgList.isNotEmpty()) {
-            msgList.clear()
-            msgAdaptation!!.notifyDataSetChanged()
-        }
-        ProgressDialog.showDialog(activity!!)
-        MsgList_21.msgList()
+//        if (msgList.isNotEmpty()) {
+//            msgList.clear()
+//            msgAdaptation!!.notifyDataSetChanged()
+//        }
+//        ProgressDialog.showDialog(activity!!)
+//        MsgList_21.msgList()
     }
 
 
@@ -128,17 +128,17 @@ class MessageFragment : BaseFragment(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        if (flag == -1) {
-            return
-        }
-        for (i in 0 until msgList.size) {
-            if (msgList[i].type.toInt() == flag) {
-                msgList[i].messagenum = "0"
-                break
-            }
-        }
-        msgAdaptation!!.notifyDataSetChanged()
-        flag = -1
+//        if (flag == -1) {
+//            return
+//        }
+//        for (i in 0 until msgList.size) {
+//            if (msgList[i].type.toInt() == flag) {
+//                msgList[i].messagenum = "0"
+//                break
+//            }
+//        }
+//        msgAdaptation!!.notifyDataSetChanged()
+//        flag = -1
     }
 
 

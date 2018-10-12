@@ -22,6 +22,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <!--切换扬声器-->
+
 
     <!--网易云信start-->
     <permission
@@ -53,6 +56,12 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!-- 用于Android M及以上系统，申请加入忽略电池优化白名单-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!--用于访问GPS定位-->
+    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--用于申请获取蓝牙信息进行室内定位-->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
     <application
         android:name=".app.MyApplication"
@@ -86,6 +95,9 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="Y9f1QO90e2zXCcuFT8mUma4d4IU6Cs1C" />
 
+        <!-- 高德地图 -->
+        <service android:name="com.amap.api.location.APSService" />
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="key"/>
 
         <!--腾讯TBS浏览服务X5内核 更新之后似乎可有可无-->
         <meta-data

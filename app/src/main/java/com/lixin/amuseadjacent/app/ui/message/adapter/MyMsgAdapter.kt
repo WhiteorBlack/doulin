@@ -11,7 +11,6 @@ import cn.bingoogolapple.badgeview.BGABadgeTextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.message.model.MsgListModel
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 
 /**
  * Created by Slingge on 2018/8/15

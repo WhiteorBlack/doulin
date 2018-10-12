@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.contact.ContactChangedObserver;
@@ -17,7 +20,10 @@ import com.netease.nim.uikit.api.model.main.OnlineStateChangeObserver;
 import com.netease.nim.uikit.api.model.team.TeamDataChangedObserver;
 import com.netease.nim.uikit.api.model.team.TeamMemberDataChangedObserver;
 import com.netease.nim.uikit.api.model.user.UserInfoObserver;
+import com.netease.nim.uikit.business.recent.adapter.MessListModel;
 import com.netease.nim.uikit.business.recent.adapter.RecentContactAdapter;
+import com.netease.nim.uikit.business.recent.adapter.RecyclerViewAdapter;
+import com.netease.nim.uikit.business.session.activity.P2PMessageActivity;
 import com.netease.nim.uikit.business.uinfo.UserInfoHelper;
 import com.netease.nim.uikit.common.badger.Badger;
 import com.netease.nim.uikit.common.fragment.TFragment;
@@ -40,6 +46,8 @@ import com.netease.nimlib.sdk.msg.model.QueryDirectionEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 import com.netease.nimlib.sdk.team.model.Team;
 import com.netease.nimlib.sdk.team.model.TeamMember;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +59,7 @@ import java.util.Map;
 import java.util.Set;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+import okhttp3.Call;
 
 import static com.netease.nim.uikit.common.ui.dialog.CustomAlertDialog.onSeparateItemClickListener;
 
@@ -66,6 +75,8 @@ public class RecentContactsFragment extends TFragment {
 
     // view
     private RecyclerView recyclerView;
+
+    private RecyclerView rv_msg;
 
     private View emptyBg;
 
@@ -122,7 +133,32 @@ public class RecentContactsFragment extends TFragment {
     private void findViews() {
         recyclerView = findView(R.id.recycler_view);
         emptyBg = findView(R.id.emptyBg);
-//        emptyHint = findView(R.id.message_list_empty_hint);
+        recyclerView.setHasFixedSize(true);
+
+        //王丹加
+        rv_msg = findView(R.id.rv_msg);
+        rv_msg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
+        String json = "{\"cmd\":\"myMessageList\",\"uid\":\"" + NimUIKit.getAccount() + "\"}";
+        OkHttpUtils.post().url( "http://39.107.106.122/wisdom/api/service?").addParams("json",json)
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Toast.makeText(getActivity(), "网络错误",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                MessListModel bean = new Gson().fromJson(response, MessListModel.class);
+                if (bean.getResult().equals("0")) {
+                    ArrayList<MessListModel.msgModel> list = bean.getDataList();
+                    rv_msg.setAdapter(new RecyclerViewAdapter(getActivity(),list));
+                }else {
+                    Toast.makeText(getActivity(), bean.getResultNote(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     /**

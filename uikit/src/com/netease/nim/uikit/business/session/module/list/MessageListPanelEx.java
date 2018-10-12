@@ -832,7 +832,7 @@ public class MessageListPanelEx {
             alertDialog.setCancelable(true);
             alertDialog.setCanceledOnTouchOutside(true);
 
-//            prepareDialogItems(item, alertDialog);
+            prepareDialogItems(item, alertDialog);
             alertDialog.show();
         }
 
@@ -843,27 +843,28 @@ public class MessageListPanelEx {
 
             MessageAudioControl.getInstance(container.activity).stopAudio();
 
-            // 0 EarPhoneMode
-            longClickItemEarPhoneMode(alertDialog, msgType);
+            // 0 EarPhoneMode  扬声器切换
+//            longClickItemEarPhoneMode(alertDialog, msgType);
             // 1 resend
             longClickItemResend(selectedItem, alertDialog);
             // 2 copy
             longClickItemCopy(selectedItem, alertDialog, msgType);
             // 3 revoke
-            if (enableRevokeButton(selectedItem)) {
-                longClickRevokeMsg(selectedItem, alertDialog);
-            }
+//         闪退   if (enableRevokeButton(selectedItem)) {
+//                longClickRevokeMsg(selectedItem, alertDialog);
+//            }
             // 4 delete
             longClickItemDelete(selectedItem, alertDialog);
             // 5 trans
-            longClickItemVoidToText(selectedItem, alertDialog, msgType);
+//            longClickItemVoidToText(selectedItem, alertDialog, msgType);
 
-            if (!NimUIKitImpl.getMsgForwardFilter().shouldIgnore(selectedItem) && !recordOnly) {
-                // 6 forward to person
-                longClickItemForwardToPerson(selectedItem, alertDialog);
-                // 7 forward to team
-                longClickItemForwardToTeam(selectedItem, alertDialog);
-            }
+            //转发
+//            if (!NimUIKitImpl.getMsgForwardFilter().shouldIgnore(selectedItem) && !recordOnly) {
+//                // 6 forward to person
+//                longClickItemForwardToPerson(selectedItem, alertDialog);
+//                // 7 forward to team
+//                longClickItemForwardToTeam(selectedItem, alertDialog);
+//            }
         }
 
         private boolean enableRevokeButton(IMMessage selectedItem) {
