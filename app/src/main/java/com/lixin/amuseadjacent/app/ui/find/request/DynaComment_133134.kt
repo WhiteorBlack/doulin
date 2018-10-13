@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.find.request
 
 import com.google.gson.Gson
+import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.CommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
@@ -36,16 +37,37 @@ object DynaComment_133134 {
         })
     }
 
-    //获取一级评论
+    //获取一级评论详情
     fun commentFirst(commentId: String) {
         val json = "{\"cmd\":\"getcommentdetail\",\"uid\":\"" + StaticUtil.uid + "\",\"commentId\":\"" + commentId + "\"}"
-        abLog.e("获取一级评论",json)
+        abLog.e("获取一级评论", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
                 val model = Gson().fromJson(response, ActivityCommentModel1::class.java)
                 if (model.result == "0") {
                     EventBus.getDefault().post(model.`object`)
+                } else {
+                    ToastUtil.showToast(model.resultNote)
+                }
+            }
+        })
+    }
+
+    interface FirstCommentCallBack{
+        fun firstComment(model:ActivityCommentModel1)
+    }
+
+    //获取一级评论列表（动态、帮帮所有一级评论）
+    fun firstComment(dynamicId: String, nowPage: Int,firstCommentCallBack: FirstCommentCallBack) {
+        val json = "{\"cmd\":\"dynamicDetailComment\",\"uid\":\"" + StaticUtil.uid + "\",\"dynamicId\":\"" + dynamicId +
+                "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "15" + "\"}"
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val model = Gson().fromJson(response, ActivityCommentModel1::class.java)
+                if (model.result == "0") {
+                    firstCommentCallBack.firstComment(model)
                 } else {
                     ToastUtil.showToast(model.resultNote)
                 }

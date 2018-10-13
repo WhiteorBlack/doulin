@@ -93,7 +93,7 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage > totalPage) {
                     rv_user.noMoreLoading()
                     return
                 }
@@ -118,14 +118,24 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
         })
 
         ProgressDialog.showDialog(this)
-        CommunityUser_20.user(sex, search, nowPage)
+
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        CommunityUser_20.user(sex, search, nowPage)
+    }
 
     @Subscribe
     fun onEvent(model: CommunityUserModel) {
         tv_user.text = "（" + model.allnum + "）"
         totalPage = model.totalPage
+
+        if(userList.isNotEmpty()){
+            userList.clear()
+            addAdapter!!.notifyDataSetChanged()
+        }
         userList.addAll(model.dataList)
 
         if (onRefresh == 1) {
@@ -134,10 +144,7 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
             rv_user.loadMoreComplete()
         }
 
-        val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_from_bottom)
-        rv_user.layoutAnimation = controller
         addAdapter!!.notifyDataSetChanged()
-        rv_user.scheduleLayoutAnimation()
     }
 
 

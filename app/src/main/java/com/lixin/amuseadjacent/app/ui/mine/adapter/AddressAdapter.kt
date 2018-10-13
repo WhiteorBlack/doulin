@@ -1,7 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.mine.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -14,7 +13,7 @@ import com.daimajia.swipe.SwipeLayout
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
-import com.lixin.amuseadjacent.app.ui.mine.activity.EditAddressActivity
+import com.lixin.amuseadjacent.app.ui.mine.activity.AddressEditActivity
 import com.lixin.amuseadjacent.app.ui.mine.model.AddressModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Address_140141142143
 
@@ -66,7 +65,7 @@ class AddressAdapter(val context: Activity, val addList: ArrayList<AddressModel.
             val bundle = Bundle()
             bundle.putInt("flag", 1)
             bundle.putSerializable("DynamiclDetailsModel", model)
-            MyApplication.openActivity(context, EditAddressActivity::class.java, bundle)
+            MyApplication.openActivity(context, AddressEditActivity::class.java, bundle)
         }
         holder.tv_del.setOnClickListener { v ->
             ProgressDialog.showDialog(context)

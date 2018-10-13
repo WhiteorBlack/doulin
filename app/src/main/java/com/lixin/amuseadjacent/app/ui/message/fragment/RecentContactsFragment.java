@@ -1,5 +1,6 @@
-package com.netease.nim.uikit.business.recent;
+package com.lixin.amuseadjacent.app.ui.message.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,31 +11,38 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.example.xrecyclerview.XRecyclerView;
 import com.google.gson.Gson;
-import com.netease.nim.uikit.R;
+import com.lixin.amuseadjacent.R;
+import com.lixin.amuseadjacent.app.MyApplication;
+import com.lixin.amuseadjacent.app.ui.message.activity.AddFriendsActivity;
+import com.lixin.amuseadjacent.app.ui.message.activity.MailActivity;
+import com.lixin.amuseadjacent.app.ui.message.activity.SearchActivity;
+import com.lixin.amuseadjacent.app.util.StaticUtil;
+import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil;
+import com.lixin.amuseadjacent.app.util.StatusBarUtil;
+
+import com.lixin.amuseadjacent.app.view.FullyLinearLayoutManager;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.contact.ContactChangedObserver;
 import com.netease.nim.uikit.api.model.main.OnlineStateChangeObserver;
 import com.netease.nim.uikit.api.model.team.TeamDataChangedObserver;
 import com.netease.nim.uikit.api.model.team.TeamMemberDataChangedObserver;
 import com.netease.nim.uikit.api.model.user.UserInfoObserver;
+import com.netease.nim.uikit.business.recent.RecentContactsCallback;
+import com.netease.nim.uikit.business.recent.TeamMemberAitHelper;
 import com.netease.nim.uikit.business.recent.adapter.MessListModel;
 import com.netease.nim.uikit.business.recent.adapter.RecentContactAdapter;
 import com.netease.nim.uikit.business.recent.adapter.RecyclerViewAdapter;
-import com.netease.nim.uikit.business.session.activity.P2PMessageActivity;
 import com.netease.nim.uikit.business.uinfo.UserInfoHelper;
 import com.netease.nim.uikit.common.badger.Badger;
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.ui.dialog.CustomAlertDialog;
 import com.netease.nim.uikit.common.ui.drop.DropCover;
 import com.netease.nim.uikit.common.ui.drop.DropManager;
-import com.netease.nim.uikit.common.ui.recyclerview.listener.SimpleClickListener;
 import com.netease.nim.uikit.impl.NimUIKitImpl;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.ResponseCode;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -68,7 +76,7 @@ import static com.netease.nim.uikit.common.ui.dialog.CustomAlertDialog.onSeparat
  * <p/>
  * Created by huangjun on 2015/2/1.
  */
-public class RecentContactsFragment extends TFragment {
+public class RecentContactsFragment extends TFragment implements View.OnClickListener {
 
     // 置顶功能可直接使用，也可作为思路，供开发者充分利用RecentContact的tag字段
     public static final long RECENT_TAG_STICKY = 1; // 联系人置顶tag
@@ -80,7 +88,7 @@ public class RecentContactsFragment extends TFragment {
 
     private View emptyBg;
 
-//    private TextView emptyHint;
+    private TextView tv_title;//社区名
 
     // data
     private List<RecentContact> items;
@@ -95,13 +103,27 @@ public class RecentContactsFragment extends TFragment {
 
     private UserInfoObserver userInfoObserver;
 
- 
 
+    private void init(View view) {
+        if (Build.VERSION.SDK_INT > 19) {
+            View view_staus = view.findViewById(R.id.view_staus);
+            view_staus.setVisibility(View.VISIBLE);
+            StatusBarUtil.setStutaViewHeight(getActivity(), view_staus);
+            StatusBarUtil.setColorNoTranslucent(getActivity(), getResources().getColor(R.color.white));
+            StatusBarBlackWordUtil.StatusBarLightMode(getActivity());
+        }
 
+        tv_title = view.findViewById(R.id.tv_title);
+        tv_title.setText(StaticUtil.INSTANCE.getCommunityName());
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        recyclerView = view.findViewById(R.id.recycler_view);
+
+        emptyBg = view.findViewById(R.id.emptyBg);
+        rv_msg =view. findViewById(R.id.rv_msg);
+
+        view.findViewById(R.id.iv_mail).setOnClickListener(this);
+        view.findViewById(R.id.iv_add).setOnClickListener(this);
+        view.findViewById(R.id.fl_search).setOnClickListener(this);
 
         findViews();
         initMessageList();
@@ -111,9 +133,28 @@ public class RecentContactsFragment extends TFragment {
         registerOnlineStateChangeListener(true);
     }
 
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_mail:
+                MyApplication.openActivity(getActivity(), MailActivity.class);
+                break;
+            case R.id.iv_add:
+                MyApplication.openActivity(getActivity(), AddFriendsActivity.class);
+                break;
+            case R.id.fl_search:
+                MyApplication.openActivity(getActivity(), SearchActivity.class);
+                break;
+        }
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.nim_recent_contacts, container, false);
+        View view = inflater.inflate(R.layout.fragment_recent_contacts, container, false);
+        init(view);
+        return view;
     }
 
     private void notifyDataSetChanged() {
@@ -135,30 +176,31 @@ public class RecentContactsFragment extends TFragment {
      * 查找页面控件
      */
     private void findViews() {
-        recyclerView = findView(R.id.recycler_view);
-        emptyBg = findView(R.id.emptyBg);
-        recyclerView.setHasFixedSize(true);
 
         //王丹加
-        rv_msg = findView(R.id.rv_msg);
-        rv_msg.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        FullyLinearLayoutManager flm=new FullyLinearLayoutManager(getActivity());
+        flm.setSmoothScrollbarEnabled(true);
+        rv_msg.setLayoutManager(flm);
 
         String json = "{\"cmd\":\"myMessageList\",\"uid\":\"" + NimUIKit.getAccount() + "\"}";
-        OkHttpUtils.post().url( "http://39.107.106.122/wisdom/api/service?").addParams("json",json)
+        OkHttpUtils.post().url("http://39.107.106.122/wisdom/api/service?").addParams("json", json)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                Toast.makeText(getActivity(), "网络错误",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "网络错误", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onResponse(String response, int id) {
                 MessListModel bean = new Gson().fromJson(response, MessListModel.class);
                 if (bean.getResult().equals("0")) {
+                    StaticUtil.INSTANCE.setCommunityName(bean.getCommunityName());
+                    StaticUtil.INSTANCE.setCommunityId(bean.getCommunityId());
+                    tv_title.setText(bean.getCommunityName());
                     ArrayList<MessListModel.msgModel> list = bean.getDataList();
-                    rv_msg.setAdapter(new RecyclerViewAdapter(getActivity(),list));
-                }else {
-                    Toast.makeText(getActivity(), bean.getResultNote(),Toast.LENGTH_SHORT).show();
+                    rv_msg.setAdapter(new RecyclerViewAdapter(getActivity(), list));
+                } else {
+                    Toast.makeText(getActivity(), bean.getResultNote(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -171,22 +213,23 @@ public class RecentContactsFragment extends TFragment {
     private void initMessageList() {
         items = new ArrayList<>();
         cached = new HashMap<>(3);
-
+        FullyLinearLayoutManager flm=new FullyLinearLayoutManager(getActivity());
+        flm.setSmoothScrollbarEnabled(true);
+        recyclerView.setLayoutManager(flm);
         // adapter
         adapter = new RecentContactAdapter(recyclerView, items);
         initCallBack();
         adapter.setCallback(callback);
-
         // recyclerView
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 //        recyclerView.addOnItemTouchListener(touchListener);
 
         // ios style
-        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+//        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
         // drop listener
-        DropManager.getInstance().setDropListener(new DropManager.IDropListener() {
+      /*  DropManager.getInstance().setDropListener(new DropManager.IDropListener() {
             @Override
             public void onDropBegin() {
 //                touchListener.setShouldDetectGesture(false);
@@ -196,7 +239,7 @@ public class RecentContactsFragment extends TFragment {
             public void onDropEnd() {
 //                touchListener.setShouldDetectGesture(true);
             }
-        });
+        });*/
     }
 
     private void initCallBack() {
@@ -249,30 +292,6 @@ public class RecentContactsFragment extends TFragment {
             }
         };
     }
-//
-//    private SimpleClickListener<RecentContactAdapter> touchListener = new SimpleClickListener<RecentContactAdapter>() {
-//        @Override
-//        public void onItemClick(RecentContactAdapter adapter, View view, int position) {
-//            if (callback != null) {
-//                RecentContact recent = adapter.getItem(position);
-//                callback.onItemClick(recent);
-//            }
-//        }
-//
-//        @Override
-//        public void onItemLongClick(RecentContactAdapter adapter, View view, int position) {
-//        }
-//
-//        @Override
-//        public void onItemChildClick(RecentContactAdapter adapter, View view, int position) {
-//
-//        }
-//
-//        @Override
-//        public void onItemChildLongClick(RecentContactAdapter adapter, View view, int position) {
-//
-//        }
-//    };
 
     OnlineStateChangeObserver onlineStateChangeObserver = new OnlineStateChangeObserver() {
         @Override
@@ -764,4 +783,6 @@ public class RecentContactsFragment extends TFragment {
         });
 
     }
+
+
 }

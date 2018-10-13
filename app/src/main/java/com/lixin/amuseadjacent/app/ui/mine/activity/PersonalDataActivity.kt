@@ -86,9 +86,6 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         et_note.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 val s = p0!!.toString()
-                if (TextUtils.isEmpty(s)) {
-                    return
-                }
                 EditeNote_167.note(StaticUtil.uid, s)
             }
 

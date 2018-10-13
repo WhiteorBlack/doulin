@@ -98,6 +98,7 @@ public abstract class RecentViewHolder extends RecyclerViewHolder<BaseQuickAdapt
         tv_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getCallback().onDeleItem(recent, position);
             }
         });

@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.app.ui.message.activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
+import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
@@ -11,6 +12,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.message.adapter.CommentNewsAdapter
 import com.lixin.amuseadjacent.app.ui.message.model.CommentNewModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
+import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -41,7 +43,7 @@ class CommentNewsActivity : BaseActivity() {
     private fun init() {
         inittitle("收到的消息")
         StatusBarWhiteColor()
-
+        view_staus.visibility = View.GONE
         type = intent.getStringExtra("type")//2评论信息 3点赞信息
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -69,7 +71,7 @@ class CommentNewsActivity : BaseActivity() {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage >totalPage) {
                     xrecyclerview.noMoreLoading()
                     return
                 }

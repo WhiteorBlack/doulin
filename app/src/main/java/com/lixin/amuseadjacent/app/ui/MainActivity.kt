@@ -3,14 +3,13 @@ package com.lixin.amuseadjacent.app.ui
 import android.Manifest
 import android.content.Intent
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.FindFragment
-import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
-import com.lixin.amuseadjacent.app.ui.message.fragment.MessageFragment
+import com.lixin.amuseadjacent.app.ui.message.fragment.RecentContactsFragment
 import com.lixin.amuseadjacent.app.ui.mine.fragment.MineFragment
 import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
@@ -25,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity() {
 
     private var mFragment = Fragment()
-    private var bFragment1: MessageFragment? = null
+    private var bFragment1: RecentContactsFragment? = null
     private var bFragment2: FindFragment? = null
     private var bFragment3: ServiceFragment? = null
     private var bFragment4: MineFragment? = null
@@ -38,7 +37,10 @@ class MainActivity : BaseActivity() {
 
     private fun init() {
         tab_1.isChecked = true
-        bFragment1 = MessageFragment()
+        if (Build.VERSION.SDK_INT > 19) {
+            StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.white))
+        }
+        bFragment1 = RecentContactsFragment()
         switchFragment(bFragment1!!)
         UserInfo_19.userInfo(this)
         RadioG_Bottem.setOnCheckedChangeListener { radioGroup, i -> selectStyle(i) }
@@ -71,7 +73,7 @@ class MainActivity : BaseActivity() {
                 if (Build.VERSION.SDK_INT > 19) {
                     StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.white))
                 }
-                bFragment1 = MessageFragment()
+                bFragment1 = RecentContactsFragment()
                 switchFragment(bFragment1!!)
             }
             R.id.tab_2 -> {
@@ -96,7 +98,6 @@ class MainActivity : BaseActivity() {
                 if (Build.VERSION.SDK_INT > 19) {
                     StatusBarUtil.setColorNoTranslucent(this, resources.getColor(R.color.colorTheme))
                 }
-
                 if (bFragment4 == null) {
                     bFragment4 = MineFragment()
                 }

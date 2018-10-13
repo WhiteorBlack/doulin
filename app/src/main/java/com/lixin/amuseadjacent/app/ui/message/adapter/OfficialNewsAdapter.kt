@@ -34,7 +34,7 @@ class OfficialNewsAdapter(val context: Context, var offList: ArrayList<OfficialN
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val model = offList[position]
-        ImageLoader.getInstance().displayImage(model.messageUrl, holder.image)
+        ImageLoader.getInstance().displayImage(model.messageImage, holder.image)
         holder.tv_info.text = model.messageTitle
 
         holder.image.setOnClickListener { v ->

@@ -14,6 +14,7 @@ import com.lixin.amuseadjacent.app.ui.mine.adapter.ViolationReportAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.IrregularitiesModel
 import com.lixin.amuseadjacent.app.ui.mine.model.ReportModel
 import com.lixin.amuseadjacent.app.ui.mine.request.ViolationReport_129130
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -63,6 +64,7 @@ class ViolationReportFragment : BaseFragment() {
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
                 nowPage = 1
+                onRefresh = 1
                 if (violationList.isNotEmpty()) {
                     violationList.clear()
                 }
@@ -79,11 +81,11 @@ class ViolationReportFragment : BaseFragment() {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage > totalPage) {
                     xrecyclerview.noMoreLoading()
                     return
                 }
-                onRefresh=2
+                onRefresh = 2
                 if (flag == 0) {
                     ViolationReport_129130.irregularities(nowPage)
                 } else {
@@ -92,12 +94,7 @@ class ViolationReportFragment : BaseFragment() {
             }
         })
 
-        ProgressDialog.showDialog(activity!!)
-        if (flag == 0) {
-            ViolationReport_129130.irregularities(nowPage)
-        } else {
-            ViolationReport_129130.report(nowPage)
-        }
+
     }
 
     private fun init() {
@@ -108,7 +105,13 @@ class ViolationReportFragment : BaseFragment() {
 
 
     override fun loadData() {
-
+        ProgressDialog.showDialog(activity!!)
+        ToastUtil.showToast(flag.toString())
+        if (flag == 0) {
+            ViolationReport_129130.irregularities(nowPage)
+        } else {
+            ViolationReport_129130.report(nowPage)
+        }
     }
 
     //违规
@@ -117,7 +120,9 @@ class ViolationReportFragment : BaseFragment() {
         totalPage = model.totalPage
 
         violationList.addAll(model.dataList)
-
+        if (totalPage <= 1) {
+            xrecyclerview.noMoreLoading()
+        }
         if (onRefresh == 1) {
             xrecyclerview.refreshComplete()
         } else if (onRefresh == 2) {
@@ -142,11 +147,7 @@ class ViolationReportFragment : BaseFragment() {
         reportList.addAll(model.dataList)
 
         if (totalPage <= 1) {
-            if (violationList.isEmpty()) {
-                xrecyclerview.setNullDataFragment(activity!!)
-            } else {
-                xrecyclerview.noMoreLoading()
-            }
+            xrecyclerview.noMoreLoading()
         }
 
         if (onRefresh == 1) {
@@ -154,8 +155,14 @@ class ViolationReportFragment : BaseFragment() {
         } else if (onRefresh == 2) {
             xrecyclerview.loadMoreComplete()
         }
-
-        violationReportAdapter!!.notifyDataSetChanged()
+        if (nowPage == 1) {
+            val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
+            xrecyclerview.layoutAnimation = controller
+            violationReportAdapter!!.notifyDataSetChanged()
+            xrecyclerview.scheduleLayoutAnimation()
+        } else {
+            violationReportAdapter!!.notifyDataSetChanged()
+        }
 
     }
 

@@ -399,6 +399,18 @@
             android:name=".app.ui.find.activity.EventDetailsReplyActivity"
             android:screenOrientation="portrait" />
 
+
+        <!--全部活动评论-->
+        <activity
+            android:name=".app.ui.find.activity.EventAllCommentsActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--全部动态评论-->
+        <activity
+            android:name=".app.ui.find.activity.DynamicAllCommentsActivity"
+            android:screenOrientation="portrait" />
+
         <!--报名-->
         <activity
             android:name=".app.ui.find.activity.EventSginUpActivity"
@@ -616,7 +628,7 @@
             android:screenOrientation="portrait" />
         <!--新增、修改收货地址-->
         <activity
-            android:name=".app.ui.mine.activity.EditAddressActivity"
+            android:name=".app.ui.mine.activity.AddressEditActivity"
             android:screenOrientation="portrait" />
 
         <!--我的屏蔽-->

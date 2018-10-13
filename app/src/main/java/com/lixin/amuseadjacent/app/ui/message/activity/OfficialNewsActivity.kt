@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.message.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
@@ -10,6 +11,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.message.adapter.OfficialNewsAdapter
 import com.lixin.amuseadjacent.app.ui.message.model.OfficialNewModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
+import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -38,7 +40,7 @@ class OfficialNewsActivity : BaseActivity() {
     private fun init() {
         inittitle("官方消息")
         StatusBarWhiteColor()
-
+        view_staus.visibility = View.GONE
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
 

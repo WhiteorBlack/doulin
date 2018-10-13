@@ -83,10 +83,6 @@ class DynamicActivity : BaseActivity() {
         val adapter = FragmentPagerAdapter(supportFragmentManager, list, tabList)
         viewPager.adapter = adapter
         tab.setupWithViewPager(viewPager)
-        viewPager.isFocusable = false
-        appbar.isFocusable = false
-        coordinatorLayout.isFocusable = false
-        collapsing_toolbar.isFocusable = false
 
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -103,7 +99,7 @@ class DynamicActivity : BaseActivity() {
         })
 
         banner.setOnBannerListener { i ->
-            if(topImgDetailUrlState=="1"){
+            if (topImgDetailUrlState == "1") {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
@@ -111,15 +107,17 @@ class DynamicActivity : BaseActivity() {
             bundle.putString("url", bannerUrl)
             MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
         }
+        ProgressDialog.showDialog(this)
+        DynamicList_219.dynamic("0", 0, 1,null)
     }
 
 
     @Subscribe
     fun onEvent(model: DynamiclModel) {
-        bannerUrl = model.topImgUrl
-        topImgDetailUrlState=model.topImgDetailUrlState
+        bannerUrl = model.topImgDetailUrl
+        topImgDetailUrlState = model.topImgDetailUrlState
         imageList.clear()
-        imageList.add(bannerUrl)
+        imageList.add(model.topImgUrl)
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
                 .start()
@@ -128,22 +126,28 @@ class DynamicActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(data==null){
+        if (data == null) {
             return
         }
         if (requestCode == 1) {
-            fragment0!!.Refresh(i, null, -1)
-            fragment1!!.Refresh(i, null, -1)
+            if (i == 0) {
+                fragment0!!.refresh(i, null, -1)
+            } else {
+                fragment1!!.refresh(i, null, -1)
+            }
         } else if (requestCode == 3) {
             val model = data.getSerializableExtra("model") as DynamiclDetailsModel
             val position = data.getIntExtra("position", -1)
-            fragment0!!.Refresh(i, model, position)
-            fragment1!!.Refresh(i, model, position)
+            if (i == 0) {
+                fragment0!!.refresh(i, model, position)
+            } else {
+                fragment1!!.refresh(i, model, position)
+            }
         }
     }
 
     override fun onBackPressed() {
-        if (NiceVideoPlayerManager.instance().onBackPressd()){
+        if (NiceVideoPlayerManager.instance().onBackPressd()) {
             return
         }
         super.onBackPressed()

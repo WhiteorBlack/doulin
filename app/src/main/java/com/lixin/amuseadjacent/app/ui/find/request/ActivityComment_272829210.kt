@@ -37,6 +37,28 @@ object ActivityComment_272829210 {
         })
     }
 
+    //获取一级评论,0活动 1话题
+    fun getComment2(type: String, activityId: String, nowPage: Int, firstCommentCallBack: DynaComment_133134.FirstCommentCallBack) {
+        val json = "{\"cmd\":\"activityDetailComment\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
+                "\",\"activityId\":\"" + activityId + "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + 15 + "\"}"
+        abLog.e("获取评论", json)
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val model = Gson().fromJson(response, ActivityCommentModel1::class.java)
+                if (model.result == "0") {
+                    if (firstCommentCallBack != null) {
+                        firstCommentCallBack.firstComment(model)
+                    } else {
+                        EventBus.getDefault().post(model)
+                    }
+                } else {
+                    ToastUtil.showToast(model.resultNote)
+                }
+            }
+        })
+    }
+
     //获取二级评论,type0活动 1话题
     fun getComment1Second(type: String, activityId: String, commentId: String) {
         val json = "{\"cmd\":\"activityDetailCommentSecond\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
@@ -112,6 +134,7 @@ object ActivityComment_272829210 {
     //话题详情
     fun getthemedetail(themeId: String) {
         val json = "{\"cmd\":\"getthemedetail\",\"uid\":\"" + StaticUtil.uid + "\",\"themeId\":\"" + themeId + "\"}"
+        abLog.e("获取话题详情", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)

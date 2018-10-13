@@ -274,8 +274,6 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             tv_participate.text = model.theme.themeTitle
             tv_participate.setOnClickListener { v ->
                 val bundle = Bundle()
-                bundle.putString("url", model.theme.themeDetailUrl)
-                bundle.putString("title", model.theme.themeTitle)
                 bundle.putString("id", model.theme.themeId)
                 MyApplication.openActivity(activity!!, TopicActivity::class.java, bundle)
             }

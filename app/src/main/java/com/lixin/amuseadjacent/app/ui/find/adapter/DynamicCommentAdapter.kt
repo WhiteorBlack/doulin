@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.find.activity.DynamicAllCommentsActivity
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsReplyActivity
 import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsReplyActivity
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
@@ -34,8 +35,11 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
     private var dynaId = ""
     private var type = ""//0动态，1活动,2话题
 
+    private var allComm=-1//0所有评论的适配器
+
     interface DelCommentCallBack {
         fun delComment()
+        fun delComment(position:Int)
     }
 
     private var delCommentCallBack: DelCommentCallBack? = null
@@ -47,6 +51,9 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
     fun setId(dynaId: String, type: String) {
         this.dynaId = dynaId
         this.type = type
+    }
+    fun setallComm(allComm:Int){
+        this.allComm=allComm
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -93,6 +100,9 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
                         commentList[position].zanNum = (model.zanNum.toInt() + 1).toString()
                     }
                     notifyDataSetChanged()
+                    if(allComm!=-1){
+                        delCommentCallBack!!.delComment(position)
+                    }
                 }
             })
         }
@@ -104,8 +114,14 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
                     commentList.removeAt(position)
                     notifyDataSetChanged()
                     if (delCommentCallBack != null) {
-                        delCommentCallBack!!.delComment()
+                        if(allComm!=-1){
+                            delCommentCallBack!!.delComment(position)
+                        }else{
+                            delCommentCallBack!!.delComment()
+                        }
+
                     }
+
                 }
             })
         }

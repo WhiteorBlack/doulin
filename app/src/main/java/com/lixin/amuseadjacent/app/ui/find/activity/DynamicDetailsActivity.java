@@ -133,6 +133,10 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         commentAdapter.setId(dynaId, "0");
         commentAdapter.setDelCommentCallBack(new DynamicCommentAdapter.DelCommentCallBack() {
             @Override
+            public void delComment(int position) {
+            }
+
+            @Override
             public void delComment() {
                 commNum = Integer.valueOf(model.object.commentNum) - 1;
                 model.object.commentNum = commNum + "";
@@ -192,10 +196,14 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         ProgressDialog.INSTANCE.showDialog(this);
         DynaComment_133134.INSTANCE.dynamicDetail(dynaId);
     }
-
 
     @Subscribe
     public void onEvent(DynamiclDetailsModel model) {
@@ -307,9 +315,15 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             player.setController(controller);
         }
         imageList = model.object.dynamicImgList;
-
+        if (!commentList.isEmpty()) {
+            commentList.clear();
+            commentAdapter.notifyDataSetChanged();
+        }
         commentList.addAll(model.dataList);
         commentAdapter.notifyDataSetChanged();
+        if (commentList.isEmpty()) {
+            tv_more.setVisibility(View.GONE);
+        }
     }
 
 
@@ -424,6 +438,12 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                         inputManager.showSoftInput(et_comment, 0);
                     }
                 }, 100);
+                break;
+            case R.id.tv_more://更多评论
+                Bundle bundle = new Bundle();
+                bundle.putString("id", dynaId);
+                bundle.putString("flag", flag);
+                MyApplication.openActivity(this, DynamicAllCommentsActivity.class, bundle);
                 break;
         }
     }

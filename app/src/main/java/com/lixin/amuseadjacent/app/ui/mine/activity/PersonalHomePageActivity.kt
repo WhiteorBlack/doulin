@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
+import android.view.WindowManager
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -52,6 +53,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)//禁止软禁盘顶起对话、关注控件
         setContentView(R.layout.activity_personal_home_page)
         EventBus.getDefault().register(this)
         init()
@@ -72,6 +74,9 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
                 MyApplication.openActivity(this, PersonalDataActivity::class.java)
             }
             cl_3.visibility = View.GONE
+
+            note.visibility=View.GONE
+            et_note.visibility=View.GONE
         }
 
         val tabList = ArrayList<String>()
@@ -134,9 +139,6 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
         et_note.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 val s = p0!!.toString()
-                if (TextUtils.isEmpty(s)) {
-                    return
-                }
                 EditeNote_167.note(auid, s)
             }
 
@@ -209,7 +211,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
         tv_sex.text = model.age
         tv_constellation.text = model.constellation
-        tv_address.text = model.communityName + model.unitName + model.doorNumber
+        tv_address.text = model.communityName
         et_note.setText(model.remarks)
         tv_name.text = model.nickname
         tv_effect.text = "影响力" + model.effectNum

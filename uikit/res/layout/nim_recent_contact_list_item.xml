@@ -9,7 +9,7 @@
     <View
         android:id="@+id/top_line"
         style="@style/horizontal_light_thin_divider"
-        android:layout_marginLeft="70dip"
+        android:layout_marginLeft="70dp"
         android:visibility="gone" />
 
     <com.daimajia.swipe.SwipeLayout

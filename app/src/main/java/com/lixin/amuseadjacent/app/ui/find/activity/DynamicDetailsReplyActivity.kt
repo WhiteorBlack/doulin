@@ -138,12 +138,13 @@ class DynamicDetailsReplyActivity : BaseActivity(),DynamicCommentReplyAdapter.De
                     if (commModel!!.isZan == "1") {
                         commModel!!.zanNum = (commModel!!.zanNum.toInt() - 1).toString()
                         commModel!!.isZan = "0"
+                        AbStrUtil.setDrawableLeft(this@DynamicDetailsReplyActivity, R.drawable.ic_zan, tv_zan, 5)
                     } else {
                         commModel!!.zanNum = (commModel!!.zanNum.toInt() + 1).toString()
                         commModel!!.isZan = "1"
+                        AbStrUtil.setDrawableLeft(this@DynamicDetailsReplyActivity, R.drawable.ic_zan_hl, tv_zan, 5)
                     }
                     tv_zan!!.text = commModel!!.zanNum
-                    AbStrUtil.setDrawableLeft(this@DynamicDetailsReplyActivity, R.drawable.ic_zan_hl, tv_zan, 5)
                     chushi = 1
                 }
             })
@@ -206,7 +207,7 @@ class DynamicDetailsReplyActivity : BaseActivity(),DynamicCommentReplyAdapter.De
 
     //删除二级评论
     override fun del() {
-        chushi != -3
+        chushi = -3
         commNum--
         commModel!!.secondNum=commNum.toString()
         headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = commModel!!.secondNum + "回复"

@@ -23,7 +23,7 @@ import java.util.ArrayList
  * 编辑地址
  * Created by Slingge on 2018/9/4
  */
-class EditAddressActivity : BaseActivity(), View.OnClickListener, AddressPop.WheelViewCallBack2 {
+class AddressEditActivity : BaseActivity(), View.OnClickListener, AddressPop.WheelViewCallBack2 {
 
     private var flag = -1//0新增地址，1修改地址
 

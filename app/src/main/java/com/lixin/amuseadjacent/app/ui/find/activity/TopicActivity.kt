@@ -23,6 +23,8 @@ import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.GetDateTimeUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.MyWebView
+import com.tencent.smtt.sdk.WebView
+
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
@@ -45,6 +47,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
 
     private var tv_comment: TextView? = null
     private var tv_zan: TextView? = null
+    private var webview:  WebView? = null
 
     private var timer: Timer? = null
 
@@ -61,7 +64,6 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
     private fun init() {
         StatusBarWhiteColor()
         view_staus.visibility = View.GONE
-        inittitle(intent.getStringExtra("title"))
         topicId = intent.getStringExtra("id")
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -71,7 +73,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
         val headerView = LayoutInflater.from(this).inflate(R.layout.header_topic, null, false)//头布局
         headerView!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         val myWebView = headerView.findViewById<MyWebView>(R.id.webview)
-        myWebView.webView.loadUrl(intent.getStringExtra("url"))
+        webview = myWebView.webView
 
         tv_comment = headerView.findViewById(R.id.tv_comment)
         tv_comment!!.setOnClickListener(this)
@@ -97,7 +99,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage > totalPage) {
                     xrecyclerview.noMoreLoading()
                     return
                 }
@@ -129,7 +131,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
         if (totalPage == 1) {
             xrecyclerview.noMoreLoading()
         } else {
-            if (nowPage >= totalPage) {
+            if (nowPage > totalPage) {
                 xrecyclerview.noMoreLoading()
             }
         }
@@ -211,6 +213,8 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
             AbStrUtil.setDrawableLeft(this, R.drawable.ic_zan_hl, tv_zan, 5)
         }
         tv_zan!!.text = model!!.zanNum
+        inittitle(model!!.themeTitle)
+        webview!!.loadUrl(model!!.themeDetailUrl)
     }
 
 

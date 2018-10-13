@@ -20,6 +20,7 @@ import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.abLog
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.activity_event.*
@@ -33,7 +34,7 @@ import java.util.ArrayList
  * 帮帮
  * Created by Slingge on 2018/8/30
  */
-class BangBangActivity : BaseActivity() {
+class BangBangActivity : BaseActivity(), DynamicList_219.DynamicListCallBack {
 
     private var bangAdapter: DynamicAdapter? = null
     private var dynaList = ArrayList<FindModel.dynamicModel>()
@@ -50,7 +51,6 @@ class BangBangActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event)
-        EventBus.getDefault().register(this)
         init()
     }
 
@@ -74,38 +74,40 @@ class BangBangActivity : BaseActivity() {
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_event2.layoutManager = linearLayoutManager
+        rv_event2.setPullRefreshEnabled(false)
 
         val headerView = LayoutInflater.from(this).inflate(R.layout.include_banner, null, false)//头布局
         banner = headerView.findViewById(R.id.banner)
         rv_event2.addHeaderView(headerView)
-        rv_event2.isFocusable = false
+//        rv_event2.isFocusable = false
 
         bangAdapter = DynamicAdapter(this, "1", dynaList)
         rv_event2.adapter = bangAdapter
 
         rv_event2.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
+                nowPage=1
                 if (dynaList.isNotEmpty()) {
                     dynaList.clear()
                     bangAdapter!!.notifyDataSetChanged()
                 }
                 onRefresh = 1
-                DynamicList_219.dynamic("1", 0, nowPage)
+                DynamicList_219.dynamic("1", 0, nowPage, this@BangBangActivity)
             }
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage > totalPage) {
                     rv_event2.noMoreLoading()
                     return
                 }
                 onRefresh = 2
-                DynamicList_219.dynamic("1", 0, nowPage)
+                DynamicList_219.dynamic("1", 0, nowPage, this@BangBangActivity)
             }
         })
 
         banner!!.setOnBannerListener { i ->
-            if(topImgDetailUrlState=="1"){
+            if (topImgDetailUrlState == "1") {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
@@ -113,16 +115,16 @@ class BangBangActivity : BaseActivity() {
             bundle.putString("url", bannerUrl)
             MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
         }
+
         ProgressDialog.showDialog(this)
-        DynamicList_219.dynamic("1", 0, nowPage)
+        DynamicList_219.dynamic("1", 0, nowPage, this)
     }
 
-    @Subscribe
-    fun onEvent(model: DynamiclModel) {
+    override fun dynamicList(model: DynamiclModel) {
         if (imageList.isEmpty()) {
-            bannerUrl = model.topImgUrl
-            topImgDetailUrlState=model.topImgDetailUrlState
-            imageList.add(bannerUrl)
+            bannerUrl = model.topImgDetailUrl
+            topImgDetailUrlState = model.topImgDetailUrlState
+            imageList.add(model.topImgUrl)
             banner!!.setImages(imageList)
                     .setImageLoader(GlideImageLoader())
                     .start()
@@ -131,6 +133,7 @@ class BangBangActivity : BaseActivity() {
         dynaList.addAll(model.dataList)
 
         totalPage = model.totalPage
+        ToastUtil.showToast(totalPage.toString())
 
         if (onRefresh == 1) {
             rv_event2.refreshComplete()
@@ -151,12 +154,21 @@ class BangBangActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(data==null){
+        if (data == null) {
             return
         }
-        if (requestCode == 3) {
+        if (requestCode == 1) {
+            nowPage = 1
+            onRefresh = 0
+            if (dynaList.isNotEmpty()) {
+                dynaList.clear()
+                bangAdapter!!.notifyDataSetChanged()
+            }
+            ProgressDialog.showDialog(this)
+            DynamicList_219.dynamic("1", 0, nowPage, this)
+        } else if (requestCode == 3) {
             val model = data.getSerializableExtra("model") as DynamiclDetailsModel
-            val position = data.getIntExtra("position",-1)
+            val position = data.getIntExtra("position", -1)
             dynaList[position].commentNum = model.`object`.commentNum
             dynaList[position].isZan = model.`object`.isZan
             dynaList[position].isAttention = model.`object`.isAttention
@@ -176,9 +188,5 @@ class BangBangActivity : BaseActivity() {
         if (NiceVideoPlayerManager.instance().onBackPressd()) return
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
 
 }

@@ -85,10 +85,10 @@
 
     <fragment
         android:id="@+id/recent_contacts_fragment"
-        android:layout_marginTop="@dimen/dp_10"
         android:name="com.netease.nim.uikit.business.recent.RecentContactsFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fl_search"></fragment>
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintTop_toBottomOf="@+id/fl_search"/>
 
 </android.support.constraint.ConstraintLayout>

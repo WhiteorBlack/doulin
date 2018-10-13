@@ -90,7 +90,7 @@ class EventActivity : BaseActivity() {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage >totalPage) {
                     rv_event2.noMoreLoading()
                     return
                 }
@@ -116,9 +116,9 @@ class EventActivity : BaseActivity() {
     @Subscribe
     fun onEvent(model: EventModel) {
         if (imageList.isEmpty()) {
-            bannerUrl = model.topImgUrl
+            bannerUrl = model.topImgDetailUrl
             topImgDetailUrlState=model.topImgDetailUrlState
-            imageList.add(bannerUrl)
+            imageList.add(model.topImgUrl)
             banner!!.setImages(imageList)
                     .setImageLoader(GlideImageLoader())
                     .start()

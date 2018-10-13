@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
@@ -18,7 +16,6 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.adapter.DynamicCommentAdapter
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
-import com.lixin.amuseadjacent.app.ui.find.model.EventModel
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
@@ -50,6 +47,8 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
     private var isChuLi = -1//是否操作
 
     private var count = -1//列表中的下标
+
+    private var isAllComment = false//是否从全部评论返回
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +82,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         pl_header.setOnClickListener(this)
         tv_zan.setOnClickListener(this)
         tv_comment.setOnClickListener(this)
+        tv_more.setOnClickListener(this)
 
         tv_info.setTextColor(resources.getColor(R.color.black))
 
@@ -101,6 +101,9 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         commentAdapter!!.setId(eventId, "1")
 
         commentAdapter!!.setDelCommentCallBack(object : DynamicCommentAdapter.DelCommentCallBack {
+            override fun delComment(position: Int) {
+            }
+
             override fun delComment() {
                 eventModel.`object`.commentNum = ((eventModel.`object`.commentNum).toInt() - 1).toString()
                 tv_comment.text = eventModel.`object`.commentNum
@@ -108,7 +111,13 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             }
         })
 
-        ProgressDialog.showDialog(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!isAllComment) {
+            ProgressDialog.showDialog(this)
+        }
         Event_221222223224.EventDetails(eventId)
     }
 
@@ -183,9 +192,19 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
+        if (isAllComment) {
+            if (commentList.isNotEmpty()) {
+                commentList.clear()
+                commentAdapter!!.notifyDataSetChanged()
+            }
+            isAllComment = false
+        }
 
         commentList.addAll(model.commList)
         commentAdapter!!.notifyDataSetChanged()
+        if (commentList.isEmpty()) {
+            tv_more.visibility = View.GONE
+        }
     }
 
 
@@ -273,7 +292,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 bundle.putSerializable("list", eventModel.signList)
                 MyApplication.openActivity(this, EventEnteredActivity::class.java, bundle)
             }
-            R.id.back -> {
+            R.id.iv_back -> {
                 onBack()
             }
             R.id.tv_comment -> {
@@ -287,6 +306,12 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                         inputManager.showSoftInput(et_comment, 0)
                     }
                 }, 100)
+            }
+            R.id.tv_more -> {//全部评论
+                val bundle = Bundle()
+                bundle.putString("id", eventId)
+                isAllComment = true
+                MyApplication.openActivityForResult(this, EventAllCommentsActivity::class.java, bundle, 304)
             }
         }
     }
@@ -330,6 +355,17 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             }
             commentAdapter!!.notifyDataSetChanged()
             isChuLi = 5
+        } else if (requestCode == 304) {//全部评论操作
+            val position = data.getIntExtra("position", 0)
+            if (commentList.size - 1 > position) {
+                return
+            }
+            if (data.getStringExtra("type") == "del") {
+                commentList.removeAt(position)
+            } else {
+                commentList[position] = data.getSerializableExtra("model") as ActivityCommentModel1.commModel
+            }
+            commentAdapter!!.notifyDataSetChanged()
         }
     }
 
