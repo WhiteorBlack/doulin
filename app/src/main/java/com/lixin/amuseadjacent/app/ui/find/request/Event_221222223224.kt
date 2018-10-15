@@ -49,7 +49,7 @@ object Event_221222223224 {
 
 
     //活动详情
-    fun EventDetails(activityId: String) {
+    fun EventDetails(context: Activity,activityId: String) {
 
         val json = "{\"cmd\":\"findActivityDetail\",\"uid\":\"" + StaticUtil.uid +
                 "\",\"activityId\":\"" + activityId + "\"}"
@@ -62,7 +62,8 @@ object Event_221222223224 {
                 if (model.result == "0") {
                     EventBus.getDefault().post(model)
                 } else {
-                    ToastUtil.showToast(model.resultNote)
+                    ToastUtil.showToast("活动不存在了")
+                    context.finish()
                 }
             }
         })

@@ -42,7 +42,8 @@ class SpecialAreaActivity : BaseActivity() {
 
     private fun init() {
         StatusBarWhiteColor()
-        inittitle("专区")
+        val model: ServiceModel.dataModel = intent.getSerializableExtra("model") as ServiceModel.dataModel
+        inittitle(model.optimizationName)
 
         iv_right.visibility = View.VISIBLE
         iv_right.setImageResource(R.drawable.ic_car)
@@ -52,10 +53,7 @@ class SpecialAreaActivity : BaseActivity() {
 
         val linearLayoutManager = GridLayoutManager(this, 3)
         rv_event.layoutManager = linearLayoutManager
-
         rv_event.isFocusable = false
-
-        val model: ServiceModel.dataModel = intent.getSerializableExtra("model") as ServiceModel.dataModel
 
         val imageList = ArrayList<String>()
         imageList.add(model.optimizationImgs)

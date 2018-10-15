@@ -133,11 +133,11 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
                 }
                 if (!TextUtils.isEmpty(videoPath)) {
                     abLog.e("视频路径", videoPath)
-                    execCommand(flag, content, imageList, videoPath, adress)
+                    execCommand(content, videoPath, adress)
                     return
                 }
                 ProgressDialog.showDialog(this)
-                ReleaseDynamicBang_220.release(this, flag, content, imageList, videoPath, adress)
+                ReleaseDynamicBang_220.release(this, flag, content, imageList, videoPath, adress,"","")
             }
         }
     }
@@ -218,8 +218,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
 
 
     //压缩视频
-    private fun execCommand(type: String, content: String, imageList: ArrayList<LocalMedia>, videoPath: String,
-                            address: String) {
+    private fun execCommand(content: String, videoPath: String, address: String) {
         ProgressDialog.showDialog(this)
         val destDir = File(currentOutputVideoPath)
         if (!destDir.exists()) {//如果不存在则创建
@@ -230,22 +229,20 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             mFile.delete()
         }
 
-
         VideoCompress.compressVideoLow(videoPath, currentOutputVideoPath, object : VideoCompress.CompressListener {
             override fun onStart() {
             }
 
             override fun onSuccess() {
-                ToastUtil.showToast("处理完成")
                 ProgressDialog.showDialog(this@DynamicReleaseActivity)
-                ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList, currentOutputVideoPath, address)
+                upVideo(currentOutputVideoPath, content, address)
             }
 
             override fun onFail() {
                 ProgressDialog.dissDialog()
                 ToastUtil.showToast("视频处理异常，按原文件上传")
                 ProgressDialog.showDialog(this@DynamicReleaseActivity)
-                ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList, videoPath, address)
+                upVideo(videoPath, content, address)
             }
 
             override fun onProgress(percent: Float) {
@@ -255,6 +252,16 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
 
     }
 
+
+    private fun upVideo(path: String, content: String, address: String) {
+        val retr = MediaMetadataRetriever()
+        retr.setDataSource(path)
+        val height = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)// 视频高度
+        val width = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
+        abLog.e("视频宽高",height+","+width)
+        ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList,
+                currentOutputVideoPath, address, height, width)
+    }
 
     override fun imageRemove(i: Int) {
         imageList.removeAt(i)

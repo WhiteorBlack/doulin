@@ -14,6 +14,7 @@ import com.lixin.amuseadjacent.app.ui.entrance.SginInActivity
 import com.lixin.amuseadjacent.app.ui.entrance.VerificationPasswordActivity
 import com.lixin.amuseadjacent.app.ui.mine.request.VersionUpData_153
 import com.lixin.amuseadjacent.app.util.*
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_setup.*
 
 /**
@@ -102,6 +103,7 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_updata -> {
                 if (TextUtils.isEmpty(updataUrl)) {
+                    ToastUtil.showToast("已是最新版本")
                     return
                 }
                 val uri = Uri.parse(updataUrl)

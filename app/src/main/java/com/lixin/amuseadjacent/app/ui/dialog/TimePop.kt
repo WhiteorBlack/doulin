@@ -11,6 +11,7 @@ import android.widget.TextView
 
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.util.GetDateTimeUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.weigan.loopview.LoopView
 import java.util.*
 
@@ -19,7 +20,15 @@ import java.util.*
  * Created by Slingge on 2018/1/17 0017.
  */
 
-class TimePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : PopupWindow(context) {
+class TimePop(val context: Context, val wheelViewCallBack: WheelViewCallBack2) : PopupWindow(context) {
+
+    private var msxOneYear = -1//0只显示今年
+
+
+    fun TimePop(msxOneYear: Int) {
+        this.msxOneYear = msxOneYear
+    }
+
 
     internal var position = 0
     internal var position2 = 0
@@ -41,7 +50,7 @@ class TimePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
     }
 
 
-    init {
+    fun init() {
         val v = LayoutInflater.from(context).inflate(R.layout.popup_address, null)
         val loopview = v.findViewById<View>(R.id.loopView) as LoopView
         val loopview2 = v.findViewById<View>(R.id.loopView2) as LoopView
@@ -79,19 +88,19 @@ class TimePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
             getMin()
         }
 
-//        loopview.setNotLoop()
+        loopview.setNotLoop()
         loopview.setItems(yearList)
-        position=yearList.size - 1
+        position = yearList.size - 1
         loopview.setCurrentPosition(position)
 
         loopview2.setNotLoop()
         loopview2.setItems(monthList)
-        position2=month - 1
+        position2 = month - 1
         loopview2.setCurrentPosition(position2)
 
         loopview3.setNotLoop()
         loopview3.setItems(dayList)
-        position3=day - 1
+        position3 = day - 1
         loopview3.setCurrentPosition(position3)
 
         loopview4.setNotLoop()
@@ -181,9 +190,16 @@ class TimePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
 
     private fun getYear() {
         yearList.clear()
-        for (i in 1900..2018) {
-            yearList.add(i.toString())
+        if(msxOneYear==0){
+            val c = Calendar.getInstance()
+            var year = c.get(Calendar.YEAR)// 获取当前年份
+            yearList.add(year.toString())
+        }else{
+            for (i in 1900..2018) {
+                yearList.add(i.toString())
+            }
         }
+
     }
 
     private fun getMonth() {

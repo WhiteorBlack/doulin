@@ -47,7 +47,7 @@ class CouponMyAdapter(val context: Activity, val couponList: ArrayList<CouponMyM
             holder.tv_money.setTextColor(context.resources.getColor(R.color.red))
 
             holder.tv_use.visibility = View.VISIBLE
-            holder.tv_type.visibility = View.VISIBLE
+            holder.tv_type.visibility = View.GONE
             holder.tv_tongyong.visibility = View.VISIBLE
             holder.tv_name.visibility = View.GONE
         } else {
@@ -67,6 +67,14 @@ class CouponMyAdapter(val context: Activity, val couponList: ArrayList<CouponMyM
 
         holder.tv_time.text = model.securitiesEndTime
         holder.tv_name.text = model.securitiesName
+
+        if(model.securitiesType=="0"){//0超市便利 1洗衣洗鞋 2新鲜果蔬
+            holder.tv_tongyong.text="超市便利"
+        }else if(model.securitiesType=="1"){
+            holder.tv_tongyong.text="洗衣洗鞋"
+        }else if(model.securitiesType=="2"){
+            holder.tv_tongyong.text="新鲜果蔬"
+        }
 
         holder.tv_subtraction.text = "满" + model.securitiesMoney + "可用"
 

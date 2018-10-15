@@ -79,7 +79,7 @@ class TalentActivity : BaseActivity() {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
-            bundle.putString("title", "")
+            bundle.putString("title", "详情")
             bundle.putString("url", url)
             MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
         }

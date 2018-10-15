@@ -1,5 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.find.request
 
+import android.app.Activity
+import android.content.Context
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
@@ -22,7 +24,7 @@ object DynaComment_133134 {
 
 
     //帮帮、动态详情
-    fun dynamicDetail(dynamicId: String) {
+    fun dynamicDetail(context: Activity,dynamicId: String) {
         val json = "{\"cmd\":\"dynamicDetail\",\"uid\":\"" + StaticUtil.uid + "\",\"dynamicId\":\"" + dynamicId + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
@@ -31,7 +33,8 @@ object DynaComment_133134 {
                 if (model.result == "0") {
                     EventBus.getDefault().post(model)
                 } else {
-                    ToastUtil.showToast(model.resultNote)
+                    ToastUtil.showToast("动态不存在了")
+                    context.finish()
                 }
             }
         })

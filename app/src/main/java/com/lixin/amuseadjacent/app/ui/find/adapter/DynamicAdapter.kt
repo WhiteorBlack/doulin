@@ -127,7 +127,7 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
                         holder.image1.visibility = View.GONE
                         holder.image2.visibility = View.GONE
 
-                        ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image0)
+                        ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image0,ImageLoaderUtil.DIO())
                         holder.image0.setOnClickListener { v ->
                             ToPreviewPhoto.toPhoto(context, model.dynamicImgList, 0)
                         }
@@ -137,8 +137,8 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
                         holder.image1.visibility = View.VISIBLE
                         holder.image2.visibility = View.VISIBLE
 
-                        ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image1)
-                        ImageLoader.getInstance().displayImage(model.dynamicImgList[1], holder.image2)
+                        ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image1,ImageLoaderUtil.DIO())
+                        ImageLoader.getInstance().displayImage(model.dynamicImgList[1], holder.image2,ImageLoaderUtil.DIO())
                         holder.image0.setOnClickListener { v ->
                             ToPreviewPhoto.toPhoto(context, model.dynamicImgList, 0)
                         }

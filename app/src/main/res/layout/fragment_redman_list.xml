@@ -7,232 +7,240 @@
 
     <!--红人榜-->
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <com.lixin.amuseadjacent.app.view.CircleImageView
-            android:id="@+id/ic_header_center"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_marginTop="50dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_header"
-            app:civ_border_color="#F9D016"
-            app:civ_border_width="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <com.lixin.amuseadjacent.app.view.CircleImageView
-            android:id="@+id/ic_header_left"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_header"
-            app:civ_border_color="#C6D1E5"
-            app:civ_border_width="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_header_center"
-            app:layout_constraintEnd_toStartOf="@+id/ic_header_center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ic_header_center" />
-
-
-        <com.lixin.amuseadjacent.app.view.CircleImageView
-            android:id="@+id/ic_header_right"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_header"
-            app:civ_border_color="#F8A770"
-            app:civ_border_width="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_header_center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ic_header_center"
-            app:layout_constraintTop_toTopOf="@+id/ic_header_center" />
-
-        <ImageView
-            android:id="@+id/iv_canter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
-            android:src="@drawable/ic_wngguan1"
-            app:layout_constraintEnd_toEndOf="@+id/ic_header_center"
-            app:layout_constraintStart_toStartOf="@+id/ic_header_center"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11.4dp"
-            android:src="@drawable/ic_wngguan2"
-            app:layout_constraintEnd_toEndOf="@+id/ic_header_left"
-            app:layout_constraintStart_toStartOf="@+id/ic_header_left"
-            app:layout_constraintTop_toTopOf="@+id/iv_canter" />
-
-        <ImageView
-            android:id="@+id/iv_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11.4dp"
-            android:src="@drawable/ic_wngguan3"
-            app:layout_constraintEnd_toEndOf="@+id/ic_header_right"
-            app:layout_constraintStart_toStartOf="@+id/ic_header_right"
-            app:layout_constraintTop_toTopOf="@+id/iv_canter" />
-
-        <TextView
-            android:id="@+id/tv_name_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text=" "
-            android:textColor="@color/black"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintEnd_toEndOf="@+id/ic_header_center"
-            app:layout_constraintStart_toStartOf="@+id/ic_header_center"
-            app:layout_constraintTop_toBottomOf="@+id/ic_header_center" />
-
-        <TextView
-            android:id="@+id/tv_name_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text=" "
-            android:textColor="@color/black"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintEnd_toEndOf="@+id/ic_header_left"
-            app:layout_constraintHorizontal_bias="0.552"
-            app:layout_constraintStart_toStartOf="@+id/ic_header_left"
-            app:layout_constraintTop_toBottomOf="@+id/ic_header_center" />
-
-
-        <TextView
-            android:id="@+id/tv_name_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text=" "
-            android:textColor="@color/black"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintEnd_toEndOf="@+id/ic_header_right"
-            app:layout_constraintStart_toStartOf="@+id/ic_header_right"
-            app:layout_constraintTop_toBottomOf="@+id/ic_header_center" />
-
-        <TextView
-            android:id="@+id/tv_effect_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg_red_line4"
-            android:paddingBottom="1dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="1dp"
-            android:text="影响力"
-            android:textColor="@color/colorRateRed"
-            android:textSize="9sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_name_center"
-            app:layout_constraintStart_toStartOf="@+id/tv_name_center"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_center" />
-
-        <TextView
-            android:id="@+id/tv_effect_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg_red_line4"
-            android:paddingBottom="1dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="1dp"
-            android:text="影响力"
-            android:textColor="@color/colorRateRed"
-            android:textSize="9sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_name_left"
-            app:layout_constraintStart_toStartOf="@+id/tv_name_left"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_left" />
-
-        <TextView
-            android:id="@+id/tv_effect_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg_red_line4"
-            android:paddingBottom="1dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="1dp"
-            android:text="影响力"
-            android:textColor="@color/colorRateRed"
-            android:textSize="9sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_name_right"
-            app:layout_constraintStart_toStartOf="@+id/tv_name_right"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_right" />
-
-
-        <TextView
-            android:id="@+id/tv_follow_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_them30"
-            android:paddingBottom="2dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="2dp"
-            android:text="+ 关注"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintEnd_toEndOf="@+id/tv_effect_center"
-            app:layout_constraintStart_toStartOf="@+id/tv_effect_center"
-            app:layout_constraintTop_toBottomOf="@+id/tv_effect_center" />
-
-        <TextView
-            android:id="@+id/tv_follow_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_them30"
-            android:paddingBottom="2dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="2dp"
-            android:text="+ 关注"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintEnd_toEndOf="@+id/tv_effect_left"
-            app:layout_constraintStart_toStartOf="@+id/tv_effect_left"
-            app:layout_constraintTop_toBottomOf="@+id/tv_effect_left" />
-
-        <TextView
-            android:id="@+id/tv_follow_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_them30"
-            android:paddingBottom="2dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="2dp"
-            android:text="+ 关注"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sub_fant"
-            app:layout_constraintEnd_toEndOf="@+id/tv_effect_right"
-            app:layout_constraintStart_toStartOf="@+id/tv_effect_right"
-            app:layout_constraintTop_toBottomOf="@+id/tv_effect_right" />
-
-
-        <View
-            android:id="@+id/line"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/gray2"
-            app:layout_constraintTop_toBottomOf="@+id/tv_follow_center" />
+            android:layout_height="wrap_content">
 
-        <com.example.xrecyclerview.XRecyclerView
+            <com.lixin.amuseadjacent.app.view.CircleImageView
+                android:id="@+id/ic_header_center"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_header"
+                app:civ_border_color="#F9D016"
+                app:civ_border_width="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.lixin.amuseadjacent.app.view.CircleImageView
+                android:id="@+id/ic_header_left"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_header"
+                app:civ_border_color="#C6D1E5"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ic_header_center"
+                app:layout_constraintEnd_toStartOf="@+id/ic_header_center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ic_header_center" />
+
+
+            <com.lixin.amuseadjacent.app.view.CircleImageView
+                android:id="@+id/ic_header_right"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_header"
+                app:civ_border_color="#F8A770"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/ic_header_center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ic_header_center"
+                app:layout_constraintTop_toTopOf="@+id/ic_header_center" />
+
+            <ImageView
+                android:id="@+id/iv_canter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:src="@drawable/ic_wngguan1"
+                app:layout_constraintEnd_toEndOf="@+id/ic_header_center"
+                app:layout_constraintStart_toStartOf="@+id/ic_header_center"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11.4dp"
+                android:src="@drawable/ic_wngguan2"
+                app:layout_constraintEnd_toEndOf="@+id/ic_header_left"
+                app:layout_constraintStart_toStartOf="@+id/ic_header_left"
+                app:layout_constraintTop_toTopOf="@+id/iv_canter" />
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11.4dp"
+                android:src="@drawable/ic_wngguan3"
+                app:layout_constraintEnd_toEndOf="@+id/ic_header_right"
+                app:layout_constraintStart_toStartOf="@+id/ic_header_right"
+                app:layout_constraintTop_toTopOf="@+id/iv_canter" />
+
+            <TextView
+                android:id="@+id/tv_name_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text=" "
+                android:textColor="@color/black"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="@+id/ic_header_center"
+                app:layout_constraintStart_toStartOf="@+id/ic_header_center"
+                app:layout_constraintTop_toBottomOf="@+id/ic_header_center" />
+
+            <TextView
+                android:id="@+id/tv_name_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text=" "
+                android:textColor="@color/black"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="@+id/ic_header_left"
+                app:layout_constraintHorizontal_bias="0.552"
+                app:layout_constraintStart_toStartOf="@+id/ic_header_left"
+                app:layout_constraintTop_toBottomOf="@+id/ic_header_center" />
+
+
+            <TextView
+                android:id="@+id/tv_name_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text=" "
+                android:textColor="@color/black"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="@+id/ic_header_right"
+                app:layout_constraintStart_toStartOf="@+id/ic_header_right"
+                app:layout_constraintTop_toBottomOf="@+id/ic_header_center" />
+
+            <TextView
+                android:id="@+id/tv_effect_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_red_line4"
+                android:paddingBottom="1dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="1dp"
+                android:text="影响力"
+                android:textColor="@color/colorRateRed"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_name_center"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_center"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_center" />
+
+            <TextView
+                android:id="@+id/tv_effect_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_red_line4"
+                android:paddingBottom="1dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="1dp"
+                android:text="影响力"
+                android:textColor="@color/colorRateRed"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_name_left"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_left"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_left" />
+
+            <TextView
+                android:id="@+id/tv_effect_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_red_line4"
+                android:paddingBottom="1dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="1dp"
+                android:text="影响力"
+                android:textColor="@color/colorRateRed"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_name_right"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_right"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_right" />
+
+
+            <TextView
+                android:id="@+id/tv_follow_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_them30"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="+ 关注"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="@+id/tv_effect_center"
+                app:layout_constraintStart_toStartOf="@+id/tv_effect_center"
+                app:layout_constraintTop_toBottomOf="@+id/tv_effect_center" />
+
+            <TextView
+                android:id="@+id/tv_follow_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_them30"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="+ 关注"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="@+id/tv_effect_left"
+                app:layout_constraintStart_toStartOf="@+id/tv_effect_left"
+                app:layout_constraintTop_toBottomOf="@+id/tv_effect_left" />
+
+            <TextView
+                android:id="@+id/tv_follow_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_them30"
+                android:paddingBottom="2dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:text="+ 关注"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sub_fant"
+                app:layout_constraintEnd_toEndOf="@+id/tv_effect_right"
+                app:layout_constraintStart_toStartOf="@+id/tv_effect_right"
+                app:layout_constraintTop_toBottomOf="@+id/tv_effect_right" />
+
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_follow_center" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_radman"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -240,8 +248,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line" />
-
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 
 </android.support.v4.widget.NestedScrollView>

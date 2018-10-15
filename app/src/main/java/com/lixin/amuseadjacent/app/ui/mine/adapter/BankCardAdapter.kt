@@ -40,7 +40,6 @@ class BankCardAdapter(val context: Activity, val bankList: ArrayList<MyBankModel
         holder.tv_name.text = bankList[position].cardName + "（" + num.substring(num.length - 4, num.length) + "）"
 
         holder.ll_bank.setOnClickListener { v ->
-            //编辑
             if (flag == 1) {
                 val bundle = Bundle()
                 bundle.putSerializable("DynamiclDetailsModel", bankList[position])
@@ -48,7 +47,7 @@ class BankCardAdapter(val context: Activity, val bankList: ArrayList<MyBankModel
                 intent.putExtras(bundle)
                 context.setResult(0, intent)
                 context.finish()
-            } else {
+            } else {//编辑
                 val bundle = Bundle()
                 bundle.putInt("flag", 1)
                 bundle.putSerializable("DynamiclDetailsModel", bankList[position])

@@ -202,13 +202,12 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     protected void onStart() {
         super.onStart();
         ProgressDialog.INSTANCE.showDialog(this);
-        DynaComment_133134.INSTANCE.dynamicDetail(dynaId);
+        DynaComment_133134.INSTANCE.dynamicDetail(this,dynaId);
     }
 
     @Subscribe
     public void onEvent(DynamiclDetailsModel model) {
         this.model = model;
-
         if (model.object.type.equals("0")) {//0动态 1帮帮
             tv_title.setText("动态详情");
         } else {

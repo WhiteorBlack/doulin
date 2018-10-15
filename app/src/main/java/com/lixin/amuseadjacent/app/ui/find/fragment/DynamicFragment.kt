@@ -51,7 +51,7 @@ class DynamicFragment : BaseFragment(),DynamicList_219.DynamicListCallBack {
         include.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
-
+        xrecyclerview.setPullRefreshEnabled(false)
         xrecyclerview.isFocusable = false
 
         dynamicAdapter = DynamicAdapter(activity!!, "0", dynaList)

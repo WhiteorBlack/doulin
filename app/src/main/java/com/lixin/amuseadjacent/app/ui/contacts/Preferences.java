@@ -1,6 +1,5 @@
 package com.lixin.amuseadjacent.app.ui.contacts;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 

@@ -15,6 +15,7 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.find.activity.*
 import com.lixin.amuseadjacent.app.ui.message.model.CommentNewModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
+import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 
@@ -23,7 +24,6 @@ import com.nostra13.universalimageloader.core.ImageLoader
  * Created by Slingge on 2018/8/16
  */
 class CommentNewsAdapter(val context: Context, val type: String, val commentList: ArrayList<CommentNewModel.msgModel>) : RecyclerView.Adapter<CommentNewsAdapter.ViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_comment_news, parent, false)
@@ -41,12 +41,11 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
         if (type == "2") {
             holder.text.text = "收到新的评论"
             holder.tex2.text = model.messageTitle
-            ImageLoader.getInstance().displayImage(model.userIcon, holder.image)
         } else {
             holder.text.text = "收到新的点赞"
             holder.tex2.text = model.messageContent
-            ImageLoader.getInstance().displayImage(model.userIcon, holder.image)
         }
+        ImageLoader.getInstance().displayImage(model.userIcon, holder.image)
 
         holder.tv_time.text = model.messageTime
 
@@ -84,6 +83,13 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
                     MyApplication.openActivity(context, TopicActivity::class.java, bundle)
                 }
             }
+        }
+
+        holder.image.setOnClickListener { v ->
+            val bundle = Bundle()
+            bundle.putString("auid", model.userId)
+            bundle.putString("isAttention","")
+            MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
         }
 
         holder.tv_del.setOnClickListener { v ->

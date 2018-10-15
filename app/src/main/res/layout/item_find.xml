@@ -108,7 +108,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                   >
 
                     <ImageView
                         android:id="@+id/image0"
@@ -116,9 +117,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="88dp"
                         android:adjustViewBounds="true"
+                        android:maxWidth="160dp"
+                        android:maxHeight="160dp"
+                        android:visibility="gone"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_dyna"
-                        android:visibility="gone" />
+                         />
 
                     <ImageView
                         android:id="@+id/image1"
@@ -128,10 +132,11 @@
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
                         android:maxHeight="110dp"
-                        android:maxWidth="450dp"
+                        android:visibility="gone"
+                        android:maxWidth="200dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_dyna"
-                        android:visibility="gone" />
+                       />
 
                     <ImageView
                         android:id="@+id/image2"
@@ -141,10 +146,11 @@
                         android:layout_weight="1"
                         android:adjustViewBounds="true"
                         android:maxHeight="110dp"
-                        android:maxWidth="450dp"
+                        android:visibility="gone"
+                        android:maxWidth="200dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_dyna"
-                        android:visibility="gone" />
+                        />
 
                 </LinearLayout>
 

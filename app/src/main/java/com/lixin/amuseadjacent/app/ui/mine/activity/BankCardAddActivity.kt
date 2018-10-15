@@ -47,9 +47,6 @@ class BankCardAddActivity : BaseActivity() {
 
         flag = intent.getIntExtra("flag", 0)
 
-        spinnerAdapter = ArrayAdapter(this@BankCardAddActivity,
-                R.layout.item_spinner_text, spinnerItems)
-        sp_bank.adapter = spinnerAdapter
         sp_bank.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             //parent就是父控件spinner
             //view就是spinner内填充的textview,id=@android:id/text1
@@ -96,7 +93,9 @@ class BankCardAddActivity : BaseActivity() {
         }
         bankId = bankList[0].bankId
         bankName = bankList[0].bankName
-        spinnerAdapter!!.notifyDataSetChanged()
+        spinnerAdapter = ArrayAdapter(this@BankCardAddActivity,
+                R.layout.item_spinner_text, spinnerItems)
+        sp_bank.adapter = spinnerAdapter
 
         if (flag == 1) {
             val model = intent.getSerializableExtra("DynamiclDetailsModel") as MyBankModel.detailsModel
@@ -104,15 +103,13 @@ class BankCardAddActivity : BaseActivity() {
             et_num.setText(model.cardNum)
             BankCardId = model.cardId
 
-            /* for (i in 0 until bankList.size) {
-                 if (bankId==DynamiclDetailsModel.cardId) {
-                     sp_bank.setPromptId(i)
-                     break
-                 }
-             }*/
-
+            for(i in 0 until spinnerItems.size ){
+                if(spinnerItems[i] == model.cardName){
+                    sp_bank.setSelection(i,true)
+                    break
+                }
+            }
         }
-
     }
 
 

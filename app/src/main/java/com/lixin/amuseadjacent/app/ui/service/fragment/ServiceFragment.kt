@@ -87,7 +87,7 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
-            bundle.putString("title", "")
+            bundle.putString("title", "详情")
             bundle.putString("url", bannerList[i].topImgDetailUrl)
             MyApplication.openActivity(activity!!, WebViewActivity::class.java, bundle)
         }

@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import com.lixin.amuseadjacent.R
-import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.util.AppManager
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
@@ -51,6 +50,7 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         ProgressDialog.dissDialog()
+        System.gc()
     }
 
 

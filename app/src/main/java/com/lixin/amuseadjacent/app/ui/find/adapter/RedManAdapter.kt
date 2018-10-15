@@ -1,7 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,9 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
-import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.model.RedmanModel
-import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
@@ -59,7 +56,6 @@ class RedManAdapter(val context: Activity, val redmanList: ArrayList<RedmanModel
                 holder.tv_follow_right.visibility = View.INVISIBLE
             }
         }
-
 
 
         holder.ic_header.setOnClickListener { v ->

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
-import com.google.gson.Gson
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -19,15 +18,10 @@ import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
-import com.lixin.amuseadjacent.app.util.abLog
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.activity_event.*
-import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 import java.util.ArrayList
 
 /**
@@ -74,7 +68,6 @@ class BangBangActivity : BaseActivity(), DynamicList_219.DynamicListCallBack {
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_event2.layoutManager = linearLayoutManager
-        rv_event2.setPullRefreshEnabled(false)
 
         val headerView = LayoutInflater.from(this).inflate(R.layout.include_banner, null, false)//头布局
         banner = headerView.findViewById(R.id.banner)
@@ -111,7 +104,7 @@ class BangBangActivity : BaseActivity(), DynamicList_219.DynamicListCallBack {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
-            bundle.putString("title", "")
+            bundle.putString("title", "详情")
             bundle.putString("url", bannerUrl)
             MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
         }
@@ -133,7 +126,6 @@ class BangBangActivity : BaseActivity(), DynamicList_219.DynamicListCallBack {
         dynaList.addAll(model.dataList)
 
         totalPage = model.totalPage
-        ToastUtil.showToast(totalPage.toString())
 
         if (onRefresh == 1) {
             rv_event2.refreshComplete()

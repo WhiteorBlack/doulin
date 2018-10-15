@@ -129,7 +129,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
-            bundle.putString("title", "")
+            bundle.putString("title", "详情")
             bundle.putString("url", bannerUrl)
             MyApplication.openActivity(activity!!, WebViewActivity::class.java, bundle)
         }

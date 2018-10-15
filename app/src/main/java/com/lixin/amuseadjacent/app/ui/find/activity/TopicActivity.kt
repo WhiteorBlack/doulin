@@ -32,6 +32,7 @@ import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
 /**
+ * 话题
  * Created by Slingge on 2018/10/12
  */
 class TopicActivity : BaseActivity(), View.OnClickListener {
@@ -112,7 +113,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
 
         ProgressDialog.showDialog(this)
         ActivityComment_272829210.getComment1("1", topicId, nowPage)
-        ActivityComment_272829210.getthemedetail(topicId)
+        ActivityComment_272829210.getthemedetail(this,topicId)
     }
 
     //详情

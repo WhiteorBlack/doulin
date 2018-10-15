@@ -21,7 +21,6 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
  */
 object CouponDialog {
 
-
     private var builder: AlertDialog? = null
 
     fun communityDialog(context: Activity, couponList: ArrayList<CouponModel.couponModel>) {
@@ -40,32 +39,12 @@ object CouponDialog {
         rv_coupon.layoutManager = linearLayoutManager
         rv_coupon.adapter = couponAdapter
 
-        rv_coupon.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_coupon) {
-            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                val i = vh!!.adapterPosition
-                if (i < 0) {
-                    return
-                }
-                couponList[i].isSelect = !couponList[i].isSelect
-                couponAdapter.notifyDataSetChanged()
-            }
-        })
-
         val tv_receive = view.findViewById<TextView>(R.id.tv_receive)
         tv_receive.setOnClickListener { v ->
             ProgressDialog.showDialog(context)
             val model = ReceiveCouponModel()
-            var count = 0
             for (i in 0 until couponList.size) {
-                if (couponList[i].isSelect) {
-                    count++
-                    model.securitiesid.add(couponList[i].securitiesid)
-                }
-            }
-            if (count == 0) {
-                ToastUtil.showToast("请选择优惠券")
-                ProgressDialog.dissDialog()
-                return@setOnClickListener
+                model.securitiesid.add(couponList[i].securitiesid)
             }
             Coupon_3132.Receive(model)
         }

@@ -23,7 +23,7 @@ import java.io.File
 object ReleaseDynamicBang_220 {
 
     fun release(context: Activity, type: String, content: String, imageList: ArrayList<LocalMedia>, videoPath: String,
-                address: String) {
+                address: String, height: String, width: String) {
 
         val listfile = arrayListOf<File>() //map是无序集合尽量用list
         val videoFile = File(videoPath)
@@ -37,6 +37,7 @@ object ReleaseDynamicBang_220 {
             OkHttpUtils.post().url(StaticUtil.ReleaseDynamicBang).addParams("uid", StaticUtil.uid)//发布图片不传videoFile
                     .addParams("type", type).addParams("content", content).files("file", listfile)
                     .addParams("address", address)
+                    .addParams("height", height).addParams("width", width)//视频高度、宽度
                     .build().execute(object : StrCallback() {
                         override fun onResponse(response: String, id: Int) {
                             super.onResponse(response, id)

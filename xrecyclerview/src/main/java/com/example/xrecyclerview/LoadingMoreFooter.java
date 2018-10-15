@@ -59,7 +59,7 @@ public class LoadingMoreFooter extends LinearLayout {
                 mText.setText(getContext().getText(R.string.nomore_loading));
                 progressBar.setVisibility(View.GONE);
                 this.setVisibility(View.VISIBLE);
-                ll_foot.setVisibility(View.GONE);
+                ll_foot.setVisibility(View.VISIBLE);
                 break;
             case STATE_ERR:
                 mText.setText(getContext().getText(R.string.err));

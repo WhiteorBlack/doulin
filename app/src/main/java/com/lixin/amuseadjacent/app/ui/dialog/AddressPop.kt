@@ -43,9 +43,9 @@ class AddressPop(context: Context, private val cityList: List<CityModel>, var wh
         val loopview3 = v.findViewById<View>(R.id.loopView3) as LoopView
         loopview3.visibility = View.VISIBLE
 
-        v.findViewById<TextView>(R.id.year).visibility = View.VISIBLE
-        v.findViewById<TextView>(R.id.month).visibility = View.VISIBLE
-        v.findViewById<TextView>(R.id.day).visibility = View.VISIBLE
+        v.findViewById<TextView>(R.id.year).visibility = View.GONE
+        v.findViewById<TextView>(R.id.month).visibility = View.GONE
+        v.findViewById<TextView>(R.id.day).visibility = View.GONE
 
         //设置是否循环播放
         //        loopView.setNotLoop();

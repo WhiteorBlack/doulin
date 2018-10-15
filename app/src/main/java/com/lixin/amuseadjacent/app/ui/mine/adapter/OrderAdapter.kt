@@ -183,7 +183,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
                 MyOrder_144155.ConfirmOrder(null, model.orderNum, position, object : MyOrder_144155.OrderEditCallBack {
                     override fun cancel() {
                         orderList[position].orderState = "10"
-                        notifyItemChanged(position)
+                        notifyDataSetChanged()
                     }
                 })
             } else if (orderState == "4") {//归还，洗衣洗鞋，确认已取件
@@ -191,7 +191,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
                 MyOrder_144155.TakepartLaundry(null, model.orderNum, position, object : MyOrder_144155.OrderEditCallBack {
                     override fun cancel() {
                         orderList[position].orderState = "5"
-                        notifyItemChanged(position)
+                        notifyDataSetChanged()
                     }
                 })
             } else if (orderState == "6") {//归还，洗衣洗鞋，洗完之后，点击开始送还
@@ -199,7 +199,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
                 MyOrder_144155.ReturnLaundry(null, model.orderNum, position, object : MyOrder_144155.OrderEditCallBack {
                     override fun cancel() {
                         orderList[position].orderState = "7"
-                        notifyItemChanged(position)
+                        notifyDataSetChanged()
                     }
                 })
             }

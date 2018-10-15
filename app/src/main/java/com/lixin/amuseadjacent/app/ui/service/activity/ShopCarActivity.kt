@@ -325,6 +325,9 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
             rl_fruits.visibility = View.GONE
             cl_fruits.visibility = View.GONE
         }
+        if (marketList.isEmpty() && clothesList.isEmpty() && fruitsList.isEmpty()) {
+            rl_clear.visibility = View.VISIBLE
+        }
 
         if (flag == -1) {
             Calculation(0, null)
@@ -401,6 +404,10 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         Calculation(1, true)
         cb_fruits.isChecked = true
         Calculation(2, true)
+
+        if (marketList.isEmpty() && clothesList.isEmpty() && fruitsList.isEmpty()) {
+            rl_clear.visibility = View.VISIBLE
+        }
     }
 
 

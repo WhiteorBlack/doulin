@@ -61,7 +61,6 @@ class EffectCommunityActivity : BaseActivity() {
         rv_effect.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_effect) {
             override fun onItemClick(vh: RecyclerView.ViewHolder?) {
                 val i = vh!!.adapterPosition
-                ToastUtil.showToast(i.toString())
                 if (i < 0 || i >= effectList.size) {
                     return
                 }

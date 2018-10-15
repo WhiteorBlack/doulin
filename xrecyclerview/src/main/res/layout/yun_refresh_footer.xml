@@ -7,17 +7,17 @@
     <LinearLayout
         android:id="@+id/ll_foot"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
+        android:background="#ffffff"
         android:gravity="center"
-        android:background="#f4f4f4"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
         android:paddingTop="5dp">
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/msg"
@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/listview_loading"
-            android:textColor="#585858" />
+            android:textColor="#585858"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/msg2"
@@ -33,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:text="查看失效优惠券"
-            android:visibility="gone"
-            android:textColor="#404040" />
+            android:textColor="#404040"
+            android:visibility="gone" />
 
     </LinearLayout>
 </LinearLayout>

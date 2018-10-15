@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.ToPreviewPhoto
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.lxkj.runproject.app.view.SquareImage
@@ -30,7 +31,7 @@ class ImageAdapter(val context: Context, val list: ArrayList<String>, val flag: 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        ImageLoader.getInstance().displayImage(list[position], holder.image)
+        ImageLoader.getInstance().displayImage(list[position], holder.image, ImageLoaderUtil.DIO())
 
         holder.image.setOnClickListener { v ->
             ToPreviewPhoto.toPhoto(context, list, position)

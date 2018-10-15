@@ -14,6 +14,7 @@ abstract class BaseFragment : Fragment() {
     protected var isDataInitiated: Boolean = false
 
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         isViewInitiated = true
@@ -42,6 +43,11 @@ abstract class BaseFragment : Fragment() {
     companion object {
 
         var refreshData: Boolean = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        System.gc()
     }
 
 }

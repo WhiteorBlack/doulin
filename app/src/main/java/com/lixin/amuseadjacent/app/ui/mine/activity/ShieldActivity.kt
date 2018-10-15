@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.mine.activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
@@ -10,6 +11,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ShieldAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.ShieldModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Shield_151152
+import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -44,6 +46,7 @@ class ShieldActivity : BaseActivity() {
     private fun init() {
         inittitle("我的屏蔽")
         StatusBarWhiteColor()
+        view_staus.visibility = View.GONE
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL

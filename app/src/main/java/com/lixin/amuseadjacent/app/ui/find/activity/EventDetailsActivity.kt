@@ -118,7 +118,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         if (!isAllComment) {
             ProgressDialog.showDialog(this)
         }
-        Event_221222223224.EventDetails(eventId)
+        Event_221222223224.EventDetails(this,eventId)
     }
 
     @Subscribe
@@ -178,27 +178,30 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             model.`object`.iscang = "0"
         }
 
-        var maxNun = 10
-        if (model.signList != null) {
-            if (model.signList.size < 10) {
-                maxNun = model.signList.size
-            }
-            pl_header.setAvatarListListener { imageViewList ->
-                imageViewList.reverse()
-                for (i in 0 until maxNun) {
-                    ImageLoader.getInstance().displayImage(model.signList[i].userImg, imageViewList!![i])
-                    imageViewList[i].visibility = View.VISIBLE
+        if (pl_header.visibility == View.INVISIBLE) {
+            var maxNun = 10
+            if (model.signList != null) {
+                if (model.signList.size < 10) {
+                    maxNun = model.signList.size
+                }
+                pl_header.visibility = View.VISIBLE
+                pl_header.setAvatarListListener { imageViewList ->
+                    imageViewList.reverse()
+                    for (i in 0 until maxNun) {
+                        ImageLoader.getInstance().displayImage(model.signList[i].userImg, imageViewList!![i])
+                        imageViewList[i].visibility = View.VISIBLE
+                    }
                 }
             }
         }
 
-        if (isAllComment) {
-            if (commentList.isNotEmpty()) {
-                commentList.clear()
-                commentAdapter!!.notifyDataSetChanged()
-            }
-            isAllComment = false
+
+
+        if (commentList.isNotEmpty()) {
+            commentList.clear()
+            commentAdapter!!.notifyDataSetChanged()
         }
+        isAllComment = false
 
         commentList.addAll(model.commList)
         commentAdapter!!.notifyDataSetChanged()

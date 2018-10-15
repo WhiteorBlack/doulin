@@ -92,6 +92,7 @@ class DynamicActivity : BaseActivity() {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                System.gc()
                 i = tab!!.position
                 NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
             }
@@ -103,7 +104,7 @@ class DynamicActivity : BaseActivity() {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
-            bundle.putString("title", "")
+            bundle.putString("title", "详情")
             bundle.putString("url", bannerUrl)
             MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
         }

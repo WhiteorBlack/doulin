@@ -63,15 +63,10 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
         ic_header_right.setOnClickListener(this)
 
         rv_radman.layoutManager = linearLayoutManager
-        rv_radman.setPullRefreshEnabled(false)
+
         rv_radman.isFocusable = false
         redManAdapter = RedManAdapter(activity!!, redmanList, this)
         rv_radman.adapter = redManAdapter
-
-        val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
-        rv_radman.layoutAnimation = controller
-        redManAdapter!!.notifyDataSetChanged()
-        rv_radman.scheduleLayoutAnimation()
     }
 
     private fun init() {

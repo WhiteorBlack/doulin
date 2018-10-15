@@ -7,14 +7,14 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:visibility="gone" />
 
 
     <LinearLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="#f4f4f4"
         android:gravity="center"
         android:orientation="horizontal"
@@ -29,8 +29,8 @@
             android:visibility="gone" />
 
         <ProgressBar
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/msg"
@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/listview_loading"
+            android:textSize="13sp"
             android:textColor="#585858" />
 
     </LinearLayout>

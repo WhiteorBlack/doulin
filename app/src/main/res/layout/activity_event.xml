@@ -10,9 +10,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/include_basetop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        layout="@layout/include_basetop" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
@@ -30,14 +28,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-
             <com.example.xrecyclerview.XRecyclerView
                 android:id="@+id/rv_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:nestedScrollingEnabled="false" />
+                android:layout_marginRight="6dp" />
 
         </LinearLayout>
 

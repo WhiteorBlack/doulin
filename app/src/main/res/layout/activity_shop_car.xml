@@ -31,12 +31,12 @@
                 <CheckBox
                     android:id="@+id/cb_market"
                     style="@style/CheckBox"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:paddingBottom="12dp"
                     android:paddingRight="12dp"
                     android:paddingTop="12dp" />
@@ -207,12 +207,12 @@
                 <CheckBox
                     android:id="@+id/cb_fruits"
                     style="@style/CheckBox"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:paddingBottom="12dp"
                     android:paddingRight="12dp"
                     android:paddingTop="12dp" />
@@ -239,8 +239,8 @@
                 android:nestedScrollingEnabled="false" />
 
             <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
                 android:id="@+id/cl_fruits"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <View
@@ -277,6 +277,33 @@
                     app:layout_constraintTop_toTopOf="@+id/tv_settlement_fruits" />
 
             </android.support.constraint.ConstraintLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_clear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="90dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_clear" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:text="购物车空空如也"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/sub_fant" />
+            </RelativeLayout>
 
         </LinearLayout>
 

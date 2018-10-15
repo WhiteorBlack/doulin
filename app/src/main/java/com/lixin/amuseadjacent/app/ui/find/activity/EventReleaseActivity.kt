@@ -181,6 +181,8 @@ class EventReleaseActivity : BaseActivity(), AlbumAdapter.ImageRemoveCallback, T
     private fun showDatePop() {
         if (datePop == null) {
             datePop = TimePop(this, this)
+            datePop!!.TimePop(0)
+            datePop!!.init()
         }
         if (!datePop!!.isShowing) {
             datePop!!.showAtLocation(ll_main, Gravity.CENTER or Gravity.BOTTOM, 0, 0)

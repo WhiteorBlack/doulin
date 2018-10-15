@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.request
 
+import android.app.Activity
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.app.ui.find.model.ActivityCommentModel1
 import com.lixin.amuseadjacent.app.ui.find.model.TopicModel
@@ -132,7 +133,7 @@ object ActivityComment_272829210 {
 
 
     //话题详情
-    fun getthemedetail(themeId: String) {
+    fun getthemedetail(context:Activity,themeId: String) {
         val json = "{\"cmd\":\"getthemedetail\",\"uid\":\"" + StaticUtil.uid + "\",\"themeId\":\"" + themeId + "\"}"
         abLog.e("获取话题详情", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
@@ -142,7 +143,8 @@ object ActivityComment_272829210 {
                 if (model.result == "0") {
                     EventBus.getDefault().post(model.`object`)
                 } else {
-                    ToastUtil.showToast(model.resultNote)
+                    ToastUtil.showToast("话题不存在了")
+                    context.finish()
                 }
             }
         })
