@@ -243,7 +243,7 @@ public class MessageFragment extends TFragment implements ModuleProxy {
 
                 @Override
                 public void onFailed(int code) {
-                    sendFailWithBlackList(code, msg);
+//                    sendFailWithBlackList(code, msg);
                 }
 
                 @Override
