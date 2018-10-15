@@ -244,7 +244,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="12dp"
-        android:text="#有奖竞猜，世界杯预测～  点击参加"
+        android:text=""
         android:textColor="@color/colorTheme"
         android:textSize="@dimen/main_fant"
         app:layout_constraintEnd_toEndOf="parent"

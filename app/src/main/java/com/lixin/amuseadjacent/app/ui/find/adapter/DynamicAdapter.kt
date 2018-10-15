@@ -37,7 +37,7 @@ import com.xiao.nicevideoplayer.TxVideoPlayerController
 
 /**
  * 达人
- * flag 0动态，1帮帮
+ * flag 0动态，1帮帮，2话题
  * Created by Slingge on 2018/8/22
  */
 class DynamicAdapter(val context: Activity, val flag: String, val dynaList: ArrayList<FindModel.dynamicModel>) : RecyclerView.Adapter<DynamicAdapter.ViewHolder>() {
@@ -52,7 +52,6 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
 
         val model = dynaList!![position]
 

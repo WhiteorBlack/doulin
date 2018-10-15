@@ -107,7 +107,8 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_coupon -> {
                 val bundle = Bundle()
-                bundle.putInt("type", 1)
+                bundle.putInt("type", type.toInt())
+                bundle.putDouble("money",totalMoney)
                 MyApplication.openActivityForResult(this, CouponMyActivity::class.java, bundle, 0)
             }
             R.id.iv_address -> {

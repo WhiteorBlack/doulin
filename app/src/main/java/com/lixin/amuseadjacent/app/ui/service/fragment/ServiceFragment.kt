@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -25,11 +24,9 @@ import com.lixin.amuseadjacent.app.ui.service.model.ServiceModel
 import com.lixin.amuseadjacent.app.ui.service.request.Coupon_3132
 import com.lixin.amuseadjacent.app.ui.service.request.Service_33
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
-import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
 import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
@@ -83,10 +80,10 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
         xrecyclerview.addHeaderView(headerView)
 
         banner = headerView!!.findViewById(R.id.banner)
-        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(activity!!,100),banner!!)
+        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(activity!!, 100), banner!!)
 
         banner!!.setOnBannerListener { i ->
-            if(TextUtils.isEmpty(bannerList[i].topImgDetailUrl)){
+            if (TextUtils.isEmpty(bannerList[i].topImgDetailUrl) || bannerList[i].topImgDetailUrlState == "1") {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
@@ -129,8 +126,8 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
         bannerList.clear()
         for (i in 0 until model.bannerList.size) {
             imageList.add(model.bannerList[i].topImgUrl)
-            bannerList.add(model.bannerList[i])
         }
+        bannerList = model.bannerList
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
                 .start()

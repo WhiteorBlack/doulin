@@ -32,7 +32,7 @@ import java.util.*
  * 动态评论回复
  * Created by Slingge on 2018/8/25.
  */
-class DynamicDetailsReplyActivity : BaseActivity() {
+class DynamicDetailsReplyActivity : BaseActivity(),DynamicCommentReplyAdapter.DelCommentCallBack{
 
     private var replyAdapter: DynamicCommentReplyAdapter? = null
     private var commentList = ArrayList<ActivityCommentModel1.commModel>()
@@ -77,6 +77,7 @@ class DynamicDetailsReplyActivity : BaseActivity() {
 
         replyAdapter = DynamicCommentReplyAdapter(this, commentList)
         rv_reply.adapter = replyAdapter
+        replyAdapter!!.setDelCommentCallBack(this)
 
         if (intent.getSerializableExtra("model") != null) {
             commModel = intent.getSerializableExtra("model") as ActivityCommentModel1.commModel
@@ -137,12 +138,13 @@ class DynamicDetailsReplyActivity : BaseActivity() {
                     if (commModel!!.isZan == "1") {
                         commModel!!.zanNum = (commModel!!.zanNum.toInt() - 1).toString()
                         commModel!!.isZan = "0"
+                        AbStrUtil.setDrawableLeft(this@DynamicDetailsReplyActivity, R.drawable.ic_zan, tv_zan, 5)
                     } else {
                         commModel!!.zanNum = (commModel!!.zanNum.toInt() + 1).toString()
                         commModel!!.isZan = "1"
+                        AbStrUtil.setDrawableLeft(this@DynamicDetailsReplyActivity, R.drawable.ic_zan_hl, tv_zan, 5)
                     }
                     tv_zan!!.text = commModel!!.zanNum
-                    AbStrUtil.setDrawableLeft(this@DynamicDetailsReplyActivity, R.drawable.ic_zan_hl, tv_zan, 5)
                     chushi = 1
                 }
             })
@@ -155,6 +157,7 @@ class DynamicDetailsReplyActivity : BaseActivity() {
             if (timer == null) {
                 timer = Timer()
             }
+            et_comment.requestFocus()//获取焦点 光标出现
             timer!!.schedule(object : TimerTask() {
                 override fun run() {
                     val inputManager = this@DynamicDetailsReplyActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -171,7 +174,7 @@ class DynamicDetailsReplyActivity : BaseActivity() {
             tv_del.visibility = View.GONE
         }
 
-        tv_del.setOnClickListener { v ->
+        tv_del.setOnClickListener { v ->//删除一级评论
             ProgressDialog.showDialog(this)
             DeleteComment_227.del(model.commentId, object : DeleteComment_227.DelCommentCallBack {
                 override fun delComment() {
@@ -200,6 +203,14 @@ class DynamicDetailsReplyActivity : BaseActivity() {
         rv_reply.layoutAnimation = controller
         replyAdapter!!.notifyDataSetChanged()
         rv_reply.scheduleLayoutAnimation()
+    }
+
+    //删除二级评论
+    override fun del() {
+        chushi = -3
+        commNum--
+        commModel!!.secondNum=commNum.toString()
+        headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = commModel!!.secondNum + "回复"
     }
 
     fun Destroy() {

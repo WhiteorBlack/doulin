@@ -24,8 +24,10 @@ import org.greenrobot.eventbus.Subscribe
  * 动态列表
  * Created by Slingge on 2018/8/21
  */
-class DynamicFragment : BaseFragment() {
+class DynamicFragment : BaseFragment(),DynamicList_219.DynamicListCallBack {
+    override fun loadData() {
 
+    }
     private var flag = -1
 
     private var linearLayoutManager: LinearLayoutManager? = null
@@ -40,7 +42,6 @@ class DynamicFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.xrecyclerview, container, false)
-        EventBus.getDefault().register(this)
         init()
         return view
     }
@@ -50,7 +51,6 @@ class DynamicFragment : BaseFragment() {
         include.visibility = View.GONE
 
         xrecyclerview.layoutManager = linearLayoutManager
-        xrecyclerview.setPullRefreshEnabled(false)
 
         xrecyclerview.isFocusable = false
 
@@ -59,24 +59,27 @@ class DynamicFragment : BaseFragment() {
 
         xrecyclerview.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
+                nowPage=1
                 if (dynaList.isNotEmpty()) {
                     dynaList.clear()
                     dynamicAdapter!!.notifyDataSetChanged()
                 }
                 onRefresh = 1
-                DynamicList_219.dynamic("0", flag, nowPage)
+                DynamicList_219.dynamic("0", flag, nowPage,this@DynamicFragment)
             }
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage > totalPage) {
                     xrecyclerview.noMoreLoading()
                     return
                 }
                 onRefresh = 2
-                DynamicList_219.dynamic("0", flag, nowPage)
+                DynamicList_219.dynamic("0", flag, nowPage,this@DynamicFragment)
             }
         })
+        ProgressDialog.showDialog(activity!!)
+        DynamicList_219.dynamic("0", flag, nowPage,this)
     }
 
     private fun init() {
@@ -84,24 +87,23 @@ class DynamicFragment : BaseFragment() {
 
         linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager!!.orientation = LinearLayoutManager.VERTICAL
-    }
 
-
-    override fun loadData() {
         if (dynaList.isNotEmpty()) {
             dynaList.clear()
             dynamicAdapter!!.notifyDataSetChanged()
         }
         nowPage = 1
-        ProgressDialog.showDialog(activity!!)
-        DynamicList_219.dynamic("0", flag, nowPage)
     }
 
-    @Subscribe
-    fun onEvent(model: DynamiclModel) {
+
+    override fun dynamicList(model: DynamiclModel) {
         dynaList.addAll(model.dataList)
 
         totalPage = model.totalPage
+
+        if(totalPage<=1){
+            xrecyclerview.noMoreLoading()
+        }
 
         if (onRefresh == 1) {
             xrecyclerview.refreshComplete()
@@ -119,16 +121,17 @@ class DynamicFragment : BaseFragment() {
         }
     }
 
-    fun Refresh(i: Int, model: DynamiclDetailsModel?, position: Int) {
-        if (i == flag) {
+
+    fun refresh(i: Int, model: DynamiclDetailsModel?, position: Int) {
             if (model == null) {
                 if (dynaList.isNotEmpty()) {
                     dynaList.clear()
                     dynamicAdapter!!.notifyDataSetChanged()
                 }
                 nowPage = 1
+                onRefresh=0
                 ProgressDialog.showDialog(activity!!)
-                DynamicList_219.dynamic("0", flag, nowPage)
+                DynamicList_219.dynamic("0", flag, nowPage,this)
             } else {
                 dynaList[position].commentNum = model.`object`.commentNum
                 dynaList[position].isZan = model.`object`.isZan
@@ -136,7 +139,6 @@ class DynamicFragment : BaseFragment() {
                 dynaList[position].zanNum = model.`object`.zanNum
                 dynamicAdapter!!.notifyDataSetChanged()
             }
-        }
     }
 
     override fun onPause() {
@@ -145,10 +147,6 @@ class DynamicFragment : BaseFragment() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
 
 
 }

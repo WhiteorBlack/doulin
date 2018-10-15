@@ -9,10 +9,11 @@ class ShopGoodsListModel {
     var result = ""
     var resultNote = ""
 
-    var bannerList = java.util.ArrayList<bannerModel>()
+    var bannerList =  ArrayList<bannerModel>()
     class bannerModel {
         var topImgUrl = ""// id
-        var topImgDetailUrl = ""//商品名称
+        var topImgDetailUrl = ""//
+        var topImgDetailUrlState = ""//
     }
 
     var dataList = java.util.ArrayList<dataModel>()

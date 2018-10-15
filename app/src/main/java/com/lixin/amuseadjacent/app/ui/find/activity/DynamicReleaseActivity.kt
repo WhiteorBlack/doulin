@@ -249,7 +249,6 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             }
 
             override fun onProgress(percent: Float) {
-                ProgressDialog.showDialog(this@DynamicReleaseActivity)
             }
 
         })

@@ -64,7 +64,7 @@ class OfficialShopDetailsActivity : BaseActivity() {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage > totalPage) {
                     rv_comment.noMoreLoading()
                     return
                 }

@@ -50,16 +50,16 @@ class AddFeriendAdapter(val context: Activity, val userList: ArrayList<Community
 
         holder.tv_constellation.text = model.constellation
 
-        if(model.userId==StaticUtil.uid){
-            holder.tv_follow.visibility=View.INVISIBLE
-        }else{
+        if (model.userId == StaticUtil.uid) {
+            holder.tv_follow.visibility = View.INVISIBLE
+        } else {
             if (model.isAttention == "0") {//0未关注 1已关注
                 holder.tv_follow.text = "关注"
+                holder.tv_follow.visibility = View.VISIBLE
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_add, holder.tv_follow, 5)
             } else {
                 holder.tv_follow.text = "已关注"
-                AbStrUtil.setDrawableLeft(context, -1, holder.tv_follow, 5)
-                holder.tv_follow.visibility=View.INVISIBLE
+                holder.tv_follow.visibility = View.INVISIBLE
             }
         }
 
@@ -70,10 +70,10 @@ class AddFeriendAdapter(val context: Activity, val userList: ArrayList<Community
                 override fun follow() {
                     if (userList[position].isAttention == "0") {
                         userList[position].isAttention = "1"
+                        holder.tv_follow.visibility = View.INVISIBLE
                     } else {
                         userList[position].isAttention = "0"
                     }
-                   notifyDataSetChanged()
                 }
             })
         }

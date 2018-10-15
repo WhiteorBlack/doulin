@@ -17,7 +17,8 @@ class CouponMyModel : Serializable {
     class couponModel : Serializable {
         var securitiesid = ""//优惠券id
         var securitiesPrice = ""//优惠券金额
-
+        var securitiesMoney=""//满多少可用
+        var securitiesType=""//0超市便利 1洗衣洗鞋 2新鲜果蔬
         var securitiesName = ""//优惠券名称
         var securitiesImg = ""//优惠券图片
         var securitiesEndTime = ""//优惠券截止时间

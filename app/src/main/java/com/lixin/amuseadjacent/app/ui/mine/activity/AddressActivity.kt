@@ -48,7 +48,7 @@ class AddressActivity : BaseActivity() {
             //新增收货地址
             val bundle = Bundle()
             bundle.putInt("flag", 0)
-            MyApplication.openActivity(this, EditAddressActivity::class.java, bundle)
+            MyApplication.openActivity(this, AddressEditActivity::class.java, bundle)
         }
 
         flag=intent.getIntExtra("flag",0)
@@ -77,7 +77,7 @@ class AddressActivity : BaseActivity() {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage > totalPage) {
                     xrecyclerview .noMoreLoading()
                     return
                 }

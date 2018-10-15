@@ -95,6 +95,10 @@ public class RecentContactsFragment extends TFragment {
 
     private UserInfoObserver userInfoObserver;
 
+ 
+
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

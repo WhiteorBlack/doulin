@@ -39,7 +39,6 @@
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="03dp"
             android:text=""
             android:textColor="@color/red"
             android:textSize="28sp"
@@ -47,11 +46,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/tv_subtraction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text=" "
             android:textColor="@color/colorTabText"
@@ -79,7 +76,6 @@
             app:layout_constraintTop_toTopOf="@+id/tv_money" />
 
 
-
         <TextView
             android:id="@+id/tv_tongyong"
             android:layout_width="wrap_content"
@@ -102,7 +98,7 @@
             android:text=" "
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/sub_fant"
-            app:layout_constraintBottom_toBottomOf="@+id/text"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_subtraction"
             app:layout_constraintStart_toEndOf="@+id/tv_money" />
 
 
@@ -116,7 +112,7 @@
             android:gravity="center"
             android:maxLines="2"
             android:text=" "
-            app:layout_constraintBottom_toTopOf="@+id/text"
+            app:layout_constraintBottom_toTopOf="@+id/tv_subtraction"
             app:layout_constraintEnd_toStartOf="@+id/tv_use"
             app:layout_constraintStart_toStartOf="@+id/tv_tongyong"
             app:layout_constraintTop_toTopOf="@+id/tv_money" />
@@ -146,18 +142,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:background="@drawable/half_circular_gray"
-            android:drawableRight="@drawable/ic_down_arrow"
             android:paddingBottom="8dp"
             android:paddingLeft="12dp"
-            android:visibility="invisible"
             android:paddingRight="12dp"
             android:paddingTop="8dp"
-            android:text="仅限购买工厂店商品"
+            android:text=" "
             android:textColor="@color/colorTabText"
             android:textSize="@dimen/sub_fant"
-            app:layout_constraintTop_toBottomOf="@+id/text" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_subtraction" />
 
-
+       <!-- android:drawableRight="@drawable/ic_down_arrow"-->
         <ImageView
             android:id="@+id/iv_left"
             android:layout_width="wrap_content"
@@ -166,7 +160,7 @@
             android:rotation="180"
             android:src="@drawable/half_circular_with"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_subtraction" />
 
         <ImageView
             android:id="@+id/iv_right"
@@ -175,7 +169,7 @@
             android:layout_marginTop="12dp"
             android:src="@drawable/half_circular_with"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_subtraction" />
 
 
         <ImageView
@@ -190,7 +184,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_info"
             app:layout_constraintEnd_toStartOf="@+id/tv_time"
             app:layout_constraintHorizontal_bias="0.46"
-            app:layout_constraintStart_toEndOf="@+id/text"
+            app:layout_constraintStart_toEndOf="@+id/tv_subtraction"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.642" />
 

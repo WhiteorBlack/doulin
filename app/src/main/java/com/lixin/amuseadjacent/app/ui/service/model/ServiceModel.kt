@@ -16,6 +16,7 @@ class ServiceModel :Serializable{
     class bannerModel {
         var topImgUrl = ""//服务首页顶部图片
         var topImgDetailUrl = ""
+        var topImgDetailUrlState=""//图片点击详情链接状态 0 有效 1无效
     }
 
 

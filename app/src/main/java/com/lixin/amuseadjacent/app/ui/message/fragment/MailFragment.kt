@@ -31,7 +31,7 @@ import com.lixin.amuseadjacent.app.util.AbStrUtil
 class MailFragment : BaseFragment() {
 
     private var flag = ""
-    private var search=""//搜索内容
+    private var search = ""//搜索内容
 
     private var mailAdapter: MailAdapter? = null
     private var mailList = ArrayList<MailModel.addModel>()
@@ -59,7 +59,7 @@ class MailFragment : BaseFragment() {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         rv_mail.layoutManager = linearLayoutManager
 
-        mailAdapter = MailAdapter(activity!!, flag.toInt(),mailList)
+        mailAdapter = MailAdapter(activity!!, flag.toInt(), mailList)
         rv_mail.adapter = mailAdapter
 
         val controller = AnimationUtils.loadLayoutAnimation(activity, R.anim.layout_animation_from_bottom)
@@ -80,7 +80,7 @@ class MailFragment : BaseFragment() {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage > totalPage) {
                     rv_mail.noMoreLoading()
                     return
                 }
@@ -107,6 +107,7 @@ class MailFragment : BaseFragment() {
 
     private fun init() {
         flag = arguments!!.getInt("flag").toString()
+        ProgressDialog.showDialog(activity!!)
     }
 
     override fun onStart() {
@@ -115,7 +116,6 @@ class MailFragment : BaseFragment() {
             mailList.clear()
             mailAdapter!!.notifyDataSetChanged()
         }
-        ProgressDialog.showDialog(activity!!)
         Mail_138139.mail(flag, "", nowPage)
     }
 

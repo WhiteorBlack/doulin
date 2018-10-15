@@ -12,10 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
-import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
-import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsReplyActivity
-import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
-import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsReplyActivity
+import com.lixin.amuseadjacent.app.ui.find.activity.*
 import com.lixin.amuseadjacent.app.ui.message.model.CommentNewModel
 import com.lixin.amuseadjacent.app.ui.message.request.MsgList_21
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
@@ -84,7 +81,7 @@ class CommentNewsAdapter(val context: Context, val type: String, val commentList
                     MyApplication.openActivity(context, EventDetailsActivity::class.java, bundle)
 //                    }
                 } else if (model.type == "3") {
-
+                    MyApplication.openActivity(context, TopicActivity::class.java, bundle)
                 }
             }
         }

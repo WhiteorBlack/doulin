@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.service.activity
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.lixin.amuseadjacent.R
@@ -58,12 +59,14 @@ class SpecialAreaActivity : BaseActivity() {
 
         val imageList = ArrayList<String>()
         imageList.add(model.optimizationImgs)
-        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(this,100),banner)
+        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(this, 100), banner)
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
                 .start()
-        banner!!.setOnBannerListener { i->
-            PreviewPhoto.preview(this,model.optimizationImgs)
+        banner!!.setOnBannerListener { i ->
+            if (!TextUtils.isEmpty(model.optimizationImgs)) {
+                PreviewPhoto.preview(this, model.optimizationImgs)
+            }
         }
 
         ProgressDialog.showDialog(this)
@@ -74,7 +77,7 @@ class SpecialAreaActivity : BaseActivity() {
     //优惠券
     @Subscribe
     fun onEvent(models: SpecialModel) {
-        specialList=models.dataList
+        specialList = models.dataList
         specialAdapter = SpecialAdapter(this, specialList)
         rv_event.adapter = specialAdapter
 

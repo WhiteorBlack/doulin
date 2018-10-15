@@ -3,20 +3,20 @@ package com.lixin.amuseadjacent.app.ui.find.model
 import java.io.Serializable
 
 /**
- * 达人
+ * v
  * Created by Slingge on 2018/9/17
  */
-class EventModel :Serializable{
+class EventModel : Serializable {
     var result = ""
     var resultNote = ""
     var totalPage = 1
 
     var topImgUrl = ""
     var topImgDetailUrl = ""
-
+    var topImgDetailUrlState = ""//图片点击详情链接状态 0 有效 1无效
     var dataList = ArrayList<dataModel>()
 
-    class dataModel :Serializable{
+    class dataModel : Serializable {
         var userid = ""//发布人id
         var userName = ""//发布人昵称
         var userIcon = ""//发布人头像

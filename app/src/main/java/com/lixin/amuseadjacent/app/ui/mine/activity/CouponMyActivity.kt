@@ -17,7 +17,6 @@ import java.util.ArrayList
  */
 class CouponMyActivity : BaseActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coupon)
@@ -29,7 +28,8 @@ class CouponMyActivity : BaseActivity() {
         inittitle("我的优惠券")
         StatusBarWhiteColor()
 
-        val type = intent.getIntExtra("type", 0)//type1 选择优惠券
+        val type = intent.getIntExtra("type", -1)//type1 选择优惠券
+        val totalMoney = intent.getDoubleExtra("money", 0.0)//type1 选择优惠券
 
         tv_right.visibility = View.VISIBLE
         tv_right.text = "使用说明"
@@ -50,6 +50,7 @@ class CouponMyActivity : BaseActivity() {
             val bundle = Bundle()
             bundle.putInt("flag", i)
             bundle.putInt("type", type)
+            bundle.putDouble("money", totalMoney)
             fragment.arguments = bundle
             list.add(fragment)
         }

@@ -12,6 +12,7 @@ class DynamiclModel : Serializable {
     var resultNote = ""
     var topImgUrl = ""//发现首页顶部图片
     var topImgDetailUrl = ""//图片点击详情链接
+    var topImgDetailUrlState = ""//图片点击详情链接状态 0 有效 1无效
     var totalPage = 1//总页数,动态、帮帮用
     var dataList = ArrayList<FindModel.dynamicModel>()
 

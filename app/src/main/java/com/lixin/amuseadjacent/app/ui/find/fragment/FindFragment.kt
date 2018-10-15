@@ -52,12 +52,15 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     private var banner: Banner? = null
     private var bannerUrl = ""
+    private var topImgDetailUrlState=""///banner点击详情链接状态 0 有效 1无效
     private var onRefresh = 0
 
     private var eventModel: FindModel.activityModel? = null
     private var footView: View? = null
     private var iv_header: ImageView? = null
     private var image: ImageView? = null
+
+    private var themeId=""//话题id
 
     private var tv_type: TextView? = null
     private var tv_follow: TextView? = null
@@ -122,7 +125,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         banner = headerView!!.findViewById(R.id.banner)
         banner!!.setOnBannerListener { i ->
-            if (TextUtils.isEmpty(bannerUrl)) {
+            if (TextUtils.isEmpty(bannerUrl)||topImgDetailUrlState=="1") {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
@@ -246,6 +249,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             imageList.clear()
         }
         bannerUrl = model.topImgDetailUrl
+        topImgDetailUrlState=model.topImgDetailUrlState
         imageList.add(model.topImgUrl)
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
@@ -270,9 +274,8 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             tv_participate.text = model.theme.themeTitle
             tv_participate.setOnClickListener { v ->
                 val bundle = Bundle()
-                bundle.putString("url", model.theme.themeDetailUrl)
-                bundle.putString("title", model.theme.themeTitle)
-                MyApplication.openActivity(activity!!, WebViewActivity::class.java, bundle)
+                bundle.putString("id", model.theme.themeId)
+                MyApplication.openActivity(activity!!, TopicActivity::class.java, bundle)
             }
         }
 

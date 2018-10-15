@@ -58,7 +58,7 @@ class CollectionActivity : BaseActivity() {
 
             override fun onLoadMore() {
                 nowPage++
-                if (nowPage >= totalPage) {
+                if (nowPage >totalPage) {
                     xrecyclerview.noMoreLoading()
                     return
                 }

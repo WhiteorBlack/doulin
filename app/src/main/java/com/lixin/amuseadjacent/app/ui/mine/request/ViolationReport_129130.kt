@@ -18,7 +18,8 @@ object ViolationReport_129130 {
 
     //违规
     fun irregularities(nowPage: Int) {
-        val json = "{\"cmd\":\"myIrregularities\",\"uid\":\"" + StaticUtil.uid + "\",\"nowPage\":\"" + nowPage + "\"}"
+        val json = "{\"cmd\":\"myIrregularities\",\"uid\":\"" + StaticUtil.uid + "\",\"nowPage\":\"" + nowPage+
+         "\",\"pageCount\":\"" + "20" + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
@@ -30,12 +31,12 @@ object ViolationReport_129130 {
                 }
             }
         })
-
     }
 
     //举报
     fun report(nowPage: Int) {
-        val json = "{\"cmd\":\"myIrregularities\",\"uid\":\"" + StaticUtil.uid + "\",\"nowPage\":\"" + nowPage + "\"}"
+        val json = "{\"cmd\":\"myReport\",\"uid\":\"" + StaticUtil.uid + "\",\"nowPage\":\"" + nowPage +
+                "\",\"pageCount\":\"" + "20" + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)

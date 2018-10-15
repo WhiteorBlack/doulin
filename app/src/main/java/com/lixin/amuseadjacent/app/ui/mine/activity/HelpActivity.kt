@@ -25,7 +25,6 @@ import com.netease.nim.uikit.api.NimUIKit
  */
 class HelpActivity : BaseActivity(), View.OnClickListener {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help)

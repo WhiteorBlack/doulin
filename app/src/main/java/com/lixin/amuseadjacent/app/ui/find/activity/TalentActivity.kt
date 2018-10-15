@@ -31,6 +31,7 @@ class TalentActivity : BaseActivity() {
     private val imageList = ArrayList<String>()
 
     private var url = ""
+    private var topImgDetailUrlState=""//图片点击详情链接状态 0 有效 1无效
     var type = "0"//0未申请达人 1达人审核中 2审核通过 3申请达人失败
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +75,9 @@ class TalentActivity : BaseActivity() {
         tab.setupWithViewPager(viewPager)
 
         banner.setOnBannerListener { i ->
+            if(topImgDetailUrlState=="1"){
+                return@setOnBannerListener
+            }
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", url)
@@ -98,6 +102,7 @@ class TalentActivity : BaseActivity() {
         }
         type = model.isApply
         url = model.topImgDetailUrl
+        topImgDetailUrlState=model.topImgDetailUrlState
         imageList.clear()
         imageList.add(model.topImgUrl)
         banner.setImages(imageList)

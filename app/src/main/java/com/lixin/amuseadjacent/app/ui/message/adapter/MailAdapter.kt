@@ -16,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.CircleImageView
+import com.netease.nim.uikit.api.NimUIKit
 import com.nostra13.universalimageloader.core.ImageLoader
 
 /**
@@ -69,10 +70,14 @@ class MailAdapter(val context: Activity, val flag: Int, val mailList: ArrayList<
             }
         }
 
+        holder.itemView.setOnClickListener { v ->
+            NimUIKit.startP2PSession(context, model.userId)
+        }
+
         holder.tv_header.setOnClickListener { v ->
             val bundle = Bundle()
-            bundle.putString("auid", mailList[position].userId)
-            bundle.putString("isAttention", mailList[position].isAttention)
+            bundle.putString("auid", model.userId)
+            bundle.putString("isAttention",model.isAttention)
             MyApplication.openActivity(context, PersonalHomePageActivity::class.java, bundle)
         }
 

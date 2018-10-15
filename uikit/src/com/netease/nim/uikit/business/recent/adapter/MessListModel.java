@@ -3,11 +3,31 @@ package com.netease.nim.uikit.business.recent.adapter;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MessListModel implements Serializable{
+public class MessListModel implements Serializable {
 
     private String result;
     private String resultNote;
+
+    private String communityId;
+    private String communityName;
+
     private ArrayList<msgModel> dataList;
+
+    public String getCommunityId() {
+        return communityId;
+    }
+
+    public void setCommunityId(String communityId) {
+        this.communityId = communityId;
+    }
+
+    public String getCommunityName() {
+        return communityName;
+    }
+
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
+    }
 
     public String getResult() {
         return result;
@@ -33,12 +53,12 @@ public class MessListModel implements Serializable{
         this.dataList = dataList;
     }
 
-    public class msgModel implements Serializable{
-        private String messageId ;
-        private String messageTitle ;
-        private String messageTime ;
-        private String messagenum ;
-        private String type ;  //0系统消息 1订单信息 2评论信息
+    public class msgModel implements Serializable {
+        private String messageId;
+        private String messageTitle;
+        private String messageTime;
+        private String messagenum;
+        private String type;  //0系统消息 1订单信息 2评论信息
 
         public String getMessageId() {
             return messageId;

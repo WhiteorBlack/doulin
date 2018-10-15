@@ -12,6 +12,7 @@ class FindModel : Serializable {
     var resultNote = ""
     var topImgUrl = ""//发现首页顶部图片
     var topImgDetailUrl = ""//图片点击详情链接
+    var topImgDetailUrlState = ""//图片点击详情链接状态 0 有效 1无效
 
     var theme = themeModel()
     var danamicList = ArrayList<dynamicModel>()

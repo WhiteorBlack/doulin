@@ -78,6 +78,9 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         }
         ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(this, 100), banner)
         banner.setOnBannerListener { i ->
+            if(bannerList[i].topImgDetailUrlState=="1"){
+                return@setOnBannerListener
+            }
             val bundle = Bundle()
             bundle.putString("title", "")
             bundle.putString("url", bannerList[i].topImgDetailUrl)

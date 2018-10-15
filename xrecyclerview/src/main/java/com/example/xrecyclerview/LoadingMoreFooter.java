@@ -46,18 +46,19 @@ public class LoadingMoreFooter extends LinearLayout {
     public void setState(int state) {
         switch (state) {
             case STATE_LOADING:
+                ll_foot.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
                 mText.setText(getContext().getText(R.string.listview_loading));
                 this.setVisibility(View.VISIBLE);
                 break;
             case STATE_COMPLETE:
                 mText.setText(getContext().getText(R.string.listview_loading));
-                this.setVisibility(View.GONE);
+                this.setVisibility(View.VISIBLE);
                 break;
             case STATE_NOMORE:
                 mText.setText(getContext().getText(R.string.nomore_loading));
                 progressBar.setVisibility(View.GONE);
-                this.setVisibility(View.GONE);
+                this.setVisibility(View.VISIBLE);
                 ll_foot.setVisibility(View.GONE);
                 break;
             case STATE_ERR:
