@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import com.lixin.amuseadjacent.R
@@ -61,6 +62,14 @@ class TalentAuthenticationAddActivity : BaseActivity(), View.OnClickListener, Al
 
         tv_startTime.setOnClickListener(this)
         tv_endTime.setOnClickListener(this)
+
+        et_info.setOnTouchListener { p0, p1 ->
+            p0!!.parent.requestDisallowInterceptTouchEvent(true)
+            when (p1!!.action and MotionEvent.ACTION_MASK) {
+                MotionEvent.ACTION_UP -> p0.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            false
+        }
 
         val linearLayoutManager = GridLayoutManager(this, 3)
         rv_image.layoutManager = linearLayoutManager

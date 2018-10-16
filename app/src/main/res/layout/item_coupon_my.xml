@@ -82,7 +82,6 @@
             android:layout_height="wrap_content"
             android:text="全场通用"
             android:textColor="@color/black"
-
             android:textSize="@dimen/main_fant"
             app:layout_constraintBottom_toBottomOf="@+id/tv_type"
             app:layout_constraintStart_toStartOf="@+id/tv_time"

@@ -87,6 +87,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
 
         albumAdapter = ReleaseAdapter(this, imageList, maxNum, this)
         rv_album.adapter = albumAdapter
+        albumAdapter!!.setFlag(flag.toInt())
 
         checkPermission()
     }
@@ -252,7 +253,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
 
     }
 
-
+    //上传视频
     private fun upVideo(path: String, content: String, address: String) {
         val retr = MediaMetadataRetriever()
         retr.setDataSource(path)
@@ -260,7 +261,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
         val width = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
         abLog.e("视频宽高",height+","+width)
         ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList,
-                currentOutputVideoPath, address, height, width)
+                path, address, height, width)
     }
 
     override fun imageRemove(i: Int) {

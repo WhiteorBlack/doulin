@@ -24,7 +24,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 public class MyWebView extends RelativeLayout {
 
     private Context context;
-    private com.lixin.amuseadjacent.app.ui.view.X5WebView mWebView = null;
+    private  X5WebView mWebView = null;
     //水平进度条
     private ProgressBar progressBar = null;
     //包含圆形进度条的布局
@@ -61,7 +61,7 @@ public class MyWebView extends RelativeLayout {
 
 
     private void init() {
-        mWebView = new com.lixin.amuseadjacent.app.ui.view.X5WebView(context);
+        mWebView = new  X5WebView(context);
         this.addView(mWebView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         if (mProgressStyle == ProgressStyle.Horizontal.ordinal()) {
             progressBar = (ProgressBar) LayoutInflater.from(context).inflate(R.layout.webview_progress_horizontal, null);
@@ -83,7 +83,6 @@ public class MyWebView extends RelativeLayout {
             }
         });
         mWebView.setWebChromeClient(new WebChromeClient() {
-
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 // TODO Auto-generated method stub

@@ -13,7 +13,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -100,7 +100,6 @@
                 android:singleLine="true"
                 android:textSize="@dimen/sub_fant"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_endTime" />
 
@@ -125,8 +124,8 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_white8"
                 android:gravity="left|top"
-                android:maxLength="12"
                 android:minLines="5"
+                android:maxLength="200"
                 android:padding="10dp"
                 android:textSize="@dimen/sub_fant"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -158,20 +157,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/image" />
 
-
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/image2" />
         </android.support.constraint.ConstraintLayout>
 
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:nestedScrollingEnabled="false"
-        app:layout_constraintTop_toBottomOf="@+id/image" />
+
 
 
 </LinearLayout>

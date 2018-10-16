@@ -46,7 +46,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         , ShopRightAdapter.ReduceShopCar, ShopCartDialog.PlusCallBack, ShopCartDialog.ReduceCallBack,
         ShopCartDialog.DelCallBack, ShopCartDialog.SettlementCallBack, ShopRightAdapter.ShopOnClickListtener {
 
-    private var type = ""//0新校果蔬，1超市便利
+    private var type = ""//0新鲜果蔬 1洗衣洗鞋 2超市便利
 
     private var shopLeftAdapter: ShopLeftAdapter? = null
     private var leftList = ArrayList<ShopGoodsListModel.dataModel>()

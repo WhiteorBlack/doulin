@@ -52,7 +52,6 @@ object ReleaseDynamicBang_220 {
                             }
                         }
                     })
-
         } else {
             val file = ImageFileUtil.saveFilePath(Environment.getExternalStorageDirectory().path
                     + "/Android/data/com.lixin.amuseadjacent/image" + "/PreviewingVideo.jpg")//预览图
@@ -61,6 +60,7 @@ object ReleaseDynamicBang_220 {
             OkHttpUtils.post().url(StaticUtil.ReleaseDynamicBang).addParams("uid", StaticUtil.uid)
                     .addParams("type", type).addParams("content", content).files("file", listfile)
                     .addFile("file1", videoFile.name, videoFile).addParams("address", address)
+                    .addParams("height", height).addParams("width", width)
                     .build().execute(object : StrCallback() {
                         override fun onResponse(response: String, id: Int) {
                             super.onResponse(response, id)

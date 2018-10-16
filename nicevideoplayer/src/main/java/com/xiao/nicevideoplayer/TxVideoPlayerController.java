@@ -139,6 +139,11 @@ public class TxVideoPlayerController
         this.setOnClickListener(this);
     }
 
+
+    public void setHideFull() {
+        mFullScreen.setVisibility(View.GONE);
+    }
+
     @Override
     public void setTitle(String title) {
         mTitle.setText(title);
@@ -376,7 +381,7 @@ public class TxVideoPlayerController
             mNiceVideoPlayer.restart();
         } else if (v == mReplay) {
             mRetry.performClick();
-        }  else if (v == this) {
+        } else if (v == this) {
             if (mNiceVideoPlayer.isPlaying()
                     || mNiceVideoPlayer.isPaused()
                     || mNiceVideoPlayer.isBufferingPlaying()

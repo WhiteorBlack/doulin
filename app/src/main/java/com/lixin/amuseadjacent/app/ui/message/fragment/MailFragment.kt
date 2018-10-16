@@ -28,7 +28,8 @@ import com.lixin.amuseadjacent.app.util.AbStrUtil
  * flag 0好友，1关注，2粉丝
  * Created by Slingge on 2018/8/16
  */
-class MailFragment : BaseFragment() {
+class MailFragment : BaseFragment(),Mail_138139.MailListCallBack {
+
 
     private var flag = ""
     private var search = ""//搜索内容
@@ -48,7 +49,6 @@ class MailFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_mail, container, false)
-        EventBus.getDefault().register(this)
         init()
         return view
     }
@@ -75,7 +75,7 @@ class MailFragment : BaseFragment() {
                     mailList.clear()
                     mailAdapter!!.notifyDataSetChanged()
                 }
-                Mail_138139.mail(flag, search, nowPage)
+                Mail_138139.mail(flag, search, nowPage,this@MailFragment)
             }
 
             override fun onLoadMore() {
@@ -85,7 +85,7 @@ class MailFragment : BaseFragment() {
                     return
                 }
                 onRefresh = 2
-                Mail_138139.mail(flag, search, nowPage)
+                Mail_138139.mail(flag, search, nowPage,this@MailFragment)
             }
         })
 
@@ -98,7 +98,7 @@ class MailFragment : BaseFragment() {
                     mailAdapter!!.notifyDataSetChanged()
                 }
                 ProgressDialog.showDialog(activity!!)
-                Mail_138139.mail(flag, search, nowPage)
+                Mail_138139.mail(flag, search, nowPage,this)
                 return@OnEditorActionListener true
             }
             false
@@ -110,17 +110,7 @@ class MailFragment : BaseFragment() {
         ProgressDialog.showDialog(activity!!)
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (mailList.isNotEmpty()) {
-            mailList.clear()
-            mailAdapter!!.notifyDataSetChanged()
-        }
-        Mail_138139.mail(flag, "", nowPage)
-    }
-
-    @Subscribe
-    fun onEvent(model: MailModel) {
+    override fun mailList(model: MailModel) {
         mailCallBack!!.num(model.allnum)
 
         totalPage = model.totalPage
@@ -134,14 +124,21 @@ class MailFragment : BaseFragment() {
         mailAdapter!!.notifyDataSetChanged()
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (mailList.isNotEmpty()) {
+            mailList.clear()
+            mailAdapter!!.notifyDataSetChanged()
+        }
+        Mail_138139.mail(flag, "", nowPage,this)
+    }
+
+
+
     override fun loadData() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
 
 
 }

@@ -45,6 +45,9 @@ class FindModel : Serializable {
         var dynamicImg = ""//动态封面图片
 
         var dynamicVideo = ""//动态视频连接
+        var height=""//视频高度
+        var width=""//视频宽度
+
         var dynamicImgList = ArrayList<String>()//动态多图片数组
         var dynamicAddress = ""//动态地址
         var userEffectNum = ""//发布人影响力值

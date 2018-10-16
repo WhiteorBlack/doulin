@@ -1,4 +1,4 @@
-package com.lixin.amuseadjacent.app.ui.view;
+package com.lixin.amuseadjacent.app.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,32 +27,10 @@ public class X5WebView extends WebView {
 
         // this.setWebChromeClient(chromeClient);
         // WebStorage webStorage = WebStorage.getInstance();
-        initWebViewSettings();
+//        initWebViewSettings();
         this.getView().setClickable(true);
     }
 
 
-    private void initWebViewSettings() {
-        WebSettings settings = this.getSettings();
-        settings.setSupportZoom(true);
-        // 设置支持js
-        settings.setJavaScriptEnabled(true);
-        settings.setJavaScriptCanOpenWindowsAutomatically(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setAppCacheEnabled(true);
-        settings.setDomStorageEnabled(true);
-        // 关闭缓存
-//        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        // 支持自动加载图片
-        settings.setLoadsImagesAutomatically(true);
-        // 设置出现缩放工具
-        settings.setSupportZoom(true);
-        settings.setBuiltInZoomControls(true);
-        settings.setDisplayZoomControls(false);
-        // 扩大比例的缩放
-        settings.setUseWideViewPort(true);
-        // 自适应屏幕
-        settings.setLoadWithOverviewMode(true);
-    }
 
 }

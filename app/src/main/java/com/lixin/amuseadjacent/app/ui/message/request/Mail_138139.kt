@@ -21,13 +21,17 @@ object Mail_138139 {
         fun follow()
     }
 
+    interface  MailListCallBack{
+        fun mailList(model:MailModel)
+    }
+
 
     /**
      * @param type 0好友 1关注 2粉丝
      * @param content 搜索内容(昵称)
      * @param type
      * */
-    fun mail(type: String, content: String, nowPage: Int) {
+    fun mail(type: String, content: String, nowPage: Int,mailListCallBack: MailListCallBack) {
         val json = "{\"cmd\":\"myAttention\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + type +
                 "\",\"content\":\"" + content + "\",\"nowPage\":\"" + nowPage + "\",\"pageCount\":\"" + "20" + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
@@ -35,7 +39,7 @@ object Mail_138139 {
                 super.onResponse(response, id)
                 val model = Gson().fromJson(response, MailModel::class.java)
                 if (model.result == "0") {
-                    EventBus.getDefault().post(model)
+                    mailListCallBack.mailList(model)
                 } else {
                     ToastUtil.showToast(model.resultNote)
                 }

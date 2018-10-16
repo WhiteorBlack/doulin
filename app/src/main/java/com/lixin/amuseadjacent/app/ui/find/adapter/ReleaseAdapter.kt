@@ -31,6 +31,11 @@ class ReleaseAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val
         return MyViewHolder(view)
     }
 
+    private var flag=0//0可以发视频，1不可以发视频
+      fun setFlag(flag:Int){
+        this.flag=flag
+    }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         if (position == list.size - 1) {
@@ -38,8 +43,12 @@ class ReleaseAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val
             holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
             holder.iv_del.visibility = View.GONE
             holder.image.setOnClickListener { v ->
-                SelectPictureUtil.selectVodeoPicture(context, maxNum - list.size + 1, 0)
-                ToastUtil.showToast("可选择、录制10秒内视频")
+                if(flag==0){
+                    SelectPictureUtil.selectVodeoPicture(context, maxNum - list.size + 1, 0)
+                    ToastUtil.showToast("可选择、录制10秒内视频")
+                }else{
+                    SelectPictureUtil.selectPicture(context,maxNum - list.size + 1,0,false)
+                }
             }
         } else {
             holder.iv_del.visibility = View.VISIBLE

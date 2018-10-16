@@ -68,12 +68,15 @@ class CouponMyAdapter(val context: Activity, val couponList: ArrayList<CouponMyM
         holder.tv_time.text = model.securitiesEndTime
         holder.tv_name.text = model.securitiesName
 
-        if(model.securitiesType=="0"){//0超市便利 1洗衣洗鞋 2新鲜果蔬
-            holder.tv_tongyong.text="超市便利"
+        holder.tv_tongyong.text = model.securitiesName
+
+
+        if(model.securitiesType=="0"){
+            holder.tv_info.text="仅限超市便利使用"
         }else if(model.securitiesType=="1"){
-            holder.tv_tongyong.text="洗衣洗鞋"
+            holder.tv_info.text="仅限洗衣洗鞋使用"
         }else if(model.securitiesType=="2"){
-            holder.tv_tongyong.text="新鲜果蔬"
+            holder.tv_info.text="仅限新鲜果蔬使用"
         }
 
         holder.tv_subtraction.text = "满" + model.securitiesMoney + "可用"
@@ -98,9 +101,12 @@ class CouponMyAdapter(val context: Activity, val couponList: ArrayList<CouponMyM
         }
 
         holder.tv_use.setOnClickListener { v ->
+            if (type != -1) {
+                return@setOnClickListener
+            }
             val bundle = Bundle()
             if (model.securitiesType == "0") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
-                bundle.putString("type", "1")
+                bundle.putString("type", "2")
                 MyApplication.openActivity(context, OfficialShopActivity::class.java, bundle)
             } else if (model.securitiesType == "1") {
                 MyApplication.openActivity(context, LaundryActivity::class.java, bundle)
@@ -122,6 +128,8 @@ class CouponMyAdapter(val context: Activity, val couponList: ArrayList<CouponMyM
         val tv_type = view.findViewById<TextView>(R.id.tv_type)
         val tv_use = view.findViewById<TextView>(R.id.tv_use)
         val tv_time = view.findViewById<TextView>(R.id.tv_time)
+
+        val tv_info = view.findViewById<TextView>(R.id.tv_info)
 
         val tv_subtraction = view.findViewById<TextView>(R.id.tv_subtraction)
     }
