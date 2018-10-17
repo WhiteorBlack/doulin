@@ -15,10 +15,8 @@ import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclModel
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
-import com.xiao.nicevideoplayer.NiceVideoPlayerManager
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.xrecyclerview.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 
 /**
  * 动态列表
@@ -143,7 +141,7 @@ class DynamicFragment : BaseFragment(),DynamicList_219.DynamicListCallBack {
 
     override fun onPause() {
         super.onPause()
-        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
+        JCVideoPlayer.releaseAllVideos()
     }
 
 

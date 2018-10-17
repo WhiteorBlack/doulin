@@ -251,7 +251,7 @@
             android:targetActivity="cn.beecloud.BCWechatPaymentActivity" />
 
 
-        <!--///////////////////////////////查看图片\\\\\\\\\\\\\\\\\\\\\\\\\-->
+        <!--查看图片-->
         <activity android:name=".photoView.imagepage.ImagePagerActivity" />
 
         <activity

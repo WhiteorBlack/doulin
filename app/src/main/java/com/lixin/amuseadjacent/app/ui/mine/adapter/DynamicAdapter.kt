@@ -19,8 +19,8 @@ import com.lixin.amuseadjacent.app.ui.mine.request.Myinteraction_161162
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.abLog
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayer
-import com.xiao.nicevideoplayer.TxVideoPlayerController
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 
 /**
  * 个人主页动态
@@ -47,10 +47,9 @@ class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dy
             holder.image.visibility = View.GONE
             holder.tv_info.visibility = View.GONE
 
-            holder.player.setUp(model.dynamicVideo, null)
-            val controller = TxVideoPlayerController(context)
-            ImageLoader.getInstance().displayImage(model.dynamicImg, controller.imageView())
-            holder.player.setController(controller)
+            holder.player.setUp(
+                    model.dynamicVideo, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
+            ImageLoader.getInstance().displayImage(model.dynamicImg,holder.player.thumbImageView)
         } else {
             holder.player.visibility = View.GONE
             holder.image.visibility = View.VISIBLE
@@ -101,7 +100,7 @@ class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dy
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val player: NiceVideoPlayer = view.findViewById(R.id.player)
+        val player: JCVideoPlayerStandard = view.findViewById(R.id.player)
 
         val tv_day = view.findViewById<TextView>(R.id.tv_day)
         val tv_month = view.findViewById<TextView>(R.id.tv_month)
@@ -114,9 +113,7 @@ class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dy
 
         val cl = view.findViewById<ConstraintLayout>(R.id.cl)
 
-        init {
-            player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer
-        }
+
     }
 
 }

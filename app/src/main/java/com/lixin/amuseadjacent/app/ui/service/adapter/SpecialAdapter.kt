@@ -48,7 +48,6 @@ class SpecialAdapter(val context: Context, var specialList: ArrayList<SpecialMod
             holder.tv_money.text = "￥" + model.goodsCuprice
         }
 
-
         if (model.isSelect) {
             holder.tv_num.visibility = View.VISIBLE
         } else {
@@ -62,7 +61,7 @@ class SpecialAdapter(val context: Context, var specialList: ArrayList<SpecialMod
             ShopCar_12412537.addCar(model.goodsType, model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
                 override fun addCar() {
                     ToastUtil.showToast("加入购物车成功")
-                    holder.tv_num.visibility = View.VISIBLE
+//                    holder.tv_num.visibility = View.VISIBLE
                 }
             })
         }

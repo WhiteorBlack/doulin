@@ -30,12 +30,9 @@ import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.util.ToPreviewPhoto
 import com.lixin.amuseadjacent.app.view.CircleImageView
-import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayer
-import com.xiao.nicevideoplayer.TxVideoPlayerController
-import kotlinx.android.synthetic.main.activity_event_details.*
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 
 /**
  * Created by Slingge on 2018/8/18
@@ -168,13 +165,10 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 holder.rv_image.visibility = View.GONE
 
                 holder.player.visibility = View.VISIBLE
-                holder.player.setPlayerType(NiceVideoPlayer.TYPE_IJK)
-                holder.player.setUp(model.dynamicVideo, null)
-                val controller = TxVideoPlayerController(context)
-                controller.setTitle("")
 
-                ImageLoader.getInstance().displayImage(model.dynamicImg, controller.imageView())
-                holder.player.setController(controller)
+                holder.player.setUp(
+                        model.dynamicVideo, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
+                ImageLoader.getInstance().displayImage(model.dynamicImg,holder.player.thumbImageView)
             }
             holder.tv_follow.setOnClickListener { v ->
                 ProgressDialog.showDialog(context)
@@ -309,13 +303,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
 
     }
 
-    fun stopPlay() {
-        if (niceVideoPlayer != null) {
-            niceVideoPlayer!!.pause()
-        }
-    }
 
-    private var niceVideoPlayer: NiceVideoPlayer? = null
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cl_1 = view.findViewById<ConstraintLayout>(R.id.cl_1)
@@ -338,7 +326,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
 
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
 
-        val player: NiceVideoPlayer = view.findViewById(R.id.player)
+        val player: JCVideoPlayerStandard = view.findViewById(R.id.player)
 
         //活动
         val image = view.findViewById<ImageView>(R.id.image)
@@ -367,9 +355,6 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             line_view.visibility = View.VISIBLE
 
             player.isFocusable = false
-            player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer
-
-            niceVideoPlayer = player
         }
     }
 

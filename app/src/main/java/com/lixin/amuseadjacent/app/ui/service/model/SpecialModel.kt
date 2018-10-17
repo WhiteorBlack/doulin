@@ -25,6 +25,7 @@ class SpecialModel {
         var goodsType = ""//商品类型 0新鲜果蔬 1洗衣洗鞋 2超市便利
 
         var isSelect=false
+        var num=0
     }
 
 }

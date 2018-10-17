@@ -27,7 +27,7 @@ import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.netease.nim.uikit.api.NimUIKit
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayerManager
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_personal_home_page.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
@@ -117,7 +117,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
+                JCVideoPlayer.releaseAllVideos()
             }
 
         })
@@ -221,7 +221,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onBackPressed() {
-        if (NiceVideoPlayerManager.instance().onBackPressd()) return
+        if (JCVideoPlayer.backPress())  return
         super.onBackPressed()
     }
 

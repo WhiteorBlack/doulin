@@ -159,30 +159,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.xiao.nicevideoplayer.NiceVideoPlayer
+                <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
                     android:id="@+id/player"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:visibility="gone" />
-
-                <ImageView
-                    android:id="@+id/iv_video"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:visibility="gone"
-                    android:scaleType="centerCrop" />
-
-                <ImageView
-                    android:id="@+id/ic_lo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_player_center_start"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_video"
-                    app:layout_constraintEnd_toEndOf="@+id/iv_video"
-                    app:layout_constraintStart_toStartOf="@+id/iv_video"
-                    app:layout_constraintTop_toTopOf="@+id/iv_video" />
-
 
             </android.support.constraint.ConstraintLayout>
 

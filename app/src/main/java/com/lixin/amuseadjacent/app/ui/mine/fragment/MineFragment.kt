@@ -33,6 +33,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
 
     private var mineAdapter: MineAdapter? = null
 
+    private var shareurl = ""//邀请好友分享链接
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_mine, container, false)
         EventBus.getDefault().register(this)
@@ -108,7 +110,9 @@ class MineFragment : BaseFragment(), View.OnClickListener {
                         MyApplication.openActivity(activity, HelpActivity::class.java)
                     }
                     1 -> {//邀请好友
-                        MyApplication.openActivity(activity, InvitingFriendsAcivity::class.java)
+                        val bundle = Bundle()
+                        bundle.putString("shareurl", shareurl)
+                        MyApplication.openActivity(activity, InvitingFriendsAcivity::class.java, bundle)
                     }
                     2 -> {//更换社区
                         MyApplication.openActivity(activity, ReplaceCommunityActivity::class.java)
@@ -201,6 +205,8 @@ class MineFragment : BaseFragment(), View.OnClickListener {
         StaticUtil.nickName = model.nickname
         StaticUtil.shareurl = model.shareurl
         StaticUtil.inviteCode = model.inviteCode
+
+        shareurl = userModel!!.shareurl
 
         ImageLoader.getInstance().displayImage(model.icon, iv_heaser)
         tv_id.text = model.nickname

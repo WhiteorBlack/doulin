@@ -13,7 +13,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.InteractionAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.InteractionModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Myinteraction_161162
-import com.xiao.nicevideoplayer.NiceVideoPlayerManager
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -116,7 +116,7 @@ class InteractionFragment : BaseFragment() {
 
     override fun onPause() {
         super.onPause()
-        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
+        JCVideoPlayer.releaseAllVideos()
     }
 
 

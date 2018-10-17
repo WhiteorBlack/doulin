@@ -54,6 +54,7 @@ class PopularShopActivity : BaseActivity() {
     private fun init() {
         inittitle("小区店铺")
         StatusBarWhiteColor()
+        view_staus.visibility = View.GONE
 
         iv_right.visibility = View.VISIBLE
         iv_right.setImageResource(R.drawable.ic_search1)

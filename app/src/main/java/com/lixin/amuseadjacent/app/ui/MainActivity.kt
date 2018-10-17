@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.FindFragment
@@ -15,7 +14,7 @@ import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
 import com.lixin.amuseadjacent.app.util.PermissionHelper
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
-import com.xiao.nicevideoplayer.NiceVideoPlayerManager
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -67,7 +66,6 @@ class MainActivity : BaseActivity() {
 
     //根据具体点击切换显示对应fragment
     private fun selectStyle(ID: Int) {
-        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
         when (ID) {
             R.id.tab_1 -> {
                 if (Build.VERSION.SDK_INT > 19) {
@@ -130,9 +128,14 @@ class MainActivity : BaseActivity() {
         bFragment2!!.onActivityResult(requestCode, resultCode, data)
     }
 
+    override fun onPause() {
+        super.onPause()
+        Runtime.getRuntime().gc()
+    }
+
 
     override fun onBackPressed() {
-        if (NiceVideoPlayerManager.instance().onBackPressd()) {
+        if (JCVideoPlayer.backPress()) {
             return
         }
         super.onBackPressed()

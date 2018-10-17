@@ -30,10 +30,11 @@
             android:id="@+id/tv_msgNum_1"
             android:layout_width="28dip"
             android:layout_height="28dip"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:singleLine="true"
             android:textColor="@android:color/white"
-            android:textSize="9sp"
+            android:textSize="13sp"
+            android:padding="4dp"
             app:layout_constraintEnd_toStartOf="@+id/tv_type"
             app:layout_constraintTop_toTopOf="parent"/>
 

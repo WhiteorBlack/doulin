@@ -33,11 +33,7 @@ import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity;
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter;
 import com.lixin.amuseadjacent.app.util.*;
 import com.lixin.amuseadjacent.app.view.CircleImageView;
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.xiao.nicevideoplayer.NiceVideoPlayer;
-import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
-import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,6 +43,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * 使用的实体类中有 “object”kotlin关键字，所以只能用java类
@@ -67,7 +66,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     private CircleImageView iv_header;
     private TextView tv_name, tv_effect, tv_follow, tv_info;
     private LinearLayout ll_image;
-    private NiceVideoPlayer player;
+    private JCVideoPlayerStandard player;
 
     private TextView tv_time, tv_comment, tv_zan;
     private TextView tv_right, tv_title;
@@ -308,10 +307,9 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             }
         } else {
             player.setVisibility(View.VISIBLE);
-            player.setUp(model.object.dynamicVideo, null);
-            TxVideoPlayerController controller = new TxVideoPlayerController(this);
-            ImageLoader.getInstance().displayImage(model.object.dynamicImg, controller.imageView());
-            player.setController(controller);
+            player.setUp(
+                    model.object.dynamicVideo, JCVideoPlayer.SCREEN_LAYOUT_NORMAL,"");
+            ImageLoader.getInstance().displayImage(model.object.dynamicImg,player.thumbImageView);
         }
         imageList = model.object.dynamicImgList;
         if (!commentList.isEmpty()) {
@@ -492,13 +490,13 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onPause() {
         super.onPause();
-        player.pause();
+        JCVideoPlayer.releaseAllVideos();
     }
 
 
     @Override
     public void onBackPressed() {
-        if (NiceVideoPlayerManager.instance().onBackPressd()) return;
+        if (JCVideoPlayer.backPress()) { return;}
         super.onBackPressed();
     }
 
@@ -506,7 +504,6 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        player.releasePlayer();
         EventBus.getDefault().unregister(this);
     }
 

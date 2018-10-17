@@ -22,8 +22,6 @@ import kotlinx.android.synthetic.main.activity_nviting_friends.*
  */
 class InvitingFriendsAcivity : BaseActivity() {
 
-    private var ruleAdapter: RuleAdapter? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nviting_friends)
@@ -36,7 +34,6 @@ class InvitingFriendsAcivity : BaseActivity() {
         StatusBarWhiteColor()
 
         tv_id.text = StaticUtil.inviteCode
-
 
         val webView = webview.webView
         webView.loadUrl(StaticUtil.WebViewUrl + "id=4")
@@ -56,6 +53,7 @@ class InvitingFriendsAcivity : BaseActivity() {
         } else {
             val image = UMImage(this, R.mipmap.ic_launcher)//网络图片
             val web = UMWeb(StaticUtil.shareurl)
+            abLog.e("分享链接......", StaticUtil.shareurl)
             web.description = "我的邀请码" + StaticUtil.inviteCode
             web.setThumb(image)
             web.title = "逗邻"
@@ -63,7 +61,6 @@ class InvitingFriendsAcivity : BaseActivity() {
                     .withMedia(web)
                     .share()
         }
-
     }
     //分享的回调
     private val umShareListener = object : UMShareListener {

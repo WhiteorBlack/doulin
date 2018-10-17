@@ -27,8 +27,8 @@ import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.*
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import com.youth.banner.Banner
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.fragment_find.*
 import kotlinx.android.synthetic.main.header_find.*
 import kotlinx.android.synthetic.main.header_find.view.*
@@ -412,8 +412,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     override fun onPause() {
         super.onPause()
-        findadapter!!.stopPlay()
-        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
+        JCVideoPlayer.releaseAllVideos()
     }
 
     override fun onDestroy() {

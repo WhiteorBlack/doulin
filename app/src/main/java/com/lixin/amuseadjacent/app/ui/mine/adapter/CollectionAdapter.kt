@@ -24,8 +24,8 @@ import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.mine.model.CollectModel
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayer
-import com.xiao.nicevideoplayer.TxVideoPlayerController
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 
 /**
  * 收藏
@@ -61,10 +61,9 @@ class CollectionAdapter(val context: Activity, val collectList: ArrayList<Collec
                 holder.rv_image.visibility = View.GONE
                 holder.player.visibility = View.VISIBLE
 
-                holder.player.setUp(model.bangbangVideoUrl, null)
-                val controller = TxVideoPlayerController(context)
-                ImageLoader.getInstance().displayImage(model.bangbangImageUrl, controller.imageView())
-                holder.player.setController(controller)
+                holder.player.setUp(
+                        model.bangbangVideoUrl, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
+                ImageLoader.getInstance().displayImage(model.bangbangImageUrl,holder.player.thumbImageView)
             } else {
                 holder.player.visibility = View.GONE
                 if (model.bangbangImgUrl.size == 0) {
@@ -176,7 +175,7 @@ class CollectionAdapter(val context: Activity, val collectList: ArrayList<Collec
         val tv_address = view.findViewById<TextView>(R.id.tv_address)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
 
-        val player = view.findViewById<NiceVideoPlayer>(R.id.player)
+        val player = view.findViewById<JCVideoPlayerStandard>(R.id.player)
 
         //帮帮
         val tv_info = view.findViewById<TextView>(R.id.tv_info)

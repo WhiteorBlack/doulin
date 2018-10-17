@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <com.xiao.nicevideoplayer.NiceVideoPlayer
+        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
             android:id="@+id/player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

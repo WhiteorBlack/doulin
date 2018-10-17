@@ -1,7 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -17,7 +16,6 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
-import com.lixin.amuseadjacent.app.ui.dialog.ViodeoPlayerDialog
 import com.lixin.amuseadjacent.app.ui.find.activity.DynamicDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynaComment_133134
@@ -25,16 +23,11 @@ import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.activity.PersonalHomePageActivity
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
-import com.lixin.amuseadjacent.app.util.AbStrUtil
-import com.lixin.amuseadjacent.app.util.ImageLoaderUtil
-import com.lixin.amuseadjacent.app.util.StaticUtil
-import com.lixin.amuseadjacent.app.util.ToPreviewPhoto
+import com.lixin.amuseadjacent.app.util.*
 import com.lixin.amuseadjacent.app.view.CircleImageView
-import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayer
-import com.xiao.nicevideoplayer.TxVideoPlayerController
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 
 /**
  * 达人
@@ -54,7 +47,7 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val model = dynaList!![position]
+        val model = dynaList[position]
 
         ImageLoader.getInstance().displayImage(model.dynamicIcon, holder.iv_header, ImageLoaderUtil.HeaderDIO())
         holder.tv_name.text = model.dynamicName
@@ -160,38 +153,22 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
         } else {
             holder.rv_image.visibility = View.GONE
             holder.ll_image.visibility = View.GONE
-
-            if (!TextUtils.isEmpty(model.height) && !TextUtils.isEmpty(model.width)) {
-                val linearParams = holder.player.layoutParams as ConstraintLayout.LayoutParams //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-                linearParams.height = model.height.toInt()// 控件的宽强制设成30
-                linearParams.width = model.width.toInt()// 控件的宽强制设成30
-                holder.iv_video.layoutParams = linearParams
-                ImageLoader.getInstance().displayImage(model.dynamicImg, holder.iv_video)
-            }
-
-            if (model.height > model.width) {//竖屏
-                holder.iv_video.visibility = View.VISIBLE
-                holder.ic_lo.visibility = View.VISIBLE
-                holder.player.visibility = View.GONE
-
-                holder.iv_video.setOnClickListener { v ->
-                    ViodeoPlayerDialog.videoPlayer(context, model.dynamicVideo, model.dynamicImg, model.height.toInt(), model.width.toInt())
+            holder.player.visibility = View.VISIBLE
+           /* if (!TextUtils.isEmpty(model.height) && !TextUtils.isEmpty(model.width)) {
+                if (model.height.toInt() > model.width.toInt()) {//竖屏
+                    val linearParams = holder.player.layoutParams as ConstraintLayout.LayoutParams //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
+                    linearParams.height = model.height.toInt()
+                    linearParams.width = model.width.toInt()
+                    holder.player.layoutParams = linearParams
+                    abLog.e("竖屏...",model.height+","+model.width)
                 }
-            } else {
-                holder.player.visibility = View.VISIBLE
-                holder.iv_video.visibility = View.GONE
-                holder.ic_lo.visibility = View.GONE
+            }*/
 
-                holder.player.setPlayerType(NiceVideoPlayer.TYPE_IJK)
-                holder.player.setUp(model.dynamicVideo, null)
-                val controller = TxVideoPlayerController(context)
-                controller.setTitle("")
-
-                ImageLoader.getInstance().displayImage(model.dynamicImg, controller.imageView())
-                holder.player.setController(controller)
-            }
-
+            holder.player.setUp(
+                    model.dynamicVideo, JCVideoPlayer.SCREEN_LAYOUT_LIST, "")
+            ImageLoader.getInstance().displayImage(model.dynamicImg, holder.player.thumbImageView)
         }
+
         holder.tv_follow.setOnClickListener { v ->
             ProgressDialog.showDialog(context)
             Mail_138139.follow(dynaList[position].dynamicUid, object : Mail_138139.FollowCallBack {
@@ -251,9 +228,7 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
 
-        val player: NiceVideoPlayer = view.findViewById(R.id.player)
-        val iv_video = view.findViewById<ImageView>(R.id.iv_video)
-        val ic_lo = view.findViewById<ImageView>(R.id.ic_lo)
+        val player: JCVideoPlayerStandard = view.findViewById(R.id.player)
 
         //地址
         val tv_add = view.findViewById<TextView>(R.id.tv_add)
@@ -274,8 +249,6 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
             val linearLayoutManager = GridLayoutManager(context, 3)
             rv_image.layoutManager = linearLayoutManager
-
-            player.setPlayerType(NiceVideoPlayer.TYPE_IJK) // IjkPlayer or MediaPlayer
 
         }
     }

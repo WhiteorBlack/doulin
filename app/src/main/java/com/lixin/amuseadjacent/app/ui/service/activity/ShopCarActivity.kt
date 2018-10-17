@@ -343,16 +343,18 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
     private fun ShiftingClause(type: String, list: ArrayList<ShopCarModel.carModel>) {
         val goodList = ArrayList<ShopGoodsModel.dataModel>()
         for (i in 0 until list.size) {
-            val model = ShopGoodsModel.dataModel()
-            model.goodsNum = list[i].count.toInt()
-            model.goodsId = list[i].goodsId
+            if(list[i].isSelect){
+                val model = ShopGoodsModel.dataModel()
+                model.goodsNum = list[i].count.toInt()
+                model.goodsId = list[i].goodsId
 
-            model.goodsCuprice = list[i].goodsPrice
-            model.goodsImg = list[i].goodsImage
-            model.goodsName = list[i].goodsTitle
-            model.goodsPrice = list[i].goodsPrice
-            model.money = DoubleCalculationUtil.mul(list[i].goodsPrice.toDouble(), list[i].count.toDouble())
-            goodList.add(model)
+                model.goodsCuprice = list[i].goodsPrice
+                model.goodsImg = list[i].goodsImage
+                model.goodsName = list[i].goodsTitle
+                model.goodsPrice = list[i].goodsPrice
+                model.money = DoubleCalculationUtil.mul(list[i].goodsPrice.toDouble(), list[i].count.toDouble())
+                goodList.add(model)
+            }
         }
         val bundle = Bundle()
         bundle.putString("type", type)

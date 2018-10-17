@@ -230,7 +230,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             mFile.delete()
         }
 
-        VideoCompress.compressVideoLow(videoPath, currentOutputVideoPath, object : VideoCompress.CompressListener {
+        VideoCompress.compressVideoMedium(videoPath, currentOutputVideoPath, object : VideoCompress.CompressListener {
             override fun onStart() {
             }
 

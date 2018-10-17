@@ -23,8 +23,8 @@ import com.lixin.amuseadjacent.app.ui.mine.model.InteractionModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Myinteraction_161162
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayer
-import com.xiao.nicevideoplayer.TxVideoPlayerController
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 
 /**
  * 个人主页 互动
@@ -77,10 +77,9 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
                 holder.ll_image.visibility = View.GONE
                 holder.rv_image.visibility = View.GONE
 
-                holder.player.setUp(model.bangbangVideoUrl, null)
-                val controller = TxVideoPlayerController(context)
-                ImageLoader.getInstance().displayImage(model.bangbangImageUrl, controller.imageView())
-                holder.player.setController(controller)
+                holder.player.setUp(
+                        model.bangbangVideoUrl, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
+                ImageLoader.getInstance().displayImage(model.bangbangImageUrl,holder.player.thumbImageView)
             }
         } else {
             holder.tv_info.visibility = View.GONE
@@ -152,8 +151,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
         val image1 = view.findViewById<ImageView>(R.id.image1)
         val image2 = view.findViewById<ImageView>(R.id.image2)
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
-        val player = view.findViewById<NiceVideoPlayer>(R.id.player)
-
+        val player = view.findViewById<JCVideoPlayerStandard>(R.id.player)
 
         val iv_image = view.findViewById<ImageView>(R.id.iv_image)
         val tv_type = view.findViewById<TextView>(R.id.tv_type)
@@ -162,7 +160,6 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
         val tv_time = view.findViewById<TextView>(R.id.tv_time)
         val tv_address = view.findViewById<TextView>(R.id.tv_address)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
-
 
         val iv_del = view.findViewById<ImageView>(R.id.iv_del)
         val tv_date = view.findViewById<TextView>(R.id.tv_date)

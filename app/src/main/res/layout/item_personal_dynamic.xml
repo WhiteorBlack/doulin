@@ -78,7 +78,7 @@
                 android:textSize="@dimen/sub_fant" />
 
 
-            <com.xiao.nicevideoplayer.NiceVideoPlayer
+            <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
                 android:id="@+id/player"
                 android:visibility="gone"
                 android:layout_width="match_parent"

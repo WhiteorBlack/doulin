@@ -18,8 +18,8 @@ import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayerManager
 import com.youth.banner.Banner
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import java.util.ArrayList
@@ -79,7 +79,7 @@ class BangBangActivity : BaseActivity(), DynamicList_219.DynamicListCallBack {
 
         rv_event2.setLoadingListener(object : XRecyclerView.LoadingListener {
             override fun onRefresh() {
-                nowPage=1
+                nowPage = 1
                 if (dynaList.isNotEmpty()) {
                     dynaList.clear()
                     bangAdapter!!.notifyDataSetChanged()
@@ -172,12 +172,15 @@ class BangBangActivity : BaseActivity(), DynamicList_219.DynamicListCallBack {
 
     override fun onPause() {
         super.onPause()
-        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
+        JCVideoPlayer.releaseAllVideos()
     }
 
     override fun onBackPressed() {
+
+        if (JCVideoPlayer.backPress()) {
+            return
+        }
         super.onBackPressed()
-        if (NiceVideoPlayerManager.instance().onBackPressd()) return
     }
 
 

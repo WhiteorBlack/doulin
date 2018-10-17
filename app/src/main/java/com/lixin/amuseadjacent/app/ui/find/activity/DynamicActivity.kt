@@ -12,12 +12,11 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.find.fragment.DynamicFragment
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclModel
-import com.lixin.amuseadjacent.app.ui.find.model.FindModel
 import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
-import com.xiao.nicevideoplayer.NiceVideoPlayerManager
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_talent.*
 import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -44,6 +43,7 @@ class DynamicActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_talent)
         EventBus.getDefault().register(this)
+        Runtime.getRuntime().gc()
         init()
     }
 
@@ -94,7 +94,7 @@ class DynamicActivity : BaseActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 System.gc()
                 i = tab!!.position
-                NiceVideoPlayerManager.instance().releaseNiceVideoPlayer()
+                JCVideoPlayer.releaseAllVideos()
             }
 
         })
@@ -148,12 +148,16 @@ class DynamicActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (NiceVideoPlayerManager.instance().onBackPressd()) {
+        if (JCVideoPlayer.backPress()) {
             return
         }
         super.onBackPressed()
     }
 
+    override fun onPause() {
+        super.onPause()
+        Runtime.getRuntime().gc()
+    }
 
     override fun onDestroy() {
         super.onDestroy()
