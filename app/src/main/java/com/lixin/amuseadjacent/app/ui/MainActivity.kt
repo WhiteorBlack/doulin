@@ -66,6 +66,7 @@ class MainActivity : BaseActivity() {
 
     //根据具体点击切换显示对应fragment
     private fun selectStyle(ID: Int) {
+        JCVideoPlayer.releaseAllVideos()
         when (ID) {
             R.id.tab_1 -> {
                 if (Build.VERSION.SDK_INT > 19) {

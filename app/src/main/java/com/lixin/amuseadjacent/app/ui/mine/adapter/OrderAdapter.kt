@@ -76,6 +76,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.GONE
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "2") {//2待送货
             holder.tv_type.text = "待送货"
             holder.tv_pay.text = "确认送达"
@@ -84,6 +85,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.VISIBLE
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "3") {//3待收货
             holder.tv_type.text = "待收货"
             holder.tv_pay.text = "确认收货"
@@ -93,6 +95,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.VISIBLE
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "4") {//4待取货
             holder.tv_type.text = "待取货"
             holder.tv_pay.text = "确认取件"
@@ -102,6 +105,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.VISIBLE
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "5") {//5清洗中
             holder.tv_type.text = "清洗中"
 
@@ -116,6 +120,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.GONE
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "7") {//7归还中
             holder.tv_type.text = "归还中"
             holder.tv_again.text="再来一单"
@@ -124,6 +129,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.GONE
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "8") {//8退款中
             holder.tv_type.text = "退款中"
 
@@ -131,7 +137,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.GONE
-
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "9") {//9已退款
             holder.tv_type.text = "已退款"
             holder.tv_again.text="再来一单"
@@ -139,7 +145,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.GONE
-
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "10") {//10待评价
             holder.tv_type.text = "待评价"
             holder.tv_pay.text = "去评价"
@@ -148,7 +154,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
             holder.tv_refund.visibility = View.GONE
-
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "11") {//11已完成
             holder.tv_type.text = "已完成"
             holder.tv_again.text="再来一单"
@@ -156,6 +162,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.GONE
+            holder.tv_del.visibility = View.GONE
         } else if (orderState == "12") {//12已取消
             holder.tv_type.text = "已取消"
             holder.tv_again.text="再来一单"

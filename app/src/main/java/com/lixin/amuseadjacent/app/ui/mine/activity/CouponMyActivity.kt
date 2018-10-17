@@ -8,6 +8,8 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.mine.fragment.CouponMyFragment
+import com.lixin.amuseadjacent.app.util.abLog
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_personal_home_page.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import java.util.ArrayList
@@ -30,6 +32,8 @@ class CouponMyActivity : BaseActivity() {
 
         val type = intent.getIntExtra("type", -1)//type1 选择优惠券
         val totalMoney = intent.getDoubleExtra("money", 0.0)//type1 选择优惠券
+
+        abLog.e("CouponMyActivity",type.toString())
 
         tv_right.visibility = View.VISIBLE
         tv_right.text = "使用说明"

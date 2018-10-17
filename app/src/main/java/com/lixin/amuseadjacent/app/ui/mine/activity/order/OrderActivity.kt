@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.app.ui.mine.activity.order
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
@@ -13,6 +14,7 @@ import com.lixin.amuseadjacent.app.ui.mine.model.MyOrderModel
 import com.lixin.amuseadjacent.app.ui.mine.request.MyDynamic_132
 import com.lixin.amuseadjacent.app.ui.mine.request.MyOrder_144155
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -72,6 +74,7 @@ class OrderActivity : BaseActivity() {
     private fun init() {
         inittitle("订单")
         StatusBarWhiteColor()
+        view_staus.visibility = View.GONE
 
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL

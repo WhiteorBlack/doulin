@@ -71,48 +71,40 @@ class CouponMyAdapter(val context: Activity, val couponList: ArrayList<CouponMyM
         holder.tv_tongyong.text = model.securitiesName
 
 
-        if(model.securitiesType=="0"){
-            holder.tv_info.text="仅限超市便利使用"
-        }else if(model.securitiesType=="1"){
-            holder.tv_info.text="仅限洗衣洗鞋使用"
-        }else if(model.securitiesType=="2"){
-            holder.tv_info.text="仅限新鲜果蔬使用"
+        if (model.securitiesType == "0") {
+            holder.tv_info.text = "仅限超市便利使用"
+        } else if (model.securitiesType == "1") {
+            holder.tv_info.text = "仅限洗衣洗鞋使用"
+        } else if (model.securitiesType == "2") {
+            holder.tv_info.text = "仅限新鲜果蔬使用"
         }
 
         holder.tv_subtraction.text = "满" + model.securitiesMoney + "可用"
 
-        holder.itemView.setOnClickListener { v ->
-            if (type == -1) {
-                return@setOnClickListener
-            }
-            if (flag == 0) {//选择优惠券
+
+        holder.tv_use.setOnClickListener { v ->
+            if (type != -1) {
                 if (totalMoney < model.securitiesMoney.toDouble()) {
                     ToastUtil.showToast("满" + model.securitiesMoney + "可用")
                     return@setOnClickListener
                 }
-
                 val bundle = Bundle()
                 bundle.putSerializable("model", model)
                 val intent = Intent()
                 intent.putExtras(bundle)
                 context.setResult(1, intent)
                 context.finish()
-            }
-        }
-
-        holder.tv_use.setOnClickListener { v ->
-            if (type != -1) {
-                return@setOnClickListener
-            }
-            val bundle = Bundle()
-            if (model.securitiesType == "0") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
-                bundle.putString("type", "2")
-                MyApplication.openActivity(context, OfficialShopActivity::class.java, bundle)
-            } else if (model.securitiesType == "1") {
-                MyApplication.openActivity(context, LaundryActivity::class.java, bundle)
-            } else if (model.securitiesType == "2") {
-                bundle.putString("type", "0")
-                MyApplication.openActivity(context, OfficialShopActivity::class.java, bundle)
+            } else {
+                val bundle = Bundle()
+                if (model.securitiesType == "0") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                    bundle.putString("type", "2")
+                    MyApplication.openActivity(context, OfficialShopActivity::class.java, bundle)
+                } else if (model.securitiesType == "1") {
+                    MyApplication.openActivity(context, LaundryActivity::class.java, bundle)
+                } else if (model.securitiesType == "2") {
+                    bundle.putString("type", "0")
+                    MyApplication.openActivity(context, OfficialShopActivity::class.java, bundle)
+                }
             }
         }
 

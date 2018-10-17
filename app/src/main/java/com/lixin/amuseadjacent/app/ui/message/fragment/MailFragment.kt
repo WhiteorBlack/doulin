@@ -126,6 +126,8 @@ class MailFragment : BaseFragment(),Mail_138139.MailListCallBack {
 
     override fun onStart() {
         super.onStart()
+        nowPage=1
+        onRefresh=0
         if (mailList.isNotEmpty()) {
             mailList.clear()
             mailAdapter!!.notifyDataSetChanged()

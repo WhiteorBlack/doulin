@@ -13,6 +13,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.CouponMyAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.CouponMyModel
 import com.lixin.amuseadjacent.app.ui.mine.request.CouponMy_122
+import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
@@ -49,6 +50,7 @@ class CouponMyFragment : BaseFragment() {
         xrecyclerview.layoutManager = linearLayoutManager
 
         type = arguments!!.getInt("type", -1)//type1选择优惠券
+        abLog.e("CouponMyFragment",type.toString())
 
         couponAdapter = CouponMyAdapter(activity!!, couponList, flag, type)
         xrecyclerview.adapter = couponAdapter

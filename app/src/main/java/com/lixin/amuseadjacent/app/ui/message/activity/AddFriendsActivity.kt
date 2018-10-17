@@ -124,6 +124,12 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
+        nowPage=1
+        onRefresh=0
+        if(userList.isNotEmpty()){
+            userList.clear()
+            addAdapter!!.notifyDataSetChanged()
+        }
         CommunityUser_20.user(sex, search, nowPage)
     }
 
@@ -132,10 +138,6 @@ class AddFriendsActivity : BaseActivity(), View.OnClickListener {
         tv_user.text = "（" + model.allnum + "）"
         totalPage = model.totalPage
 
-        if(userList.isNotEmpty()){
-            userList.clear()
-            addAdapter!!.notifyDataSetChanged()
-        }
         userList.addAll(model.dataList)
 
         if (onRefresh == 1) {

@@ -128,6 +128,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
                 changeUiToCompleteShow();
                 cancelDismissControlViewTimer();
                 bottomProgressBar.setProgress(100);
+                JCVideoPlayer.releaseAllVideos();
                 break;
             case CURRENT_STATE_PLAYING_BUFFERING_START:
                 changeUiToPlayingBufferingShow();
@@ -177,7 +178,7 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
         int i = v.getId();
         if (i == R.id.thumb) {
             if (TextUtils.isEmpty(url)) {
-                Toast.makeText(getContext(), getResources().getString(R.string.no_url), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"播放地址错误", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (currentState == CURRENT_STATE_NORMAL) {

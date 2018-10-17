@@ -119,6 +119,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
                 tv_del.visibility=View.VISIBLE
                 tv_del.setOnClickListener(this)
             }else{
+                tv_del.visibility = View.GONE
                 payTime.visibility = View.VISIBLE//支付时间
                 tv_payTime.visibility = View.VISIBLE
                 tv_payTime.text = model.payTime

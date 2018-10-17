@@ -222,7 +222,7 @@
                 android:layout_marginRight="12dp"
                 android:drawablePadding="5dp"
                 android:drawableRight="@drawable/ic_right"
-                android:text="暂无可用"
+                android:text="暂未选择"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
                 app:layout_constraintBottom_toBottomOf="@+id/coupon"

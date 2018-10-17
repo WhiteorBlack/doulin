@@ -230,7 +230,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             mFile.delete()
         }
 
-        VideoCompress.compressVideoMedium(videoPath, currentOutputVideoPath, object : VideoCompress.CompressListener {
+        VideoCompress.compressVideoLow(videoPath, currentOutputVideoPath, object : VideoCompress.CompressListener {
             override fun onStart() {
             }
 
@@ -260,8 +260,12 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
         val height = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)// 视频高度
         val width = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
         abLog.e("视频宽高",height+","+width)
-        ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList,
-                path, address, height, width)
+        try {
+            ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList,
+                    path, address, height, width)
+        }catch (e:Exception){
+
+        }
     }
 
     override fun imageRemove(i: Int) {

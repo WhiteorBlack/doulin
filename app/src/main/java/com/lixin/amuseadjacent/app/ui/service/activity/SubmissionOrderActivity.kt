@@ -155,7 +155,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
                 actualMoney = 0.0
             }
             tv_actualpay.text = "￥$actualMoney"
-            tv_coupon.text = "￥" + model.securitiesPrice
+            tv_coupon.text = "￥-" + model.securitiesPrice
         }
     }
 
