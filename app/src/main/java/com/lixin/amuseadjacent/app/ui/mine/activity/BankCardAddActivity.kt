@@ -77,6 +77,10 @@ class BankCardAddActivity : BaseActivity() {
                 ToastUtil.showToast("请输入银行卡卡号")
                 return@setOnClickListener
             }
+            if (et_num.length() < 16) {
+                ToastUtil.showToast("银行卡卡号错误")
+                return@setOnClickListener
+            }
             ProgressDialog.showDialog(this)
             Bank_155156157158164.addBank(this, flag, bankName, num, name, BankCardId)
         }
@@ -103,9 +107,9 @@ class BankCardAddActivity : BaseActivity() {
             et_num.setText(model.cardNum)
             BankCardId = model.cardId
 
-            for(i in 0 until spinnerItems.size ){
-                if(spinnerItems[i] == model.cardName){
-                    sp_bank.setSelection(i,true)
+            for (i in 0 until spinnerItems.size) {
+                if (spinnerItems[i] == model.cardName) {
+                    sp_bank.setSelection(i, true)
                     break
                 }
             }

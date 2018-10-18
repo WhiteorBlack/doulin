@@ -30,7 +30,8 @@ object ReleaseDynamicBang_220 {
         abLog.e("发布动态帮帮", Gson().toJson(imageList))
         if (TextUtils.isEmpty(videoPath)) {
             for (i in 0 until imageList.size - 1) {//图片路径集合
-                val file = File(imageList[i].path)//保存压缩
+                val file = File(imageList[i].compressPath)//保存压缩
+                abLog.e("压缩路径.....", imageList[i].compressPath)
                 listfile.add(file)
             }
 

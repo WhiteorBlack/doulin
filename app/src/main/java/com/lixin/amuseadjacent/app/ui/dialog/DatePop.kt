@@ -19,6 +19,7 @@ import java.util.*
  * Created by Slingge on 2018/1/17 0017.
  */
 
+//maxDay true 使用未来时间
 class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : PopupWindow(context) {
 
     internal var position = 0
@@ -31,6 +32,7 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
 
     private var month = 0//当前月份
     private var day = 0//当天
+    private var year = 0
 
     interface WheelViewCallBack2 {
         fun position(position1: String, position2: String, position3: String)
@@ -56,12 +58,13 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
         //设置原始数据
 
         if (yearList.isEmpty()) {
-            getYear()
-            getMonth()
             val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)// 获取当前年份
+            year = c.get(Calendar.YEAR)// 获取当前年份
             month = c.get(Calendar.MONTH) + 1// 获取当前月份
             day = c.get(Calendar.DAY_OF_MONTH)
+
+            getYear()
+            getMonth()
             getDay(year.toString(), month.toString())
         }
 
@@ -71,12 +74,12 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
         loopview.setCurrentPosition(position)
 
         loopview2.setNotLoop()
-        loopview2.setItems(monthList)
+        loopview2.setItems(monthList.subList(0, month))
         position2 = month - 1
         loopview2.setCurrentPosition(position2)
 
         loopview3.setNotLoop()
-        loopview3.setItems(dayList)
+        loopview3.setItems(dayList.subList(0, day))
         position3 = day - 1
         loopview3.setCurrentPosition(position3)
         wheelViewCallBack.position(yearList[yearList.size - 1], monthList[month - 1], dayList[day - 1])
@@ -85,7 +88,12 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
             position = index
 
             position2 = 0
-            loopview2.setItems(monthList)
+            if (yearList[position].toInt() == year) {
+                loopview2.setItems(monthList.subList(0, month))
+            } else {
+                loopview2.setItems(monthList)
+            }
+
             loopview2.setInitPosition(0)
 
             position3 = 0
@@ -101,7 +109,13 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
             position3 = 0
 
             getDay(yearList[position], monthList[position2])
-            loopview3.setItems(dayList)
+
+            if (yearList[position].toInt() == year && monthList[position2].toInt() == month) {
+                loopview3.setItems(dayList.subList(0, day))
+            } else {
+                loopview3.setItems(dayList)
+            }
+
             loopview3.setInitPosition(0)
 
             wheelViewCallBack.position(yearList[position], monthList[position2], dayList[position3])
@@ -131,9 +145,10 @@ class DatePop(context: Context, var wheelViewCallBack: WheelViewCallBack2) : Pop
 
     private fun getYear() {
         yearList.clear()
-        for (i in 1900..2018) {
+        for (i in year - 100..year) {
             yearList.add(i.toString())
         }
+
     }
 
     private fun getMonth() {

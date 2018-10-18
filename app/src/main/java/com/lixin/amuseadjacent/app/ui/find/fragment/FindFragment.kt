@@ -267,10 +267,13 @@ class FindFragment : BaseFragment(), View.OnClickListener {
                 ImageLoader.getInstance().displayImage(model.redmanList[2].userImg, header3, ImageLoaderUtil.HeaderDIO())
             }
         }
+
         if (TextUtils.isEmpty(model.theme.themeTitle)) {
             jingxuna.visibility = View.GONE
             tv_participate.visibility = View.GONE
         } else {
+            jingxuna.visibility = View.VISIBLE
+            tv_participate.visibility = View.VISIBLE
             tv_participate.text = model.theme.themeTitle
             tv_participate.setOnClickListener { v ->
                 val bundle = Bundle()

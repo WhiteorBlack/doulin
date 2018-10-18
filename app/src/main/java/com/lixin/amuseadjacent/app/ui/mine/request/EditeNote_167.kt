@@ -15,7 +15,7 @@ object EditeNote_167 {
     fun note(auid: String, note: String) {
         val json = "{\"cmd\":\"addremarks\",\"uid\":\"" + StaticUtil.uid +
                 "\",\"auid\":\"" + auid + "\",\"remarks\":\"" + note + "\"}"
-        abLog.e("设置备注",json)
+        abLog.e("设置备注", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
         })
     }

@@ -59,6 +59,9 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
     }
 
     fun setGoodList(context: Activity, rightList: ArrayList<ShopGoodsModel.dataModel>) {
+        if(recyclerView==null){
+            return
+        }
         val adapter = Adapter(context, rightList)
         recyclerView!!.adapter = adapter
     }

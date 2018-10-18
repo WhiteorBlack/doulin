@@ -238,8 +238,6 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
     public void startVideo() {
         prepareMediaPlayer();
         onEvent(JCUserActionStandard.ON_CLICK_START_THUMB);
-
-
     }
 
     public void onClickUiToggle() {

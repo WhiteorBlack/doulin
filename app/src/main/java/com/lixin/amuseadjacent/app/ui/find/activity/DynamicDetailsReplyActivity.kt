@@ -111,10 +111,13 @@ class DynamicDetailsReplyActivity : BaseActivity(),DynamicCommentReplyAdapter.De
                     model.zanNum = "0"
                     model.commentUid = StaticUtil.uid
                     model.commentId = commentId
-                    commentList.add(0, model)
+                    commentList.add( model)
                     replyAdapter!!.notifyDataSetChanged()
 
                     chushi = 2
+
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)//输入法在窗口上已经显示，则隐藏，反之则显示
                 }
             })
         }
@@ -211,6 +214,7 @@ class DynamicDetailsReplyActivity : BaseActivity(),DynamicCommentReplyAdapter.De
         commNum--
         commModel!!.secondNum=commNum.toString()
         headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = commModel!!.secondNum + "回复"
+        tv_title.text = commModel!!.secondNum + "条回复"
     }
 
     fun Destroy() {

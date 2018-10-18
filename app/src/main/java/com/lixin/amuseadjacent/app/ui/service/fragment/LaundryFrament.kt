@@ -59,8 +59,8 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
     //添加到购物车
     override fun addCar(position: Int) {
         if (goodList[position].isSelect) {
-            goodList[position].goodsNum=goodList[position].goodsNum+1
-            goodList[position].money=DoubleCalculationUtil.mul(goodList[position].goodsNum.toDouble(),goodList[position].UnitPrice)
+            goodList[position].goodsNum = goodList[position].goodsNum + 1
+            goodList[position].money = DoubleCalculationUtil.mul(goodList[position].goodsNum.toDouble(), goodList[position].UnitPrice)
             laundryAdapter!!.notifyItemChanged(position)
             val model = CarModel.editModel()
             model.goodModel = goodList[position]
@@ -117,6 +117,17 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
                 return
             }
         }
+    }
+
+    //清空
+    fun clearCar() {
+        for (i in 0 until goodList.size) {
+            if (goodList[i].isSelect) {
+                goodList[i].isSelect = false
+                goodList[i].goodsNum = 0
+            }
+        }
+        laundryAdapter!!.notifyDataSetChanged()
     }
 
 

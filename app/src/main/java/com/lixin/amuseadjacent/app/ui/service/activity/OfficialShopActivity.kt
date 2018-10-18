@@ -156,13 +156,17 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
 
     //从适配器中减少数量
     override fun reduceCar(position: Int) {
-        rightList[position].goodsNum -= 1
+        rightList[position].goodsNum --
         rightAdapter!!.notifyItemChanged(position)
 
         for (i in 0 until carList.size) {//增加数量
             if (carList[i].goodsId == rightList[position].goodsId) {
                 carList[i].goodsNum = rightList[position].goodsNum
-                carList[i].money = DoubleCalculationUtil.mul(carList[i].goodsNum.toDouble(), carList[i].UnitPrice)
+                if(carList[i].goodsNum==0){
+                    carList.removeAt(i)
+                }else{
+                    carList[i].money = DoubleCalculationUtil.mul(carList[i].goodsNum.toDouble(), carList[i].UnitPrice)
+                }
                 break
             }
         }
@@ -324,6 +328,20 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         bundle.putString("type", type)
         bundle.putSerializable("list", carList)
         MyApplication.openActivity(this, SubmissionOrderActivity::class.java, bundle)
+
+        carList.clear()
+        tv_money.text = "合计：￥ $0.0"
+        MyApplication.setRedNum(tv_msgNum, 0)
+        for (i in 0 until rightList.size) {
+            rightList[i].isSelect = false
+            rightList[i].goodsNum = 0
+            rightList[i].UnitPrice = if (TextUtils.isEmpty(rightList[i].goodsCuprice)) {
+                rightList[i].goodsPrice.toDouble()
+            } else {
+                rightList[i].goodsCuprice.toDouble()
+            }
+        }
+        rightAdapter!!.notifyDataSetChanged()
     }
 
 

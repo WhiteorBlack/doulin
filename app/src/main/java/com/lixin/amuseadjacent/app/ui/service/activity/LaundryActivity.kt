@@ -243,6 +243,12 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         bundle.putString("type", "1")//洗衣洗鞋
         bundle.putSerializable("list", carList)
         MyApplication.openActivity(this, SubmissionOrderActivity::class.java, bundle)
+
+        tv_money0.text = "合计：￥ 0.0"
+        carList.clear()
+        shopCartDialog!!.setGoodList(this, carList)
+        MyApplication.setRedNum(tv_msgNum0, 0)
+        fragment!!.clearCar()
     }
 
 

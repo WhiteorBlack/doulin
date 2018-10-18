@@ -50,7 +50,7 @@ object MyAlbum_112113114 {
 
         for (i in 0 until imageList.size - 1) {//图片路径集合
             if (!imageList[i].path.contains("http://")) {
-                val file = File(imageList[i].path)//保存压缩
+                val file = File(imageList[i].compressPath)//保存压缩
                 listfile.add(file)
             }
         }

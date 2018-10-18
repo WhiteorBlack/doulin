@@ -28,6 +28,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
+
 import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.Timer;
@@ -167,6 +169,10 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
                 prepareMediaPlayer();
                 onEvent(currentState != CURRENT_STATE_ERROR ? JCUserAction.ON_CLICK_START_ICON : JCUserAction.ON_CLICK_START_ERROR);
 
+                //直接全屏播放
+                onEvent(JCUserAction.ON_ENTER_FULLSCREEN);
+                startWindowFullscreen();
+
             } else if (currentState == CURRENT_STATE_PLAYING) {
                 onEvent(JCUserAction.ON_CLICK_PAUSE);
                 Log.d(TAG, "pauseVideo [" + this.hashCode() + "] ");
@@ -185,7 +191,9 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
             if (currentState == CURRENT_STATE_AUTO_COMPLETE) return;
             if (currentScreen == SCREEN_WINDOW_FULLSCREEN) {
                 //quit fullscreen
+
                 backPress();
+
             } else {
                 Log.d(TAG, "toFullscreenActivity [" + this.hashCode() + "] ");
                 onEvent(JCUserAction.ON_ENTER_FULLSCREEN);
@@ -196,6 +204,8 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
             prepareMediaPlayer();
         }
     }
+
+
 
     public void prepareMediaPlayer() {
         JCVideoPlayerManager.completeAll();
@@ -577,11 +587,11 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
     public void onVideoSizeChanged() {
         Log.i(TAG, "onVideoSizeChanged " + " [" + this.hashCode() + "] ");
-        if(JCMediaManager.instance().getVideoSize()!=null){
+        if (JCMediaManager.instance().getVideoSize() != null) {
             try {
                 JCMediaManager.textureView.setVideoSize(JCMediaManager.instance().getVideoSize());
-            }catch (Exception e){
-                Log.e("播放器异常",e.toString());
+            } catch (Exception e) {
+                Log.e("播放器异常", e.toString());
             }
         }
     }
@@ -620,15 +630,19 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
     public static boolean backPress() {
         Log.i(TAG, "backPress");
-        if ((System.currentTimeMillis() - CLICK_QUIT_FULLSCREEN_TIME) < FULL_SCREEN_NORMAL_DELAY)
+        if ((System.currentTimeMillis() - CLICK_QUIT_FULLSCREEN_TIME) < FULL_SCREEN_NORMAL_DELAY){
+
             return false;
+        }
         if (JCVideoPlayerManager.getSecondFloor() != null) {
+
             CLICK_QUIT_FULLSCREEN_TIME = System.currentTimeMillis();
             JCVideoPlayer jcVideoPlayer = JCVideoPlayerManager.getSecondFloor();
             jcVideoPlayer.onEvent(jcVideoPlayer.currentScreen == JCVideoPlayerStandard.SCREEN_WINDOW_FULLSCREEN ?
                     JCUserAction.ON_QUIT_FULLSCREEN :
                     JCUserAction.ON_QUIT_TINYSCREEN);
             JCVideoPlayerManager.getFirstFloor().playOnThisJcvd();
+
             return true;
         } else if (JCVideoPlayerManager.getFirstFloor() != null &&
                 (JCVideoPlayerManager.getFirstFloor().currentScreen == SCREEN_WINDOW_FULLSCREEN ||
@@ -639,6 +653,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
             JCVideoPlayerManager.getFirstFloor().clearFloatScreen();
             JCMediaManager.instance().releaseMediaPlayer();
             JCVideoPlayerManager.setFirstFloor(null);
+
             return true;
         }
         return false;
@@ -724,7 +739,8 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
 
     public int getCurrentPositionWhenPlaying() {
         int position = 0;
-        if (JCMediaManager.instance().mediaPlayer == null) return position;//这行代码不应该在这，如果代码和逻辑万无一失的话，心头之恨呐
+        if (JCMediaManager.instance().mediaPlayer == null)
+            return position;//这行代码不应该在这，如果代码和逻辑万无一失的话，心头之恨呐
         if (currentState == CURRENT_STATE_PLAYING ||
                 currentState == CURRENT_STATE_PAUSE ||
                 currentState == CURRENT_STATE_PLAYING_BUFFERING_START) {

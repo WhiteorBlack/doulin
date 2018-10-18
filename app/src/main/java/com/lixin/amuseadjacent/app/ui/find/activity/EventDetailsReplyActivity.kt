@@ -201,13 +201,16 @@ class EventDetailsReplyActivity : BaseActivity(), DynamicCommentReplyAdapter.Del
                     sercmodel.commentUid = StaticUtil.uid
                     sercmodel.commentName = StaticUtil.nickName
                     sercmodel.zanNum = "0"
-                    commentList.add(0, sercmodel)
+                    commentList.add( sercmodel)
                     model.secondNum = (model.secondNum.toInt() + 1).toString()
                     replyAdapter!!.notifyDataSetChanged()
                     tv_title.text = model.secondNum + "条回复"
                     headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = model.secondNum + "回复"
 
                     chushi = 2
+
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)//输入法在窗口上已经显示，则隐藏，反之则显示
                 }
             })
         }
@@ -220,6 +223,7 @@ class EventDetailsReplyActivity : BaseActivity(), DynamicCommentReplyAdapter.Del
         chushi = -3
         model.secondNum = (model.secondNum.toInt() - 1).toString()
         headerView!!.findViewById<TextView>(R.id.tv_commentNum).text = model.secondNum + "回复"
+        tv_title.text = model.secondNum + "条回复"
     }
 
 

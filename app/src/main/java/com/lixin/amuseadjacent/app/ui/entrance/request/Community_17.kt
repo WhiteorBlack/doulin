@@ -1,9 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.entrance.request
 
 import android.app.Activity
-import android.content.Context
 import com.google.gson.Gson
-import com.google.gson.JsonDeserializationContext
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.entrance.model.CommunityModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
@@ -23,7 +21,7 @@ object Community_17 {
     fun getCommunity(context:Activity) {
 
         ProgressDialog.showDialog(context)
-        val json = "{\"cmd\":\"getCommunityList\"" + "}";
+        val json = "{\"cmd\":\"getCommunityList\"" + "}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)

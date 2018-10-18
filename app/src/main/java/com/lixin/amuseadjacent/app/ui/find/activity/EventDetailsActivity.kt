@@ -118,7 +118,7 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
         if (!isAllComment) {
             ProgressDialog.showDialog(this)
         }
-        Event_221222223224.EventDetails(this,eventId)
+        Event_221222223224.EventDetails(this, eventId)
     }
 
     @Subscribe
@@ -195,8 +195,6 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
-
-
         if (commentList.isNotEmpty()) {
             commentList.clear()
             commentAdapter!!.notifyDataSetChanged()
@@ -246,12 +244,15 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                         model.zanNum = "0"
                         model.commentUid = StaticUtil.uid
                         model.commentId = commentId
-                        commentList.add(0, model)
+                        commentList.add(model)
                         commentAdapter!!.notifyDataSetChanged()
 
                         eventModel.`object`.commentNum = ((eventModel.`object`.commentNum).toInt() + 1).toString()
                         tv_comment.text = eventModel.`object`.commentNum
                         isChuLi = 2
+
+                        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)//输入法在窗口上已经显示，则隐藏，反之则显示
                     }
                 })
             }
@@ -299,6 +300,9 @@ class EventDetailsActivity : BaseActivity(), View.OnClickListener {
                 onBack()
             }
             R.id.tv_comment -> {
+                if (eventModel.`object`.issignup == "0" && StaticUtil.uid != eventModel.`object`.userid) {// 0未报名 1已报名
+                    return
+                }
                 if (timer == null) {
                     timer = Timer()
                 }

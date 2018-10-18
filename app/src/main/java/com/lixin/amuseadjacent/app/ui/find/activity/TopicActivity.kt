@@ -48,7 +48,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
 
     private var tv_comment: TextView? = null
     private var tv_zan: TextView? = null
-    private var webview:  WebView? = null
+    private var webview: WebView? = null
 
     private var timer: Timer? = null
 
@@ -113,7 +113,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
 
         ProgressDialog.showDialog(this)
         ActivityComment_272829210.getComment1("1", topicId, nowPage)
-        ActivityComment_272829210.getthemedetail(this,topicId)
+        ActivityComment_272829210.getthemedetail(this, topicId)
     }
 
     //详情
@@ -194,7 +194,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
                         models.zanNum = "0"
                         models.commentUid = StaticUtil.uid
                         models.commentId = commentId
-                        commentList.add(0, models)
+                        commentList.add(models)
                         commentAdapter!!.notifyDataSetChanged()
 
                         model!!.commentNum = ((model!!.commentNum).toInt() + 1).toString()

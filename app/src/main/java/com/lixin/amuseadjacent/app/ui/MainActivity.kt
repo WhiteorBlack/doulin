@@ -14,6 +14,7 @@ import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
 import com.lixin.amuseadjacent.app.util.PermissionHelper
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import fm.jiecao.jcvideoplayer_lib.JCMediaManager
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -125,7 +126,7 @@ class MainActivity : BaseActivity() {
 
     //保证findFramgent能获取到onActivityResult
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode,resultCode,data)
+        super.onActivityResult(requestCode, resultCode, data)
         bFragment2!!.onActivityResult(requestCode, resultCode, data)
     }
 

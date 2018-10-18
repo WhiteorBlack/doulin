@@ -418,8 +418,11 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                     model.setZanNum("0");
                     model.setCommentId(commentId);
                     model.setCommentUid(StaticUtil.INSTANCE.getUid());
-                    commentList.add(0, model);
+                    commentList.add( model);
                     commentAdapter.notifyDataSetChanged();
+
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);//输入法在窗口上已经显示，则隐藏，反之则显示
                 });
                 break;
             case R.id.tv_comment:
