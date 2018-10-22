@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="8dp"
+            android:paddingTop="5dp"
             android:minLines="2"
             android:gravity="center"
             android:text="国产香蕉8.66元/6根国产香蕉8. "
@@ -48,10 +48,10 @@
 
         <ImageView
             android:id="@+id/iv_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:layout_marginBottom="12dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:maxHeight="60dp"
             android:maxWidth="60dp"
             android:scaleType="centerCrop"

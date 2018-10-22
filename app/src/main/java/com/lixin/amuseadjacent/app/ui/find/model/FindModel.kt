@@ -34,7 +34,7 @@ class FindModel : Serializable {
         var commentNum = ""//评论数量
         var isZan = ""//是否已经赞过 0未赞过 1已赞过
         var themeImage = ""
-
+        var themeTime = ""
     }
 
     class dynamicModel : Serializable {

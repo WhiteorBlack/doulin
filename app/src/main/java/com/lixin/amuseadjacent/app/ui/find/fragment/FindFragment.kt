@@ -65,6 +65,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
     private var themeId = ""//话题id
     private var tv_participate: TextView? = null//话题内容
     private var iv_topic: ImageView? = null
+    private var tv_topictime: TextView? = null//时间
     private var tv_topiccomment: TextView? = null//话题回复数
     private var tv_topiczan: TextView? = null//话题点赞
     private var isZanTopic = "0"//是否赞了话题0未赞过 1已赞过
@@ -163,6 +164,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         headerView!!.findViewById<TextView>(R.id.tv_help).setOnClickListener(this)
         headerView!!.findViewById<ImageView>(R.id.iv_help).setOnClickListener(this)
 
+        tv_topictime = headerView!!.findViewById(R.id.tv_topictime)
         tv_participate = headerView!!.findViewById(R.id.tv_participate)
         iv_topic = headerView!!.findViewById(R.id.iv_topic)
         tv_topiccomment = headerView!!.findViewById(R.id.tv_topiccomment)
@@ -190,7 +192,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         tv_name = footView!!.findViewById(R.id.tv_name)
         tv_effect = footView!!.findViewById(R.id.tv_effect)
         tv_info = footView!!.findViewById(R.id.tv_info)
-        tv_time = footView!!.findViewById(R.id.tv_time)
+        tv_time = headerView!!.findViewById(R.id.tv_time)
         tv_comment = footView!!.findViewById(R.id.tv_comment)
 
         footView!!.findViewById<ConstraintLayout>(R.id.cl_item).visibility = View.GONE
@@ -295,6 +297,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             tv_participate!!.text = model.theme.themeTitle
             themeId = model.theme.themeId
 
+            tv_topictime!!.text = model.theme.themeTime
             ImageLoader.getInstance().displayImage(model.theme.themeImage, iv_topic)
             isZanNum = model.theme.zanNum.toInt()
             isZanTopic = model.theme.isZan
