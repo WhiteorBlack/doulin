@@ -8,7 +8,9 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.AsyncTask;
 import android.os.Environment;
+import android.os.Message;
 import android.util.Base64;
 
 import java.io.BufferedOutputStream;
@@ -19,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -33,7 +36,6 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil;
  * Created by Administrator on 2016/8/24 0024.
  */
 public class ImageFileUtil {
-
 
 
     /**
@@ -334,7 +336,7 @@ public class ImageFileUtil {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));// 设置两张图片相交时的模式,参考http://trylovecatch.iteye.com/blog/1189452
         canvas.drawBitmap(bitmap, src, dst, paint); // 以Mode.SRC_IN模式合并bitmap和已经draw了的Circle
         if (bitmap == null) {
-            Log.e("toRoundBitmap","toRoundBitmap==null");
+            Log.e("toRoundBitmap", "toRoundBitmap==null");
         }
         return output;
 
@@ -366,5 +368,54 @@ public class ImageFileUtil {
         }
         return bitmap;
     }
+
+
+    /**
+     * 获取网络图片
+     *
+     * @param imageurl 图片网络地址
+     * @return Bitmap 返回位图
+     */
+    public static Bitmap GetImageInputStream(String imageurl) {
+        URL url;
+        HttpURLConnection connection = null;
+        Bitmap bitmap = null;
+        try {
+            url = new URL(imageurl);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(6000); //超时设置
+            connection.setDoInput(true);
+            connection.setUseCaches(false); //设置不使用缓存
+            InputStream inputStream = connection.getInputStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+
+    /**
+     * 保存位图到本地
+     *
+     * @return void
+     */
+    public static void SavaImage(Bitmap bitmap, String imageName) {
+        File file = new File(StaticUtil.INSTANCE.getDownImagePath());
+        FileOutputStream fileOutputStream;
+        //文件夹不存在，则创建它
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        try {
+            fileOutputStream = new FileOutputStream(StaticUtil.INSTANCE.getDownImagePath() + imageName);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+            fileOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

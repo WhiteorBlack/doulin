@@ -2,6 +2,7 @@ package com.lixin.amuseadjacent.app.ui.service.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.lixin.amuseadjacent.R
@@ -15,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
+import com.netease.nim.uikit.common.ui.ptr2.PullToRefreshLayout
 import kotlinx.android.synthetic.main.activity_shop_car.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
@@ -57,6 +59,35 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         tv_settlement_market.setOnClickListener(this)
         tv_settlement_clothes.setOnClickListener(this)
         tv_settlement_fruits.setOnClickListener(this)
+
+
+        swipeRefresh.setColorSchemeColors(resources.getColor(R.color.colorTheme))
+        swipeRefresh.setOnRefreshListener {
+            if(marketList.isNotEmpty()){
+                marketList.clear()
+                marketAdapter!!.notifyDataSetChanged()
+            }
+            if(clothesList.isNotEmpty()){
+                clothesList.clear()
+                clothesAdapter!!.notifyDataSetChanged()
+            }
+            if(fruitsList.isNotEmpty()){
+                fruitsList.clear()
+                fruitsAdapter!!.notifyDataSetChanged()
+            }
+
+            tv_totalMoney_market.text="合计：￥0.0"
+            tv_totalMoney_clothes.text="合计：￥0.0"
+            tv_totalMoney_fruits.text="合计：￥0.0"
+
+            tv_right.text = "编辑"
+            marketAdapter!!.setEdite(false)
+            clothesAdapter!!.setEdite(false)
+            fruitsAdapter!!.setEdite(false)
+            tv_del.visibility = View.GONE
+
+            ShopCar_12412537.getCar()
+        }
 
         ProgressDialog.showDialog(this)
         ShopCar_12412537.getCar()
@@ -343,7 +374,7 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
     private fun ShiftingClause(type: String, list: ArrayList<ShopCarModel.carModel>) {
         val goodList = ArrayList<ShopGoodsModel.dataModel>()
         for (i in 0 until list.size) {
-            if(list[i].isSelect){
+            if (list[i].isSelect) {
                 val model = ShopGoodsModel.dataModel()
                 model.goodsNum = list[i].count.toInt()
                 model.goodsId = list[i].goodsId
@@ -366,6 +397,10 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
     @Subscribe
     fun onEvent(model: ShopCarModel) {
         var linearLayoutManager1 = LinearLayoutManager(this)
+
+        if(swipeRefresh.isRefreshing){
+            swipeRefresh.isRefreshing=false
+        }
 
         marketList = model.marketList
         if (marketList.isEmpty()) {
@@ -420,3 +455,4 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
 
 
 }
+

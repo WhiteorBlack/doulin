@@ -15,7 +15,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:paddingBottom="30dp">
+        android:paddingBottom="30dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -58,6 +58,8 @@
                     android:layout_height="100dp"
                     android:layout_marginLeft="12dp"
                     android:layout_marginTop="12dp"
+                    android:maxHeight="100dp"
+                    android:maxWidth="100dp"
                     android:src="@drawable/ic_add2"
                     android:visibility="gone" />
 

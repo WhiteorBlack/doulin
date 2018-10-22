@@ -2,7 +2,6 @@ package com.lixin.amuseadjacent.app.ui.service.activity
 
 import android.animation.Animator
 import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.graphics.PointF
@@ -10,10 +9,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import com.lixin.amuseadjacent.R

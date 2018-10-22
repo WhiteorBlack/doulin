@@ -25,7 +25,8 @@
         android:drawableLeft="@drawable/ic_comment2"
         android:drawablePadding="5dp"
         android:paddingLeft="10dp"
-        android:paddingTop="3dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -38,9 +39,10 @@
         android:layout_toLeftOf="@+id/tv_comment"
         android:drawableLeft="@drawable/ic_zan"
         android:drawablePadding="5dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="3dp"
+        android:paddingTop="5dp"
         android:text="" />
 
 </RelativeLayout>

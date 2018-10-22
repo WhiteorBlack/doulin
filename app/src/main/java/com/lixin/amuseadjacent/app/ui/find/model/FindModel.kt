@@ -33,6 +33,8 @@ class FindModel : Serializable {
         var zanNum = ""//图片点击详情链接
         var commentNum = ""//评论数量
         var isZan = ""//是否已经赞过 0未赞过 1已赞过
+        var themeImage = ""
+
     }
 
     class dynamicModel : Serializable {
@@ -45,8 +47,8 @@ class FindModel : Serializable {
         var dynamicImg = ""//动态封面图片
 
         var dynamicVideo = ""//动态视频连接
-        var height=""//视频高度
-        var width=""//视频宽度
+        var height = ""//视频高度
+        var width = ""//视频宽度
 
         var dynamicImgList = ArrayList<String>()//动态多图片数组
         var dynamicAddress = ""//动态地址
@@ -72,7 +74,7 @@ class FindModel : Serializable {
         var activityAllnum = ""//活动人数
 
         var activityNownum = ""//活动当前人数
-        var   activityMoney=""//人均费用
+        var activityMoney = ""//人均费用
         var activityState = ""//状态 0报名中 1进行中 2已结束
         var userid = ""//发布人id
         var userName = ""//发布人昵称

@@ -103,7 +103,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_again.text="再来一单"
 
             holder.tv_again.visibility = View.VISIBLE
-            holder.tv_pay.visibility = View.VISIBLE
+            holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.VISIBLE
             holder.tv_del.visibility = View.GONE
         } else if (orderState == "5") {//5清洗中
@@ -127,7 +127,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_pay.text = "确认收货"
 
             holder.tv_again.visibility = View.VISIBLE
-            holder.tv_pay.visibility = View.VISIBLE
+            holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.GONE
             holder.tv_del.visibility = View.GONE
         } else if (orderState == "8") {//8退款中

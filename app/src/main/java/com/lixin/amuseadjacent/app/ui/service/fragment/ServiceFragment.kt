@@ -80,7 +80,6 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
         xrecyclerview.addHeaderView(headerView)
 
         banner = headerView!!.findViewById(R.id.banner)
-        ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(activity!!, 100), banner!!)
 
         banner!!.setOnBannerListener { i ->
             if (TextUtils.isEmpty(bannerList[i].topImgDetailUrl) || bannerList[i].topImgDetailUrlState == "1") {

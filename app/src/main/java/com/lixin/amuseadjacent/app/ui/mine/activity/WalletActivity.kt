@@ -82,7 +82,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener {
     // Defines a Handler object that's attached to the UI thread.
     // 通过Handler.Callback()可消除内存泄漏警告
     private val mHandler = Handler(Handler.Callback { msg ->
-        Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
         RechargeDialog.dismiss()
         when (msg.what) {
             1 -> {

@@ -177,7 +177,6 @@ public class RecentContactsFragment extends TFragment implements View.OnClickLis
      * 查找页面控件
      */
     private void findViews() {
-
         //王丹加
         FullyLinearLayoutManager flm=new FullyLinearLayoutManager(getActivity());
         flm.setSmoothScrollbarEnabled(true);

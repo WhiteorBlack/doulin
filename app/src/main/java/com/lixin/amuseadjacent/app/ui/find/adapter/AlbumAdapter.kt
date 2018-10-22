@@ -8,11 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.lixin.amuseadjacent.R
+import com.lixin.amuseadjacent.app.ui.dialog.AlbumDialog
+import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.mine.request.MyAlbum_112113114
 import com.lixin.amuseadjacent.app.util.ImageFileUtil
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.lxkj.runproject.app.view.SquareImage
 import com.nostra13.universalimageloader.core.ImageLoader
+import java.util.*
 
 
 /**
@@ -37,14 +42,7 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        if (position == list.size - 1) {
-            holder.image.setImageResource(R.drawable.ic_add2)
-            holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
-            holder.iv_del.visibility = View.GONE
-            holder.image.setOnClickListener { v ->
-                SelectPictureUtil.selectPicture(context, maxNum - list.size + 1, 0, false)
-            }
-        } else {
+        if (position != list.size - 1) {
             if (isShowDel) {
                 holder.iv_del.visibility = View.VISIBLE
             } else {
@@ -59,6 +57,49 @@ class AlbumAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val m
             } else {//网络图片
 //                holder.iv_del.visibility = View.GONE
                 ImageLoader.getInstance().displayImage(list[position].path, holder.image)
+            }
+
+            holder.image.setOnClickListener{v->
+                AlbumDialog.dialog(context, object : AlbumDialog.AlbumEditCallBal {
+                    override fun albumedit(flag: Int) {
+                        if (flag == 0) {//设置为头像
+                            if (list[position].path.contains("http://")) {
+                                ProgressDialog.showDialog(context)
+                                MyAlbum_112113114.setHeaderImage(list[position].pictureType, object : MyAlbum_112113114.HeaderImageCallBack {
+                                    override fun headerIcon(iconUrl: String) {
+                                        Collections.swap(list, 0, position)
+                                        notifyDataSetChanged()
+                                    }
+                                })
+                            } else {
+                                ToastUtil.showToast("请先保存上传")
+                            }
+                        } else {//删除
+                            if (list[position].path.contains("http://")) {
+                                MyAlbum_112113114.delAlbum(list[position].pictureType, position, object : MyAlbum_112113114.DelAlbumCallBacl {
+                                    override fun delAlbum(i: Int) {
+                                        list.removeAt(i)
+                                        notifyDataSetChanged()
+                                    }
+                                })
+                            } else {
+                                list.removeAt(position)
+                                notifyDataSetChanged()
+                            }
+                        }
+                    }
+                })
+            }
+
+        } else {
+
+            holder.image.setImageResource(R.drawable.ic_add2)
+            holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
+            holder.iv_del.visibility = View.GONE
+            if(position==list.size-1){
+                holder.image.setOnClickListener { v ->
+                    SelectPictureUtil.selectPicture(context, maxNum - list.size + 1, 0, false)
+                }
             }
         }
 

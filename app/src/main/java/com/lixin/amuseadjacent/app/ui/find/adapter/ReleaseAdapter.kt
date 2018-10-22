@@ -1,6 +1,8 @@
 package com.lixin.amuseadjacent.app.ui.find.adapter
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -31,9 +33,9 @@ class ReleaseAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val
         return MyViewHolder(view)
     }
 
-    private var flag=0//0可以发视频，1不可以发视频
-      fun setFlag(flag:Int){
-        this.flag=flag
+    private var flag = 0//0可以发视频，1不可以发视频
+    fun setFlag(flag: Int) {
+        this.flag = flag
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -43,11 +45,18 @@ class ReleaseAdapter(val context: Activity, val list: ArrayList<LocalMedia>, val
             holder.image.scaleType = ImageView.ScaleType.CENTER_CROP
             holder.iv_del.visibility = View.GONE
             holder.image.setOnClickListener { v ->
-                if(flag==0){
-                    SelectPictureUtil.selectVodeoPicture(context, maxNum - list.size + 1, 0)
-                    ToastUtil.showToast("可选择、录制10秒内视频")
-                }else{
-                    SelectPictureUtil.selectPicture(context,maxNum - list.size + 1,0,false)
+                if (flag == 0) {
+                    val builder = AlertDialog.Builder(context, android.R.style.Theme_Material_Light_Dialog_Alert);
+                    builder.setMessage("选择发布内容").setPositiveButton("图片") { p0, p1 ->
+                        SelectPictureUtil.selectPicture(context, maxNum - list.size + 1, 0, false)
+                        builder.create().dismiss()
+                    }.setNegativeButton("视频（10秒以内）"
+                    ) { p0, p1 ->
+                        SelectPictureUtil.selectVodeoPicture(context, 1, 0)
+                        builder.create().dismiss()
+                    }.create().show()
+                } else {
+                    SelectPictureUtil.selectPicture(context, maxNum - list.size + 1, 0, false)
                 }
             }
         } else {

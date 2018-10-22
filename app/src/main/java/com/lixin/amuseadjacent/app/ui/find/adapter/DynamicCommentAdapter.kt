@@ -35,11 +35,11 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
     private var dynaId = ""
     private var type = ""//0动态，1活动,2话题
 
-    private var allComm=-1//0所有评论的适配器
+    private var allComm = -1//0所有评论的适配器
 
     interface DelCommentCallBack {
         fun delComment()
-        fun delComment(position:Int)
+        fun delComment(position: Int)
     }
 
     private var delCommentCallBack: DelCommentCallBack? = null
@@ -52,8 +52,9 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
         this.dynaId = dynaId
         this.type = type
     }
-    fun setallComm(allComm:Int){
-        this.allComm=allComm
+
+    fun setallComm(allComm: Int) {
+        this.allComm = allComm
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -100,7 +101,7 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
                         commentList[position].zanNum = (model.zanNum.toInt() + 1).toString()
                     }
                     notifyDataSetChanged()
-                    if(allComm!=-1){
+                    if (allComm != -1) {
                         delCommentCallBack!!.delComment(position)
                     }
                 }
@@ -114,14 +115,12 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
                     commentList.removeAt(position)
                     notifyDataSetChanged()
                     if (delCommentCallBack != null) {
-                        if(allComm!=-1){
+                        if (allComm != -1) {
                             delCommentCallBack!!.delComment(position)
-                        }else{
+                        } else {
                             delCommentCallBack!!.delComment()
                         }
-
                     }
-
                 }
             })
         }
@@ -137,7 +136,7 @@ class DynamicCommentAdapter(val context: Activity, var commentList: ArrayList<Ac
 
             intent.putExtra("model", commentList[position])
             intent.putExtra("id", dynaId)
-            intent.putExtra("type",type)
+            intent.putExtra("type", type)
             intent.putExtra("position", position)
             context.startActivityForResult(intent, 303)
         }

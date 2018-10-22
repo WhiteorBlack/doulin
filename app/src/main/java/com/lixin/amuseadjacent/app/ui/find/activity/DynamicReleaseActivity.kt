@@ -7,15 +7,13 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Message
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
+import com.iceteck.silicompressorr.VideoCompress
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -28,7 +26,6 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
-import com.vincent.videocompressor.VideoCompress
 import kotlinx.android.synthetic.main.activity_dynamic_release.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import java.io.File
@@ -230,7 +227,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             mFile.delete()
         }
 
-        VideoCompress.compressVideoLow(videoPath, currentOutputVideoPath, object : VideoCompress.CompressListener {
+        VideoCompress.compressVideoMedium(videoPath, currentOutputVideoPath, object : VideoCompress.CompressListener {
             override fun onStart() {
             }
 
@@ -248,9 +245,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
 
             override fun onProgress(percent: Float) {
             }
-
         })
-
     }
 
     //上传视频

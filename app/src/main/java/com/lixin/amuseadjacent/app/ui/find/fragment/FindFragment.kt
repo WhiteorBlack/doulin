@@ -21,11 +21,13 @@ import com.lixin.amuseadjacent.app.ui.find.adapter.FindAdapter
 import com.lixin.amuseadjacent.app.ui.find.model.DynamiclDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.EventDetailsModel
 import com.lixin.amuseadjacent.app.ui.find.model.FindModel
+import com.lixin.amuseadjacent.app.ui.find.model.TopicModel
 import com.lixin.amuseadjacent.app.ui.find.request.ActivityComment_272829210
 import com.lixin.amuseadjacent.app.ui.find.request.Find_26
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.*
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.youth.banner.Banner
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
@@ -52,7 +54,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     private var banner: Banner? = null
     private var bannerUrl = ""
-    private var topImgDetailUrlState=""///banner点击详情链接状态 0 有效 1无效
+    private var topImgDetailUrlState = ""///banner点击详情链接状态 0 有效 1无效
     private var onRefresh = 0
 
     private var eventModel: FindModel.activityModel? = null
@@ -60,7 +62,13 @@ class FindFragment : BaseFragment(), View.OnClickListener {
     private var iv_header: ImageView? = null
     private var image: ImageView? = null
 
-    private var themeId=""//话题id
+    private var themeId = ""//话题id
+    private var tv_participate: TextView? = null//话题内容
+    private var iv_topic: ImageView? = null
+    private var tv_topiccomment: TextView? = null//话题回复数
+    private var tv_topiczan: TextView? = null//话题点赞
+    private var isZanTopic = "0"//是否赞了话题0未赞过 1已赞过
+    private var isZanNum = 0
 
     private var tv_type: TextView? = null
     private var tv_follow: TextView? = null
@@ -125,7 +133,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         banner = headerView!!.findViewById(R.id.banner)
         banner!!.setOnBannerListener { i ->
-            if (TextUtils.isEmpty(bannerUrl)||topImgDetailUrlState=="1") {
+            if (TextUtils.isEmpty(bannerUrl) || topImgDetailUrlState == "1") {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
@@ -155,6 +163,14 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         headerView!!.findViewById<TextView>(R.id.tv_help).setOnClickListener(this)
         headerView!!.findViewById<ImageView>(R.id.iv_help).setOnClickListener(this)
 
+        tv_participate = headerView!!.findViewById(R.id.tv_participate)
+        iv_topic = headerView!!.findViewById(R.id.iv_topic)
+        tv_topiccomment = headerView!!.findViewById(R.id.tv_topiccomment)
+        tv_topiczan = headerView!!.findViewById(R.id.tv_topiczan)
+        tv_topiczan!!.setOnClickListener(this)
+        iv_topic!!.setOnClickListener(this)
+        tv_participate!!.setOnClickListener(this)
+
         headerView!!.redman.setOnClickListener(this)
 
         footView = LayoutInflater.from(activity).inflate(R.layout.item_find, null, false)//头布局
@@ -177,12 +193,13 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         tv_time = footView!!.findViewById(R.id.tv_time)
         tv_comment = footView!!.findViewById(R.id.tv_comment)
 
+        footView!!.findViewById<ConstraintLayout>(R.id.cl_item).visibility = View.GONE
         footView!!.findViewById<ConstraintLayout>(R.id.cl_item).setOnClickListener { v ->
             val bundle = Bundle()
             bundle.putString("name", eventModel!!.activityName)
             bundle.putString("id", eventModel!!.activityId)
             bundle.putInt("count", -303)
-            MyApplication.openActivityForResult(activity, EventDetailsActivity::class.java, bundle,2)
+            MyApplication.openActivityForResult(activity, EventDetailsActivity::class.java, bundle, 2)
         }
 
         tv_follow!!.setOnClickListener { v ->
@@ -249,7 +266,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             imageList.clear()
         }
         bannerUrl = model.topImgDetailUrl
-        topImgDetailUrlState=model.topImgDetailUrlState
+        topImgDetailUrlState = model.topImgDetailUrlState
         imageList.add(model.topImgUrl)
         banner!!.setImages(imageList)
                 .setImageLoader(GlideImageLoader())
@@ -270,16 +287,22 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         if (TextUtils.isEmpty(model.theme.themeTitle)) {
             jingxuna.visibility = View.GONE
-            tv_participate.visibility = View.GONE
+            tv_participate!!.visibility = View.GONE
+            iv_topic!!.visibility = View.GONE
         } else {
             jingxuna.visibility = View.VISIBLE
-            tv_participate.visibility = View.VISIBLE
-            tv_participate.text = model.theme.themeTitle
-            tv_participate.setOnClickListener { v ->
-                val bundle = Bundle()
-                bundle.putString("id", model.theme.themeId)
-                MyApplication.openActivity(activity!!, TopicActivity::class.java, bundle)
+            tv_participate!!.visibility = View.VISIBLE
+            tv_participate!!.text = model.theme.themeTitle
+            themeId = model.theme.themeId
+
+            ImageLoader.getInstance().displayImage(model.theme.themeImage, iv_topic)
+            isZanNum = model.theme.zanNum.toInt()
+            isZanTopic = model.theme.isZan
+            if (isZanTopic == "1") {//0未赞过 1已赞过
+                AbStrUtil.setDrawableLeft(activity, R.drawable.ic_zan_hl, tv_topiczan, 5)
             }
+            tv_topiczan!!.text = model.theme.zanNum
+            tv_topiccomment!!.text = model.theme.commentNum
         }
 
         if (findList.isNotEmpty()) {
@@ -295,6 +318,11 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
         //脚布局，活动
         eventModel = model.activity
+        if (TextUtils.isEmpty(eventModel!!.activityName)) {
+            return
+        }
+        footView!!.findViewById<ConstraintLayout>(R.id.cl_item).visibility = View.VISIBLE
+
         ImageLoader.getInstance().displayImage(eventModel!!.activityImg, image)
         if (eventModel!!.issignup == "0") {//0未报名 1已报名
             tv_type!!.text = "未报名"
@@ -351,6 +379,28 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             R.id.redman -> {//红人榜
                 MyApplication.openActivity(activity, RedManListActivity::class.java)
             }
+            R.id.tv_participate, R.id.iv_topic -> {//话题
+                val bundle = Bundle()
+                bundle.putString("id", themeId)
+                MyApplication.openActivityForResult(activity!!, TopicActivity::class.java, bundle, 3)
+            }
+            R.id.tv_topiczan -> {//话题点赞
+                ProgressDialog.showDialog(activity!!)
+                ActivityComment_272829210.zan("1", themeId, "", object : Find_26.ZanCallback {
+                    override fun zan() {
+                        if (isZanTopic == "1") {
+                            isZanTopic = "0"
+                            isZanNum--
+                            AbStrUtil.setDrawableLeft(activity, R.drawable.ic_zan, tv_topiczan, 5)
+                        } else {
+                            isZanTopic = "1"
+                            isZanNum++
+                            AbStrUtil.setDrawableLeft(activity, R.drawable.ic_zan_hl, tv_topiczan, 5)
+                        }
+                        tv_topiczan!!.text = (isZanNum.toString())
+                    }
+                })
+            }
         }
     }
 
@@ -404,6 +454,15 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             }
             tv_comment!!.text = eventModel!!.commentNum
             tv_zan!!.text = eventModel!!.zanNum
+        } else if (requestCode == 3) {//话题，回复、点赞
+            val model = data.getSerializableExtra("model") as TopicModel.objectModel
+            isZanNum = model.zanNum.toInt()
+            isZanTopic = model.isZan
+            if (isZanTopic == "1") {//0未赞过 1已赞过
+                AbStrUtil.setDrawableLeft(activity, R.drawable.ic_zan_hl, tv_topiczan, 5)
+            }
+            tv_topiczan!!.text = model.zanNum
+            tv_topiccomment!!.text = model.commentNum
         }
     }
 

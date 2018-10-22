@@ -29,10 +29,17 @@ import com.netease.nimlib.sdk.util.NIMUtil;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.zhy.http.okhttp.OkHttpUtils;
 
+
+import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by Administrator on 2018/3/9 0009.
@@ -105,6 +112,13 @@ public class MyApplication extends MultiDexApplication {
             JPushInterface.stopPush(this);
         }
 
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(60000L, TimeUnit.MILLISECONDS)
+                .readTimeout(60000L, TimeUnit.MILLISECONDS)
+                .hostnameVerifier((hostname, session) -> true)
+                .build();
+        OkHttpUtils.initClient(okHttpClient);
     }
 
 
@@ -129,8 +143,6 @@ public class MyApplication extends MultiDexApplication {
         //x5内核初始化接口
         QbSdk.initX5Environment(getApplicationContext(), cb);
     }
-
-
 
 
     private LoginInfo getLoginInfo() {

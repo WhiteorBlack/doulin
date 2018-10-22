@@ -66,7 +66,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     private CircleImageView iv_header;
     private TextView tv_name, tv_effect, tv_follow, tv_info;
     private LinearLayout ll_image;
-    private JCVideoPlayerStandard player;
+    private ImageView player, iv_start;
 
     private TextView tv_time, tv_comment, tv_zan;
     private TextView tv_right, tv_title;
@@ -172,6 +172,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         tv_info.setMaxLines(Integer.MAX_VALUE);
         ll_image = findViewById(R.id.ll_image);
         player = findViewById(R.id.player);
+        iv_start = findViewById(R.id.iv_start);
         ll_image = findViewById(R.id.ll_image);
         tv_time = findViewById(R.id.tv_time);
         tv_comment = findViewById(R.id.tv_comment);
@@ -201,7 +202,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     protected void onStart() {
         super.onStart();
         ProgressDialog.INSTANCE.showDialog(this);
-        DynaComment_133134.INSTANCE.dynamicDetail(this,dynaId);
+        DynaComment_133134.INSTANCE.dynamicDetail(this, dynaId);
     }
 
     @Subscribe
@@ -307,9 +308,10 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             }
         } else {
             player.setVisibility(View.VISIBLE);
-            player.setUp(
-                    model.object.dynamicVideo, JCVideoPlayer.SCREEN_LAYOUT_NORMAL,"");
-            ImageLoader.getInstance().displayImage(model.object.dynamicImg,player.thumbImageView);
+            iv_start.setVisibility(View.VISIBLE);
+
+            player.setOnClickListener(view -> JCVideoPlayerStandard.startFullscreen(DynamicDetailsActivity.this, JCVideoPlayerStandard.class, model.object.dynamicVideo, ""));
+            ImageLoader.getInstance().displayImage(model.object.dynamicImg, player);
         }
         imageList = model.object.dynamicImgList;
         if (!commentList.isEmpty()) {
@@ -418,7 +420,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                     model.setZanNum("0");
                     model.setCommentId(commentId);
                     model.setCommentUid(StaticUtil.INSTANCE.getUid());
-                    commentList.add( model);
+                    commentList.add(model);
                     commentAdapter.notifyDataSetChanged();
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -499,7 +501,9 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) { return;}
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
         super.onBackPressed();
     }
 

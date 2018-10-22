@@ -94,6 +94,10 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_note.text = model.message
         tv_orderNum.text = model.orderNum
 
+        if (orderList.isNotEmpty()) {
+            orderList.clear()
+            orderAdapter!!.notifyDataSetChanged()
+        }
         orderList.addAll(model.orderCommodity)
         orderAdapter!!.notifyDataSetChanged()
 
@@ -116,9 +120,9 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_placeTime.text = model.adtime
 
             if (model.orderState == "12") {
-                tv_del.visibility=View.VISIBLE
+                tv_del.visibility = View.VISIBLE
                 tv_del.setOnClickListener(this)
-            }else{
+            } else {
                 tv_del.visibility = View.GONE
                 payTime.visibility = View.VISIBLE//支付时间
                 tv_payTime.visibility = View.VISIBLE
@@ -210,7 +214,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_refund.text = "    退款    "
 
             tv_again.visibility = View.VISIBLE
-            tv_pay.visibility = View.VISIBLE
+            tv_pay.visibility = View.GONE
             tv_refund.visibility = View.VISIBLE
         } else if (orderState == "5") {//5清洗中
 
@@ -226,7 +230,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
 
             tv_pay.text = "确认收货"
             tv_again.visibility = View.VISIBLE
-            tv_pay.visibility = View.VISIBLE
+            tv_pay.visibility = View.GONE
             tv_refund.visibility = View.GONE
         } else if (orderState == "8") {//8退款中
 
@@ -306,9 +310,9 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_del -> {
                 ProgressDialog.showDialog(this)
-                MyOrder_144155.delOrder( orderNum,object :MyOrder_144155.OrderEditCallBack{
+                MyOrder_144155.delOrder(orderNum, object : MyOrder_144155.OrderEditCallBack {
                     override fun cancel() {
-                       ToastUtil.showToast("删除成功")
+                        ToastUtil.showToast("删除成功")
                         val intent = Intent()
                         intent.putExtra("type", "del")
                         intent.putExtra("position", position)

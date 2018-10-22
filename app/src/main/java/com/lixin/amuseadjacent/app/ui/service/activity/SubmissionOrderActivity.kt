@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.service.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.mine.activity.CouponMyActivity
 import com.lixin.amuseadjacent.app.ui.mine.model.AddressModel
 import com.lixin.amuseadjacent.app.ui.mine.model.CouponMyModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Address_140141142143
+import com.lixin.amuseadjacent.app.ui.mine.request.CouponMy_122
 import com.lixin.amuseadjacent.app.ui.service.adapter.SubmissionOrderAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.model.SubmissionModel
@@ -58,10 +60,10 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         carNum()
 
         if (type != "1") {
-            tv_sendTime.text="平均15分钟送货到家"
-        }else{
-            tv_sendTime.text="平均15分钟上门取衣"
-            tv_careful.visibility=View.VISIBLE
+            tv_sendTime.text = "平均15分钟送货到家"
+        } else {
+            tv_sendTime.text = "平均15分钟上门取衣"
+            tv_careful.visibility = View.VISIBLE
         }
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -76,6 +78,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
 
         ProgressDialog.showDialog(this)
         Address_140141142143.addressList(1)
+        CouponMy_122.coupon(0, 1)
     }
 
 
@@ -108,7 +111,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_coupon -> {
                 val bundle = Bundle()
                 bundle.putInt("type", type.toInt())
-                bundle.putDouble("money",totalMoney)
+                bundle.putDouble("money", totalMoney)
                 MyApplication.openActivityForResult(this, CouponMyActivity::class.java, bundle, 0)
             }
             R.id.iv_address -> {
@@ -159,6 +162,8 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+
+    //默认地址
     @Subscribe
     fun onEvent(model: AddressModel) {
         for (i in 0 until model.dataList.size) {
@@ -171,6 +176,33 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
                 return
             }
         }
+    }
+
+    //可用优惠券
+    @SuppressLint("SetTextI18n")
+    @Subscribe
+    fun onEvent(model: CouponMyModel) {
+        var couponNum = 0
+        if (type == "0") {//0新鲜果蔬 1洗衣洗鞋 2超市便利
+            for (model in model.dataList) {
+                if (model.securitiesType == "2") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                    couponNum++
+                }
+            }
+        } else if (type == "1") {
+            for (model in model.dataList) {
+                if (model.securitiesType == "1") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                    couponNum++
+                }
+            }
+        } else if (type == "2") {
+            for (model in model.dataList) {
+                if (model.securitiesType == "0") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                    couponNum++
+                }
+            }
+        }
+        tv_coupon.text = "可用优惠券（$couponNum）"
     }
 
     override fun onDestroy() {

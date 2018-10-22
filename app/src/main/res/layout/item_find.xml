@@ -159,11 +159,25 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+                <ImageView
                     android:id="@+id/player"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/logo"
                     android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_start"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/jc_play_pressed"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/player"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
 
             </android.support.constraint.ConstraintLayout>
 

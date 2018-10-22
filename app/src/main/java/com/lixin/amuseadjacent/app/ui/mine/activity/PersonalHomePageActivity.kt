@@ -7,8 +7,12 @@ import android.support.v7.widget.GridLayoutManager
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import cn.jiguang.d.c.s
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -25,6 +29,7 @@ import com.lixin.amuseadjacent.app.ui.mine.request.EditeNote_167
 import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.netease.nim.uikit.api.NimUIKit
 import com.nostra13.universalimageloader.core.ImageLoader
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
@@ -75,8 +80,8 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
             }
             cl_3.visibility = View.GONE
 
-            note.visibility=View.GONE
-            et_note.visibility=View.GONE
+            note.visibility = View.GONE
+            et_note.visibility = View.GONE
         }
 
         val tabList = ArrayList<String>()
@@ -119,7 +124,6 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 JCVideoPlayer.releaseAllVideos()
             }
-
         })
 
 
@@ -136,17 +140,14 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
         tv_follow.setOnClickListener(this)
         tv_dialogue.setOnClickListener(this)
 
-        et_note.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                val s = p0!!.toString()
-                EditeNote_167.note(auid, s)
+        et_note.setOnEditorActionListener(TextView.OnEditorActionListener { p0, p1, p2 ->
+            if (p1 == EditorInfo.IME_ACTION_SEARCH || p1 == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                val keytag = AbStrUtil.etTostr(et_note)
+                // 搜索功能
+                EditeNote_167.note(auid, keytag)
+                return@OnEditorActionListener true
             }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            false
         })
     }
 
@@ -221,7 +222,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
 
 
     override fun onBackPressed() {
-        if (JCVideoPlayer.backPress())  return
+        if (JCVideoPlayer.backPress()) return
         super.onBackPressed()
     }
 

@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.util
 
 import android.content.Context
+import android.os.Environment
 import cn.jpush.android.api.JPushInterface
 
 /**
@@ -50,6 +51,8 @@ object StaticUtil {
 
     var shareurl = ""//分享链接
     var inviteCode = ""//邀请码
+
+    val DownImagePath= Environment.getExternalStorageDirectory().path +"/com.lixin.amuseadjacent/DownImage/"//保存图片的路径
 
     fun getJpushToken(context: Context): String {
         return JPushInterface.getRegistrationID(context)

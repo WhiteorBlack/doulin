@@ -12,6 +12,7 @@ import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.AddressAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.AddressModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Address_140141142143
+import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -42,6 +43,7 @@ class AddressActivity : BaseActivity() {
     private fun init() {
         inittitle("我的收货地址")
         StatusBarWhiteColor()
+        view_staus.visibility = View.GONE
 
         tv_bottom2.visibility = View.VISIBLE
         tv_bottom2.setOnClickListener { v ->

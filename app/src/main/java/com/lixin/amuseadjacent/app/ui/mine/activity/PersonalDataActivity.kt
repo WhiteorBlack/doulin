@@ -83,56 +83,6 @@ class PersonalDataActivity : BaseActivity(), View.OnClickListener {
         book.setOnClickListener(this)
         label.setOnClickListener(this)
 
-        et_note.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                val s = p0!!.toString()
-                EditeNote_167.note(StaticUtil.uid, s)
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
-
-        rv_album.addOnItemTouchListener(object : RecyclerItemTouchListener(rv_album) {
-            override fun onItemClick(vh: RecyclerView.ViewHolder?) {
-                val i = vh!!.adapterPosition
-                if (i < 0 || i >= imageList.size || i == imageList.size - 1) {
-                    return
-                }
-                AlbumDialog.dialog(this@PersonalDataActivity, object : AlbumDialog.AlbumEditCallBal {
-                    override fun albumedit(flag: Int) {
-                        if (flag == 0) {//设置为头像
-                            if (imageList[i].path.contains("http://")) {
-                                ProgressDialog.showDialog(this@PersonalDataActivity)
-                                MyAlbum_112113114.setHeaderImage(imageList[i].pictureType, object : MyAlbum_112113114.HeaderImageCallBack {
-                                    override fun headerIcon(iconUrl: String) {
-                                        Collections.swap(imageList, 0, i)
-                                        albumAdapter!!.notifyDataSetChanged()
-                                    }
-                                })
-                            } else {
-                                ToastUtil.showToast("请先上传")
-                            }
-                        } else {//删除
-                            if (imageList[i].path.contains("http://")) {
-                                MyAlbum_112113114.delAlbum(imageList[i].pictureType, i, object : MyAlbum_112113114.DelAlbumCallBacl {
-                                    override fun delAlbum(i: Int) {
-                                        imageList.removeAt(i)
-                                        albumAdapter!!.notifyDataSetChanged()
-                                    }
-                                })
-                            } else {
-                                imageList.removeAt(i)
-                                albumAdapter!!.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                })
-            }
-        })
     }
 
 

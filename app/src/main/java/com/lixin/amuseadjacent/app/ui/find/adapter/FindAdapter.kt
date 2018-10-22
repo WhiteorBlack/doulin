@@ -116,7 +116,7 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
 
             if (TextUtils.isEmpty(model.dynamicVideo)) {
                 holder.player.visibility = View.GONE
-
+                holder.iv_start.visibility = View.GONE
                 if (model.dynamicImgList.size > 0) {
                     if (model.dynamicImgList.size < 3) {
                         holder.rv_image.visibility = View.GONE
@@ -165,10 +165,12 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 holder.rv_image.visibility = View.GONE
 
                 holder.player.visibility = View.VISIBLE
+                holder.iv_start.visibility = View.VISIBLE
 
-                holder.player.setUp(
-                        model.dynamicVideo, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
-                ImageLoader.getInstance().displayImage(model.dynamicImg,holder.player.thumbImageView)
+                holder.player.setOnClickListener { v ->
+                    JCVideoPlayerStandard.startFullscreen(context, JCVideoPlayerStandard::class.java, model.dynamicVideo, "")
+                }
+                ImageLoader.getInstance().displayImage(model.dynamicImg, holder.player)
             }
             holder.tv_follow.setOnClickListener { v ->
                 ProgressDialog.showDialog(context)
@@ -304,7 +306,6 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
     }
 
 
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val cl_1 = view.findViewById<ConstraintLayout>(R.id.cl_1)
         val cl_2 = view.findViewById<ConstraintLayout>(R.id.cl_2)
@@ -326,7 +327,8 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
 
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
 
-        val player: JCVideoPlayerStandard = view.findViewById(R.id.player)
+        val player: ImageView = view.findViewById(R.id.player)
+        val iv_start: ImageView = view.findViewById(R.id.iv_start)
 
         //活动
         val image = view.findViewById<ImageView>(R.id.image)

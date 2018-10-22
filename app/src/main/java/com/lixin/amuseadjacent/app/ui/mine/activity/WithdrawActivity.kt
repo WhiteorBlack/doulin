@@ -27,8 +27,6 @@ import kotlinx.android.synthetic.main.activity_withdraw.*
  */
 class WithdrawActivity : BaseActivity(), View.OnClickListener {
 
-    private var ruleAdapter: RuleAdapter? = null
-
     private var cardId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {

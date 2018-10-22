@@ -154,19 +154,12 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
             holder.rv_image.visibility = View.GONE
             holder.ll_image.visibility = View.GONE
             holder.player.visibility = View.VISIBLE
-           /* if (!TextUtils.isEmpty(model.height) && !TextUtils.isEmpty(model.width)) {
-                if (model.height.toInt() > model.width.toInt()) {//竖屏
-                    val linearParams = holder.player.layoutParams as ConstraintLayout.LayoutParams //取控件textView当前的布局参数 linearParams.height = 20;// 控件的高强制设成20
-                    linearParams.height = model.height.toInt()
-                    linearParams.width = model.width.toInt()
-                    holder.player.layoutParams = linearParams
-                    abLog.e("竖屏...",model.height+","+model.width)
-                }
-            }*/
+            holder.iv_start.visibility = View.VISIBLE
 
-            holder.player.setUp(
-                    model.dynamicVideo, JCVideoPlayer.SCREEN_LAYOUT_LIST, "")
-            ImageLoader.getInstance().displayImage(model.dynamicImg, holder.player.thumbImageView)
+            holder.player.setOnClickListener { v ->
+                JCVideoPlayerStandard.startFullscreen(context, JCVideoPlayerStandard::class.java, model.dynamicVideo, "")
+            }
+            ImageLoader.getInstance().displayImage(model.dynamicImg, holder.player)
         }
 
         holder.tv_follow.setOnClickListener { v ->
@@ -228,7 +221,8 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
 
-        val player: JCVideoPlayerStandard = view.findViewById(R.id.player)
+        val player: ImageView = view.findViewById(R.id.player)
+        val iv_start: ImageView = view.findViewById(R.id.iv_start)
 
         //地址
         val tv_add = view.findViewById<TextView>(R.id.tv_add)

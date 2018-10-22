@@ -90,7 +90,7 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
     // 通过Handler.Callback()可消除内存泄漏警告
     private val mHandler = Handler(Handler.Callback { msg ->
         ProgressDialog.dissDialog()
-        Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
         when (msg.what) {
             1 -> {
                 val bundle=Bundle()

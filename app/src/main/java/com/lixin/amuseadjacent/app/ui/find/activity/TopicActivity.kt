@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,7 @@ import java.util.*
  * 话题
  * Created by Slingge on 2018/10/12
  */
-class TopicActivity : BaseActivity(), View.OnClickListener {
+class TopicActivity : BaseActivity(), View.OnClickListener ,DynamicCommentAdapter.DelCommentCallBack{
 
     private var topicId = ""//话题id
 
@@ -65,6 +66,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
     private fun init() {
         StatusBarWhiteColor()
         view_staus.visibility = View.GONE
+        iv_back.setOnClickListener(this)
         topicId = intent.getStringExtra("id")
 
         val linearLayoutManager = LinearLayoutManager(this)
@@ -84,6 +86,7 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
 
         xrecyclerview.addHeaderView(headerView)
         commentAdapter = DynamicCommentAdapter(this, commentList)
+        commentAdapter!!.setDelCommentCallBack(this)
         xrecyclerview.adapter = commentAdapter
         commentAdapter!!.setId(topicId, "2")
 
@@ -202,6 +205,9 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
                     }
                 })
             }
+            R.id.iv_back->{
+                BackPressed()
+            }
         }
     }
 
@@ -214,8 +220,16 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
             AbStrUtil.setDrawableLeft(this, R.drawable.ic_zan_hl, tv_zan, 5)
         }
         tv_zan!!.text = model!!.zanNum
-        inittitle(model!!.themeTitle)
+        tv_title.text=model!!.themeTitle
         webview!!.loadUrl(model!!.themeDetailUrl)
+    }
+
+
+    override fun delComment() {
+        model!!.commentNum = ((model!!.commentNum).toInt() - 1).toString()
+        tv_comment!!.text = model!!.commentNum
+    }
+    override fun delComment(position: Int) {
     }
 
 
@@ -232,6 +246,23 @@ class TopicActivity : BaseActivity(), View.OnClickListener {
             }
             commentAdapter!!.notifyDataSetChanged()
         }
+    }
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_BACK -> BackPressed()
+            else -> {
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    private fun BackPressed() {
+        val intent = Intent()
+        intent.putExtra("model", model)
+        setResult(0, intent)
+        finish()
     }
 
     override fun onDestroy() {

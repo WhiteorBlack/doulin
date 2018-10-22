@@ -134,8 +134,8 @@ dependencies {
     implementation files('libs/umeng_social_shareboard.jar')
     implementation files('libs/umeng_social_tool.jar')
     implementation files('libs/umeng-common-1.4.4.jar')
-    implementation project(':videocompressor')
     implementation project(':banner')
     implementation files('libs/AMap2DMap_3.0.0_AMapSearch_3.6.1_AMapLocation_3.2.1_20161228.jar')
     implementation project(':jcvideoplayer-lib')
+    implementation project(':silicompressor')
 }

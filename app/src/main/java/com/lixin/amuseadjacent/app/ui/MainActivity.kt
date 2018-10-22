@@ -14,6 +14,7 @@ import com.lixin.amuseadjacent.app.ui.mine.request.UserInfo_19
 import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
 import com.lixin.amuseadjacent.app.util.PermissionHelper
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import fm.jiecao.jcvideoplayer_lib.JCMediaManager
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_main.*
@@ -136,8 +137,15 @@ class MainActivity : BaseActivity() {
     }
 
 
+    private var exitTime: Long = 0
     override fun onBackPressed() {
         if (JCVideoPlayer.backPress()) {
+            JCMediaManager.instance().mediaPlayer.pause()
+            return
+        }
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            ToastUtil.showToast("再按一次退出程序")
+            exitTime = System.currentTimeMillis()
             return
         }
         super.onBackPressed()

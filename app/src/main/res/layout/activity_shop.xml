@@ -43,9 +43,11 @@
                         android:id="@+id/include"
                         layout="@layout/include_basetop" />
 
-                    <ImageView
+                    <com.youth.banner.RoundImageView
                         android:id="@+id/iv_bg"
                         android:layout_width="match_parent"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
                         android:layout_height="100dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_dyna" />

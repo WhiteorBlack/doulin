@@ -84,7 +84,6 @@ class CouponMyFragment : BaseFragment() {
 
         linearLayoutManager = LinearLayoutManager(activity)
         linearLayoutManager!!.orientation = LinearLayoutManager.VERTICAL
-
     }
 
     override fun loadData() {
@@ -123,7 +122,6 @@ class CouponMyFragment : BaseFragment() {
         }else{
             couponList.addAll(model.dataList)
         }
-
 
         if (totalPage <= 1) {
             if (couponList.isEmpty()) {

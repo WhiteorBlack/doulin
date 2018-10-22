@@ -30,14 +30,13 @@ class BankCardAdapter(val context: Activity, val bankList: ArrayList<MyBankModel
     }
 
     override fun getItemCount(): Int {
-
         return bankList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val num = bankList[position].cardNum
-        if (bankList[position].cardName.length >= 4) {
+        if (bankList[position].cardName.length > 4) {
             holder.tv_name.text = bankList[position].cardName + "（" + num.substring(num.length - 4, num.length) + "）"
         } else {
             holder.tv_name.text = bankList[position].cardName
