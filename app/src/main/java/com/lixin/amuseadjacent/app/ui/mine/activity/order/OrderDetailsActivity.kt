@@ -40,6 +40,8 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
     private var position = -1
     private var totalPay = ""//实付支付金额
 
+    private var orderType = ""//0新鲜果蔬 1洗衣洗鞋 2超市便利
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_details)
@@ -100,6 +102,8 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
         }
         orderList.addAll(model.orderCommodity)
         orderAdapter!!.notifyDataSetChanged()
+
+        orderType = model.orderType
 
         if (model.orderState != "1") {
             placeTime.visibility = View.VISIBLE//下单时间
@@ -305,7 +309,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
                     MyOrder_144155.CancelOrder(null, orderNum, position, null)
                 } else {//再来一单
                     ProgressDialog.showDialog(this)
-                    MyOrder_144155.againOrder(this, orderNum)
+                    MyOrder_144155.againOrder(this, orderNum, orderType.toInt(),orderList)
                 }
             }
             R.id.tv_del -> {

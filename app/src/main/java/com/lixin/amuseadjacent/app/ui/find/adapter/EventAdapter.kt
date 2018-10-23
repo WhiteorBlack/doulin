@@ -89,7 +89,6 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
         holder.tv_zan.text = model.zanNum
 
         holder.tv_zan.setOnClickListener { v ->
-            ProgressDialog.showDialog(context)
             ActivityComment_272829210.zan("0", model.activityId, "", object : Find_26.ZanCallback {
                 override fun zan() {
                     if (model.isZan == "1") {//0未赞过 1已赞过

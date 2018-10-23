@@ -25,10 +25,8 @@ public class VideoCompress {
         retr.setDataSource(srcPath);
         String height = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);// 视频高度
         VideoCompressTask task = null;
-        if (Integer.valueOf(height) > 1080) {
-            task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_MAXLOW);
-        } else if (Integer.valueOf(height) < 720) {
-            task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_MEDIUM);
+        if (Integer.valueOf(height) > 1900) {
+            task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_LOW);
         } else {
             task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_HIGH);
         }

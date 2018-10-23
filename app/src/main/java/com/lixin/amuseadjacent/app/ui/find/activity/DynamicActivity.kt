@@ -16,6 +16,7 @@ import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
+import fm.jiecao.jcvideoplayer_lib.JCMediaManager
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_talent.*
 import kotlinx.android.synthetic.main.include_banner.*
@@ -149,6 +150,7 @@ class DynamicActivity : BaseActivity() {
 
     override fun onBackPressed() {
         if (JCVideoPlayer.backPress()) {
+            JCMediaManager.instance().mediaPlayer.pause()
             return
         }
         super.onBackPressed()

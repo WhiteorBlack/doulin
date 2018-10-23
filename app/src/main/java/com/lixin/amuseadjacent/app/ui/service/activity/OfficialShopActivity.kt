@@ -327,7 +327,7 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         MyApplication.openActivity(this, SubmissionOrderActivity::class.java, bundle)
 
         carList.clear()
-        tv_money.text = "合计：￥ $0.0"
+        tv_money.text = "合计：￥0.0"
         MyApplication.setRedNum(tv_msgNum, 0)
         for (i in 0 until rightList.size) {
             rightList[i].isSelect = false

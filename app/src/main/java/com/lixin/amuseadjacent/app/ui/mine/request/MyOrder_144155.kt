@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.hardware.camera2.CameraDevice
+import android.os.Bundle
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.mine.model.MyOrderModel
@@ -16,6 +17,7 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
+import java.util.ArrayList
 
 /**
  * Created by Slingge on 2018/9/21
@@ -86,15 +88,19 @@ object MyOrder_144155 {
 
 
     //再来一单
-    fun againOrder(context: Context, orderNum: String) {
+    fun againOrder(context: Context, orderNum: String,type:Int,orderIdList:ArrayList<MyOrderModel.orderModel>) {
         val json = "{\"cmd\":\"oneMoreOrder\",\"uid\":\"" + StaticUtil.uid +
                 "\",\"orderNum\":\"" + orderNum + "\"}"
+        abLog.e("再来一单",json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
-                    MyApplication.openActivity(context, ShopCarActivity::class.java)
+                    val bundle=Bundle()
+                    bundle.putInt("type",type)
+                    bundle.putSerializable("list",orderIdList)
+                    MyApplication.openActivity(context, ShopCarActivity::class.java,bundle)
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }

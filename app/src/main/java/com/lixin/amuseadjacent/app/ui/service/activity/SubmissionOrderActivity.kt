@@ -23,6 +23,7 @@ import com.lixin.amuseadjacent.app.ui.service.model.SubmissionModel
 import com.lixin.amuseadjacent.app.ui.service.request.SubmissionOrder_38
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
+import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_submission_order.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
@@ -78,7 +79,6 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
 
         ProgressDialog.showDialog(this)
         Address_140141142143.addressList(1)
-        CouponMy_122.coupon(0, 1)
     }
 
 
@@ -136,6 +136,8 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         actualMoney = totalMoney
         tv_totalMoney.text = "￥$totalMoney"
         tv_actualpay.text = "￥$actualMoney"
+
+        CouponMy_122.coupon(0, 1)
     }
 
 
@@ -185,19 +187,19 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         var couponNum = 0
         if (type == "0") {//0新鲜果蔬 1洗衣洗鞋 2超市便利
             for (model in model.dataList) {
-                if (model.securitiesType == "2") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                if (model.securitiesType == "2" && model.securitiesMoney.toDouble() <= totalMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
                     couponNum++
                 }
             }
         } else if (type == "1") {
             for (model in model.dataList) {
-                if (model.securitiesType == "1") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                if (model.securitiesType == "1" && model.securitiesMoney.toDouble() <= totalMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
                     couponNum++
                 }
             }
         } else if (type == "2") {
             for (model in model.dataList) {
-                if (model.securitiesType == "0") {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                if (model.securitiesType == "0" && model.securitiesMoney.toDouble() <= totalMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
                     couponNum++
                 }
             }

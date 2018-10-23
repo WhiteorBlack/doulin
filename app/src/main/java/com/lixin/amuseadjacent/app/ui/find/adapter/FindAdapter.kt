@@ -97,8 +97,6 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
                 AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tv_zan, 5)
             }
             holder.tv_zan.setOnClickListener { v ->
-
-                ProgressDialog.showDialog(context)
                 DynaComment_133134.zan(model.dynamicId, "", object : Find_26.ZanCallback {
                     override fun zan() {
                         if (model.isZan == "1") {
@@ -239,7 +237,6 @@ class FindAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dynam
             }
 
             holder.tv_zan.setOnClickListener { v ->
-                ProgressDialog.showDialog(context)
                 ActivityComment_272829210.zan("0", model.activityId, "", object : Find_26.ZanCallback {
                     override fun zan() {
                         if (model.isZan == "1") {

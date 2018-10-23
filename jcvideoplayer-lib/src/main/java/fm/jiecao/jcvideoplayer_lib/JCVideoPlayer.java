@@ -642,7 +642,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements View.OnClickL
                     JCUserAction.ON_QUIT_FULLSCREEN :
                     JCUserAction.ON_QUIT_TINYSCREEN);
             JCVideoPlayerManager.getFirstFloor().playOnThisJcvd();
-
+            JCMediaManager.instance().releaseMediaPlayer();
             return true;
         } else if (JCVideoPlayerManager.getFirstFloor() != null &&
                 (JCVideoPlayerManager.getFirstFloor().currentScreen == SCREEN_WINDOW_FULLSCREEN ||

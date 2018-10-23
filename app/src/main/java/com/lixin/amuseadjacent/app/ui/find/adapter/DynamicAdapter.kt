@@ -92,8 +92,6 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
         }
 
         holder.tv_zan.setOnClickListener { v ->
-
-            ProgressDialog.showDialog(context)
             DynaComment_133134.zan(model.dynamicId, "", object : Find_26.ZanCallback {
                 override fun zan() {
                     if (model.isZan == "1") {
@@ -110,7 +108,7 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
         if (TextUtils.isEmpty(model.dynamicVideo)) {
             holder.player.visibility = View.GONE
-
+            holder.iv_start.visibility = View.GONE
             if (model.dynamicImgList.size > 0) {
                 if (model.dynamicImgList.size < 3) {
                     holder.rv_image.visibility = View.GONE

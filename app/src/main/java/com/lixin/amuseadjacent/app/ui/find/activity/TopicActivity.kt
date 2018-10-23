@@ -151,7 +151,6 @@ class TopicActivity : BaseActivity(), View.OnClickListener ,DynamicCommentAdapte
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.tv_zan -> {
-                ProgressDialog.showDialog(this)
                 ActivityComment_272829210.zan("1", topicId, "", object : Find_26.ZanCallback {
                     override fun zan() {
                         if (model!!.isZan == "1") {

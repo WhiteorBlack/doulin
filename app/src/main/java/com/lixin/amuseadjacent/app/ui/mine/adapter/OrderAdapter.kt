@@ -224,7 +224,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
                 })
             } else {//再来一单
                 ProgressDialog.showDialog(context)
-                MyOrder_144155.againOrder(context, model.orderNum)
+                MyOrder_144155.againOrder(context, model.orderNum,orderList[position].orderType.toInt(),model.orderCommodity)
             }
         }
 

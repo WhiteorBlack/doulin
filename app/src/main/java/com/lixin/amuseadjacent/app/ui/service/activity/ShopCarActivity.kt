@@ -9,6 +9,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.mine.model.MyOrderModel
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopCarDetailsAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.DelCarModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopCarModel
@@ -16,6 +17,7 @@ import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.netease.nim.uikit.common.ui.ptr2.PullToRefreshLayout
 import kotlinx.android.synthetic.main.activity_shop_car.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -36,6 +38,9 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
     private var fruitsList = ArrayList<ShopCarModel.carModel>()//新鲜果蔬
     private var fruitsAdapter: ShopCarDetailsAdapter? = null
 
+    private var type = -1//再来一单的购物车，0新鲜果蔬 1洗衣洗鞋 2超市便利
+    private var orderIdList = ArrayList<MyOrderModel.orderModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_car)
@@ -46,6 +51,9 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
     private fun init() {
         StatusBarWhiteColor()
         inittitle("购物车")
+
+        type = intent.getIntExtra("type", -1)
+        orderIdList = intent.getSerializableExtra("list") as ArrayList<MyOrderModel.orderModel>
 
         tv_right.visibility = View.VISIBLE
         tv_right.text = "编辑"
@@ -63,22 +71,22 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
 
         swipeRefresh.setColorSchemeColors(resources.getColor(R.color.colorTheme))
         swipeRefresh.setOnRefreshListener {
-            if(marketList.isNotEmpty()){
+            if (marketList.isNotEmpty()) {
                 marketList.clear()
                 marketAdapter!!.notifyDataSetChanged()
             }
-            if(clothesList.isNotEmpty()){
+            if (clothesList.isNotEmpty()) {
                 clothesList.clear()
                 clothesAdapter!!.notifyDataSetChanged()
             }
-            if(fruitsList.isNotEmpty()){
+            if (fruitsList.isNotEmpty()) {
                 fruitsList.clear()
                 fruitsAdapter!!.notifyDataSetChanged()
             }
 
-            tv_totalMoney_market.text="合计：￥0.0"
-            tv_totalMoney_clothes.text="合计：￥0.0"
-            tv_totalMoney_fruits.text="合计：￥0.0"
+            tv_totalMoney_market.text = "合计：￥0.0"
+            tv_totalMoney_clothes.text = "合计：￥0.0"
+            tv_totalMoney_fruits.text = "合计：￥0.0"
 
             tv_right.text = "编辑"
             marketAdapter!!.setEdite(false)
@@ -283,6 +291,10 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
                 isAllSelect = false
             }
 
+            if (marketList.isEmpty() && clothesList.isEmpty() && fruitsList.isEmpty()) {
+                rl_clear.visibility = View.VISIBLE
+            }
+
             cb_fruits.isChecked = isAllSelect
             fruitsAdapter!!.notifyDataSetChanged()
             tv_totalMoney_fruits.text = "合计：￥$totalMoney"
@@ -356,9 +368,6 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
             rl_fruits.visibility = View.GONE
             cl_fruits.visibility = View.GONE
         }
-        if (marketList.isEmpty() && clothesList.isEmpty() && fruitsList.isEmpty()) {
-            rl_clear.visibility = View.VISIBLE
-        }
 
         if (flag == -1) {
             Calculation(0, null)
@@ -398,11 +407,22 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
     fun onEvent(model: ShopCarModel) {
         var linearLayoutManager1 = LinearLayoutManager(this)
 
-        if(swipeRefresh.isRefreshing){
-            swipeRefresh.isRefreshing=false
+        if (swipeRefresh.isRefreshing) {
+            swipeRefresh.isRefreshing = false
         }
 
-        marketList = model.marketList
+        if (type != -1) {//筛选再来一单中的商品
+            for (i in 0 until model.marketList.size) {
+                for (order in orderIdList) {
+                    if (order.commodityid == model.marketList[i].goodsId) {
+                        marketList.add(model.marketList[i])
+                    }
+                }
+            }
+        } else {
+            marketList = model.marketList
+        }
+
         if (marketList.isEmpty()) {
             rl_market.visibility = View.GONE
             cl_market.visibility = View.GONE
@@ -412,7 +432,17 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         marketAdapter = ShopCarDetailsAdapter(this, 0, marketList, this, this, this)
         rv_market.adapter = marketAdapter
 
-        clothesList = model.clothesList
+        if (type != -1) {
+            for (i in 0 until model.clothesList.size) {
+                for (order in orderIdList) {
+                    if (order.commodityid == model.clothesList[i].goodsId) {
+                        clothesList.add(model.clothesList[i])
+                    }
+                }
+            }
+        } else {
+            clothesList = model.clothesList
+        }
         if (clothesList.isEmpty()) {
             rl_clothes.visibility = View.GONE
             cl_clothes.visibility = View.GONE
@@ -424,7 +454,17 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         rv_clothes.adapter = clothesAdapter
 
 
-        fruitsList = model.fruitsList
+        if (type != -1) {
+            for (i in 0 until model.fruitsList.size) {
+                for (order in orderIdList) {
+                    if (order.commodityid == model.fruitsList[i].goodsId) {
+                        fruitsList.add(model.fruitsList[i])
+                    }
+                }
+            }
+        } else {
+            fruitsList = model.fruitsList
+        }
         if (fruitsList.isEmpty()) {
             rl_fruits.visibility = View.GONE
             cl_fruits.visibility = View.GONE
@@ -435,15 +475,46 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         fruitsAdapter = ShopCarDetailsAdapter(this, 2, fruitsList, this, this, this)
         rv_fruits.adapter = fruitsAdapter
 
-        cb_market.isChecked = true
-        Calculation(0, true)
-        cb_clothes.isChecked = true
-        Calculation(1, true)
-        cb_fruits.isChecked = true
-        Calculation(2, true)
-
-        if (marketList.isEmpty() && clothesList.isEmpty() && fruitsList.isEmpty()) {
-            rl_clear.visibility = View.VISIBLE
+        if (type == 0) {//0新鲜果蔬 1洗衣洗鞋 2超市便利
+            rl_market.visibility = View.GONE
+            cl_market.visibility = View.GONE
+            rv_market.visibility = View.GONE
+            rl_clothes.visibility = View.GONE
+            cl_clothes.visibility = View.GONE
+            rv_clothes.visibility = View.GONE
+            rl_fruits.visibility = View.VISIBLE
+            cl_fruits.visibility = View.VISIBLE
+            cb_fruits.isChecked = true
+            Calculation(2, true)
+        } else if (type == 1) {
+            rl_market.visibility = View.GONE
+            cl_market.visibility = View.GONE
+            rv_market.visibility = View.GONE
+            rl_fruits.visibility = View.GONE
+            cl_fruits.visibility = View.GONE
+            rv_fruits.visibility = View.GONE
+            rl_clothes.visibility = View.VISIBLE
+            rl_clothes.visibility = View.VISIBLE
+            cb_clothes.isChecked = true
+            Calculation(1, true)
+        } else if (type == 2) {
+            rl_fruits.visibility = View.GONE
+            cl_fruits.visibility = View.GONE
+            rv_fruits.visibility = View.GONE
+            rl_clothes.visibility = View.GONE
+            cl_clothes.visibility = View.GONE
+            rv_clothes.visibility = View.GONE
+            rl_market.visibility = View.VISIBLE
+            cl_market.visibility = View.VISIBLE
+            cb_market.isChecked = true
+            Calculation(0, true)
+        } else {
+            cb_market.isChecked = true
+            Calculation(0, true)
+            cb_clothes.isChecked = true
+            Calculation(1, true)
+            cb_fruits.isChecked = true
+            Calculation(2, true)
         }
     }
 

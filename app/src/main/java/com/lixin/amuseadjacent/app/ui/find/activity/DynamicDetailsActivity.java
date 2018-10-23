@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import fm.jiecao.jcvideoplayer_lib.JCMediaManager;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
@@ -203,6 +204,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         super.onStart();
         ProgressDialog.INSTANCE.showDialog(this);
         DynaComment_133134.INSTANCE.dynamicDetail(this, dynaId);
+
     }
 
     @Subscribe
@@ -309,8 +311,11 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         } else {
             player.setVisibility(View.VISIBLE);
             iv_start.setVisibility(View.VISIBLE);
+            player.setOnClickListener(view -> {
+                playerPau = true;
+                JCVideoPlayerStandard.startFullscreen(DynamicDetailsActivity.this, JCVideoPlayerStandard.class, model.object.dynamicVideo, "");
+            });
 
-            player.setOnClickListener(view -> JCVideoPlayerStandard.startFullscreen(DynamicDetailsActivity.this, JCVideoPlayerStandard.class, model.object.dynamicVideo, ""));
             ImageLoader.getInstance().displayImage(model.object.dynamicImg, player);
         }
         imageList = model.object.dynamicImgList;
@@ -379,7 +384,6 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
                 PreviewPhoto.INSTANCE.preview(DynamicDetailsActivity.this, imageList, 1);
                 break;
             case R.id.tv_zan:
-                ProgressDialog.INSTANCE.showDialog(this);
                 DynaComment_133134.INSTANCE.zan(dynaId, "", () -> {
                     isEdit = 1;
                     if (model.object.isZan.equals("1")) {
@@ -468,10 +472,17 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    private boolean playerPau = false;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
+                if (JCVideoPlayer.backPress() && playerPau) {
+                    JCVideoPlayerStandard.backPress();
+                    playerPau = false;
+                    return true;
+                }
                 back();
                 break;
             default:
@@ -491,14 +502,6 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         finish();
     }
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        JCVideoPlayer.releaseAllVideos();
-    }
-
-
     @Override
     public void onBackPressed() {
         if (JCVideoPlayer.backPress()) {
@@ -506,7 +509,6 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
         }
         super.onBackPressed();
     }
-
 
     @Override
     protected void onDestroy() {

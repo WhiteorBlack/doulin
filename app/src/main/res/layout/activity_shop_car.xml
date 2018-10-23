@@ -320,6 +320,7 @@
         android:background="@color/colorTheme"
         android:gravity="center"
         android:padding="12dp"
+        android:visibility="gone"
         android:text="删除"
         android:textColor="@color/white"
         android:textSize="17sp" />

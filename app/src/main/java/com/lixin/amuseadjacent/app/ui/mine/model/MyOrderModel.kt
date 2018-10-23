@@ -1,10 +1,12 @@
 package com.lixin.amuseadjacent.app.ui.mine.model
 
+import java.io.Serializable
+
 /**
  * 我的订单
  * Created by Slingge on 2018/9/21
  */
-class MyOrderModel {
+class MyOrderModel :Serializable{
 
     var result = ""
     var resultNote = ""
@@ -12,7 +14,7 @@ class MyOrderModel {
 
     var dataList = ArrayList<dataModel>()
 
-    class dataModel {
+    class dataModel :Serializable{
         var orderNum = ""//订单号
         var orderType = ""//0新鲜果蔬 1洗衣洗鞋 2超市便利
 
@@ -24,7 +26,7 @@ class MyOrderModel {
         var orderCommodity = ArrayList<orderModel>()
     }
 
-    class orderModel {
+    class orderModel :Serializable{
         var commodityid = ""//商品id
         var commodityPic = ""//商品图片
 

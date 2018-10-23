@@ -11,7 +11,6 @@ import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.mine.adapter.OrderAdapter
 import com.lixin.amuseadjacent.app.ui.mine.model.MyOrderModel
-import com.lixin.amuseadjacent.app.ui.mine.request.MyDynamic_132
 import com.lixin.amuseadjacent.app.ui.mine.request.MyOrder_144155
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import kotlinx.android.synthetic.main.include_basetop.*

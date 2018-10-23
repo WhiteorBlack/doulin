@@ -152,7 +152,6 @@ class EventDetailsReplyActivity : BaseActivity(), DynamicCommentReplyAdapter.Del
         }
 
         tv_zan!!.setOnClickListener { v ->
-            ProgressDialog.showDialog(this)
             ActivityComment_272829210.zan(type, dyeventId, model.commentId, object : Find_26.ZanCallback {
                 override fun zan() {
                     if (model.isZan == "1") {
