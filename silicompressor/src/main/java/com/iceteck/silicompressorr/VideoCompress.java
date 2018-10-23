@@ -27,6 +27,8 @@ public class VideoCompress {
         VideoCompressTask task = null;
         if (Integer.valueOf(height) > 1900) {
             task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_LOW);
+        } else if (Integer.valueOf(height) < 1900 && Integer.valueOf(height) >= 900) {
+            task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_MEDIUM);
         } else {
             task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_HIGH);
         }

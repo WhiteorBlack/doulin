@@ -44,14 +44,18 @@ class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dy
 
         if (!TextUtils.isEmpty(model.dynamicVideo)) {
             holder.player.visibility = View.VISIBLE
+            holder.iv_start.visibility = View.VISIBLE
             holder.image.visibility = View.GONE
             holder.tv_info.visibility = View.GONE
 
-            holder.player.setUp(
-                    model.dynamicVideo, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
-            ImageLoader.getInstance().displayImage(model.dynamicImg,holder.player.thumbImageView)
+            holder.player.setOnClickListener { v ->
+                JCVideoPlayerStandard.startFullscreen(context, JCVideoPlayerStandard::class.java, model.dynamicVideo, "")
+            }
+            ImageLoader.getInstance().displayImage(model.dynamicImg, holder.player)
+
         } else {
             holder.player.visibility = View.GONE
+            holder.iv_start.visibility = View.GONE
             holder.image.visibility = View.VISIBLE
             holder.tv_info.visibility = View.VISIBLE
 
@@ -100,7 +104,8 @@ class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dy
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val player: JCVideoPlayerStandard = view.findViewById(R.id.player)
+        val player: ImageView = view.findViewById(R.id.player)
+        val iv_start: ImageView = view.findViewById(R.id.iv_start)
 
         val tv_day = view.findViewById<TextView>(R.id.tv_day)
         val tv_month = view.findViewById<TextView>(R.id.tv_month)

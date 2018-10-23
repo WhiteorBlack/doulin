@@ -22,11 +22,11 @@
             android:id="@+id/tv_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="30dp"
             android:text="21"
             android:textColor="@color/black"
             android:textSize="19sp"
-            android:minWidth="30dp"
-            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,11 +78,21 @@
                 android:textSize="@dimen/sub_fant" />
 
 
-            <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            <ImageView
                 android:id="@+id/player"
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/logo"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/iv_start"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/jc_play_pressed"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -93,9 +103,9 @@
             android:background="@drawable/touch_bg"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:visibility="gone"
             android:paddingTop="3dp"
             android:text="删除"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tv_comment"
             app:layout_constraintEnd_toEndOf="parent" />
 
