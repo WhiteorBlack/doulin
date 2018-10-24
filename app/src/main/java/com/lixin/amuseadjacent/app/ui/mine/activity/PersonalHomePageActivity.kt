@@ -17,6 +17,7 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.dialog.RemarksDialog
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.message.request.Mail_138139
 import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
@@ -34,6 +35,7 @@ import com.netease.nim.uikit.api.NimUIKit
 import com.nostra13.universalimageloader.core.ImageLoader
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_personal_home_page.*
+import kotlinx.android.synthetic.main.dialog_progress.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -43,7 +45,7 @@ import java.util.ArrayList
  * 个人主页
  * Created by Slingge on 2018/8/16
  */
-class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
+class PersonalHomePageActivity : BaseActivity(), View.OnClickListener, RemarksDialog.CallBack {
 
     var auid = ""//与StaticUtil.uid相同查看自己的，不同别人的
 
@@ -81,7 +83,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
             cl_3.visibility = View.GONE
 
             note.visibility = View.GONE
-            et_note.visibility = View.GONE
+            tv_note.visibility = View.GONE
         }
 
         val tabList = ArrayList<String>()
@@ -140,15 +142,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
         tv_follow.setOnClickListener(this)
         tv_dialogue.setOnClickListener(this)
 
-        et_note.setOnEditorActionListener(TextView.OnEditorActionListener { p0, p1, p2 ->
-            if (p1 == EditorInfo.IME_ACTION_SEARCH || p1 == EditorInfo.IME_ACTION_UNSPECIFIED) {
-                val keytag = AbStrUtil.etTostr(et_note)
-                // 搜索功能
-                EditeNote_167.note(auid, keytag)
-                return@OnEditorActionListener true
-            }
-            false
-        })
+        tv_note.setOnClickListener(this)
     }
 
 
@@ -177,7 +171,23 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_dialogue -> {
                 NimUIKit.startP2PSession(this, auid)
             }
+            R.id.tv_note -> {
+                RemarksDialog.createDialog(this,this,AbStrUtil.tvTostr(tv_note))
+            }
         }
+    }
+
+
+
+
+    //备注
+    override fun callback(remarks: String) {
+        ProgressDialog.showDialog(this)
+        EditeNote_167.note(auid, remarks, object : EditeNote_167.EditeNoteCallback {
+            override fun editeNote() {
+                tv_note.text = remarks
+            }
+        })
     }
 
 
@@ -213,7 +223,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener {
         tv_sex.text = model.age
         tv_constellation.text = model.constellation
         tv_address.text = model.communityName
-        et_note.setText(model.remarks)
+        tv_note.text = model.remarks
         tv_name.text = model.nickname
         tv_effect.text = "影响力" + model.effectNum
 

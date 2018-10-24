@@ -114,8 +114,8 @@ public class MyApplication extends MultiDexApplication {
 
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(60000L, TimeUnit.MILLISECONDS)
-                .readTimeout(60000L, TimeUnit.MILLISECONDS)
+                .connectTimeout(120000L, TimeUnit.MILLISECONDS)
+                .readTimeout(120000L, TimeUnit.MILLISECONDS)
                 .hostnameVerifier((hostname, session) -> true)
                 .build();
         OkHttpUtils.initClient(okHttpClient);

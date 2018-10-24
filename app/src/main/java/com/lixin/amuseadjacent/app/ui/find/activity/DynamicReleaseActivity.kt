@@ -28,6 +28,8 @@ import com.lxkj.linxintechnologylibrary.app.util.SelectPictureUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_dynamic_release.*
 import kotlinx.android.synthetic.main.include_basetop.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import java.io.File
 import java.util.ArrayList
 
@@ -54,6 +56,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dynamic_release)
+        EventBus.getDefault().register(this)
         init()
     }
 
@@ -85,26 +88,8 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
         albumAdapter = ReleaseAdapter(this, imageList, maxNum, this)
         rv_album.adapter = albumAdapter
         albumAdapter!!.setFlag(flag.toInt())
-
-        checkPermission()
     }
 
-    /**
-     * 检查权限
-     */
-    private fun checkPermission() {
-        val helper = PermissionHelper(this)
-        helper.requestPermissions(object : PermissionHelper.PermissionListener {
-            override fun doAfterGrand(vararg permission: String?) {
-//                initMap()
-            }
-
-            override fun doAfterDenied(vararg permission: String?) {
-            }
-
-        }, Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE)
-    }
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
@@ -131,12 +116,21 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
                 }
                 if (!TextUtils.isEmpty(videoPath)) {
                     abLog.e("视频路径", videoPath)
+                    tv_right.setOnClickListener(null)
                     execCommand(content, videoPath, adress)
                     return
                 }
+                tv_right.setOnClickListener(null)
                 ProgressDialog.showDialog(this)
-                ReleaseDynamicBang_220.release(this, flag, content, imageList, videoPath, adress,"","")
+                ReleaseDynamicBang_220.release(this, flag, content, imageList, videoPath, adress, "", "")
             }
+        }
+    }
+
+    @Subscribe
+    fun onEvent(onclick:String) {
+        if(onclick=="onclick"){
+            tv_right.setOnClickListener(this)
         }
     }
 
@@ -254,11 +248,11 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
         retr.setDataSource(path)
         val height = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)// 视频高度
         val width = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
-        abLog.e("视频宽高",height+","+width)
+        abLog.e("视频宽高", height + "," + width)
         try {
             ReleaseDynamicBang_220.release(this@DynamicReleaseActivity, flag, content, imageList,
                     path, address, height, width)
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
         }
     }
@@ -275,6 +269,7 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
             PreviewingBitmap!!.recycle()
             PreviewingBitmap = null
         }
+        EventBus.getDefault().unregister(this)
     }
 
 }

@@ -53,7 +53,9 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         inittitle("购物车")
 
         type = intent.getIntExtra("type", -1)
-        orderIdList = intent.getSerializableExtra("list") as ArrayList<MyOrderModel.orderModel>
+        if(intent.getSerializableExtra("list")!=null){
+            orderIdList = intent.getSerializableExtra("list") as ArrayList<MyOrderModel.orderModel>
+        }
 
         tv_right.visibility = View.VISIBLE
         tv_right.text = "编辑"
@@ -276,7 +278,6 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
             clothesAdapter!!.notifyDataSetChanged()
             tv_totalMoney_clothes.text = "合计：￥$totalMoney"
         } else if (flag == 2) {
-
             for (i in 0 until fruitsList.size) {
                 if (isAllselect != null) {
                     fruitsList[i].isSelect = isAllselect

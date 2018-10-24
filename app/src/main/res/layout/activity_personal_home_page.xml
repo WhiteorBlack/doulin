@@ -107,8 +107,8 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_address"
                         app:layout_constraintTop_toTopOf="@+id/tv_address" />
 
-                    <EditText
-                        android:id="@+id/et_note"
+                    <TextView
+                        android:id="@+id/tv_note"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"

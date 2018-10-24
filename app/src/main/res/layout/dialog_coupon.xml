@@ -1,35 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_reds4"
-    android:maxHeight="450dp"
-    android:padding="12dp">
+    android:orientation="vertical"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+  >
 
     <!--服务优惠券-->
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_coupon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="55dp"/>
-
-
-    <TextView
-        android:id="@+id/tv_receive"
+    <ImageView
+        android:id="@+id/iv_tpo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@drawable/bg_them3"
-        android:paddingBottom="8dp"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
-        android:paddingTop="8dp"
-        android:text="点击领取"
-        android:textColor="@color/white"
-        android:textSize="@dimen/main_fant" />
+        android:layout_marginBottom="-3dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_coupon" />
 
 
-</FrameLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_tpo">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/bg_reds4"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:padding="12dp" />
+
+            <TextView
+                android:id="@+id/tv_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_them3"
+                android:paddingBottom="8dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="8dp"
+                android:text="点击领取"
+                android:textColor="@color/white"
+                android:textSize="@dimen/main_fant" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</RelativeLayout>

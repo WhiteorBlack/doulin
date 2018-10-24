@@ -18,11 +18,16 @@ import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.service.request.BalancePay_154
+import com.lixin.amuseadjacent.app.ui.service.request.UpdateOrderNum_170
 import com.lixin.amuseadjacent.app.util.DecimalUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_payment.*
+import kotlinx.android.synthetic.main.dialog_progress.*
 import kotlinx.android.synthetic.main.include_basetop.*
+import kotlinx.android.synthetic.main.item_rule.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * Created by Slingge on 2018/9/1
@@ -56,6 +61,7 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
         } else if (result == BCPayResult.RESULT_CANCEL) {
             toastMsg = "用户取消支付"
         } else if (result == BCPayResult.RESULT_FAIL) {
+            msg.what = 3
             if (bcPayResult.errCode == -12 && payType == "alipay") {
                 toastMsg = "您尚未安装支付宝"
             } else {
@@ -90,12 +96,12 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
     // 通过Handler.Callback()可消除内存泄漏警告
     private val mHandler = Handler(Handler.Callback { msg ->
         ProgressDialog.dissDialog()
-//        Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, toastMsg, Toast.LENGTH_SHORT).show()
         when (msg.what) {
             1 -> {
-                val bundle=Bundle()
-                bundle.putString("orderNum",oderNum)
-                MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java,bundle)
+                val bundle = Bundle()
+                bundle.putString("orderNum", oderNum)
+                MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java, bundle)
                 finish()
             }
         }
@@ -106,6 +112,7 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
+        EventBus.getDefault().register(this)
         init()
 
         BeeCloud.setAppIdAndSecret(StaticUtil.Beecloud_Appid,
@@ -154,12 +161,13 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
                 ProgressDialog.showDialog(this)
                 BalancePay_154.pay(oderNum, payMoney, object : BalancePay_154.BalancePayCallBack {
                     override fun pay() {
-                        val bundle=Bundle()
-                        bundle.putString("orderNum",oderNum)
-                        MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java,bundle)
+                        val bundle = Bundle()
+                        bundle.putString("orderNum", oderNum)
+                        MyApplication.openActivity(this@PaymentActivity, PaymentSuccessActivity::class.java, bundle)
                         finish()
                     }
                 })
+                return@setOnClickListener
             }
 
             ProgressDialog.showDialog(this)
@@ -167,30 +175,20 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
                 val aliParam = BCPay.PayParams()
                 aliParam.channelType = BCReqParams.BCChannelTypes.ALI_APP
                 aliParam.billTitle = "支付宝支付"
-                aliParam.billTotalFee = DecimalUtil.ceilInt(payMoney.toDouble()* 100) //订单金额(分)
+                aliParam.billTotalFee = DecimalUtil.ceilInt(payMoney.toDouble() * 100) //订单金额(分)
                 aliParam.billNum = oderNum
                 BCPay.getInstance(this).reqPaymentAsync(
                         aliParam, bcCallback)
             }
             if (payType == "weixin") {
+                ProgressDialog.showDialog(this)
+                UpdateOrderNum_170.upOrderNum(oderNum)
                 //对于微信支付, 手机内存太小会有OutOfResourcesException造成的卡顿, 以致无法完成支付
                 //这个是微信自身存在的问题
-                if (BCPay.isWXAppInstalledAndSupported() && BCPay.isWXPaySupported()) {
-                    val payParams = BCPay.PayParams()
-                    payParams.channelType = BCReqParams.BCChannelTypes.WX_APP
-                    payParams.billTitle = "微信支付"   //订单标题
-                    payParams.billTotalFee = DecimalUtil.ceilInt(payMoney.toDouble()* 100)    //订单金额(分)
-                    payParams.billNum = oderNum  //订单流水号
-                    BCPay.getInstance(this).reqPaymentAsync(
-                            payParams,
-                            bcCallback)            //支付完成后回调入口
-                } else {
-                    Toast.makeText(this,
-                            "您尚未安装微信或者安装的微信版本不支持", Toast.LENGTH_LONG).show()
-                }
             }
         }
     }
+
 
     override fun onClick(p0: View?) {
         when (p0!!.id) {
@@ -212,4 +210,29 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+    //更新订单号
+    @Subscribe
+    fun onEvent(oderNum: String) {
+        this.oderNum=oderNum
+        if (BCPay.isWXAppInstalledAndSupported() && BCPay.isWXPaySupported()) {
+            val payParams = BCPay.PayParams()
+            payParams.channelType = BCReqParams.BCChannelTypes.WX_APP
+            payParams.billTitle = "微信支付"   //订单标题
+            payParams.billTotalFee = DecimalUtil.ceilInt(payMoney.toDouble() * 100)    //订单金额(分)
+            payParams.billNum = oderNum  //订单流水号
+            BCPay.getInstance(this).reqPaymentAsync(
+                    payParams,
+                    bcCallback)            //支付完成后回调入口
+        } else {
+            Toast.makeText(this,
+                    "您尚未安装微信或者安装的微信版本不支持", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
 }

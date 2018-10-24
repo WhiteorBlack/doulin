@@ -28,19 +28,19 @@ class CouponAdapter(val context: Context, val couponList: ArrayList<CouponModel.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model = couponList[position]
+         val model = couponList[position]
 
-        holder.tv_money.text = model.securitiesPrice
-        holder.tv_name.text = model.securitiesName
-        holder.tv_time.text = model.securitiesEndTime
+         holder.tv_money.text = model.securitiesPrice
+         holder.tv_name.text = model.securitiesName
+         holder.tv_time.text = model.securitiesEndTime
 
-        ImageLoader.getInstance().displayImage(model.securitiesImg, holder.image)
+         ImageLoader.getInstance().displayImage(model.securitiesImg, holder.image)
 
-        if (model.isSelect) {
-            holder.cl_item.setBackgroundResource(R.drawable.bg_gray1)
-        } else {
-            holder.cl_item.setBackgroundResource(R.drawable.bg_white1)
-        }
+         if (model.isSelect) {
+             holder.cl_item.setBackgroundResource(R.drawable.bg_gray1)
+         } else {
+             holder.cl_item.setBackgroundResource(R.drawable.bg_white1)
+         }
     }
 
 

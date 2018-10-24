@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Environment
 import android.text.TextUtils
+import android.widget.TextView
 import com.google.gson.Gson
 import com.lixin.amuseadjacent.app.util.ImageFileUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
@@ -12,6 +13,8 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
+import okhttp3.Call
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import java.io.File
 
@@ -52,6 +55,11 @@ object ReleaseDynamicBang_220 {
                                 ToastUtil.showToast(obj.getString("resultNote"))
                             }
                         }
+
+                        override fun onError(call: Call, e: Exception, id: Int) {
+                            super.onError(call, e, id)
+                            EventBus.getDefault().post("onclick")
+                        }
                     })
         } else {
             val file = ImageFileUtil.saveFilePath(Environment.getExternalStorageDirectory().path
@@ -74,6 +82,11 @@ object ReleaseDynamicBang_220 {
                             } else {
                                 ToastUtil.showToast(obj.getString("resultNote"))
                             }
+                        }
+
+                        override fun onError(call: Call, e: Exception, id: Int) {
+                            super.onError(call, e, id)
+                            EventBus.getDefault().post("onclick")
                         }
                     })
         }

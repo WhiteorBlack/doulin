@@ -106,7 +106,6 @@ class ViolationReportFragment : BaseFragment() {
 
     override fun loadData() {
         ProgressDialog.showDialog(activity!!)
-        ToastUtil.showToast(flag.toString())
         if (flag == 0) {
             ViolationReport_129130.irregularities(nowPage)
         } else {

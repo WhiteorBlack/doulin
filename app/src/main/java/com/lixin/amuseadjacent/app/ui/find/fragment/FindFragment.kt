@@ -291,10 +291,14 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             jingxuna.visibility = View.GONE
             tv_participate!!.visibility = View.GONE
             iv_topic!!.visibility = View.GONE
+            tv_topiczan!!.visibility=View.GONE
+            tv_topiccomment!!.visibility=View.GONE
         } else {
             jingxuna.visibility = View.VISIBLE
             iv_topic!!.visibility=View.VISIBLE
             tv_participate!!.visibility = View.VISIBLE
+            tv_topiczan!!.visibility=View.VISIBLE
+            tv_topiccomment!!.visibility=View.VISIBLE
             tv_participate!!.text = model.theme.themeTitle
             themeId = model.theme.themeId
 

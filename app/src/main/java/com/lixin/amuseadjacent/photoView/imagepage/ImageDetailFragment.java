@@ -1,12 +1,15 @@
 package com.lixin.amuseadjacent.photoView.imagepage;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -31,6 +34,9 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 
 /**
@@ -156,6 +162,14 @@ public class ImageDetailFragment extends Fragment {
             if (msg.what == 0x123) {
                 ImageFileUtil.SavaImage(bitmap, ImageName);
                 ToastUtil.INSTANCE.showToast("已保存至" + StaticUtil.INSTANCE.getDownImagePath());
+                abLog.INSTANCE.e("保存的文件",StaticUtil.INSTANCE.getDownImagePath() + ImageName);
+                try {
+                    File file=new File(StaticUtil.INSTANCE.getDownImagePath() + ImageName);
+                    MediaStore.Images.Media.insertImage(getActivity().getContentResolver(),
+                            file.getAbsolutePath(), file.getName(), null);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
     };

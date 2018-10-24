@@ -13,8 +13,11 @@ import org.json.JSONObject
  */
 object EditeNote_167 {
 
+    interface EditeNoteCallback{
+        fun editeNote()
+    }
 
-    fun note(auid: String, note: String) {
+    fun note(auid: String, note: String,editeNoteCallback: EditeNoteCallback) {
         val json = "{\"cmd\":\"addremarks\",\"uid\":\"" + StaticUtil.uid +
                 "\",\"auid\":\"" + auid + "\",\"remarks\":\"" + note + "\"}"
         abLog.e("设置备注", json)
@@ -24,6 +27,7 @@ object EditeNote_167 {
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
                     ToastUtil.showToast("备注修改成功")
+                    editeNoteCallback.editeNote()
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }
