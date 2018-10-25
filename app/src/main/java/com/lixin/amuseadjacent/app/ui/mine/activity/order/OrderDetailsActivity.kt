@@ -221,10 +221,11 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             tv_pay.visibility = View.GONE
             tv_refund.visibility = View.VISIBLE
         } else if (orderState == "5") {//5清洗中
+            tv_refund.text = "    退款    "
 
             tv_again.visibility = View.GONE
             tv_pay.visibility = View.GONE
-            tv_refund.visibility = View.GONE
+            tv_refund.visibility = View.VISIBLE
         } else if (orderState == "6") {//6带归还
 
             tv_again.visibility = View.VISIBLE
@@ -296,7 +297,7 @@ class OrderDetailsActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tv_refund -> {
                 //退款
-                if (orderState == "2" || orderState == "3" || orderState == "4") {
+                if (orderState == "2" || orderState == "3" || orderState == "4"|| orderState == "5") {
                     val bundle = Bundle()
                     bundle.putString("num", orderNum)
                     bundle.putInt("position", position)

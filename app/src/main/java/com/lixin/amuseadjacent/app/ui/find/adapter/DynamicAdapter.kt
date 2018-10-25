@@ -13,6 +13,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import cn.jzvd.Jzvd
+import cn.jzvd.JzvdStd
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
@@ -26,8 +28,6 @@ import com.lixin.amuseadjacent.app.ui.mine.adapter.ImageAdapter
 import com.lixin.amuseadjacent.app.util.*
 import com.lixin.amuseadjacent.app.view.CircleImageView
 import com.nostra13.universalimageloader.core.ImageLoader
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 
 /**
  * 达人
@@ -155,7 +155,8 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
             holder.iv_start.visibility = View.VISIBLE
 
             holder.player.setOnClickListener { v ->
-                JCVideoPlayerStandard.startFullscreen(context, JCVideoPlayerStandard::class.java, model.dynamicVideo, "")
+                JzvdStd.startFullscreen(context, JzvdStd::class.java, model.dynamicVideo, "")
+                Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL)
             }
             ImageLoader.getInstance().displayImage(model.dynamicImg, holder.player)
         }

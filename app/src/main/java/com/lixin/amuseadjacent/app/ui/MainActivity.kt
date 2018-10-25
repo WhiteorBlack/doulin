@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import cn.jzvd.JZMediaManager
+import cn.jzvd.Jzvd
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.find.fragment.FindFragment
@@ -15,8 +17,6 @@ import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
 import com.lixin.amuseadjacent.app.util.PermissionHelper
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
-import fm.jiecao.jcvideoplayer_lib.JCMediaManager
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -68,7 +68,7 @@ class MainActivity : BaseActivity() {
 
     //根据具体点击切换显示对应fragment
     private fun selectStyle(ID: Int) {
-        JCVideoPlayer.releaseAllVideos()
+        Jzvd.releaseAllVideos()
         when (ID) {
             R.id.tab_1 -> {
                 if (Build.VERSION.SDK_INT > 19) {
@@ -134,15 +134,16 @@ class MainActivity : BaseActivity() {
     override fun onPause() {
         super.onPause()
         Runtime.getRuntime().gc()
+        Jzvd.releaseAllVideos()
     }
 
 
     private var exitTime: Long = 0
     override fun onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
-            JCMediaManager.instance().mediaPlayer.pause()
+        if (Jzvd.backPress()) {
             return
         }
+
         if ((System.currentTimeMillis() - exitTime) > 2000) {
             ToastUtil.showToast("再按一次退出程序")
             exitTime = System.currentTimeMillis()

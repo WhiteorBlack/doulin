@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
+import cn.jzvd.Jzvd
 import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -19,7 +20,6 @@ import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.youth.banner.Banner
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_event.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import java.util.ArrayList
@@ -172,12 +172,11 @@ class BangBangActivity : BaseActivity(), DynamicList_219.DynamicListCallBack {
 
     override fun onPause() {
         super.onPause()
-        JCVideoPlayer.releaseAllVideos()
+        Jzvd.releaseAllVideos()
     }
 
     override fun onBackPressed() {
-
-        if (JCVideoPlayer.backPress()) {
+        if (Jzvd.backPress()) {
             return
         }
         super.onBackPressed()

@@ -13,6 +13,8 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import cn.jiguang.d.c.s
+import cn.jzvd.JZMediaManager
+import cn.jzvd.Jzvd
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -30,12 +32,9 @@ import com.lixin.amuseadjacent.app.ui.mine.request.EditeNote_167
 import com.lixin.amuseadjacent.app.ui.mine.request.HomePage_110
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.netease.nim.uikit.api.NimUIKit
 import com.nostra13.universalimageloader.core.ImageLoader
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.activity_personal_home_page.*
-import kotlinx.android.synthetic.main.dialog_progress.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -124,7 +123,7 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener, RemarksDi
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                JCVideoPlayer.releaseAllVideos()
+                Jzvd.releaseAllVideos()
             }
         })
 
@@ -172,12 +171,10 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener, RemarksDi
                 NimUIKit.startP2PSession(this, auid)
             }
             R.id.tv_note -> {
-                RemarksDialog.createDialog(this,this,AbStrUtil.tvTostr(tv_note))
+                RemarksDialog.createDialog(this, this, AbStrUtil.tvTostr(tv_note))
             }
         }
     }
-
-
 
 
     //备注
@@ -230,9 +227,15 @@ class PersonalHomePageActivity : BaseActivity(), View.OnClickListener, RemarksDi
         dataFragment!!.setDate(model)
     }
 
+    override fun onPause() {
+        super.onPause()
+        Jzvd.releaseAllVideos()
+    }
 
     override fun onBackPressed() {
-        if (JCVideoPlayer.backPress()) return
+        if (Jzvd.backPress()) {
+            return
+        }
         super.onBackPressed()
     }
 

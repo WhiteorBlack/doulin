@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import cn.jzvd.Jzvd
 import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -30,7 +31,6 @@ import com.lixin.amuseadjacent.app.util.*
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.youth.banner.Banner
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
 import kotlinx.android.synthetic.main.fragment_find.*
 import kotlinx.android.synthetic.main.header_find.*
 import kotlinx.android.synthetic.main.header_find.view.*
@@ -482,7 +482,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
 
     override fun onPause() {
         super.onPause()
-        JCVideoPlayer.releaseAllVideos()
+        Jzvd.releaseAllVideos()
     }
 
     override fun onDestroy() {

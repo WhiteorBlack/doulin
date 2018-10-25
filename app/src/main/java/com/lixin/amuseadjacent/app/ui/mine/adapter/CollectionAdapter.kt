@@ -2,12 +2,8 @@ package com.lixin.amuseadjacent.app.ui.mine.adapter
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.media.Image
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -24,8 +20,6 @@ import com.lixin.amuseadjacent.app.ui.find.activity.EventDetailsActivity
 import com.lixin.amuseadjacent.app.ui.find.request.Event_221222223224
 import com.lixin.amuseadjacent.app.ui.mine.model.CollectModel
 import com.nostra13.universalimageloader.core.ImageLoader
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 
 /**
  * 收藏
@@ -59,13 +53,13 @@ class CollectionAdapter(val context: Activity, val collectList: ArrayList<Collec
                 holder.image0.visibility = View.GONE
                 holder.ll_image.visibility = View.GONE
                 holder.rv_image.visibility = View.GONE
-                holder.player.visibility = View.VISIBLE
+//                holder.player.visibility = View.VISIBLE
 
-                holder.player.setUp(
-                        model.bangbangVideoUrl, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
-                ImageLoader.getInstance().displayImage(model.bangbangImageUrl,holder.player.thumbImageView)
+//                holder.player.setUp(
+//                        model.bangbangVideoUrl, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
+//                ImageLoader.getInstance().displayImage(model.bangbangImageUrl,holder.player.thumbImageView)
             } else {
-                holder.player.visibility = View.GONE
+//                holder.player.visibility = View.GONE
                 if (model.bangbangImgUrl.size == 0) {
                     holder.image0.visibility = View.GONE
                     holder.ll_image.visibility = View.GONE
@@ -175,7 +169,7 @@ class CollectionAdapter(val context: Activity, val collectList: ArrayList<Collec
         val tv_address = view.findViewById<TextView>(R.id.tv_address)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
 
-        val player = view.findViewById<JCVideoPlayerStandard>(R.id.player)
+//        val player = view.findViewById<JCVideoPlayerStandard>(R.id.player)
 
         //帮帮
         val tv_info = view.findViewById<TextView>(R.id.tv_info)

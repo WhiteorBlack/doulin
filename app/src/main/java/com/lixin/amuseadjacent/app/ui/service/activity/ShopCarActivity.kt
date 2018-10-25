@@ -70,7 +70,6 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         tv_settlement_clothes.setOnClickListener(this)
         tv_settlement_fruits.setOnClickListener(this)
 
-
         swipeRefresh.setColorSchemeColors(resources.getColor(R.color.colorTheme))
         swipeRefresh.setOnRefreshListener {
             if (marketList.isNotEmpty()) {

@@ -108,10 +108,11 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_del.visibility = View.GONE
         } else if (orderState == "5") {//5清洗中
             holder.tv_type.text = "清洗中"
+            holder.tv_refund.text = "    退款    "
 
             holder.tv_again.visibility = View.GONE
             holder.tv_pay.visibility = View.GONE
-            holder.tv_refund.visibility = View.GONE
+            holder.tv_refund.visibility = View.VISIBLE
         } else if (orderState == "6") {//6带归还
             holder.tv_type.text = "待归还"
             holder.tv_again.text="再来一单"
@@ -230,7 +231,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
 
         holder.tv_refund.setOnClickListener { v ->
             //退款
-            if (orderState == "2" || orderState == "3" || orderState == "4") {
+            if (orderState == "2" || orderState == "3" || orderState == "4"|| orderState == "5") {
                 val bundle = Bundle()
                 bundle.putString("num", model.orderNum)
                 bundle.putInt("position", position)

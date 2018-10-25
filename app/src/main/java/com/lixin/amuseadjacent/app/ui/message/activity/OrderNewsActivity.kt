@@ -100,6 +100,12 @@ class OrderNewsActivity : BaseActivity() {
         xrecyclerview.scheduleLayoutAnimation()
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        orderAdapter!!.setFlag(true)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)

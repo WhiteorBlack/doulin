@@ -1,10 +1,8 @@
 package com.lixin.amuseadjacent.app.ui.mine.adapter
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.service.carrier.MessagePdu
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -23,8 +21,6 @@ import com.lixin.amuseadjacent.app.ui.mine.model.InteractionModel
 import com.lixin.amuseadjacent.app.ui.mine.request.Myinteraction_161162
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.nostra13.universalimageloader.core.ImageLoader
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 
 /**
  * 个人主页 互动
@@ -48,7 +44,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
 
             holder.tv_info.text = model.bangbangContent
             if (TextUtils.isEmpty(model.bangbangVideoUrl)) {
-                holder.player.visibility = View.GONE
+//                holder.player.visibility = View.GONE
                 if (model.bangbangImgUrl.size == 1) {
                     holder.image0.visibility = View.VISIBLE
                     holder.ll_image.visibility = View.GONE
@@ -71,15 +67,15 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
                     holder.rv_image.adapter = imageAdapter
                 }
             } else {
-                holder.player.visibility = View.VISIBLE
+//                holder.player.visibility = View.VISIBLE
 
                 holder.image0.visibility = View.GONE
                 holder.ll_image.visibility = View.GONE
                 holder.rv_image.visibility = View.GONE
 
-                holder.player.setUp(
+               /* holder.player.setUp(
                         model.bangbangVideoUrl, JCVideoPlayer.SCREEN_LAYOUT_LIST,"")
-                ImageLoader.getInstance().displayImage(model.bangbangImageUrl,holder.player.thumbImageView)
+                ImageLoader.getInstance().displayImage(model.bangbangImageUrl,holder.player.thumbImageView)*/
             }
         } else {
             holder.tv_info.visibility = View.GONE
@@ -151,7 +147,7 @@ class InteractionAdapter(val context: Activity, val auid: String, val interactio
         val image1 = view.findViewById<ImageView>(R.id.image1)
         val image2 = view.findViewById<ImageView>(R.id.image2)
         val rv_image = view.findViewById<RecyclerView>(R.id.rv_image)
-        val player = view.findViewById<JCVideoPlayerStandard>(R.id.player)
+//        val player = view.findViewById<JCVideoPlayerStandard>(R.id.player)
 
         val iv_image = view.findViewById<ImageView>(R.id.iv_image)
         val tv_type = view.findViewById<TextView>(R.id.tv_type)

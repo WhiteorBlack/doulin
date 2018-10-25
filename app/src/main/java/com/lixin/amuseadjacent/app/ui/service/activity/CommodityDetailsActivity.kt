@@ -1,6 +1,10 @@
 package com.lixin.amuseadjacent.app.ui.service.activity
 
+import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.util.PreviewPhoto
@@ -22,6 +26,7 @@ class CommodityDetailsActivity : BaseActivity() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun init() {
         StatusBarUtil.immersiveStatusBar(this, 0f)
         StatusBarBlackWordUtil.StatusBarLightMode(this, StatusBarBlackWordUtil.StatusBarLightMode(this))
@@ -37,7 +42,17 @@ class CommodityDetailsActivity : BaseActivity() {
 
         tv_title.text = intent.getStringExtra("title")
         tv_info.text = intent.getStringExtra("info")
-        tv_money.text ="￥"+ intent.getStringExtra("money")
+        tv_money.text = "￥" + intent.getStringExtra("money")
+
+        val goodsPrice = intent.getStringExtra("goodsPrice")
+
+        if (TextUtils.isEmpty(goodsPrice)) {
+            tv_original.visibility = View.INVISIBLE
+        } else {
+            tv_original.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG//中划线
+            tv_original.text = "原价 ￥" + goodsPrice
+            tv_original.visibility = View.VISIBLE
+        }
 
     }
 

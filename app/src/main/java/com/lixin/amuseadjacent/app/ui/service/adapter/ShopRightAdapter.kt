@@ -1,6 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.service.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -71,6 +72,15 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
             model.goodsCuprice.toDouble()
         }
 
+        if(!TextUtils.isEmpty(model.goodsCuprice)&&model.goodsPrice.toDouble()!=model.goodsCuprice.toDouble()){
+            holder.tv_original.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG//中划线
+            holder.tv_original.text = "原价 ￥"+ model.goodsPrice
+            holder.tv_original.visibility=View.VISIBLE
+        }else{
+            holder.tv_original.visibility=View.GONE
+        }
+
+
         if (model.money == 0.0) {
             model.money = model.UnitPrice
         }
@@ -126,6 +136,11 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
             bundle.putString("info", model.goodsDesc)
             bundle.putString("money", model.UnitPrice.toString())
             bundle.putString("image", model.goodsImg)
+            if(!TextUtils.isEmpty(model.goodsCuprice)&&model.goodsPrice.toDouble()!=model.goodsCuprice.toDouble()){
+                bundle.putString("goodsPrice",model.goodsPrice)
+            }else{
+                bundle.putString("goodsPrice","")
+            }
             MyApplication.openActivity(context, CommodityDetailsActivity::class.java, bundle)
         }
 
@@ -146,6 +161,8 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
         val iv_add = view.findViewById<ImageView>(R.id.iv_add)
         val iv_reduce = view.findViewById<ImageView>(R.id.iv_reduce)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
+
+        val tv_original = view.findViewById<TextView>(R.id.tv_original)
     }
 
 

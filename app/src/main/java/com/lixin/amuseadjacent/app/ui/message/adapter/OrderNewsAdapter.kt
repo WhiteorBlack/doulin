@@ -23,6 +23,7 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
  */
 class OrderNewsAdapter(val context: Context, val orderList: ArrayList<OrderlNewModel.msgModel>) : RecyclerView.Adapter<OrderNewsAdapter.ViewHolder>() {
 
+    private var flag=true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_order_news, parent, false)
@@ -50,14 +51,19 @@ class OrderNewsAdapter(val context: Context, val orderList: ArrayList<OrderlNewM
         }
 
         holder.cl_item.setOnClickListener { v ->
-            val bundle = Bundle()
-            bundle.putString("num", model.orderNum)
-            bundle.putInt("position", -1)
-            MyApplication.openActivity(context, OrderDetailsActivity::class.java, bundle)
+            if(flag){
+                flag=false
+                val bundle = Bundle()
+                bundle.putString("num", model.orderNum)
+                bundle.putInt("position", -1)
+                MyApplication.openActivity(context, OrderDetailsActivity::class.java, bundle)
+            }
         }
-
     }
 
+    fun setFlag(flag:Boolean){
+        this.flag=flag
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tv_msgNum = view.findViewById<BGABadgeTextView>(R.id.tv_msgNum)

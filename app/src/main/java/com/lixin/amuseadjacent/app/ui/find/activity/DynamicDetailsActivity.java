@@ -44,9 +44,9 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import fm.jiecao.jcvideoplayer_lib.JCMediaManager;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import cn.jzvd.JZMediaManager;
+import cn.jzvd.Jzvd;
+import cn.jzvd.JzvdStd;
 
 /**
  * 使用的实体类中有 “object”kotlin关键字，所以只能用java类
@@ -313,7 +313,8 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             iv_start.setVisibility(View.VISIBLE);
             player.setOnClickListener(view -> {
                 playerPau = true;
-                JCVideoPlayerStandard.startFullscreen(DynamicDetailsActivity.this, JCVideoPlayerStandard.class, model.object.dynamicVideo, "");
+                JzvdStd.startFullscreen(this, JzvdStd.class,model.object.dynamicVideo, "");
+                Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL);
             });
 
             ImageLoader.getInstance().displayImage(model.object.dynamicImg, player);
@@ -478,8 +479,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                if (JCVideoPlayer.backPress() && playerPau) {
-                    JCVideoPlayerStandard.backPress();
+                if (Jzvd.backPress()) {
                     playerPau = false;
                     return true;
                 }
@@ -504,7 +504,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
+        if (Jzvd.backPress()) {
             return;
         }
         super.onBackPressed();
@@ -513,6 +513,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Jzvd.releaseAllVideos();
         EventBus.getDefault().unregister(this);
     }
 

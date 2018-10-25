@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.view.View
+import cn.jzvd.JZMediaManager
+import cn.jzvd.Jzvd
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
@@ -16,9 +18,6 @@ import com.lixin.amuseadjacent.app.ui.find.request.DynamicList_219
 import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
-import fm.jiecao.jcvideoplayer_lib.JCMediaManager
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
 import kotlinx.android.synthetic.main.activity_talent.*
 import kotlinx.android.synthetic.main.include_banner.*
 import kotlinx.android.synthetic.main.include_basetop.*
@@ -96,7 +95,7 @@ class DynamicActivity : BaseActivity() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 System.gc()
                 i = tab!!.position
-                JCVideoPlayer.releaseAllVideos()
+                Jzvd.releaseAllVideos()
             }
 
         })
@@ -111,7 +110,7 @@ class DynamicActivity : BaseActivity() {
             MyApplication.openActivity(this, WebViewActivity::class.java, bundle)
         }
         ProgressDialog.showDialog(this)
-        DynamicList_219.dynamic("0", 0, 1,null)
+        DynamicList_219.dynamic("0", 0, 1, null)
     }
 
 
@@ -150,8 +149,7 @@ class DynamicActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
-            JCVideoPlayerStandard.backPress()
+        if (Jzvd.backPress()) {
             return
         }
         super.onBackPressed()
@@ -160,6 +158,7 @@ class DynamicActivity : BaseActivity() {
     override fun onPause() {
         super.onPause()
         Runtime.getRuntime().gc()
+        Jzvd.releaseAllVideos()
     }
 
     override fun onDestroy() {

@@ -280,17 +280,12 @@ public class VideoController {
             case COMPRESS_QUALITY_MEDIUM:
                 resultWidth = originalWidth / 2;
                 resultHeight = originalHeight / 2;
-                bitrate = resultWidth * resultHeight * 10;
+                bitrate = resultWidth * resultHeight * 20;
                 break;
             case COMPRESS_QUALITY_LOW:
-                resultWidth = originalWidth / 2;
-                resultHeight = originalHeight / 2;
-                bitrate = (resultWidth / 2) * (resultHeight / 2) * 10;
-                break;
-            case COMPRESS_QUALITY_MAXLOW:
                 resultWidth = originalWidth / 3;
                 resultHeight = originalHeight / 3;
-                bitrate = (resultWidth / 3) * (resultHeight / 3) * 10;
+                bitrate = resultWidth * resultHeight * 20;
                 break;
         }
 
