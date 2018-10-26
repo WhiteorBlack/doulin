@@ -97,11 +97,13 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
                     if (model.isZan == "1") {
                         dynaList[position].zanNum = (dynaList[position].zanNum.toInt() - 1).toString()
                         dynaList[position].isZan = "0"
+                        AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
                     } else {
                         dynaList[position].zanNum = (dynaList[position].zanNum.toInt() + 1).toString()
                         dynaList[position].isZan = "1"
+                        AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tv_zan, 5)
                     }
-                    notifyDataSetChanged()
+                    holder.tv_zan.text = model.zanNum
                 }
             })
         }
@@ -156,7 +158,7 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
 
             holder.player.setOnClickListener { v ->
                 JzvdStd.startFullscreen(context, JzvdStd::class.java, model.dynamicVideo, "")
-                Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL)
+//                Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL)
             }
             ImageLoader.getInstance().displayImage(model.dynamicImg, holder.player)
         }
@@ -169,12 +171,16 @@ class DynamicAdapter(val context: Activity, val flag: String, val dynaList: Arra
                         if (dynaList[position].dynamicUid == dynaList[i].dynamicUid) {
                             if (dynaList[i].isAttention == "0") {// 0未关注 1已关注
                                 dynaList[i].isAttention = "1"
+                                holder.tv_follow.text = "已关注"
+                                holder.tv_follow.visibility = View.INVISIBLE
                             } else {
                                 dynaList[i].isAttention = "0"
+                                holder.tv_follow.text = "关注"
+                                holder.tv_follow.visibility = View.VISIBLE
                             }
                         }
                     }
-                    notifyDataSetChanged()
+
                 }
             })
         }

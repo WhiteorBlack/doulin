@@ -11,8 +11,38 @@
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_participate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/webview"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:paddingLeft="62dp"
+        android:paddingRight="12dp"
+        android:text="doulin话题内容"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_fant" />
+
+    <ImageView
+        android:id="@+id/iv_topic"
+        android:layout_width="160dp"
+        android:layout_height="110dp"
+        android:layout_below="@+id/tv_participate"
+        android:layout_marginLeft="62dp"
+        android:layout_marginTop="10dp"
+        android:maxHeight="110dp"
+        android:maxWidth="160dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_dyna"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_participate" />
 
 
     <TextView
@@ -20,12 +50,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/webview"
+        android:layout_below="@+id/iv_topic"
         android:layout_marginRight="8dp"
         android:drawableLeft="@drawable/ic_comment2"
         android:drawablePadding="5dp"
-        android:paddingLeft="10dp"
         android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent" />
@@ -34,7 +64,7 @@
         android:id="@+id/tv_zan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/webview"
+        android:layout_below="@+id/iv_topic"
         android:layout_marginRight="30dp"
         android:layout_toLeftOf="@+id/tv_comment"
         android:drawableLeft="@drawable/ic_zan"

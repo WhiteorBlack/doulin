@@ -31,11 +31,7 @@ import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-
 import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import cn.bingoogolapple.badgeview.BGABadgeTextView;
 import cn.jpush.android.api.JPushInterface;
@@ -79,7 +75,6 @@ public class MyApplication extends MultiDexApplication {
         StaticUtil.INSTANCE.setNickName(sp.getString(SharedPreferencesUtil.nickName, ""));
         StaticUtil.INSTANCE.setCommunityName(sp.getString(SharedPreferencesUtil.communityName, ""));
 
-
         abLog.INSTANCE.setE(true);
         JPushInterface.init(this);
         JPushInterface.setDebugMode(false);// 设置开启日志,发布时请关闭日志
@@ -111,7 +106,6 @@ public class MyApplication extends MultiDexApplication {
         } else {
             JPushInterface.stopPush(this);
         }
-
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(120000L, TimeUnit.MILLISECONDS)

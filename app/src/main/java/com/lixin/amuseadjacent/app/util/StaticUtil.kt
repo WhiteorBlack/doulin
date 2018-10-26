@@ -52,7 +52,7 @@ object StaticUtil {
     var shareurl = ""//分享链接
     var inviteCode = ""//邀请码
 
-    val DownImagePath= Environment.getExternalStorageDirectory().path +"/Pictrues/"//保存图片的路径
+    val DownImagePath= Environment.getExternalStorageDirectory().path +"/Pictures/"//保存图片的路径
 
     fun getJpushToken(context: Context): String {
         return JPushInterface.getRegistrationID(context)

@@ -50,7 +50,7 @@ class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dy
 
             holder.player.setOnClickListener { v ->
                 JzvdStd.startFullscreen(context, JzvdStd::class.java, model.dynamicVideo, "")
-                Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL)
+//                Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL)
             }
             ImageLoader.getInstance().displayImage(model.dynamicImg, holder.player)
 

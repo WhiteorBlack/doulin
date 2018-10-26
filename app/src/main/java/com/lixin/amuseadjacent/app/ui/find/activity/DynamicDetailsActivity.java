@@ -314,7 +314,7 @@ public class DynamicDetailsActivity extends BaseActivity implements View.OnClick
             player.setOnClickListener(view -> {
                 playerPau = true;
                 JzvdStd.startFullscreen(this, JzvdStd.class,model.object.dynamicVideo, "");
-                Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL);
+//                Jzvd.setVideoImageDisplayType(Jzvd.VIDEO_IMAGE_DISPLAY_TYPE_ORIGINAL);
             });
 
             ImageLoader.getInstance().displayImage(model.object.dynamicImg, player);

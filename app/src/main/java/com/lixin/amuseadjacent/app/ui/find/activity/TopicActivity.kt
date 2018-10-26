@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.xrecyclerview.XRecyclerView
 import com.lixin.amuseadjacent.R
@@ -25,6 +26,8 @@ import com.lixin.amuseadjacent.app.util.GetDateTimeUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
 import com.lixin.amuseadjacent.app.view.MyWebView
 import com.tencent.smtt.sdk.WebView
+import com.youth.banner.loader.ImageLoader
+import kotlinx.android.synthetic.main.header_topic.*
 
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
@@ -69,13 +72,16 @@ class TopicActivity : BaseActivity(), View.OnClickListener ,DynamicCommentAdapte
         iv_back.setOnClickListener(this)
         topicId = intent.getStringExtra("id")
 
+
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         xrecyclerview.layoutManager = linearLayoutManager
 
         val headerView = LayoutInflater.from(this).inflate(R.layout.header_topic, null, false)//头布局
         headerView!!.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        val myWebView = headerView.findViewById<MyWebView>(R.id.webview)
+        com.nostra13.universalimageloader.core.ImageLoader.getInstance().displayImage(intent.getStringExtra("imageUrl"),headerView.findViewById<ImageView
+                >(R.id.iv_topic))
+        val myWebView = headerView.findViewById<MyWebView>(R.id.webview)//功能去掉了，隐藏
         webview = myWebView.webView
 
         tv_comment = headerView.findViewById(R.id.tv_comment)
@@ -219,7 +225,8 @@ class TopicActivity : BaseActivity(), View.OnClickListener ,DynamicCommentAdapte
             AbStrUtil.setDrawableLeft(this, R.drawable.ic_zan_hl, tv_zan, 5)
         }
         tv_zan!!.text = model!!.zanNum
-        tv_title.text=model!!.themeTitle
+        tv_participate.text=model!!.themeTitle
+        tv_title.text="话题详情"
         webview!!.loadUrl(model!!.themeDetailUrl)
     }
 

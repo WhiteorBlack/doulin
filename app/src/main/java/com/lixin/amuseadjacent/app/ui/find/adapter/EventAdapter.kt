@@ -94,11 +94,13 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
                     if (model.isZan == "1") {//0未赞过 1已赞过
                         eventList[position].isZan = "0"
                         eventList[position].zanNum = ((eventList[position].zanNum).toInt() - 1).toString()
+                        AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan, holder.tv_zan, 5)
                     } else {
                         eventList[position].isZan = "1"
                         eventList[position].zanNum = ((eventList[position].zanNum).toInt() + 1).toString()
+                        AbStrUtil.setDrawableLeft(context, R.drawable.ic_zan_hl, holder.tv_zan, 5)
                     }
-                    notifyDataSetChanged()
+                    holder.tv_zan.text = model.zanNum
                 }
             })
         }
@@ -119,12 +121,15 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
                         if (eventList[position].userid == eventList[i].userid) {
                             if (eventList[i].isAttention == "0") {// 0未关注 1已关注
                                 eventList[i].isAttention = "1"
+                                holder.tv_follow.text = "已关注"
+                                holder.tv_follow.visibility = View.INVISIBLE
                             } else {
                                 eventList[i].isAttention = "0"
+                                holder.tv_follow.text = "关注"
+                                holder.tv_follow.visibility = View.VISIBLE
                             }
                         }
                     }
-                    notifyDataSetChanged()
                 }
             })
         }
@@ -144,7 +149,6 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
         val ll_image = view.findViewById<LinearLayout>(R.id.ll_image)
         val cl_2 = view.findViewById<ConstraintLayout>(R.id.cl_2)
         val tv_info = view.findViewById<TextView>(R.id.tv_info)
-
 
         val iv_header = view.findViewById<CircleImageView>(R.id.iv_header)
         val tv_name = view.findViewById<TextView>(R.id.tv_name)
@@ -168,7 +172,6 @@ class EventAdapter(val context: Activity, val eventList: ArrayList<EventModel.da
             cl_2.visibility = View.VISIBLE
             tv_info.visibility = View.GONE
         }
-
 
     }
 

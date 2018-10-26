@@ -24,10 +24,11 @@ public class VideoCompress {
         MediaMetadataRetriever retr = new MediaMetadataRetriever();
         retr.setDataSource(srcPath);
         String height = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);// 视频高度
+        String width = retr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
         VideoCompressTask task = null;
-        if (Integer.valueOf(height) > 1900) {
+        if (Integer.valueOf(width) > 1920  ) {
             task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_LOW);
-        } else if (Integer.valueOf(height) <= 1900 && Integer.valueOf(height) > 1281) {
+        } else if (Integer.valueOf(width) <= 1920 && Integer.valueOf(width) > 1281) {
             task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_MEDIUM);
         } else {
             task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_HIGH);
