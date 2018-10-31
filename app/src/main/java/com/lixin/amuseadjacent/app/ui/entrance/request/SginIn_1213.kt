@@ -17,6 +17,7 @@ import com.netease.nim.uikit.common.util.log.LogUtil
 import com.netease.nimlib.sdk.RequestCallback
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.zhy.http.okhttp.OkHttpUtils
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -129,6 +130,7 @@ object SginIn_1213 {
                             sp.edit().putString(SharedPreferencesUtil.Phone, phone).putString(SharedPreferencesUtil.Pass, pass)
                                     .putString(SharedPreferencesUtil.uid, StaticUtil.uid).commit()
                             AppManager.finishAllActivity()
+//                            EventBus.getDefault().post(StaticUtil.LOGINSUCCESS)
                             MyApplication.openActivity(context, MainActivity::class.java)
                         }
 

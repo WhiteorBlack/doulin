@@ -30,6 +30,7 @@ import com.lixin.amuseadjacent.app.util.SharedPreferencesUtil;
 import com.lixin.amuseadjacent.app.util.SpUtil;
 import com.lixin.amuseadjacent.app.util.StaticUtil;
 import com.lixin.amuseadjacent.app.util.abLog;
+import com.lxkj.linxintechnologylibrary.app.util.ToastUtil;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.LoginInfo;
@@ -38,6 +39,8 @@ import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
 
@@ -122,6 +125,7 @@ public class MyApplication extends MultiDexApplication {
                 .build();
         OkHttpUtils.initClient(okHttpClient);
         initFresco();
+
     }
 
     private void initFresco() {
@@ -275,6 +279,7 @@ public class MyApplication extends MultiDexApplication {
         super.onLowMemory();
         Fresco.getImagePipeline().clearMemoryCaches();
     }
+
 
 
 }

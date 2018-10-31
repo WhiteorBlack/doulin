@@ -52,6 +52,7 @@ object StaticUtil {
 
     var shareurl = ""//分享链接
     var inviteCode = ""//邀请码
+    var LOGINSUCCESS="loginSuccess"
 
     val DownImagePath= Environment.getExternalStorageDirectory().path +"/Pictures/"//保存图片的路径
 
