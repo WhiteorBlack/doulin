@@ -182,8 +182,11 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
         if (!isViewInitiated) {
             return
         }
-
-        redmanList.addAll(model.dataList)
+        if (!model.dataList.isEmpty() && model.dataList.size > 3) {
+            redmanList.addAll(model.dataList.subList(4, model.dataList.size))
+        } else {
+            redmanList.addAll(ArrayList())
+        }
 
         val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
         rv_radman.layoutAnimation = controller
@@ -222,8 +225,6 @@ class RedManFragment : BaseFragment(), View.OnClickListener, RedManAdapter.Follo
         }
         Redman_211.redList(flag, this)
     }
-
-
 
 
 }

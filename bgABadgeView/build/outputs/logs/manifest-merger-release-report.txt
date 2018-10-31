@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml:1:1-50
+INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml:1:1-50
+INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml:1:1-50
+	package
+		ADDED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml:1:11-48
+		INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+		INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml:1:1-50
+uses-sdk
+INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+		ADDED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+		INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+		ADDED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml
+		INJECTED from F:\BaiduNetdiskDownload\DouLin-YH-android\bgABadgeView\src\main\AndroidManifest.xml

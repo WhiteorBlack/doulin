@@ -104,6 +104,7 @@
         android:background="@drawable/bg_white8"
         android:padding="10dp"
         android:text=""
+        android:inputType="number"
         android:maxLength="11"
         android:textColor="@color/black"
         android:textSize="@dimen/main_fant"

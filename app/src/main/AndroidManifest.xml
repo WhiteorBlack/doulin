@@ -242,7 +242,7 @@
 
         <activity
             android:name="cn.beecloud.BCWechatPaymentActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity-alias
@@ -358,6 +358,7 @@
         <activity
             android:name=".app.ui.find.activity.DynamicDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <!--选择地址-->
         <activity
@@ -444,6 +445,7 @@
         <!--洗衣洗鞋-->
         <activity
             android:name=".app.ui.service.activity.LaundryActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <!--洗衣洗鞋详情-->
         <activity

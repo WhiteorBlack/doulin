@@ -20,8 +20,8 @@ android {
         applicationId "com.lixin.amuseadjacent"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         manifestPlaceholders = [
@@ -96,7 +96,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    //    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //图片选择
     implementation 'com.android.support:design:27.1.1'
     //5.0新ui
@@ -138,4 +138,9 @@ dependencies {
     implementation files('libs/AMap2DMap_3.0.0_AMapSearch_3.6.1_AMapLocation_3.2.1_20161228.jar')
     implementation project(':silicompressor')
     implementation project(':jiaozivideoplayer')
+    //图片加载框架
+    implementation 'com.facebook.fresco:fresco:1.9.0'
+    implementation 'com.facebook.fresco:animated-gif:1.1.0'
+    implementation 'com.facebook.fresco:animated-base-support:1.1.0'
+    implementation project(':picture_library')
 }

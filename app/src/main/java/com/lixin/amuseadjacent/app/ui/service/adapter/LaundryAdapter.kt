@@ -56,7 +56,13 @@ class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsMode
         }
 
         val money = goodList[position].money
-        holder.tv_money.text = " ￥$money"
+//        holder.tv_money.text = " ￥$money"
+        holder.tv_money.text="￥ "+goodList[position].UnitPrice
+        if (TextUtils.equals("1", goodList[position].optimizationid)) {
+            holder.tv_class.visibility = View.VISIBLE
+        } else {
+            holder.tv_class.visibility = View.GONE
+        }
 
         holder.tv_name.text = goodList[position].goodsName
         ImageLoader.getInstance().displayImage(goodList[position].goodsImg, holder.image)
@@ -86,6 +92,7 @@ class LaundryAdapter(val context: Context, val goodList: ArrayList<ShopGoodsMode
         val tv_money = view.findViewById<TextView>(R.id.tv_money)
         val image = view.findViewById<ImageView>(R.id.image)
         val tv_msgNum = view.findViewById<BGABadgeTextView>(R.id.tv_msgNum)
+        val tv_class = view.findViewById<TextView>(R.id.tv_class)
     }
 
 

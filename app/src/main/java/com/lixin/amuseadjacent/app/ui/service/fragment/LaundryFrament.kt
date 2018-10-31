@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.app.ui.service.fragment
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.lixin.amuseadjacent.app.ui.base.BaseFragment
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
 import com.lixin.amuseadjacent.app.ui.service.adapter.LaundryAdapter
 import com.lixin.amuseadjacent.app.ui.service.model.CarModel
+import com.lixin.amuseadjacent.app.ui.service.model.ShopCarModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.model.TempIdModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
@@ -158,15 +160,33 @@ class LaundryFrament : BaseFragment(), LaundryAdapter.AddShopCar {
     private fun setDate(List: ArrayList<ShopGoodsModel.dataModel>) {
         if (goodList.isNotEmpty()) {
             goodList.clear()
-            laundryAdapter!!.notifyDataSetChanged()
+//            laundryAdapter!!.notifyDataSetChanged()
         }
         tempList = List
         goodList.addAll(List)
+        if (!shopCartList.isEmpty() && !goodList.isEmpty()) {
+            for (i in 0 until shopCartList.size) {
+                for (j in 0 until goodList.size) {
+                    if (TextUtils.equals(shopCartList[i].goodsId, goodList[j].goodsId)) {
+                        goodList[j].goodsNum = shopCartList[i].count.toInt()
+                        goodList[j].isSelect=true
+                        break
+                    }
+                }
+            }
+        }
 
         val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
         rv_clothes!!.layoutAnimation = controller
         laundryAdapter!!.notifyDataSetChanged()
         rv_clothes!!.scheduleLayoutAnimation()
+    }
+
+    var shopCartList = ArrayList<ShopCarModel.carModel>()
+
+
+    fun setShopCarData(model: ShopCarModel){
+        shopCartList.addAll(model.clothesList)
     }
 
     override fun loadData() {

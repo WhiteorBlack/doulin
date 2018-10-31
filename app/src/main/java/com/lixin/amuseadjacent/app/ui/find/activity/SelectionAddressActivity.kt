@@ -53,6 +53,7 @@ class SelectionAddressActivity : BaseActivity() ,View.OnClickListener{
 
 
     private fun init() {
+        initMyLocation()
         StatusBarWhiteColor()
         inittitle("选择位置")
 
@@ -122,6 +123,7 @@ class SelectionAddressActivity : BaseActivity() ,View.OnClickListener{
         val helper= PermissionHelper(this)
         helper.requestPermissions(object:PermissionHelper.PermissionListener{
             override fun doAfterGrand(vararg permission: String?) {
+                mLocationClient!!.start()
                 initMap()
             }
 
@@ -146,7 +148,7 @@ class SelectionAddressActivity : BaseActivity() ,View.OnClickListener{
                 }
             }
         })
-        initMyLocation()
+//        initMyLocation()
     }
     private fun initMyLocation() {
         mLocationClient = LocationClient(applicationContext)
@@ -169,7 +171,6 @@ class SelectionAddressActivity : BaseActivity() ,View.OnClickListener{
         option.setEnableSimulateGps(false)
         mLocationClient!!.setLocOption(option)
 
-        mLocationClient!!.start()
     }
 
     private inner class MyLocation : BDAbstractLocationListener() {

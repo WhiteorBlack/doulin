@@ -2,8 +2,8 @@ package com.lixin.amuseadjacent.app.ui.service.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
@@ -17,8 +17,6 @@ import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
-import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
-import com.netease.nim.uikit.common.ui.ptr2.PullToRefreshLayout
 import kotlinx.android.synthetic.main.activity_shop_car.*
 import kotlinx.android.synthetic.main.include_basetop.*
 import org.greenrobot.eventbus.EventBus
@@ -53,7 +51,7 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         inittitle("购物车")
 
         type = intent.getIntExtra("type", -1)
-        if(intent.getSerializableExtra("list")!=null){
+        if (intent.getSerializableExtra("list") != null) {
             orderIdList = intent.getSerializableExtra("list") as ArrayList<MyOrderModel.orderModel>
         }
 
@@ -214,6 +212,7 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         } else if (flag == 2) {//新鲜果蔬
             fruitsList[i].count = num.toString()
         }
+        EventBus.getDefault().post("")
         Calculation(flag, null)
     }
 
@@ -246,7 +245,11 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
                     marketList[i].isSelect = isAllselect
                 }
                 if (marketList[i].isSelect) {
-                    totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(marketList[i].goodsPrice.toDouble(), marketList[i].count.toDouble()))
+                    if (TextUtils.isEmpty(marketList[i].goodsCuprice)) {
+                        totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(marketList[i].goodsPrice.toDouble(), marketList[i].count.toDouble()))
+                    } else {
+                        totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(marketList[i].goodsCuprice.toDouble(), marketList[i].count.toDouble()))
+                    }
                 } else {
                     isAllSelect = false
                 }
@@ -264,7 +267,12 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
                     clothesList[i].isSelect = isAllselect
                 }
                 if (clothesList[i].isSelect) {
-                    totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(clothesList[i].goodsPrice.toDouble(), clothesList[i].count.toDouble()))
+                    if (TextUtils.isEmpty(clothesList[i].goodsCuprice)) {
+                        totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(clothesList[i].goodsPrice.toDouble(), clothesList[i].count.toDouble()))
+                    } else {
+                        totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(clothesList[i].goodsCuprice.toDouble(), clothesList[i].count.toDouble()))
+
+                    }
                 } else {
                     isAllSelect = false
                 }
@@ -282,7 +290,12 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
                     fruitsList[i].isSelect = isAllselect
                 }
                 if (fruitsList[i].isSelect) {
-                    totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(fruitsList[i].goodsPrice.toDouble(), fruitsList[i].count.toDouble()))
+                    if (TextUtils.isEmpty(fruitsList[i].goodsCuprice)) {
+                        totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(fruitsList[i].goodsPrice.toDouble(), fruitsList[i].count.toDouble()))
+                    } else {
+                        totalMoney = DoubleCalculationUtil.add(totalMoney, DoubleCalculationUtil.mul(fruitsList[i].goodsCuprice.toDouble(), fruitsList[i].count.toDouble()))
+
+                    }
                 } else {
                     isAllSelect = false
                 }
@@ -327,6 +340,7 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         if (type == 0) {
             for (i in 0 until carIdList!!.size) {
                 if (carIdList[i].cartId == id) {
+                    EventBus.getDefault().post(carIdList[i].goodsId)
                     carIdList.removeAt(i)
                     break
                 }
@@ -386,9 +400,10 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
             if (list[i].isSelect) {
                 val model = ShopGoodsModel.dataModel()
                 model.goodsNum = list[i].count.toInt()
+                model.optimizationid=list[i].optimizationid
                 model.goodsId = list[i].goodsId
 
-                model.goodsCuprice = list[i].goodsPrice
+                model.goodsCuprice = list[i].goodsCuprice
                 model.goodsImg = list[i].goodsImage
                 model.goodsName = list[i].goodsTitle
                 model.goodsPrice = list[i].goodsPrice
@@ -430,6 +445,7 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
         rv_market.layoutManager = linearLayoutManager1
         marketAdapter = ShopCarDetailsAdapter(this, 0, marketList, this, this, this)
+        (marketAdapter as ShopCarDetailsAdapter).setType("2")
         rv_market.adapter = marketAdapter
 
         if (type != -1) {
@@ -451,6 +467,7 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
         rv_clothes.layoutManager = linearLayoutManager1
         clothesAdapter = ShopCarDetailsAdapter(this, 1, clothesList, this, this, this)
+        (clothesAdapter as ShopCarDetailsAdapter).setType("1")
         rv_clothes.adapter = clothesAdapter
 
 
@@ -463,7 +480,12 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
                 }
             }
         } else {
-            fruitsList = model.fruitsList
+            for (i in 0 until model.fruitsList.size) {
+                if (model.fruitsList[i].count.toInt() > 0) {
+                    fruitsList.add(model.fruitsList[i])
+                }
+            }
+//            fruitsList = model.fruitsList
         }
         if (fruitsList.isEmpty()) {
             rl_fruits.visibility = View.GONE
@@ -473,6 +495,7 @@ class ShopCarActivity : BaseActivity(), View.OnClickListener, ShopCarDetailsAdap
         linearLayoutManager1.orientation = LinearLayoutManager.VERTICAL
         rv_fruits.layoutManager = linearLayoutManager1
         fruitsAdapter = ShopCarDetailsAdapter(this, 2, fruitsList, this, this, this)
+        (fruitsAdapter as ShopCarDetailsAdapter).setType("0")
         rv_fruits.adapter = fruitsAdapter
 
         if (type == 0) {//0新鲜果蔬 1洗衣洗鞋 2超市便利

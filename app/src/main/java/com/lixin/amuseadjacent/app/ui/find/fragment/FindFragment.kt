@@ -70,8 +70,8 @@ class FindFragment : BaseFragment(), View.OnClickListener {
     private var tv_topiczan: TextView? = null//话题点赞
     private var isZanTopic = "0"//是否赞了话题0未赞过 1已赞过
     private var isZanNum = 0
-    private var themeImagwUrl=""
-    private var themeInfo=""
+    private var themeImagwUrl = ""
+    private var themeInfo = ""
 
     private var tv_type: TextView? = null
     private var tv_follow: TextView? = null
@@ -292,19 +292,20 @@ class FindFragment : BaseFragment(), View.OnClickListener {
         if (TextUtils.isEmpty(model.theme.themeTitle)) {
             tv_participate!!.visibility = View.GONE
             iv_topic!!.visibility = View.GONE
-            tv_topiczan!!.visibility=View.GONE
-            tv_topiccomment!!.visibility=View.GONE
+            tv_topiczan!!.visibility = View.GONE
+            tv_topiccomment!!.visibility = View.GONE
+            tv_activitytime!!.visibility = View.GONE
         } else {
-            iv_topic!!.visibility=View.VISIBLE
+            iv_topic!!.visibility = View.VISIBLE
             tv_participate!!.visibility = View.VISIBLE
-            tv_topiczan!!.visibility=View.VISIBLE
-            tv_topiccomment!!.visibility=View.VISIBLE
+            tv_topiczan!!.visibility = View.VISIBLE
+            tv_topiccomment!!.visibility = View.VISIBLE
             tv_participate!!.text = model.theme.themeTitle
             themeId = model.theme.themeId
 
             tv_topictime!!.text = model.theme.themeTime
-            themeImagwUrl=model.theme.themeImage
-            themeInfo=model.theme.themeTitle
+            themeImagwUrl = model.theme.themeImage
+            themeInfo = model.theme.themeTitle
             ImageLoader.getInstance().displayImage(themeImagwUrl, iv_topic)
             isZanNum = model.theme.zanNum.toInt()
             isZanTopic = model.theme.isZan
@@ -392,7 +393,7 @@ class FindFragment : BaseFragment(), View.OnClickListener {
             R.id.tv_participate, R.id.iv_topic -> {//话题
                 val bundle = Bundle()
                 bundle.putString("id", themeId)
-                bundle.putString("imageUrl",themeImagwUrl)
+                bundle.putString("imageUrl", themeImagwUrl)
                 MyApplication.openActivityForResult(activity!!, TopicActivity::class.java, bundle, 3)
             }
             R.id.tv_topiczan -> {//话题点赞

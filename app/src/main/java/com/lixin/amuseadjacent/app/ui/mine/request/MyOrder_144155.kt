@@ -17,6 +17,7 @@ import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
+import java.lang.Exception
 import java.util.ArrayList
 
 /**
@@ -26,6 +27,10 @@ object MyOrder_144155 {
 
     interface OrderEditCallBack {
         fun cancel()
+    }
+
+    interface OrderRefreshCallBack {
+        fun refresh(order: String)
     }
 
 
@@ -88,19 +93,19 @@ object MyOrder_144155 {
 
 
     //再来一单
-    fun againOrder(context: Context, orderNum: String,type:Int,orderIdList:ArrayList<MyOrderModel.orderModel>) {
+    fun againOrder(context: Context, orderNum: String, type: Int, orderIdList: ArrayList<MyOrderModel.orderModel>) {
         val json = "{\"cmd\":\"oneMoreOrder\",\"uid\":\"" + StaticUtil.uid +
                 "\",\"orderNum\":\"" + orderNum + "\"}"
-        abLog.e("再来一单",json)
+        abLog.e("再来一单", json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
                 val obj = JSONObject(response)
                 if (obj.getString("result") == "0") {
-                    val bundle=Bundle()
-                    bundle.putInt("type",type)
-                    bundle.putSerializable("list",orderIdList)
-                    MyApplication.openActivity(context, ShopCarActivity::class.java,bundle)
+                    val bundle = Bundle()
+                    bundle.putInt("type", type)
+                    bundle.putSerializable("list", orderIdList)
+                    MyApplication.openActivity(context, ShopCarActivity::class.java, bundle)
                 } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }
@@ -212,17 +217,39 @@ object MyOrder_144155 {
 
 
     //删除订单
-    fun delOrder(orderNum:String,orderEditCallBack:OrderEditCallBack){
+    fun delOrder(orderNum: String, orderEditCallBack: OrderEditCallBack) {
         val json = "{\"cmd\":\"realdeleteorder\",\"uid\":\"" + StaticUtil.uid +
-              "\",\"orderNum\":\"" + orderNum + "\"}"
-        OkHttpUtils.post().url(StaticUtil.Url).addParams("json",json).build().execute(object :StrCallback(){
+                "\",\"orderNum\":\"" + orderNum + "\"}"
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
-                val obj=JSONObject(response)
-                if(obj.getString("result")=="0"){
+                val obj = JSONObject(response)
+                if (obj.getString("result") == "0") {
                     orderEditCallBack.cancel()
-                }else{
+                } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
+                }
+            }
+        })
+    }
+
+    fun refreshOrder(orderNum: String, refreshCallBack: OrderRefreshCallBack) {
+        val json = "{\"cmd\":\"getnewordernum\",\"uid\":\"" + StaticUtil.uid + "\",\"orderNum\":\"" + orderNum + "\"}";
+
+        OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
+            override fun onResponse(response: String, id: Int) {
+                super.onResponse(response, id)
+                val obj = JSONObject(response)
+                if (obj.getString("result") == "0") {
+                    var newNum: String = ""
+                    try {
+                        newNum = obj.getString("object")
+                        refreshCallBack.refresh(newNum)
+                    } catch (e: Exception) {
+
+                    }
+
+                } else {
                 }
             }
         })

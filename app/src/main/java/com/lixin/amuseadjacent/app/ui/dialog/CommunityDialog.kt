@@ -37,9 +37,9 @@ object CommunityDialog {
         var UnitId = ""
 
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_community, null)
-        if (builder == null) {
-            builder = AlertDialog.Builder(context, R.style.Dialog).create() // 先得到构造器
-        }
+//        if (builder == null) {
+        builder = AlertDialog.Builder(context, R.style.Dialog).create() // 先得到构造器
+//        }
         builder!!.show()
         builder!!.window.setContentView(view)
 
@@ -68,7 +68,7 @@ object CommunityDialog {
                 CommunityName = list[p2].communityName
                 ProgressDialog.showDialog(context)
 
-                abLog.e("社区id",CommunityId)
+                abLog.e("社区id", CommunityId)
 
                 val json = "{\"cmd\":\"getCommunitMenuList\",\"communityId\":\"" + list[p2].communityId + "\"}"
 
@@ -109,7 +109,7 @@ object CommunityDialog {
                 UnitName = unitList[p2].unitName
                 UnitId = unitList[p2].unitId
 
-                abLog.e("社区id",CommunityId+","+UnitId)
+                abLog.e("社区id", CommunityId + "," + UnitId)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -163,7 +163,7 @@ object CommunityDialog {
     fun dissCommunity() {
         if (builder != null) {
             builder!!.dismiss()
-            builder = null
+//            builder = null
         }
 
     }

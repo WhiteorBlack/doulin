@@ -15,6 +15,7 @@ import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.view.MyBottomSheetDialog
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
+import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.nostra13.universalimageloader.core.ImageLoader
@@ -30,6 +31,7 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
     private var linearLayoutManager: LinearLayoutManager? = null
     private var recyclerView: RecyclerView? = null
     private var view: View? = null
+    private lateinit var type: String
 
     private var SettlementView: View? = null
 
@@ -58,8 +60,12 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
         }
     }
 
+    fun setType(type: String) {
+        this.type = type
+    }
+
     fun setGoodList(context: Activity, rightList: ArrayList<ShopGoodsModel.dataModel>) {
-        if(recyclerView==null){
+        if (recyclerView == null) {
             return
         }
         val adapter = Adapter(context, rightList)
@@ -130,7 +136,7 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
             }
 
             var money = model.money
-            holder.tv_money.text = " ￥：$money"
+            holder.tv_money.text = " ￥：" + model.UnitPrice
             holder.tv_name.text = model.goodsName
             holder.num.text = num.toString()
 
@@ -140,25 +146,38 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
                     ToastUtil.showToast("库存不足")
                     return@setOnClickListener
                 }
-                num++
-                holder.num.text = num.toString()
 
-                money = DoubleCalculationUtil.mul(num.toDouble(), model.UnitPrice)
-                holder.tv_money.text = " ￥：$money"
+                ShopCar_12412537.addCar(type, model.goodsId, "-1", object : ShopCar_12412537.AddCarCallback {
 
-                plusCallBack.plus(position, num, money, goodsList[position].goodsId)
+                    override fun addCar() {
+                        num++
+                        holder.num.text = num.toString()
+
+                        money = DoubleCalculationUtil.mul(num.toDouble(), model.UnitPrice)
+//                holder.tv_money.text = " ￥：$money"
+
+                        plusCallBack.plus(position, num, money, goodsList[position].goodsId)
+                    }
+                })
+
             }
             holder.tv_reduce.setOnClickListener { v ->
                 if (num == 1) {
                     return@setOnClickListener
                 }
-                num--
-                holder.num.text = num.toString()
+                ShopCar_12412537.addCar(type, model.goodsId, "-1", object : ShopCar_12412537.AddCarCallback {
 
-                money = DoubleCalculationUtil.mul(num.toDouble(), model.UnitPrice)
-                holder.tv_money.text = " ￥：$money"
+                    override fun addCar() {
+                        num--
+                        holder.num.text = num.toString()
+//
+                        money = DoubleCalculationUtil.mul(num.toDouble(), model.UnitPrice)
+//                holder.tv_money.text = " ￥：$money"
 
-                reduceCallBack.reduce(position, num, money, goodsList[position].goodsId)
+                        reduceCallBack.reduce(position, num, money, goodsList[position].goodsId)
+                    }
+                })
+
             }
 
             holder.iv_del.setOnClickListener { v ->
@@ -185,9 +204,17 @@ class ShopCartDialog(val plusCallBack: PlusCallBack, val reduceCallBack: ReduceC
         }
     }
 
+    fun isShowing(): Boolean {
+        if (dialog != null) {
+            return dialog!!.isShowing
+        } else {
+            return false
+        }
+    }
 
     fun dismiss() {
-        dialog!!.dismiss()
+        if (isShowing())
+            dialog!!.dismiss()
     }
 
     fun destroy() {

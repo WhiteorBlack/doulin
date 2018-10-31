@@ -40,28 +40,61 @@ class SpecialAdapter(val context: Context, var specialList: ArrayList<SpecialMod
 
         val model = specialList[position]
         ImageLoader.getInstance().displayImage(model.goodsImg, holder.image)
+        model.num=model.count
         holder.tv_name.text = model.goodsName
-
+        holder.tv_num.text = model.count.toString()
         if (TextUtils.isEmpty(model.goodsCuprice)) {
             holder.tv_money.text = "￥" + model.goodsPrice
         } else {
             holder.tv_money.text = "￥" + model.goodsCuprice
         }
 
-        if (model.isSelect) {
+        if (TextUtils.equals(model.optimizationId, "1")) {
+            holder.tv_class.visibility = View.VISIBLE
+        } else {
+            holder.tv_class.visibility = View.GONE
+        }
+
+//        if (model.count < 1) {
+//            holder.iv_reduce.visibility = View.INVISIBLE
+//
+//        } else {
+//            holder.iv_reduce.visibility = View.VISIBLE
+//        }
+
+
+        if (model.count > 0) {
+            holder.iv_reduce.visibility = View.VISIBLE
             holder.tv_num.visibility = View.VISIBLE
         } else {
+            holder.iv_reduce.visibility = View.INVISIBLE
             holder.tv_num.visibility = View.INVISIBLE
         }
+
 
         holder.iv_add.setOnClickListener { v ->
             if (model.isSelect) {
                 return@setOnClickListener
             }
+//            model.num = model.num + 1
             ShopCar_12412537.addCar(model.goodsType, model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
                 override fun addCar() {
-                    ToastUtil.showToast("加入购物车成功")
+//                    ToastUtil.showToast("加入购物车成功")
 //                    holder.tv_num.visibility = View.VISIBLE
+                    model.num = model.num + 1
+                    model.count=model.count+1
+                    notifyItemChanged(position + 1)
+                }
+            })
+        }
+
+        holder.iv_reduce.setOnClickListener { v ->
+
+            ShopCar_12412537.addCar(model.goodsType, model.goodsId, "-1", object : ShopCar_12412537.AddCarCallback {
+                override fun addCar() {
+                    model.num = model.num - 1
+                    model.count=model.count-1
+                    notifyItemChanged(position + 1)
                 }
             })
         }
@@ -89,6 +122,9 @@ class SpecialAdapter(val context: Context, var specialList: ArrayList<SpecialMod
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
         val tv_name = view.findViewById<TextView>(R.id.tv_name)
         val tv_money = view.findViewById<TextView>(R.id.tv_money)
+
+        val tv_class = view.findViewById<TextView>(R.id.tv_class)
+        val iv_reduce = view.findViewById<ImageView>(R.id.iv_reduce)
     }
 
 

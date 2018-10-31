@@ -1,11 +1,13 @@
 package com.lixin.amuseadjacent.app.ui.dialog
 
 import android.app.Activity
+import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.text.TextUtils
 import android.view.LayoutInflater
 import com.lixin.amuseadjacent.R
 import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.widget.EditText
@@ -22,27 +24,30 @@ import com.lixin.amuseadjacent.app.util.AbStrUtil
 object CustomTagsDialog {
 
     var builder: AlertDialog? = null
+    var view: View? = null
 
     interface CustomTagsCallBack {
         fun tag(tag: String)
     }
 
     fun communityDialog(context: Activity, customViewCallback: CustomTagsCallBack) {
-        val view = LayoutInflater.from(context).inflate(R.layout.dialog_custom_tags, null)
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.dialog_custom_tags, null)
+        }
         if (builder == null) {
             builder = AlertDialog.Builder(context, R.style.Dialog).create() // 先得到构造器
         }
         builder!!.show()
         builder!!.window.setContentView(view)
 
-        val tv_no = view.findViewById<TextView>(R.id.tv_no)
+        val tv_no = view!!.findViewById<TextView>(R.id.tv_no)
         tv_no.setOnClickListener { v ->
             builder!!.dismiss()
         }
 
-        val tv_tag = view.findViewById<EditText>(R.id.tv_tag)
+        val tv_tag = view!!.findViewById<EditText>(R.id.tv_tag)
 
-        val tv_yes = view.findViewById<TextView>(R.id.tv_yes)
+        val tv_yes = view!!.findViewById<TextView>(R.id.tv_yes)
         tv_yes.setOnClickListener { v ->
             val tag = AbStrUtil.etTostr(tv_tag)
             if (!TextUtils.isEmpty(tag)) {
@@ -68,7 +73,7 @@ object CustomTagsDialog {
     fun dismiss() {
         if (builder != null) {
             builder!!.dismiss()
-            builder = null
+//            builder = null
 
         }
 

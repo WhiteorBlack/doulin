@@ -149,7 +149,7 @@ public abstract class BaseMessageActivity extends UI {
             } else {
                 //离开，复原
                 MessageAudioControl.getInstance(BaseMessageActivity.this).
-                        setEarPhoneModeEnable(UserPreferences.isEarPhoneModeEnable());
+                        setEarPhoneModeEnable(!UserPreferences.isEarPhoneModeEnable());
             }
         }
 

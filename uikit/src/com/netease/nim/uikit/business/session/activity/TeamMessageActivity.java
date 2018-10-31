@@ -20,6 +20,8 @@ import com.netease.nim.uikit.business.session.constant.Extras;
 import com.netease.nim.uikit.business.session.fragment.MessageFragment;
 import com.netease.nim.uikit.business.session.fragment.TeamMessageFragment;
 import com.netease.nim.uikit.common.activity.ToolBarOptions;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.team.constant.TeamTypeEnum;
@@ -87,8 +89,14 @@ public class TeamMessageActivity extends BaseMessageActivity {
     protected void onResume() {
         super.onResume();
         requestTeamInfo();
+        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_ALL, SessionTypeEnum.None);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE, SessionTypeEnum.None);
+    }
     /**
      * 请求群基本信息
      */

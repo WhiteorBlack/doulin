@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.facebook.drawee.view.SimpleDraweeView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseFragment
@@ -23,10 +25,9 @@ import com.lixin.amuseadjacent.app.ui.service.model.CouponModel
 import com.lixin.amuseadjacent.app.ui.service.model.ServiceModel
 import com.lixin.amuseadjacent.app.ui.service.request.Coupon_3132
 import com.lixin.amuseadjacent.app.ui.service.request.Service_33
-import com.lixin.amuseadjacent.app.util.GlideImageLoader
-import com.lixin.amuseadjacent.app.util.StatusBarBlackWordUtil
-import com.lixin.amuseadjacent.app.util.StatusBarUtil
+import com.lixin.amuseadjacent.app.util.*
 import com.lxkj.huaihuatransit.app.util.ControlWidthHeight
+import com.nostra13.universalimageloader.core.ImageLoader
 import com.youth.banner.Banner
 import kotlinx.android.synthetic.main.include_basetop.*
 import kotlinx.android.synthetic.main.xrecyclerview.*
@@ -50,6 +51,11 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
 
     private var bannerList = ArrayList<ServiceModel.bannerModel>()
 
+    private lateinit var sdvSecond: SimpleDraweeView
+    private lateinit var sdvBest: SimpleDraweeView
+    private lateinit var sdvMarket: SimpleDraweeView
+    private lateinit var sdvTotal: SimpleDraweeView
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.xrecyclerview, container, false)
@@ -60,7 +66,7 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        rl_main.fitsSystemWindows=false
+        rl_main.fitsSystemWindows = false
         if (Build.VERSION.SDK_INT > 19) {
             view_staus.visibility = View.VISIBLE
             StatusBarUtil.setStutaViewHeight(activity, view_staus)
@@ -81,7 +87,10 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
         xrecyclerview.addHeaderView(headerView)
 
         banner = headerView!!.findViewById(R.id.banner)
-
+        val params=banner!!.layoutParams as FrameLayout.LayoutParams
+        params.width=ScreenUtil.getWidthAndHeight().widthPixels-ScreenUtil.dip2px(24f)
+        params.height= (params.width*0.428).toInt()
+        banner!!.layoutParams=params
         banner!!.setOnBannerListener { i ->
             if (TextUtils.isEmpty(bannerList[i].topImgDetailUrl) || bannerList[i].topImgDetailUrlState == "1") {
                 return@setOnBannerListener
@@ -117,6 +126,33 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
 
         headerView!!.findViewById<TextView>(R.id.tv_help).setOnClickListener(this)
         headerView!!.findViewById<ImageView>(R.id.iv_help).setOnClickListener(this)
+
+        sdvBest = headerView!!.findViewById(R.id.sdv_best)
+        sdvBest.setOnClickListener(this)
+        sdvMarket = headerView!!.findViewById(R.id.sdv_market)
+        sdvMarket.setOnClickListener(this)
+        sdvSecond = headerView!!.findViewById(R.id.sdv_second)
+        sdvSecond.setOnClickListener(this)
+        sdvTotal = headerView!!.findViewById(R.id.sdv_total_buy)
+        sdvTotal.setOnClickListener(this)
+        val wideSize = ScreenUtil.getWidthAndHeight().widthPixels
+        val secParams = sdvSecond.layoutParams
+        secParams.width = (wideSize - ScreenUtil.dip2px(26f)) / 3
+        sdvSecond.layoutParams = secParams
+
+        val totalParams = sdvTotal.layoutParams
+        totalParams.width = (wideSize - ScreenUtil.dip2px(26f)) * 2 / 3
+        totalParams.height = totalParams.width / 2
+        sdvTotal.layoutParams = totalParams
+
+        val bestParams = sdvBest.layoutParams
+        val marketParams = sdvMarket.layoutParams
+
+        bestParams.width = (wideSize - ScreenUtil.dip2px(28f)) / 3
+        marketParams.width = (wideSize - ScreenUtil.dip2px(28f)) / 3
+
+        sdvMarket.layoutParams = marketParams
+        sdvBest.layoutParams = bestParams
     }
 
 
@@ -133,7 +169,13 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
                 .start()
 
         serviceList = model.dataList
-        serviceAdapter = ServiceAdapter(activity!!, serviceList)
+        if (serviceList.size >= 4) {
+            sdvSecond.setImageURI(serviceList.get(0).optimizationImg)
+            sdvTotal.setImageURI(serviceList.get(1).optimizationImg)
+            sdvBest.setImageURI(serviceList.get(2).optimizationImg)
+            sdvMarket.setImageURI(serviceList.get(3).optimizationImg)
+        }
+        serviceAdapter = ServiceAdapter(activity!!, ArrayList())
         xrecyclerview.adapter = serviceAdapter
         val controller = AnimationUtils.loadLayoutAnimation(activity!!, R.anim.layout_animation_from_bottom)
         xrecyclerview.layoutAnimation = controller
@@ -169,6 +211,30 @@ class ServiceFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.iv_back -> {//购物车
                 MyApplication.openActivity(activity, ShopCarActivity::class.java)
+            }
+
+            R.id.sdv_second -> { //限时优惠
+                val bundle = Bundle()
+                bundle.putSerializable("model", serviceList[0])
+                MyApplication.openActivity(context, SpecialAreaActivity::class.java, bundle)
+            }
+
+            R.id.sdv_total_buy -> { //整体购买
+                val bundle = Bundle()
+                bundle.putSerializable("model", serviceList[1])
+                MyApplication.openActivity(context, SpecialAreaActivity::class.java, bundle)
+            }
+
+            R.id.sdv_best -> { //精选
+                val bundle = Bundle()
+                bundle.putSerializable("model", serviceList[2])
+                MyApplication.openActivity(context, SpecialAreaActivity::class.java, bundle)
+            }
+
+            R.id.sdv_market -> { //评价超市
+                val bundle = Bundle()
+                bundle.putSerializable("model", serviceList[3])
+                MyApplication.openActivity(context, SpecialAreaActivity::class.java, bundle)
             }
         }
     }

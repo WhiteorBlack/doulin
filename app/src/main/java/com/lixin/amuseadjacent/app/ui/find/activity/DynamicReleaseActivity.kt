@@ -212,6 +212,8 @@ class DynamicReleaseActivity : BaseActivity(), ReleaseAdapter.ImageRemoveCallbac
     //压缩视频
     private fun execCommand(content: String, videoPath: String, address: String) {
         ProgressDialog.showDialog(this)
+        upVideo(videoPath, content, address)
+        return
         val destDir = File(currentOutputVideoPath)
         if (!destDir.exists()) {//如果不存在则创建
             destDir.mkdirs()

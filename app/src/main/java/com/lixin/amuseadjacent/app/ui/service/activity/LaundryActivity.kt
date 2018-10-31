@@ -1,5 +1,6 @@
 package com.lixin.amuseadjacent.app.ui.service.activity
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -14,11 +15,9 @@ import com.lixin.amuseadjacent.app.ui.message.adapter.FragmentPagerAdapter
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.LaundryMenuAdapter
 import com.lixin.amuseadjacent.app.ui.service.fragment.LaundryFrament
-import com.lixin.amuseadjacent.app.ui.service.model.CarModel
-import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsListModel
-import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
-import com.lixin.amuseadjacent.app.ui.service.model.TempIdModel
+import com.lixin.amuseadjacent.app.ui.service.model.*
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
+import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.lixin.amuseadjacent.app.util.GlideImageLoader
 import com.lixin.amuseadjacent.app.util.RecyclerItemTouchListener
@@ -78,7 +77,7 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         }
         ControlWidthHeight.inputhigh(ControlWidthHeight.dip2px(this, 100), banner)
         banner.setOnBannerListener { i ->
-            if(bannerList[i].topImgDetailUrlState=="1"){
+            if (bannerList[i].topImgDetailUrlState == "1") {
                 return@setOnBannerListener
             }
             val bundle = Bundle()
@@ -92,7 +91,7 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         tab.addOnTabSelectedListener(this)
 
         shopCartDialog = ShopCartDialog(this, this, this, this)
-
+        (shopCartDialog as ShopCartDialog).setType(type)
         linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager!!.orientation = LinearLayoutManager.HORIZONTAL
 
@@ -113,7 +112,8 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         })
 
         ProgressDialog.showDialog(this)
-        OfficialShopGoodsList_35.shop(type)
+//        OfficialShopGoodsList_35.shop(type)
+        ShopCar_12412537.getCar()
     }
 
     @Subscribe
@@ -137,6 +137,7 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         for (i in 0 until firstList.size) {
             tabList.add(firstList[i].firstCategoryName)
             val fragment = LaundryFrament()
+            fragment.setShopCarData(this.shopData)
             fragmentList.add(fragment)
         }
         fragment = fragmentList[0]
@@ -165,6 +166,37 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
             shopCartDialog!!.dismiss()
         }
     }
+
+    var shopData = ShopCarModel()
+    @Subscribe
+    fun onEvent(model: ShopCarModel) {
+        this.shopData = model
+        OfficialShopGoodsList_35.shop(type)
+        when (type) {
+            "1" -> {
+                if (model.clothesList.size > 0) {
+                    for (i: Int in 0 until model.clothesList.size) {
+                        val carInfo = model.clothesList[i]
+                        val goodsinfo = ShopGoodsModel.dataModel()
+                        goodsinfo.cartId = carInfo.cartId
+                        goodsinfo.goodsNum = carInfo.count.toInt()
+                        goodsinfo.goodsPrice = carInfo.goodsPrice
+                        goodsinfo.goodsId = carInfo.goodsId
+                        goodsinfo.goodsName = carInfo.goodsTitle
+                        goodsinfo.goodsImg = carInfo.goodsImage
+                        goodsinfo.optimizationid = carInfo.optimizationid
+                        goodsinfo.isSelect = true
+                        goodsinfo.money = DoubleCalculationUtil.mul(carInfo.count.toDouble(), carInfo.goodsPrice.toDouble())
+                        if (goodsinfo.goodsNum > 0) {
+                            carList.add(goodsinfo)
+                        }
+                    }
+                }
+            }
+        }
+        carNum()
+    }
+
 
     //点击商品添加到购物车，或者移除
     @Subscribe
@@ -205,11 +237,20 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
     //从购物车中删除
     override fun del(position: Int, goodId: String) {
         super.del(position, goodId)
-        fragment!!.delCar(goodId)
-        carList.removeAt(position)
-        carNum()
-        shopCartDialog!!.setGoodList(this, carList)
+        val model = DelCarModel()
+        model.type = "1"
+        model.objId.add(carList[position].cartId)
+        ShopCar_12412537.DelCar(model, object : ShopCar_12412537.DelCarCallback {
+            override fun delCar() {
+                fragment!!.delCar(goodId)
+                carList.removeAt(position)
+                carNum()
+                shopCartDialog!!.setGoodList(this@LaundryActivity, carList)
+            }
+
+        })
     }
+
 
     private var totalMoney = 0.0
     //购物车数量
@@ -247,6 +288,9 @@ class LaundryActivity : BaseActivity(), TabLayout.OnTabSelectedListener, View.On
         tv_money0.text = "合计：￥ 0.0"
         carList.clear()
         shopCartDialog!!.setGoodList(this, carList)
+        if (shopCartDialog != null) {
+            shopCartDialog!!.dismiss()
+        }
         MyApplication.setRedNum(tv_msgNum0, 0)
         fragment!!.clearCar()
     }

@@ -67,7 +67,9 @@
     <color name="back_color">#f5f5f5</color>
     <color name="back_color1">#f1f2f4</color>
     <color name="back_color2">#FEBC06</color>
+    <color name="back_color3">#F23030</color>
     <color name="black">#000000</color>
+    <color name="colorTabText">#666666</color>
     <color name="color_aaaaaa_content_text">#ffaaaaaa</color>
     <color name="color_activity_blue_bg">#f7389fff</color>
     <color name="color_b3b3b3">#b3b3b3</color>
@@ -80,6 +82,7 @@
     <color name="color_black_ff666666">#ff666666</color>
     <color name="color_black_ff999999">#ff999999</color>
     <color name="color_blue_0888ff">#0888ff</color>
+    <color name="color_gray_F2F2F4">#F2F2F4</color>
     <color name="color_gray_bfc2c5">#bfc2c5</color>
     <color name="color_gray_cbd0d8">#cbd0d8</color>
     <color name="color_gray_d9d9d9">#d9d9d9</color>
@@ -266,11 +269,12 @@
     <string name="iknow">知道了</string>
     <string name="im_choose_pic">请选择JPG PNG BMP GIF格式的图片文件</string>
     <string name="im_choose_video">请选择3GP MP4格式的视频文件</string>
-    <string name="im_choose_video_file_size_too_large">视频文件过大，系统限制为20MB</string>
+    <string name="im_choose_video_file_size_too_large">视频文件过大，系统限制为30MB</string>
     <string name="image_compressed_size">该原始图片大小为: %1$s,</string>
     <string name="image_show_error">图片显示异常</string>
     <string name="input_panel_location">位 置</string>
-    <string name="input_panel_photo">图 片</string>
+    <string name="input_panel_luyin">语音输入</string>
+    <string name="input_panel_photo">相 册</string>
     <string name="input_panel_take">拍 摄</string>
     <string name="input_panel_video">视 频</string>
     <string name="invite_member">邀请成员</string>
@@ -430,7 +434,7 @@
     <string name="waitfor_image_local">正在打开相册，请稍候\u2026</string>
     <string name="withdrawn_msg">撤 回</string>
     <string name="without_content">暂无</string>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/color_gray_d9d9d9</item>
@@ -563,9 +567,9 @@
         <item name="android:background">@color/color_gray_d9d9d9</item>
     </style>
     <style name="horizontal_light_thin_divider">
-        <item name="android:layout_height">2px</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:background">@color/color_gray_d9d9d9</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">#f0f0f0</item>
     </style>
     <style name="list_view" parent="@android:style/Widget.ListView">
         <item name="android:scrollbarThumbVertical">@drawable/nim_scrollbar_handle_holo_dark</item>

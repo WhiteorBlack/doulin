@@ -15,6 +15,7 @@ import com.lixin.amuseadjacent.app.ui.entrance.VerificationPasswordActivity
 import com.lixin.amuseadjacent.app.ui.mine.request.VersionUpData_153
 import com.lixin.amuseadjacent.app.util.*
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import com.netease.nim.uikit.api.NimUIKit
 import kotlinx.android.synthetic.main.activity_setup.*
 
 /**
@@ -98,6 +99,7 @@ class SetUpActivity : BaseActivity(), View.OnClickListener {
                         .commit()
                 StaticUtil.uid = ""
                 StaticUtil.communityId = ""
+                NimUIKit.logout()
                 AppManager.finishAllActivity()
                 MyApplication.openActivity(this, VerificationPasswordActivity::class.java)
             }

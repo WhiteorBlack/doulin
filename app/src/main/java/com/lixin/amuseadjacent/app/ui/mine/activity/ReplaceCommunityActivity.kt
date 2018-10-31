@@ -60,7 +60,7 @@ class ReplaceCommunityActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0!!.id) {
             R.id.sp_bank -> {
-                ProgressDialog.showDialog(this)
+//                ProgressDialog.showDialog(this)
                 Community_17.getCommunity(this)
             }
             R.id.tv_submission -> {
@@ -73,7 +73,7 @@ class ReplaceCommunityActivity : BaseActivity(), View.OnClickListener {
                     ToastUtil.showToast("请输入更换原因")
                     return
                 }
-                ProgressDialog.showDialog(this)
+//                ProgressDialog.showDialog(this)
                 CommunityMessage_127.community(this, content, unitModel!!)
             }
         }

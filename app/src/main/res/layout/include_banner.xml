@@ -16,13 +16,12 @@
         android:layout_height="155dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-
         app:is_auto_play="true"
-
         app:indicator_drawable_selected="@drawable/ic_indicator_hl"
         app:indicator_drawable_unselected="@drawable/ic_indicator_nor"
         app:indicator_height="3dp"
         app:indicator_margin="4dp"
+        app:image_scale_type="fit_xy"
         app:indicator_width="14dp" />
 
 

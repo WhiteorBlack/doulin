@@ -3,6 +3,7 @@ package com.lixin.amuseadjacent.app.ui.mine.activity.order
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.example.xrecyclerview.XRecyclerView
@@ -113,6 +114,19 @@ class OrderActivity : BaseActivity() {
         if (data == null) {
             return
         }
+        if (requestCode == StaticUtil.RefreshOrder) {
+            val oldNum: String = data.getStringExtra("old")
+            val newNum: String = data.getStringExtra("new")
+            if (!orderList.isEmpty()) {
+                for (i in 0 until orderList.size) {
+                    if (TextUtils.equals(orderList[i].orderNum, oldNum)) {
+                        orderList[i].orderNum = newNum
+                        orderAdapter!!.notifyItemChanged(i+1)
+                        break
+                    }
+                }
+            }
+        }
         val position = data.getIntExtra("position", -1)
         if (position == -1) {
             return
@@ -123,12 +137,12 @@ class OrderActivity : BaseActivity() {
         } else if (requestCode == StaticUtil.RefundResult) {//评价成功
             orderList[position].orderState = "11"
             orderAdapter!!.notifyDataSetChanged()
-        }else if (requestCode == StaticUtil.OrderDetailsResult) { //订单详情中的操作
-            if(data.getStringExtra("type")=="del"){
+        } else if (requestCode == StaticUtil.OrderDetailsResult) { //订单详情中的操作
+            if (data.getStringExtra("type") == "del") {
                 orderList.removeAt(position)
                 orderAdapter!!.notifyDataSetChanged()
             }
-        }else{
+        } else {
             if (orderList.isNotEmpty()) {
                 orderList.clear()
                 orderAdapter!!.notifyDataSetChanged()

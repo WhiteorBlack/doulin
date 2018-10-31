@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <!--提交订单-->
@@ -12,7 +13,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -92,10 +94,10 @@
                 android:drawableLeft="@drawable/ic_sendtime"
                 android:drawablePadding="5dp"
                 android:gravity="center"
-                android:paddingBottom="3dp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:paddingTop="3dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="3dp"
                 android:text="平均15分钟送货到家"
                 android:textColor="#f1403c"
                 android:textSize="12sp"
@@ -130,9 +132,9 @@
                 android:id="@+id/num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
                 android:paddingLeft="12dp"
                 android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:text="商品数量："
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
@@ -143,9 +145,9 @@
                 android:id="@+id/totalMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
                 android:paddingLeft="12dp"
                 android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:text="总额："
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
@@ -156,9 +158,9 @@
                 android:id="@+id/coupon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
                 android:paddingLeft="12dp"
                 android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:text="优惠券："
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
@@ -169,9 +171,9 @@
                 android:id="@+id/actualpay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
                 android:paddingLeft="12dp"
                 android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:text="实付："
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
@@ -182,9 +184,9 @@
                 android:id="@+id/note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="12dp"
                 android:paddingLeft="12dp"
                 android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:text="备注："
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
@@ -220,8 +222,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="12dp"
-                android:drawablePadding="5dp"
                 android:drawableRight="@drawable/ic_right"
+                android:drawablePadding="5dp"
                 android:text="未选择"
                 android:textColor="@color/colorTabText"
                 android:textSize="@dimen/main_fant"
@@ -271,30 +273,29 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_note" />
 
-            <TextView
-                android:id="@+id/tv_submission"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/bg_them8"
-                android:gravity="center"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:text="提交订单"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_careful" />
 
         </android.support.constraint.ConstraintLayout>
 
 
     </android.support.v4.widget.NestedScrollView>
 
-
+    <TextView
+        android:id="@+id/tv_submission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_them8"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="提交订单"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_careful" />
 </LinearLayout>

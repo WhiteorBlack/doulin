@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
@@ -13,6 +14,13 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.facebook.common.internal.Supplier;
+import com.facebook.common.util.ByteConstants;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.cache.MemoryCacheParams;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.decoder.ProgressiveJpegConfig;
+import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.lixin.amuseadjacent.R;
 import com.lixin.amuseadjacent.app.ui.contacts.DemoCache;
 import com.lixin.amuseadjacent.app.ui.contacts.NimSDKOptionConfig;
@@ -113,6 +121,26 @@ public class MyApplication extends MultiDexApplication {
                 .hostnameVerifier((hostname, session) -> true)
                 .build();
         OkHttpUtils.initClient(okHttpClient);
+        initFresco();
+    }
+
+    private void initFresco() {
+        int MAX_MEM = 30 * ByteConstants.MB;
+        ProgressiveJpegConfig pjpegConfig = new SimpleProgressiveJpegConfig();
+        MemoryCacheParams params = new MemoryCacheParams(MAX_MEM, Integer.MAX_VALUE, MAX_MEM, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        Supplier<MemoryCacheParams> mSupplierMemoryCacheParams = new Supplier<MemoryCacheParams>() {
+            @Override
+            public MemoryCacheParams get() {
+                return params;
+            }
+        };
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(MyApplication.getContext())
+                .setDownsampleEnabled(true)
+                .setProgressiveJpegConfig(pjpegConfig)
+                .setBitmapsConfig(Bitmap.Config.RGB_565)
+                .setBitmapMemoryCacheParamsSupplier(mSupplierMemoryCacheParams)
+                .build();
+        Fresco.initialize(MyApplication.getContext(), config);
     }
 
 
@@ -241,5 +269,12 @@ public class MyApplication extends MultiDexApplication {
             badgeTextView.showTextBadge(MsgNum + "");
         }
     }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Fresco.getImagePipeline().clearMemoryCaches();
+    }
+
 
 }

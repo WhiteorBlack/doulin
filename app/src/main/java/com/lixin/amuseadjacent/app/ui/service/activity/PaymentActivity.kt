@@ -1,5 +1,7 @@
 package com.lixin.amuseadjacent.app.ui.service.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -17,10 +19,12 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.mine.request.MyOrder_144155
 import com.lixin.amuseadjacent.app.ui.service.request.BalancePay_154
 import com.lixin.amuseadjacent.app.ui.service.request.UpdateOrderNum_170
 import com.lixin.amuseadjacent.app.util.DecimalUtil
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.zxing.decoding.Intents
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_payment.*
 import kotlinx.android.synthetic.main.dialog_progress.*
@@ -32,7 +36,14 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * Created by Slingge on 2018/9/1
  */
-class PaymentActivity : BaseActivity(), View.OnClickListener {
+class PaymentActivity : BaseActivity(), View.OnClickListener, MyOrder_144155.OrderRefreshCallBack {
+    override fun refresh(order: String) {
+        this.oderNum = order
+        val intent = Intent()
+        intent.putExtra("new", oderNum)
+        intent.putExtra("old", oldNum)
+        setResult(Activity.RESULT_OK, intent)
+    }
 
     private var payType = ""
     private var toastMsg = ""
@@ -40,6 +51,7 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
     private var oderNum = ""
     private var balance = ""
     private var payMoney = ""//支付金额
+    private var oldNum = ""
 
 
     //支付结果返回入口
@@ -60,6 +72,11 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
             toastMsg = "用户支付成功"
         } else if (result == BCPayResult.RESULT_CANCEL) {
             toastMsg = "用户取消支付"
+            if (payType == "weixin") {
+                ProgressDialog.showDialog(this)
+//                UpdateOrderNum_170.upOrderNum(oderNum)
+                MyOrder_144155.refreshOrder(oderNum, this)
+            }
         } else if (result == BCPayResult.RESULT_FAIL) {
             msg.what = 3
             if (bcPayResult.errCode == -12 && payType == "alipay") {
@@ -129,7 +146,7 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
 
     private fun init() {
         inittitle("支付")
-
+        oldNum=intent.getStringExtra("oderNum")
         oderNum = intent.getStringExtra("oderNum")
         balance = intent.getStringExtra("balance")
         payMoney = intent.getStringExtra("payMoney")
@@ -182,7 +199,8 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
             }
             if (payType == "weixin") {
                 ProgressDialog.showDialog(this)
-                UpdateOrderNum_170.upOrderNum(oderNum)
+//                UpdateOrderNum_170.upOrderNum(oderNum)
+                EventBus.getDefault().post(this.oderNum)
                 //对于微信支付, 手机内存太小会有OutOfResourcesException造成的卡顿, 以致无法完成支付
                 //这个是微信自身存在的问题
             }
@@ -214,7 +232,11 @@ class PaymentActivity : BaseActivity(), View.OnClickListener {
     //更新订单号
     @Subscribe
     fun onEvent(oderNum: String) {
-        this.oderNum=oderNum
+        this.oderNum = oderNum
+//        val intent = Intent()
+//        intent.putExtra("new", oderNum)
+//        intent.putExtra("old",oldNum)
+//        setResult(Activity.RESULT_OK, intent)
         if (BCPay.isWXAppInstalledAndSupported() && BCPay.isWXPaySupported()) {
             val payParams = BCPay.PayParams()
             payParams.channelType = BCReqParams.BCChannelTypes.WX_APP

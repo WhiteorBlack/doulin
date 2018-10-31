@@ -50,7 +50,7 @@
                         android:layout_marginRight="12dp"
                         android:layout_height="100dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_dyna" />
+                      />
 
                 </LinearLayout>
 

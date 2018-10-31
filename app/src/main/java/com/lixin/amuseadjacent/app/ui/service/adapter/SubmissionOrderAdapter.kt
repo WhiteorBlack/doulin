@@ -46,18 +46,23 @@ class SubmissionOrderAdapter(val context: Context, val orderList: ArrayList<Shop
             model.money = model.UnitPrice
         }
 
+        if (TextUtils.equals(model.optimizationid, "1")) {
+            holder.tv_class.visibility = View.VISIBLE
+        } else {
+            holder.tv_class.visibility = View.INVISIBLE
+        }
 
-        if(!TextUtils.isEmpty(model.goodsCuprice)&&model.goodsPrice.toDouble()!=model.goodsCuprice.toDouble()){
+        if (!TextUtils.isEmpty(model.goodsCuprice) && model.goodsPrice.toDouble() > model.goodsCuprice.toDouble()) {
             holder.tv_original.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG//中划线
-            holder.tv_original.text = "原价 ￥"+ model.goodsPrice
-            holder.tv_original.visibility=View.VISIBLE
-        }else{
-            holder.tv_original.visibility=View.GONE
+            holder.tv_original.text = " ￥" + model.goodsPrice
+            holder.tv_original.visibility = View.VISIBLE
+        } else {
+            holder.tv_original.visibility = View.GONE
         }
 
 
         var money = model.money
-        holder.tv_money.text = "￥：$money"
+        holder.tv_money.text = "￥：" + model.UnitPrice
 
 
         holder.tv_name.text = model.goodsName
@@ -86,7 +91,8 @@ class SubmissionOrderAdapter(val context: Context, val orderList: ArrayList<Shop
         val iv_add = view.findViewById<ImageView>(R.id.iv_add)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
 
-        val tv_original=view.findViewById<TextView>(R.id.tv_original)
+        val tv_original = view.findViewById<TextView>(R.id.tv_original)
+        val tv_class = view.findViewById<TextView>(R.id.tv_class)
 
         init {
             tv_title.visibility = View.GONE

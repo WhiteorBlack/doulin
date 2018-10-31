@@ -16,17 +16,17 @@ import org.json.JSONObject
  */
 object CommunityMessage_127 {
 
-    fun community(context: Activity,content:String,model: UnityModel.unitModel) {
+    fun community(context: Activity, content: String, model: UnityModel.unitModel) {
         val json = "{\"cmd\":\"editCommunityMessage\",\"uid\":\"" + StaticUtil.uid + "\",\"communityId\":\"" + model.communityId +
-                "\",\"unitId\":\"" + model.unitId + "\",\"doorNumber\":\"" + model.num + "\",\"reason\":\"" + content + "\"}"
+                "\",\"unitId\":\"" + model.unitId + "\",\"doorNumber\":\"" + model.num + "\",\"reason\":\"" + content + "\", \"communityName\":\"" + model.communityName + "\",\"unitName\":\"" + model.unitName + "\"}"
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)
-               val obj=JSONObject(response)
-                if(obj.getString("result")=="0"){
+                val obj = JSONObject(response)
+                if (obj.getString("result") == "0") {
                     ToastUtil.showToast("更换社区信息申请成功")
                     context.finish()
-                }else{
+                } else {
                     ToastUtil.showToast(obj.getString("resultNote"))
                 }
             }

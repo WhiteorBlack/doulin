@@ -57,11 +57,14 @@ class DynamicAdapter(val context: Activity, val dynaList: ArrayList<FindModel.dy
         } else {
             holder.player.visibility = View.GONE
             holder.iv_start.visibility = View.GONE
-            holder.image.visibility = View.VISIBLE
+
             holder.tv_info.visibility = View.VISIBLE
 
             if (model.dynamicImgList.isNotEmpty()) {
+                holder.image.visibility = View.VISIBLE
                 ImageLoader.getInstance().displayImage(model.dynamicImgList[0], holder.image)
+            }else{
+                holder.image.visibility=View.GONE
             }
             holder.tv_info.text = model.dynamicContent
         }

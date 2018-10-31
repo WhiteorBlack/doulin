@@ -52,12 +52,18 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
         for (i in 0 until model.orderCommodity.size) {
             num = DoubleCalculationUtil.add(model.orderCommodity[i].commodityBuyNum.toDouble(), num.toDouble()).toInt()
         }
-        holder.tv_info.text = num.toString() + "件商品  优惠券-" + DoubleCalculationUtil.sub(model.oderAllPrice.toDouble(), model.oderPayPrice.toDouble()) + "元  合计：" + model.oderPayPrice + "元"
+        if (DoubleCalculationUtil.sub(model.oderAllPrice.toDouble(), model.oderPayPrice.toDouble()) > 0) {
+            holder.tv_info.text = num.toString() + "件商品  优惠券-" + DoubleCalculationUtil.sub(model.oderAllPrice.toDouble(), model.oderPayPrice.toDouble()) + "元  合计：" + model.oderPayPrice + "元"
+
+        } else {
+            holder.tv_info.text = num.toString() + "件商品  " + "  合计：" + model.oderPayPrice + "元"
+
+        }
 
         val orderCommodityAdapter = OrderCommodityAdapter(context, position, model.orderNum, model.orderCommodity)
         holder.rv_comment.adapter = orderCommodityAdapter
 
-        holder.tv_orderNum.text ="订单号："+ model.orderNum
+        holder.tv_orderNum.text = "订单号：" + model.orderNum
 
         var orderState = model.orderState//1待付款,2待送货,3待收货,4待取货,5清洗中,6待归还,7归还中,8退款中,9已退款,10待评价,11已完成 12已取消
 
@@ -65,7 +71,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             val bundle = Bundle()
             bundle.putString("num", model.orderNum)
             bundle.putInt("position", position)
-            MyApplication.openActivityForResult(context, OrderDetailsActivity::class.java, bundle,StaticUtil.OrderDetailsResult)
+            MyApplication.openActivityForResult(context, OrderDetailsActivity::class.java, bundle, StaticUtil.OrderDetailsResult)
         }
 
         if (orderState == "1") {//1待付款
@@ -80,7 +86,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
         } else if (orderState == "2") {//2待送货
             holder.tv_type.text = "待送货"
             holder.tv_pay.text = "确认送达"
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
 
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
@@ -90,7 +96,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_type.text = "待收货"
             holder.tv_pay.text = "确认收货"
             holder.tv_refund.text = "    退款    "
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
 
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
@@ -100,7 +106,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_type.text = "待取货"
             holder.tv_pay.text = "确认取件"
             holder.tv_refund.text = "    退款    "
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
 
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
@@ -115,7 +121,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_refund.visibility = View.VISIBLE
         } else if (orderState == "6") {//6带归还
             holder.tv_type.text = "待归还"
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
             holder.tv_pay.text = "归还"
 
             holder.tv_again.visibility = View.VISIBLE
@@ -124,7 +130,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_del.visibility = View.GONE
         } else if (orderState == "7") {//7归还中
             holder.tv_type.text = "归还中"
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
             holder.tv_pay.text = "确认收货"
 
             holder.tv_again.visibility = View.VISIBLE
@@ -141,7 +147,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_del.visibility = View.GONE
         } else if (orderState == "9") {//9已退款
             holder.tv_type.text = "已退款"
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
 
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
@@ -150,7 +156,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
         } else if (orderState == "10") {//10待评价
             holder.tv_type.text = "待评价"
             holder.tv_pay.text = "去评价"
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
 
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.VISIBLE
@@ -158,7 +164,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_del.visibility = View.GONE
         } else if (orderState == "11") {//11已完成
             holder.tv_type.text = "已完成"
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
 
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
@@ -166,7 +172,7 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             holder.tv_del.visibility = View.GONE
         } else if (orderState == "12") {//12已取消
             holder.tv_type.text = "已取消"
-            holder.tv_again.text="再来一单"
+            holder.tv_again.text = "再来一单"
             holder.tv_again.visibility = View.VISIBLE
             holder.tv_pay.visibility = View.GONE
             holder.tv_refund.visibility = View.GONE
@@ -185,7 +191,8 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
                 bundle.putString("oderNum", model.orderNum)
                 bundle.putString("balance", StaticUtil.balance)
                 bundle.putString("payMoney", model.oderPayPrice)
-                MyApplication.openActivity(context, PaymentActivity::class.java, bundle)
+//                MyApplication.openActivity(context, PaymentActivity::class.java, bundle)
+                MyApplication.openActivityForResult(context, PaymentActivity::class.java, bundle, StaticUtil.RefreshOrder)
             } else if (orderState == "3" || orderState == "7" || orderState == "8") {//确认收货
                 ProgressDialog.showDialog(context)
                 MyOrder_144155.ConfirmOrder(null, model.orderNum, position, object : MyOrder_144155.OrderEditCallBack {
@@ -220,18 +227,18 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
                 MyOrder_144155.CancelOrder(null, model.orderNum, position, object : MyOrder_144155.OrderEditCallBack {
                     override fun cancel() {
                         orderList[position].orderState = "12"
-                       notifyDataSetChanged()
+                        notifyDataSetChanged()
                     }
                 })
             } else {//再来一单
                 ProgressDialog.showDialog(context)
-                MyOrder_144155.againOrder(context, model.orderNum,orderList[position].orderType.toInt(),model.orderCommodity)
+                MyOrder_144155.againOrder(context, model.orderNum, orderList[position].orderType.toInt(), model.orderCommodity)
             }
         }
 
         holder.tv_refund.setOnClickListener { v ->
             //退款
-            if (orderState == "2" || orderState == "3" || orderState == "4"|| orderState == "5") {
+            if (orderState == "2" || orderState == "3" || orderState == "4" || orderState == "5") {
                 val bundle = Bundle()
                 bundle.putString("num", model.orderNum)
                 bundle.putInt("position", position)
@@ -239,9 +246,9 @@ class OrderAdapter(val context: Activity, val orderList: ArrayList<MyOrderModel.
             }
         }
 
-        holder.tv_del.setOnClickListener{v->
+        holder.tv_del.setOnClickListener { v ->
             ProgressDialog.showDialog(context)
-            MyOrder_144155.delOrder( model.orderNum,object :MyOrder_144155.OrderEditCallBack{
+            MyOrder_144155.delOrder(model.orderNum, object : MyOrder_144155.OrderEditCallBack {
                 override fun cancel() {
                     orderList.removeAt(position)
                     notifyDataSetChanged()

@@ -14,9 +14,10 @@ class ShopCarModel {
     var fruitsList = ArrayList<carModel>()//新鲜果蔬
 
     class carModel {
+        var optimizationid=""
         var cartId = ""
         var goodsId = ""
-
+        var goodsCuprice=""
         var goodsTitle = ""
         var goodsImage = ""
 

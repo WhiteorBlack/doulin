@@ -26,8 +26,8 @@
         android:maxLines="3"
         android:paddingLeft="62dp"
         android:paddingRight="12dp"
-        android:text="doulin话题内容"
-        android:textColor="@color/black"
+        android:text=" "
+        android:textColor="@color/colorTheme"
         android:textSize="@dimen/main_fant" />
 
     <ImageView

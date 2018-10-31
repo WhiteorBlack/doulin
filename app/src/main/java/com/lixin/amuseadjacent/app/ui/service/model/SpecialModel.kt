@@ -13,9 +13,10 @@ class SpecialModel {
     var dataList = ArrayList<dataModel>()
 
     class dataModel {
+        var optimizationId=""
         var goodsId = ""// id
         var goodsName = ""//商品名称
-
+        var count=0
         var goodsImg = ""//商品图片
         var goodsPrice = ""//商品价格
         var goodsCuprice = ""//促销价格

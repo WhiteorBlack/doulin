@@ -158,7 +158,8 @@ public class TimeUtil {
 
         if (abbreviate) {
             if (!currentTime.before(todaybegin)) {
-                return getTodayTimeBucket(currentTime);
+                return "今天"+timeStringBy24;
+//                return getTodayTimeBucket(currentTime);
             } else {
                 return dataString;
             }

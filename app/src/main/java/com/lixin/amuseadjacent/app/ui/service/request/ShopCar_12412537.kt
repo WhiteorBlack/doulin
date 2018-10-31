@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.lixin.amuseadjacent.app.ui.service.model.DelCarModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopCarModel
 import com.lixin.amuseadjacent.app.util.StaticUtil
+import com.lixin.amuseadjacent.app.util.abLog
 import com.lxkj.huaihuatransit.app.util.StrCallback
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
 import com.zhy.http.okhttp.OkHttpUtils
@@ -26,7 +27,7 @@ object ShopCar_12412537 {
 
     fun getCar() {
         val json = "{\"cmd\":\"myShopCar\",\"uid\":\"" + StaticUtil.uid + "\",\"type\":\"" + "" + "\"}"
-
+        abLog.e("cart",json)
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {
                 super.onResponse(response, id)

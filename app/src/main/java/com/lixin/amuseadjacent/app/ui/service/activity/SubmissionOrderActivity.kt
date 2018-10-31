@@ -44,6 +44,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
     private var couponId = ""
 
     private var type = ""//0新鲜果蔬 1洗衣洗鞋 2超市便利
+    private var couponLimitMoney = 0.0 //去除秒杀商品之后的价格，用来判断优惠券
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +59,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         StatusBarWhiteColor()
         type = intent.getStringExtra("type")
         carList = intent.getSerializableExtra("list") as ArrayList<ShopGoodsModel.dataModel>
+
         carNum()
 
         if (type != "1") {
@@ -111,7 +113,7 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
             R.id.tv_coupon -> {
                 val bundle = Bundle()
                 bundle.putInt("type", type.toInt())
-                bundle.putDouble("money", totalMoney)
+                bundle.putDouble("money", couponLimitMoney)
                 MyApplication.openActivityForResult(this, CouponMyActivity::class.java, bundle, 0)
             }
             R.id.iv_address -> {
@@ -129,7 +131,16 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         totalMoney = 0.0
         for (i in 0 until carList.size) {
             num += carList[i].goodsNum
-            totalMoney = DoubleCalculationUtil.add(carList[i].money, totalMoney)
+            var currentMone = if (TextUtils.isEmpty(carList[i].goodsCuprice)) {
+                carList[i].goodsPrice.toDouble()
+            } else {
+                carList[i].goodsCuprice.toDouble()
+            }
+
+            totalMoney = DoubleCalculationUtil.add(DoubleCalculationUtil.mul(currentMone, carList[i].goodsNum.toDouble()), totalMoney)
+            if (!TextUtils.equals("1", carList[i].optimizationid)) {
+                couponLimitMoney = DoubleCalculationUtil.add(carList[i].money, couponLimitMoney)
+            }
         }
         tv_num.text = num.toString() + "件"
 
@@ -187,19 +198,19 @@ class SubmissionOrderActivity : BaseActivity(), View.OnClickListener {
         var couponNum = 0
         if (type == "0") {//0新鲜果蔬 1洗衣洗鞋 2超市便利
             for (model in model.dataList) {
-                if (model.securitiesType == "2" && model.securitiesMoney.toDouble() <= totalMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                if (model.securitiesType == "2" && model.securitiesMoney.toDouble() <= couponLimitMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
                     couponNum++
                 }
             }
         } else if (type == "1") {
             for (model in model.dataList) {
-                if (model.securitiesType == "1" && model.securitiesMoney.toDouble() <= totalMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                if (model.securitiesType == "1" && model.securitiesMoney.toDouble() <= couponLimitMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
                     couponNum++
                 }
             }
         } else if (type == "2") {
             for (model in model.dataList) {
-                if (model.securitiesType == "0" && model.securitiesMoney.toDouble() <= totalMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
+                if (model.securitiesType == "0" && model.securitiesMoney.toDouble() <= couponLimitMoney) {//0超市便利 1洗衣洗鞋 2新鲜果蔬
                     couponNum++
                 }
             }

@@ -42,7 +42,7 @@ class RedManAdapter(val context: Activity, val redmanList: ArrayList<RedmanModel
         ImageLoader.getInstance().displayImage(model.userImg, holder.ic_header, ImageLoaderUtil.HeaderDIO())
         holder.tv_name.text = model.userName
         holder.tv_effect.text = "影响力" + model.userEffectNum
-        holder.tv_num.text = (position + 1).toString()
+        holder.tv_num.text = (position + 4).toString()
 
         if (StaticUtil.uid == model.userId) {
             holder.tv_follow_right.visibility = View.INVISIBLE

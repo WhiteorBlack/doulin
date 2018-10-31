@@ -66,18 +66,24 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
         }
         val model = rightList[position]
 
+        if (TextUtils.equals(model.optimizationid, "1")) {
+            holder.tv_class.visibility = View.VISIBLE
+        } else {
+            holder.tv_class.visibility = View.GONE
+        }
+
         model.UnitPrice = if (TextUtils.isEmpty(model.goodsCuprice)) {
             model.goodsPrice.toDouble()
         } else {
             model.goodsCuprice.toDouble()
         }
 
-        if(!TextUtils.isEmpty(model.goodsCuprice)&&model.goodsPrice.toDouble()!=model.goodsCuprice.toDouble()){
+        if (!TextUtils.isEmpty(model.goodsCuprice) && model.goodsPrice.toDouble() != model.goodsCuprice.toDouble()) {
             holder.tv_original.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG//中划线
-            holder.tv_original.text = "原价 ￥"+ model.goodsPrice
-            holder.tv_original.visibility=View.VISIBLE
-        }else{
-            holder.tv_original.visibility=View.GONE
+            holder.tv_original.text = "￥" + model.goodsPrice
+            holder.tv_original.visibility = View.VISIBLE
+        } else {
+            holder.tv_original.visibility = View.GONE
         }
 
 
@@ -92,13 +98,14 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
 
         holder.tv_volume.text = "销量：" + model.goodsSallnum
 
-        if (model.goodsNum <= 0) {
-            holder.tv_num.visibility = View.GONE
-            holder.iv_reduce.visibility = View.GONE
-        } else {
+        if (model.goodsNum > 0) {
+
             holder.iv_reduce.visibility = View.VISIBLE
             holder.tv_num.visibility = View.VISIBLE
             holder.tv_num.text = model.goodsNum.toString()
+        } else {
+            holder.tv_num.visibility = View.GONE
+            holder.iv_reduce.visibility = View.GONE
         }
 
 
@@ -119,8 +126,8 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
             if (model.goodsNum == 0) {
                 return@setOnClickListener
             }
-            val num = model.goodsNum - 1
-            ShopCar_12412537.addCar(type, model.goodsId, num.toString(), object : ShopCar_12412537.AddCarCallback {
+            ShopCar_12412537.addCar(type, model.goodsId, "-1", object : ShopCar_12412537.AddCarCallback {
+
                 override fun addCar() {
                     reduceCallBack.reduceCar(position)
                 }
@@ -136,10 +143,10 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
             bundle.putString("info", model.goodsDesc)
             bundle.putString("money", model.UnitPrice.toString())
             bundle.putString("image", model.goodsImg)
-            if(!TextUtils.isEmpty(model.goodsCuprice)&&model.goodsPrice.toDouble()!=model.goodsCuprice.toDouble()){
-                bundle.putString("goodsPrice",model.goodsPrice)
-            }else{
-                bundle.putString("goodsPrice","")
+            if (!TextUtils.isEmpty(model.goodsCuprice) && model.goodsPrice.toDouble() != model.goodsCuprice.toDouble()) {
+                bundle.putString("goodsPrice", model.goodsPrice)
+            } else {
+                bundle.putString("goodsPrice", "")
             }
             MyApplication.openActivity(context, CommodityDetailsActivity::class.java, bundle)
         }
@@ -161,7 +168,7 @@ class ShopRightAdapter(val context: Context, val titleList: String, val rightLis
         val iv_add = view.findViewById<ImageView>(R.id.iv_add)
         val iv_reduce = view.findViewById<ImageView>(R.id.iv_reduce)
         val tv_num = view.findViewById<TextView>(R.id.tv_num)
-
+        val tv_class = view.findViewById<TextView>(R.id.tv_class)
         val tv_original = view.findViewById<TextView>(R.id.tv_original)
     }
 

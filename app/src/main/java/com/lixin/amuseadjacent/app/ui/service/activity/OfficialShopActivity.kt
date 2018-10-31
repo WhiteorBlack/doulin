@@ -4,6 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.graphics.PointF
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -17,13 +19,17 @@ import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.MyApplication
 import com.lixin.amuseadjacent.app.ui.base.BaseActivity
 import com.lixin.amuseadjacent.app.ui.dialog.ProgressDialog
+import com.lixin.amuseadjacent.app.ui.dialog.ScreenFriendsPop.flag
 import com.lixin.amuseadjacent.app.ui.dialog.ShopCartDialog
 import com.lixin.amuseadjacent.app.ui.mine.activity.WebViewActivity
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopLeftAdapter
 import com.lixin.amuseadjacent.app.ui.service.adapter.ShopRightAdapter
+import com.lixin.amuseadjacent.app.ui.service.model.DelCarModel
+import com.lixin.amuseadjacent.app.ui.service.model.ShopCarModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsListModel
 import com.lixin.amuseadjacent.app.ui.service.model.ShopGoodsModel
 import com.lixin.amuseadjacent.app.ui.service.request.OfficialShopGoodsList_35
+import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
 import com.lixin.amuseadjacent.app.util.AbStrUtil
 import com.lixin.amuseadjacent.app.util.BezierTypeEvaluator
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
@@ -60,11 +66,12 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
 
     private var shopCartDialog: ShopCartDialog? = null//小购物车
     private var totalMoney = 0.0
-
+    private lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop)
+        context = this
         this.window.setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         EventBus.getDefault().register(this)
@@ -123,9 +130,10 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         tv_money.text = "合计：￥ $totalMoney"
 
         shopCartDialog = ShopCartDialog(this, this, this, this)
-
+        (shopCartDialog as ShopCartDialog).setType(type)
         ProgressDialog.showDialog(this)
-        OfficialShopGoodsList_35.shop(type)
+//        OfficialShopGoodsList_35.shop(type)
+        ShopCar_12412537.getCar() //先加载购物车数据，在加载商品数据，以便更改商品选择数
     }
 
 
@@ -153,15 +161,16 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
 
     //从适配器中减少数量
     override fun reduceCar(position: Int) {
-        rightList[position].goodsNum --
+        rightList[position].isSelect = true
+        rightList[position].goodsNum -= 1
         rightAdapter!!.notifyItemChanged(position)
 
         for (i in 0 until carList.size) {//增加数量
             if (carList[i].goodsId == rightList[position].goodsId) {
                 carList[i].goodsNum = rightList[position].goodsNum
-                if(carList[i].goodsNum==0){
+                if (carList[i].goodsNum == 0) {
                     carList.removeAt(i)
-                }else{
+                } else {
                     carList[i].money = DoubleCalculationUtil.mul(carList[i].goodsNum.toDouble(), carList[i].UnitPrice)
                 }
                 break
@@ -207,21 +216,29 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
     //从购物车中删除
     override fun del(position: Int, goodId: String) {
         super.del(position, goodId)
-        for (i in 0 until rightList.size) {
-            if (rightList[i].goodsId == goodId) {
-                rightList[i].isSelect = false
-                rightList[i].goodsNum = 0
-                rightAdapter!!.notifyItemChanged(i)
-                break
+        val model = DelCarModel()
+        model.type = "1"
+        model.objId.add(carList[position].cartId)
+        ShopCar_12412537.DelCar(model, object : ShopCar_12412537.DelCarCallback {
+            override fun delCar() {
+                for (i in 0 until rightList.size) {
+                    if (rightList[i].goodsId == goodId) {
+                        rightList[i].isSelect = false
+                        rightList[i].goodsNum = 0
+                        rightAdapter!!.notifyItemChanged(i)
+                        break
+                    }
+                }
+                carList.removeAt(position)
+                if (carList.isEmpty()) {
+                    shopCartDialog!!.dismiss()
+                } else {
+                    shopCartDialog!!.setGoodList(context as Activity, carList)
+                }
+                carNum()
             }
-        }
-        carList.removeAt(position)
-        if (carList.isEmpty()) {
-            shopCartDialog!!.dismiss()
-        } else {
-            shopCartDialog!!.setGoodList(this, carList)
-        }
-        carNum()
+
+        })
     }
 
     //结算
@@ -242,6 +259,33 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         MyApplication.setRedNum(tv_msgNum, num)
     }
 
+    /**
+     * 接收购物车中删除动作
+     */
+    @Subscribe
+    fun onEvent(goodsId: String) {
+        for (i in 0 until rightList.size) {
+            if (rightList[i].goodsId == goodsId) {
+                rightList[i].isSelect = false
+                rightList[i].goodsNum = 0
+                rightAdapter!!.notifyItemChanged(i)
+                break
+            }
+        }
+        var position = 0
+        for (i in 0 until carList.size) {
+            if (TextUtils.equals(goodsId, carList[i].goodsId)) {
+                position = i
+            }
+        }
+        carList.removeAt(position)
+        if (carList.isEmpty()) {
+            shopCartDialog!!.dismiss()
+        } else {
+            shopCartDialog!!.setGoodList(context as Activity, carList)
+        }
+        carNum()
+    }
 
     private var title = ""
     @Subscribe
@@ -269,12 +313,86 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         if (rightList.isEmpty()) {
             ToastUtil.showToast("暂无商品")
         }
+        if (!carList.isEmpty()) {
+            for (i in 0 until carList.size) {
+                val goodsId = carList[i].goodsId
+                for (j in 0 until rightList.size) {
+                    if (TextUtils.equals(goodsId, rightList[j].goodsId)) {
+                        rightList[j].goodsNum = carList[i].goodsNum
+                        break
+                    }
+                }
+            }
+        }
         rightAdapter = ShopRightAdapter(this, title, rightList, this, this)
         if (rightAdapter!!.shoponclickListtener == null) {
             rightAdapter!!.setShopOnClickListtener(this)
         }
         rv_right.adapter = rightAdapter
         rightAdapter!!.setType(type)
+    }
+
+    @Subscribe
+    fun onEvent(model: ShopCarModel) {
+        OfficialShopGoodsList_35.shop(type)
+        when (type) {
+            "0" -> {
+                if (model.fruitsList.size > 0) {
+                    for (i: Int in 0 until model.fruitsList.size) {
+                        val carInfo = model.fruitsList[i]
+                        val goodsinfo = ShopGoodsModel.dataModel()
+                        goodsinfo.cartId = carInfo.cartId
+                        goodsinfo.goodsNum = carInfo.count.toInt()
+                        goodsinfo.goodsCuprice = carInfo.goodsCuprice
+                        goodsinfo.goodsPrice = carInfo.goodsPrice
+                        goodsinfo.goodsId = carInfo.goodsId
+                        goodsinfo.goodsName = carInfo.goodsTitle
+                        goodsinfo.goodsImg = carInfo.goodsImage
+                        goodsinfo.optimizationid = carInfo.optimizationid
+                        goodsinfo.isSelect = true
+                        if (TextUtils.isEmpty(carInfo.goodsCuprice)) {
+                            goodsinfo.UnitPrice = carInfo.goodsPrice.toDouble()
+                            goodsinfo.money = DoubleCalculationUtil.mul(carInfo.count.toDouble(), carInfo.goodsPrice.toDouble())
+                        } else {
+                            goodsinfo.UnitPrice = carInfo.goodsCuprice.toDouble()
+                            goodsinfo.money = DoubleCalculationUtil.mul(carInfo.count.toDouble(), carInfo.goodsCuprice.toDouble())
+                        }
+                        if (goodsinfo.goodsNum > 0) {
+                            carList.add(goodsinfo)
+                        }
+                    }
+                }
+            }
+
+            "2" -> {
+                if (model.marketList.size > 0) {
+                    for (i: Int in 0 until model.marketList.size) {
+                        val carInfo = model.marketList[i]
+                        val goodsinfo = ShopGoodsModel.dataModel()
+                        goodsinfo.cartId = carInfo.cartId
+                        goodsinfo.goodsNum = carInfo.count.toInt()
+                        goodsinfo.goodsPrice = carInfo.goodsPrice
+                        goodsinfo.goodsCuprice = carInfo.goodsCuprice
+                        goodsinfo.goodsId = carInfo.goodsId
+                        goodsinfo.goodsName = carInfo.goodsTitle
+                        goodsinfo.goodsImg = carInfo.goodsImage
+                        goodsinfo.optimizationid = carInfo.optimizationid
+                        goodsinfo.isSelect = true
+                        if (TextUtils.isEmpty(carInfo.goodsCuprice)) {
+                            goodsinfo.UnitPrice = carInfo.goodsPrice.toDouble()
+                            goodsinfo.money = DoubleCalculationUtil.mul(carInfo.count.toDouble(), carInfo.goodsPrice.toDouble())
+                        } else {
+                            goodsinfo.UnitPrice = carInfo.goodsCuprice.toDouble()
+                            goodsinfo.money = DoubleCalculationUtil.mul(carInfo.count.toDouble(), carInfo.goodsCuprice.toDouble())
+                        }
+                        if (goodsinfo.goodsNum > 0) {
+                            carList.add(goodsinfo)
+                        }
+                    }
+                }
+            }
+        }
+        carNum()
     }
 
 
@@ -327,6 +445,10 @@ class OfficialShopActivity : BaseActivity(), View.OnClickListener, ShopRightAdap
         MyApplication.openActivity(this, SubmissionOrderActivity::class.java, bundle)
 
         carList.clear()
+        shopCartDialog!!.setGoodList(this, carList)
+        if (shopCartDialog != null) {
+            shopCartDialog!!.dismiss()
+        }
         tv_money.text = "合计：￥0.0"
         MyApplication.setRedNum(tv_msgNum, 0)
         for (i in 0 until rightList.size) {

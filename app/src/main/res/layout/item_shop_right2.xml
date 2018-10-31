@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -34,6 +35,22 @@
             android:src="@drawable/ic_shop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_class2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            android:background="@color/black"
+            android:gravity="center"
+
+            android:text="限时秒杀"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="@+id/image"
+            app:layout_constraintStart_toStartOf="@+id/image" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -123,6 +140,21 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintEnd_toStartOf="@+id/tv_num" />
+
+        <TextView
+            android:id="@+id/tv_class"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="限时秒杀"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:background="@color/black"
+            android:alpha="0.5"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="@+id/image"
+            app:layout_constraintStart_toStartOf="@+id/image" />
 
 
     </android.support.constraint.ConstraintLayout>

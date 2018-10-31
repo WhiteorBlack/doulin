@@ -17,6 +17,8 @@ import com.lixin.amuseadjacent.app.ui.service.fragment.ServiceFragment
 import com.lixin.amuseadjacent.app.util.PermissionHelper
 import com.lixin.amuseadjacent.app.util.StatusBarUtil
 import com.lxkj.linxintechnologylibrary.app.util.ToastUtil
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.StatusBarNotificationConfig
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -46,6 +48,20 @@ class MainActivity : BaseActivity() {
         UserInfo_19.userInfo(this)
         RadioG_Bottem.setOnCheckedChangeListener { radioGroup, i -> selectStyle(i) }
         checkPermission()
+        initNIM()
+    }
+
+    /**
+     * 控制聊天状态栏通知设置
+     */
+    private fun initNIM() {
+        NIMClient.toggleNotification(true)
+        val stateConfig = StatusBarNotificationConfig()
+        stateConfig.ring = true
+        stateConfig.vibrate = true
+        stateConfig.notificationFolded = true
+//        stateConfig.notificationEntrance=P2PMessageActivity
+        NIMClient.updateStatusBarNotificationConfig(stateConfig)
     }
 
 

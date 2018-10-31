@@ -31,6 +31,7 @@ class SpecialAreaActivity : BaseActivity() {
 
     private var specialAdapter: SpecialAdapter? = null
     private var specialList = ArrayList<SpecialModel.dataModel>()
+    private var optimId:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,7 @@ class SpecialAreaActivity : BaseActivity() {
         StatusBarWhiteColor()
         val model: ServiceModel.dataModel = intent.getSerializableExtra("model") as ServiceModel.dataModel
         inittitle(model.optimizationName)
-
+        optimId=model.optimizationId
         iv_right.visibility = View.VISIBLE
         iv_right.setImageResource(R.drawable.ic_car)
         iv_right.setOnClickListener { v ->
@@ -83,6 +84,24 @@ class SpecialAreaActivity : BaseActivity() {
         rv_event.layoutAnimation = controller
         specialAdapter!!.notifyDataSetChanged()
         rv_event.scheduleLayoutAnimation()
+    }
+
+    /**
+     * 接收购物车删除事件
+     */
+    @Subscribe
+    fun onEvent(goodsId: String) {
+        Special_311.special(optimId)
+//        if (!specialList.isEmpty()) {
+//            for (i in 0 until specialList.size) {
+//                if (TextUtils.equals(goodsId, specialList[i].goodsId)) {
+//                    specialList[i].num = 0
+//                    specialList[i].count=0
+//                    specialAdapter!!.notifyItemChanged(i + 1)
+//                    break
+//                }
+//            }
+//        }
     }
 
     override fun onDestroy() {

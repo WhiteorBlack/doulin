@@ -46,7 +46,7 @@ class MineFragment : BaseFragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (Build.VERSION.SDK_INT > 19) {
-            StatusBarUtil.setStutaViewHeight(activity, view_staus2)
+//            StatusBarUtil.setStutaViewHeight(activity, view_staus2)
             StatusBarUtil.setStutaViewHeight(activity, view_staus)
             view_staus.visibility = View.VISIBLE
             StatusBarUtil.setColorNoTranslucent(activity, resources.getColor(R.color.colorTheme))

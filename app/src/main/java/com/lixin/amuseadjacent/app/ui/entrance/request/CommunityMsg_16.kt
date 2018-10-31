@@ -32,12 +32,12 @@ object CommunityMsg_16 {
     /**
      * sex 0女 1男
      * */
-    fun communitMsg(context: Activity, nickname: String, icon: Bitmap, sex: Int, birthday: String, model: UnityModel.unitModel,communityName:String) {
+    fun communitMsg(context: Activity, nickname: String, icon: Bitmap, sex: Int, birthday: String, model: UnityModel.unitModel, communityName: String, unitName: String) {
         ProgressDialog.showDialog(context)
         val json = "{\"cmd\":\"addCommunityMessage\",\"uid\":\"" + StaticUtil.uid + "\",\"nickname\":\"" + nickname +
                 "\",\"icon\":\"" + ImageFileUtil.bitmaptoString(icon) + "\",\"sex\":\"" + sex +
                 "\",\"birthday\":\"" + birthday + "\",\"communityId\":\"" + model.communityId +
-                "\",\"unitId\":\"" + model.unitId + "\",\"doorNumber\":\"" + model.num + "\"}"
+                "\",\"unitId\":\"" + model.unitId + "\",\"doorNumber\":\"" + model.num + "\",\"communityName\":\""+communityName+"\",\"unitName\":\""+unitName+"\"}"
 
         OkHttpUtils.post().url(StaticUtil.Url).addParams("json", json).build().execute(object : StrCallback() {
             override fun onResponse(response: String, id: Int) {

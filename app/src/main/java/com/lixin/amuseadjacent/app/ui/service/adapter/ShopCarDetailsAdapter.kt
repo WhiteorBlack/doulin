@@ -1,7 +1,9 @@
 package com.lixin.amuseadjacent.app.ui.service.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.lixin.amuseadjacent.R
 import com.lixin.amuseadjacent.app.ui.service.model.ShopCarModel
+import com.lixin.amuseadjacent.app.ui.service.request.ShopCar_12412537
 import com.lixin.amuseadjacent.app.util.DoubleCalculationUtil
 import com.nostra13.universalimageloader.core.ImageLoader
 
@@ -22,6 +25,11 @@ class ShopCarDetailsAdapter(val context: Context, val flag: Int, val carList: Ar
     : RecyclerView.Adapter<ShopCarDetailsAdapter.ViewHolder>() {
 
     private var isEdit = false//true 编辑状态
+    private lateinit var type:String
+
+    fun setType(type:String){
+        this.type=type;
+    }
 
     interface SelectCallBack {
         fun select(flag: Int, i: Int, isSelect: Boolean)
@@ -65,11 +73,25 @@ class ShopCarDetailsAdapter(val context: Context, val flag: Int, val carList: Ar
             holder.tv_num.visibility = View.VISIBLE
         }
 
+        if (TextUtils.equals(model.optimizationid, "1")) {
+            holder.tv_class.visibility = View.VISIBLE
+        } else {
+            holder.tv_class.visibility = View.INVISIBLE
+        }
+
         var NUM = model.count.toInt()
 
         ImageLoader.getInstance().displayImage(model.goodsImage, holder.image)
+        if (!TextUtils.isEmpty(model.goodsCuprice) && model.goodsPrice.toDouble() > model.goodsCuprice.toDouble()) {
+            holder.tv_money_origin.paint.flags = Paint.STRIKE_THRU_TEXT_FLAG//中划线
+            holder.tv_money_origin.text = "￥" + model.goodsPrice
+            holder.tv_money_origin.visibility = View.VISIBLE
+            holder.tv_money.text = "￥" + model.goodsCuprice
+        } else {
+            holder.tv_money_origin.visibility = View.GONE
+            holder.tv_money.text = "￥" + model.goodsPrice
+        }
         holder.tv_name.text = model.goodsTitle
-        holder.tv_money.text = "￥" + model.goodsPrice
         holder.tv_num.text = "x" + NUM.toString()
         holder.num.text = NUM.toString()
 
@@ -95,21 +117,40 @@ class ShopCarDetailsAdapter(val context: Context, val flag: Int, val carList: Ar
 
 
         holder.tv_plus.setOnClickListener { v ->
-            NUM++
+
+            ShopCar_12412537.addCar(type, model.goodsId, "1", object : ShopCar_12412537.AddCarCallback {
+                override fun addCar() {
+                   NUM++
             holder.num.text = NUM.toString()
             holder.tv_num.text = NUM.toString()
             holder.tv_money.text = "￥" + DoubleCalculationUtil.mul(model.goodsPrice.toDouble(), model.count.toDouble())
             editNumCallBack.num(flag, position, NUM)
+                }
+            })
+//            NUM++
+//            holder.num.text = NUM.toString()
+//            holder.tv_num.text = NUM.toString()
+//            holder.tv_money.text = "￥" + DoubleCalculationUtil.mul(model.goodsPrice.toDouble(), model.count.toDouble())
+//            editNumCallBack.num(flag, position, NUM)
         }
         holder.tv_reduce.setOnClickListener { v ->
             if (NUM == 1) {
                 return@setOnClickListener
             }
-            NUM--
-            holder.tv_num.text = NUM.toString()
-            holder.num.text = NUM.toString()
-            holder.tv_money.text = "￥" + DoubleCalculationUtil.mul(model.goodsPrice.toDouble(), model.count.toDouble())
-            editNumCallBack.num(flag, position, NUM)
+            ShopCar_12412537.addCar(type, model.goodsId, "-1", object : ShopCar_12412537.AddCarCallback {
+                override fun addCar() {
+                    NUM--
+                    holder.tv_num.text = NUM.toString()
+                    holder.num.text = NUM.toString()
+                    holder.tv_money.text = "￥" + DoubleCalculationUtil.mul(model.goodsPrice.toDouble(), model.count.toDouble())
+                    editNumCallBack.num(flag, position, NUM)
+                }
+            })
+//            NUM--
+//            holder.tv_num.text = NUM.toString()
+//            holder.num.text = NUM.toString()
+//            holder.tv_money.text = "￥" + DoubleCalculationUtil.mul(model.goodsPrice.toDouble(), model.count.toDouble())
+//            editNumCallBack.num(flag, position, NUM)
         }
 
 
@@ -138,9 +179,10 @@ class ShopCarDetailsAdapter(val context: Context, val flag: Int, val carList: Ar
         val tv_plus = view.findViewById<TextView>(R.id.tv_plus)
         val num = view.findViewById<TextView>(R.id.num)
         val tv_reduce = view.findViewById<TextView>(R.id.tv_reduce)
-
+        val tv_money_origin = view.findViewById<TextView>(R.id.tv_money_origin)
 
         val line2 = view.findViewById<View>(R.id.line2)
+        val tv_class = view.findViewById<TextView>(R.id.tv_class)
     }
 
 
